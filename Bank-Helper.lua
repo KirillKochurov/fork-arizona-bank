@@ -1,6 +1,6 @@
 script_name('Bank-Helper')
 script_author('Cosmo')
-script_version('24.2')
+script_version('25.0')
 
 require "moonloader"
 require "sampfuncs"
@@ -26,6 +26,7 @@ local lections = {}
 local status_button_gov = false
 local go_credit = false
 local unform_pickup_pos = { -2687.625, 820.875, 1500.875 }
+local stick_pickup_pos = { -2687.625, 818.125, 1500.875 }
 local jsn_upd = "https://gitlab.com/snippets/1978930/raw"
 local lect_path = getWorkingDirectory() .. '\\BHelper\\Lections.json'
 local calc_font = renderCreateFont('Calibri', 12, 1)
@@ -38,7 +39,6 @@ local cfg = inicfg.load({
 		sex = 1,
 		encode_ustav = true,
 		autoF8 = true,
-		upWithRp = true,
 		LectDelay = 5,
 		MsgDelay = 2.5,
 		rpbat = false,
@@ -65,7 +65,9 @@ local cfg = inicfg.load({
 		chat_calc = true,
 		pincode = "",
 		auto_uniform = true,
-		bank_color = 2150206647
+		auto_stick = true,
+		bank_color = 2150206647,
+		time_offset = 0
 	},
 	Chat = {
 		expel = true,
@@ -176,11 +178,11 @@ local blacklist 		= imgui.ImBuffer(256)
 local chat_calc			= imgui.ImBool(cfg.main.chat_calc)
 local loginupdate       = imgui.ImBool(cfg.main.loginupdate)
 local auto_uniform		= imgui.ImBool(cfg.main.auto_uniform)
+local auto_stick 		= imgui.ImBool(cfg.main.auto_stick)
 local ki_stat           = imgui.ImBool(cfg.main.ki_stat)
 local rank              = imgui.ImInt(cfg.main.rank)
 local sex               = imgui.ImInt(cfg.main.sex)
 local autoF8            = imgui.ImBool(cfg.main.autoF8)
-local upWithRp          = imgui.ImBool(cfg.main.upWithRp)
 local LectDelay         = imgui.ImInt(cfg.main.LectDelay)
 local MsgDelay			= imgui.ImFloat(cfg.main.MsgDelay)
 local rpbat             = imgui.ImBool(cfg.main.rpbat)
@@ -199,6 +201,7 @@ local glass_light_child = imgui.ImFloat(cfg.main.glass_light_child)
 local timeF9            = imgui.ImBool(cfg.main.timeF9)
 local expelReason       = imgui.ImBuffer(u8(cfg.main.expelReason), 256)
 local pincode 			= imgui.ImBuffer(tostring(cfg.main.pincode), 128)
+CONNECTED_TO_ARIZONA 	= false
 
 local govstr = {
 	[1] = imgui.ImBuffer(u8(cfg.govstr[1]), 256),
@@ -238,6 +241,16 @@ local notify = {
 		npos = { x = notf_sX - 200, y = notf_sY },
 		size = { x = 200, y = 0 }
 	}
+}
+
+local mMenu = {
+	status = false,
+	isMember = false,
+	timer = nil,
+	time = { all = 0, today = 0 }, 
+	cards = { all = 0, today = 0 }, 
+	dep = { all = 0, today = 0 },
+	last_up = nil
 }
 
 local await = {}
@@ -555,6 +568,11 @@ function main()
 
 				if not int_bank.state then
 					int_bank:switch()
+					if sampGetPlayerColor(id) == cfg.main.bank_color and cfg.main.rank >= 9 then
+						member_menu(id)
+					else
+						TypeAction.v = 1
+					end
 				end
 			else
 				addBankMessage('Работает только в интерьере!')
@@ -621,9 +639,11 @@ function main()
 		    end
 		end
 
-		if SPEAKING ~= nil and isKeyDown(VK_CONTROL) and isKeyJustPressed(VK_BACK) then
-			addBankMessage('Отыгровка успешно прервана!')
-			SPEAKING:terminate()
+		if not sampIsCursorActive() and isKeyJustPressed(VK_BACK) then
+			if SPEAKING and not SPEAKING.dead then
+				addBankMessage('Отыгровка успешно прервана!')
+				SPEAKING:terminate()
+			end
 		end
 
 		if bank.state or int_bank.state or ustav_window.state or infoupdate.state or process_position then 
@@ -639,6 +659,20 @@ function main()
 
 	wait(0)
 	end
+end
+
+function member_menu(id)
+	sampSendChat("/checkjobprogress " .. id)
+	mMenu = {
+		status = false,
+		isMember = true,
+		timer = os.clock(),
+		time = { all = 0, today = 0 }, 
+		cards = { all = 0, today = 0 }, 
+		dep = { all = 0, today = 0 },
+		last_up = nil
+	}
+	TypeAction.v = 3
 end
 
 function play_message(delay, screen, text_array)
@@ -867,6 +901,18 @@ function se.onServerMessage(clr, msg) -- хук чата
 		return { clr, msg }
 	end
 
+	if string.find(msg, "^Вам был добавлен предмет \'Ларец организации\'") then
+		lua_thread.create(function ()
+			if cfg.main.rank >= 6 then
+				wait(3600 * 1000)
+				addNotify("Время получать ларец!\nПрошёл один час!", 10)
+			else
+				wait(7200 * 1000)
+				addNotify("Время получать ларец!\nПрошло два часа!", 10)
+			end
+		end)
+	end
+
 	if msg:match('^%[D%].*%[%d+%]:') and clr == 0x3399FFFF then
 		local r, g, b, a = imgui.ImColor(cfg.main.colorDchat):GetRGBA()
 		return { join_argb(r, g, b, a), msg }
@@ -907,8 +953,8 @@ function se.onServerMessage(clr, msg) -- хук чата
 		return false
 	end
 
-	if msg:find('Пост у кассы доступен с 5-го ранга!', 1, true) then 
-		return false
+	if msg:find("^Добро пожаловать на Arizona Role Play!$") then
+		CONNECTED_TO_ARIZONA = true
 	end
 
 	if msg:find('выдал премию %(%d+%) всем членам организации') and clr == -218038273 then
@@ -937,8 +983,8 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук 
 		end
 	end
 
-	local send = function(...)
-		local args = {...}
+	local send = function( ... )
+		local args = { ... }
 		local onChat = (#args == 1 and type(args[1]) == 'string')
 		math.randomseed(os.clock())
 		local cooldown = 200 + math.random(-100, 100)
@@ -946,9 +992,10 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук 
 			if onChat then
 				sampSendChat(args[1])
 			else
-				sampSendDialogResponse(dialogId, args[1], args[2], args[3], args[4])
+				sampSendDialogResponse(dialogId, args[1], args[2], args[3])
 			end
 		end)
+		return cooldown
 	end
 
 	if string.find(title, "Паспорт", 1, true) and await["passport"] then
@@ -1094,9 +1141,7 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук 
 	
 	-- Credit sum
 	if dialogId == 227 and await['credit_send'] then
-		if type(credit_sum.v) == 'number' then
-			send(1, nil, credit_sum.v)
-		end
+		send(1, nil, credit_sum.v)
 		return false
 	end
 
@@ -1160,21 +1205,44 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук 
 		send(0)
 	end
 
-	if title:find('Успеваемость') and await['uprankdate'] then 
-		local day, month, year, hour, min, sec = text:match('(%d+)%.(%d+)%.(%d+) (%d+):(%d+):(%d+)')
-		if day ~= nil then
-			local dt = {
-				day = day, month = month, year = year,
-				hour = hour, min = min, sec = sec
-			}
-			cfg.main.dateuprank = os.time(dt)
-			addBankMessage(string.format('Дата последнего повышения по /jobprogress: {M}%s', os.date('%d.%m.%Y %H:%M:%S', os.time(dt))))
-		else
-			addBankMessage('Не удалось проверить дату повышения по /jobprogress!')
+	if string.find(title, "Успеваемость") then
+		if await['uprankdate'] then
+			local d, m, Y, H, M, S = string.match(text, "Последнее повышение:\n {%x+}(%d+)%.(%d+)%.(%d+) (%d+):(%d+):(%d+)")
+			if d ~= nil then
+				cfg.main.dateuprank = os.time({ year = Y, month = m, day = d, hour = H, min = M, sec = S})
+				addBankMessage(string.format('Дата последнего повышения по /jobprogress: {M}%s', os.date('%d.%m.%Y', os.time(dt))))
+			else
+				addBankMessage('Не удалось проверить дату повышения по /jobprogress!')
+			end
+
+			await['uprankdate'] = nil
+			send(0)
+			return false
+		elseif not mMenu.status and mMenu.timer and os.clock() - mMenu.timer < 5.00 then
+			local time = string.match(text, "Времени на постах: {FFB323}(%d+)")
+			if time then mMenu.time.all = tonumber(time) end
+			local time = string.match(text, "Времени на постах: {F9FF23}(%d+)")
+			if time then mMenu.time.today = tonumber(time) end
+
+			local cards = string.match(text, "Выдано банковских карт: {FFB323}(%d+)")
+			if cards then mMenu.cards.all = tonumber(cards) end
+			local cards = string.match(text, "Выдано банковских карт: {F9FF23}(%d+)")
+			if cards then mMenu.cards.today = tonumber(cards) end
+
+			local dep = string.match(text, "Операции с депозитом: {FFB323}(%d+)")
+			if dep then mMenu.dep.all = tonumber(dep) end
+			local dep = string.match(text, "Операции с депозитом: {F9FF23}(%d+)")
+			if dep then mMenu.dep.today = tonumber(dep) end
+			
+			local d, m, Y, H, M, S = string.match(text, "Последнее повышение:\n {%x+}(%d+)%.(%d+)%.(%d+) (%d+):(%d+):(%d+)")
+			if d ~= nil then
+				mMenu.last_up = os.time({ year = Y, month = m, day = d, hour = H, min = M, sec = S})
+			end
+
+			send(0)
+			mMenu.status = true
+			return false
 		end
-		await['uprankdate'] = nil
-		send(0)
-		return false
 	end
 
 	if #pincode.v > 0 then
@@ -1197,6 +1265,54 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук 
 
 			return { dialogId, style, title, button1, button2, text }
 		end
+	end
+
+	if await["quest"] and string.find(text, "Вы действительно хотите принять квест?") then
+		await["quest"] = nil; send(1)
+		return false
+	end
+
+	QUESTS_DIALOG = nil
+	if string.find(title, "Квесты") and string.find(text, "Выдаем депозит") then
+		QUESTS_DIALOG = dialogId
+
+		local tags = {
+			["Доступен"] = {"Доступен", "{00FF00}", "{AAFFAA}"},
+			["В процессе"] = {"Выполняется", "{FFDD00}", "{FFDDAA}"},
+			["Можно завершить"] = {"Выполнен", "{30AAFF}", "{AADDFF}"},
+			["Выполнен"] = {"Завершён", "{666666}", "{AAAAAA}"}
+		}
+
+		local quests = {
+			["Выдаем депозит"] = "Пополнить депозит 10 клиентам",
+			["Снимаем деньги"] = "Вывести депозит 10 клиентам",
+			["Регестрируем счета"] = "Создать 3 банковских карты",
+			["Восстанавливаем счета"] = "Восстановить 3 карты",
+			["Нелегкая работа"] = "Отстоять 20 минут на посту",
+		}
+
+		local new_text = ""
+		for line in string.gmatch(text, "[^\n]+") do
+			local new_line = line
+			for old_name, new_name in pairs(quests) do
+				if string.find(line, old_name, 1, true) then
+					local status = string.match(line, "%[([^%]]+)%]{%x+}$")
+					if status ~= nil and tags[status] ~= nil then
+						new_line = string.format("%s[%s]%s %s\n", tags[status][2], tags[status][1], tags[status][3], new_name)
+					end
+					break
+				end
+			end
+			new_text = new_text .. new_line
+		end
+		return { dialogId, style, title, button1, button2, new_text }
+	end
+end
+
+function se.onSendDialogResponse(dialogId, but, list, input)
+	if QUESTS_DIALOG == dialogId and but == 1 then
+		await["quest"] = os.clock()
+		return { dialogId, but, list, input }
 	end
 end
 
@@ -1304,6 +1420,7 @@ function imgui.OnDrawFrame()
 							imgui.DisableButton(fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
 							imgui.Hint('expel2rank', u8'Доступно со 5 ранга')
 						end
+
 						if imgui.BeginPopupContextWindow("##edit_expel", 1, false) then
 							imgui.PushItemWidth(100)
 							imgui.Text(u8'Выгнать игрока с причиной:')
@@ -1315,6 +1432,10 @@ function imgui.OnDrawFrame()
 							if imgui.MainButton(u8'Выгнать') then
 								int_bank:switch()
 								go_expel(tonumber(actionId))
+							end
+							if imgui.IsItemClicked(1) then
+								int_bank:switch()
+								go_expel(tonumber(actionId), true)
 							end
 							imgui.EndPopup()
 						end
@@ -1330,6 +1451,11 @@ function imgui.OnDrawFrame()
 									{ "/me {sex:взял|взяла} распечатанный бланк и {sex:передал|передала} его %s", rpNick(actionId) },
 									{ "/bankmenu %s", actionId }
 								})
+							end
+							if imgui.IsItemClicked(1) then
+								await['dep_minus'] = os.clock()
+								sampSendChat(("/bankmenu %s"):format(actionId))
+								int_bank:switch()
 							end
 						else
 							imgui.DisableButton(u8('Снять депозит ')..fa.ICON_FA_LOCK, imgui.ImVec2(250, 30))
@@ -1348,6 +1474,11 @@ function imgui.OnDrawFrame()
 									{ "/bankmenu %s", actionId }
 								})
 							end
+							if imgui.IsItemClicked(1) then
+								await['dep_plus'] = os.clock()
+								sampSendChat(("/bankmenu %s"):format(actionId))
+								int_bank:switch()
+							end
 						else
 							imgui.DisableButton(u8('Пополнить депозит ')..fa.ICON_FA_LOCK, imgui.ImVec2(250, 30))
 							imgui.Hint('depositeup5rank', u8'Доступно с 5 ранга')
@@ -1364,6 +1495,9 @@ function imgui.OnDrawFrame()
 									{ "Можно ваш паспорт, пожалуйста?" }
 								})
 							end
+							if imgui.IsItemClicked(1) then
+								go_credit = true
+							end
 						else
 							imgui.DisableButton(u8('Оформить кредит ')..fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
 							imgui.Hint('credit6rank', u8'Доступно с 6 ранга')
@@ -1379,6 +1513,11 @@ function imgui.OnDrawFrame()
 									{ "/me глядя на %s что-то смотрит в базе", rpNick(actionId) },
 									{ "/bankmenu %s", actionId }
 								})
+							end
+							if imgui.IsItemClicked(1) then
+								await['debt'] = os.clock()
+								sampSendChat(("/bankmenu %s"):format(actionId))
+								int_bank:switch()
 							end
 						else
 							imgui.DisableButton(u8('Задолженности ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
@@ -1397,6 +1536,11 @@ function imgui.OnDrawFrame()
 									{ "/bankmenu %s", actionId }
 								})
 							end
+							if imgui.IsItemClicked(1) then
+								await['get_money'] = os.clock()
+								sampSendChat(("/bankmenu %s"):format(actionId))
+								int_bank:switch()
+							end
 						else
 							imgui.DisableButton(u8('Выписка по счёту ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
 							imgui.Hint('howmuchmoney5rank', u8'Доступно с 5 ранга')
@@ -1414,6 +1558,11 @@ function imgui.OnDrawFrame()
 									{ "/todo Заполните этот бланк и карта ваша!*передавая его %s", rpNick(actionId) },
 									{ "/bankmenu %s", actionId }
 								})
+							end
+							if imgui.IsItemClicked(1) then
+								await['card_create'] = os.clock()
+								sampSendChat(("/bankmenu %s"):format(actionId))
+								int_bank:switch()
 							end
 						else
 							imgui.DisableButton(u8('Оформить карту ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
@@ -1435,6 +1584,11 @@ function imgui.OnDrawFrame()
 									{ "/bankmenu %s", actionId }
 								})
 							end
+							if imgui.IsItemClicked(1) then
+								await['vip_create'] = os.clock()
+								sampSendChat(("/bankmenu %s"):format(actionId))
+								int_bank:switch()
+							end
 						else
 							imgui.DisableButton(u8('VIP-Карта ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
 							imgui.Hint('givevip5rank', u8'Доступно с 5 ранга')
@@ -1452,6 +1606,11 @@ function imgui.OnDrawFrame()
 									{ "/todo Заполните данные в этом бланке, чтобы я {sex:смог|смогла} активировать вам этот счёт!*передавая его %s", rpNick(actionId) },
 									{ "/bankmenu %s", actionId }
 								})
+							end
+							if imgui.IsItemClicked(1) then
+								await['addcard'] = os.clock()
+								sampSendChat(("/bankmenu %s"):format(actionId))
+								int_bank:switch()
 							end
 						else
 							imgui.DisableButton(u8('Дополнительный счёт ')..fa.ICON_FA_PLUS_CIRCLE, imgui.ImVec2(-1, 30))
@@ -1489,6 +1648,12 @@ function imgui.OnDrawFrame()
 									{ "/bankmenu %s", actionId }
 								})
 							end
+							if imgui.IsItemClicked(1) then
+								imgui.CloseCurrentPopup()
+								await['card_recreate'] = os.clock()
+								sampSendChat(("/bankmenu %s"):format(actionId))
+								int_bank:switch()
+							end
 							if imgui.MainButton(u8('Отменить##GoMenu'), imgui.ImVec2(-1, 30)) then
 								imgui.CloseCurrentPopup()
 							end
@@ -1504,6 +1669,11 @@ function imgui.OnDrawFrame()
 									{ "/me глядя на %s что-то смотрит в базе", rpNick(actionId) },
 									{ "/bankmenu %s", actionId }
 								})
+							end
+							if imgui.IsItemClicked(1) then
+								await['dep_check'] = os.clock()
+								sampSendChat(("/bankmenu %s"):format(actionId))
+								int_bank:switch()
 							end
 						else
 							imgui.DisableButton(fa.ICON_FA_LOCK, imgui.ImVec2(35, 65))
@@ -1539,6 +1709,13 @@ function imgui.OnDrawFrame()
 									{ "/bankmenu %s", actionId }
 								})
 							end
+							if imgui.IsItemClicked(1) then
+								go_credit = false
+								await['credit_send'] = os.clock()
+								sampSendChat(("/bankmenu %s"):format(actionId))
+								int_bank:switch()
+							end
+
 							if imgui.Button(u8('Отменить операцию'), imgui.ImVec2(-1, 30)) then
 								go_credit = false
 								sampSendChat("/me {sex:выкинул|выкинула} бланк в мусорное ведро")
@@ -1652,6 +1829,15 @@ function imgui.OnDrawFrame()
 								addBankMessage(string.format('Игрок {M}%s{W} находится в {FF0000}чёрном списке{W}!', rpNick(actionId)))
 							end
 						end
+						if imgui.IsItemClicked(1) and cfg.main.rank >= 9 then
+							if not isPlayerOnBlacklist(sampGetPlayerNickname(actionId)) then
+								sampSendChat(("/invite %s"):format(actionId))
+								int_bank:switch()
+							else
+								addBankMessage('Вы не можете принять этого игрока во фракцию!')
+								addBankMessage(string.format('Игрок {M}%s{W} находится в {FF0000}чёрном списке{W}!', rpNick(actionId)))
+							end
+						end
 						imgui.PopStyleColor(2)
 
 						imgui.SameLine(nil, spacing)
@@ -1666,7 +1852,7 @@ function imgui.OnDrawFrame()
 
 					if imgui.BeginPopupModal(u8("Причина отклонения"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
 						imgui.CenterTextColoredRGB(mc..'Укажите причину отклонения')
-						if imgui.Button(u8('Опечатка в паспорте (NicName)'), imgui.ImVec2(250, 30)) then
+						if imgui.Button(u8('Опечатка в паспорте (НонРП ник)'), imgui.ImVec2(250, 30)) then
 							imgui.CloseCurrentPopup()
 							int_bank:switch()
 							play_message(MsgDelay.v, false, {
@@ -1710,6 +1896,15 @@ function imgui.OnDrawFrame()
 								{ "Вылечитесь и приходите ещё раз!" }
 							})
 						end
+						if imgui.Button(u8('Нет прививки от короновируса'), imgui.ImVec2(250, 30)) then
+							imgui.CloseCurrentPopup()
+							int_bank:switch()
+							play_message(MsgDelay.v, false, {
+								{ "К сожалению, вы не подходите. Вы не вакцинированы" },
+								{ "/b Нужно сделать прививку от короновируса в больнице - /showmc %s", actionId },
+								{ "Приходите в другой раз!" }
+							})
+						end
 						if imgui.Button(u8('Присутствие деморганов'), imgui.ImVec2(250, 30)) then
 							imgui.CloseCurrentPopup()
 							int_bank:switch()
@@ -1739,99 +1934,146 @@ function imgui.OnDrawFrame()
 					end
 				end
 				if TypeAction.v == 3 then
-					imgui.CenterTextColoredRGB(mc..'Выберите ранг который выдаёте')
-					imgui.CenterTextColoredRGB(sc..'Старшие ранги требуют подтверждение\n'..sc..'от следящих в разделе "Антиблат"\n'..sc..'на форуме проекта!')
-					imgui.NewLine()
+					local ws = imgui.GetWindowSize()
 
-					imgui.SetCursorPosX(33)
-					for i = 1, 9 do
-						imgui.TextDisabled(tostring(i))
-						if i ~= 9 then
-							imgui.SameLine(nil, 20)
+					if not mMenu.status then	
+						if os.clock() - mMenu.timer < 5.00 then
+							local radius = 40
+							imgui.SetCursorPos(imgui.ImVec2((ws.x / 2) - radius, (ws.y / 2) - radius))
+							Spinner(radius, 3, 0xAAFF9020)
+
+							local text = u8("Загрузка")
+							local ts = imgui.CalcTextSize(text)
+							imgui.SetCursorPos(imgui.ImVec2((ws.x - ts.x) / 2, (ws.y - ts.y) / 2))
+							imgui.TextColored(imgui.ImVec4(0.13, 0.56, 1.00, 1.00), text)
+						else
+							imgui.SetCursorPosY((ws.y / 2) - 70)
+							imgui.PushFont(font[45])
+							imgui.CenterText(" " .. fa.ICON_FA_USER_TIMES, imgui.ImVec4(0.5, 0.5, 0.5, 0.7))
+							imgui.PopFont()
+							imgui.CenterTextColoredRGB("{AAAAAA}Не удалось получить информацию..\n{AAAAAA}Убедитесь что это ваш сотрудник!")
+							imgui.NewLine()
+							imgui.SetCursorPosX((ws.x - 150) / 2)
+							if imgui.Button(u8"Повторить попытку", imgui.ImVec2(150, 30)) then
+								member_menu(actionId)
+							end
 						end
-					end
+					else
+						imgui.CenterTextColoredRGB(mc.."Меню управления сотрудником")
+						imgui.NewLine()
 
-					imgui.SetCursorPosX(28)
-					for i = 1, 9 do
-						imgui.RadioButton(u8("##giverank" .. i), giverank, i); imgui.Hint('ranknamegive'..i, u8(cfg.nameRank[i]))
-						if i ~= 9 then
-							imgui.SameLine()
+						imgui.TextColoredRGB( ("Времени на постах: " .. mc .. "%d"):format(mMenu.time.all) )
+						imgui.SameLine(180)
+						imgui.TextDisabled(u8("(Сегодня: %d)"):format(mMenu.time.today))
+
+						imgui.TextColoredRGB( ("Выдано карточек: " .. mc .. "%d"):format(mMenu.cards.all) )
+						imgui.SameLine(180)
+						imgui.TextDisabled(u8("(Сегодня: %d)"):format(mMenu.cards.today))
+
+						imgui.TextColoredRGB( ("Операций с депозитом: " .. mc .. "%d"):format(mMenu.dep.all) )
+						imgui.SameLine(180)
+						imgui.TextDisabled(u8("(Сегодня: %d)"):format(mMenu.dep.today))
+
+						imgui.TextColoredRGB( ("{60FF70}Был повышен %s"):format(mMenu.last_up and stringToLower(getTimeAfter(mMenu.last_up)) or "неизвестно когда") )
+						if mMenu.last_up then
+							imgui.Hint("rankupdate", u8(os.date("%d.%m.%Y в %H:%M", mMenu.last_up)))
 						end
-					end
+						imgui.NewLine()
 
-					imgui.NewLine()
-					imgui.SetCursorPosX(80)
-					if imgui.Checkbox(u8'С РП отыгровкой', upWithRp) then 
-						cfg.main.upWithRp = upWithRp.v
-					end
+						local norm_len = ws.x - (5 * 2) - (imgui.GetStyle().WindowPadding.x * 2)
+						if imgui.MainButton(u8"Выдать варн", imgui.ImVec2(norm_len / 3, 20)) then
+							sampSetChatInputText(("/fwarn %s "):format(actionId))
+							sampSetChatInputEnabled(true)
+						end
+						imgui.SameLine(nil, 5)
+						if imgui.MainButton(u8"Выдать мут", imgui.ImVec2(norm_len / 3, 20)) then
+							sampSetChatInputText(("/fmute %s "):format(actionId))
+							sampSetChatInputEnabled(true)
+						end
+						imgui.SameLine(nil, 5)
+						if imgui.MainButton(u8"Уволить", imgui.ImVec2(norm_len / 3, 20)) then
+							sampSetChatInputText(("/uninvite %s "):format(actionId))
+							sampSetChatInputEnabled(true)
+						end
 
-					imgui.NewLine()
-					if imgui.MainButton(u8('Повысить ')..fa.ICON_FA_SORT_NUMERIC_UP, imgui.ImVec2(-1, 40)) then
-						if upWithRp.v then 
+						if imgui.MainButton(u8"Посмотреть успеваемость", imgui.ImVec2(-1, 20)) then
+							sampSendChat(("/checkjobprogress %s"):format(actionId))
+						end
+
+						imgui.SetCursorPosY(195)
+
+						imgui.TextColoredRGB("{AAAAAA}Должность в организации:")
+						imgui.PushStyleVar(imgui.StyleVar.ItemSpacing, imgui.ImVec2(5, 7))
+						imgui.BeginGroup()
+							for i = 1, 9 do
+								imgui.BeginGroup()
+									local pos = imgui.GetCursorPos()
+									imgui.RadioButton("##nrank" .. i, giverank, i)
+									local pos_orig = imgui.GetCursorPos()
+									local is = imgui.GetItemRectSize()
+
+									imgui.SetCursorPos(imgui.ImVec2(pos.x + is.x - 5, pos.y + is.y - 10))
+									imgui.TextDisabled(tostring(i))
+									imgui.SetCursorPos(pos_orig)
+								imgui.EndGroup()
+								if i ~= 9 then imgui.SameLine(nil, 12) end
+							end
+						imgui.EndGroup()
+
+						local rank_name = u8(cfg.nameRank[giverank.v] or "Неизвестно")
+						if imgui.MainButton(u8("Повысить до [ %s ]"):format(rank_name), imgui.ImVec2(-1, 25)) then
 							int_bank:switch()
 							play_message(MsgDelay.v, true, {
 								{ "/me {sex:достал|достала} из кармана КПК" },
 								{ "/me {sex:включил|включила} КПК и {sex:зашёл|зашла} в раздел «Сотрудники»" },
 								{ "/me {sex:выбрал|выбрала} сотрудника %s", rpNick(actionId) },
-								{ "/me {sex:повысил|повысила} должность сотруднику до %s", cfg.nameRank[giverank.v] },
-								{ "/giverank %s %s", actionId, giverank.v }
-							})
-						else
-							int_bank:switch()
-							play_message(MsgDelay.v, true, {
+								{ "/me {sex:изменил|изменила} должность сотруднику на %s", cfg.nameRank[giverank.v] },
 								{ "/giverank %s %s", actionId, giverank.v }
 							})
 						end
-					end
-					if imgui.Button(u8('Понизить ')..fa.ICON_FA_SORT_NUMERIC_DOWN, imgui.ImVec2(-1, -1)) then
-						if upWithRp.v then 
+						if imgui.IsItemClicked(1) then
+							sampSendChat(("/giverank %s %s"):format(actionId, giverank.v))
 							int_bank:switch()
-							play_message(MsgDelay.v, true, {
-								{ "/me {sex:достал|достала} из кармана КПК" },
-								{ "/me {sex:включил|включила} КПК и зашёл в раздел «Сотрудники»" },
-								{ "/me {sex:выбрал|выбрала} сотрудника %s", rpNick(actionId) },
-								{ "/me {sex:понизил|понизила} должность сотруднику до %s", cfg.nameRank[giverank.v] },
-								{ "/giverank %s %s", actionId, giverank.v }
-							})
-						else
-							int_bank:switch()
-							play_message(MsgDelay.v, true, {
-								{ "/giverank %s %s", actionId, giverank.v }
-							})
 						end
+						imgui.PopStyleVar()
 					end
 				end
 			if TypeAction.v == 2 or TypeAction.v == 3 then
 				imgui.EndChild()
 			end
-				imgui.PushStyleColor(imgui.Col.FrameBg, imgui.ImVec4(0.00, 0.40, 0.60, 0.30))
-				imgui.SetCursorPos(imgui.ImVec2(10, 200))
-				imgui.RadioButton(u8("Банковские Услуги"), TypeAction, 1)
-				imgui.SetCursorPos(imgui.ImVec2(10, 230))
-				if cfg.main.rank > 4 then
-					imgui.RadioButton(u8("Собеседование"), TypeAction, 2)
-				else
-					imgui.PushStyleColor(imgui.Col.FrameBg, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
-					imgui.PushStyleColor(imgui.Col.FrameBgHovered, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
-					imgui.PushStyleColor(imgui.Col.FrameBgActive, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
-					imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(0.5, 0.5, 0.5, 0.5))
-					imgui.RadioButton(u8("Собеседование ")..fa.ICON_FA_LOCK, false)
-					imgui.Hint('sobesmenu5rank', u8'Доступно с 5 ранга')
-					imgui.PopStyleColor(4)
+
+			imgui.PushStyleColor(imgui.Col.FrameBg, imgui.ImVec4(0.00, 0.40, 0.60, 0.30))
+			imgui.SetCursorPos(imgui.ImVec2(10, 200))
+			imgui.RadioButton(u8("Банковские Услуги"), TypeAction, 1)
+			imgui.SetCursorPos(imgui.ImVec2(10, 230))
+			if cfg.main.rank > 4 then
+				imgui.RadioButton(u8("Собеседование"), TypeAction, 2)
+			else
+				imgui.PushStyleColor(imgui.Col.FrameBg, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
+				imgui.PushStyleColor(imgui.Col.FrameBgHovered, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
+				imgui.PushStyleColor(imgui.Col.FrameBgActive, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
+				imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(0.5, 0.5, 0.5, 0.5))
+				imgui.RadioButton(u8("Собеседование ")..fa.ICON_FA_LOCK, false)
+				imgui.Hint('sobesmenu5rank', u8'Доступно с 5 ранга')
+				imgui.PopStyleColor(4)
+			end
+			imgui.SetCursorPos(imgui.ImVec2(10, 260))
+			if cfg.main.rank >= 9 then
+				if imgui.RadioButton(u8("Меню сотрудника"), TypeAction, 3) then
+					if mMenu.timer == nil or os.clock() - mMenu.timer >= 10 then
+						member_menu(actionId)
+					end
 				end
-				imgui.SetCursorPos(imgui.ImVec2(10, 260))
-				if cfg.main.rank > 8 then
-					imgui.RadioButton(u8("Повышения"), TypeAction, 3)
-				else
-					imgui.PushStyleColor(imgui.Col.FrameBg, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
-					imgui.PushStyleColor(imgui.Col.FrameBgHovered, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
-					imgui.PushStyleColor(imgui.Col.FrameBgActive, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
-					imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(0.5, 0.5, 0.5, 0.5))
-					imgui.RadioButton(u8("Повышения ") .. fa.ICON_FA_LOCK, false)
-					imgui.Hint('uprankmenu9+', u8'Доступно с 9 ранга')
-					imgui.PopStyleColor(4)
-				end
-				imgui.PopStyleColor(1)
+			else
+				imgui.PushStyleColor(imgui.Col.FrameBg, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
+				imgui.PushStyleColor(imgui.Col.FrameBgHovered, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
+				imgui.PushStyleColor(imgui.Col.FrameBgActive, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
+				imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(0.5, 0.5, 0.5, 0.5))
+				imgui.RadioButton(u8("Меню сотрудника ") .. fa.ICON_FA_LOCK, false)
+				imgui.Hint('uprankmenu9+', u8'Доступно с 9 ранга')
+				imgui.PopStyleColor(4)
+			end
+			imgui.PopStyleColor(1)
 		imgui.End()
 		imgui.PopStyleVar()
 	end
@@ -1990,6 +2232,9 @@ function imgui.OnDrawFrame()
 			if imgui.DragInt('##LectDelay', LectDelay, 1, 1, 30, u8('%0.0f с.')) then
 				if LectDelay.v < 1 then LectDelay.v = 1 end
 				if LectDelay.v > 30 then LectDelay.v = 30 end
+
+				cfg.main.LectDelay = LectDelay.v
+				inicfg.save(cfg, 'Bank_Config.ini')
 			end
 			imgui.Hint('delaylection', u8'Задержка между сообщениями')
 			imgui.PopItemWidth()
@@ -2129,6 +2374,14 @@ function imgui.OnDrawFrame()
 				imgui.TextDisabled('(?)')
 				imgui.Hint('autouniform', u8'Вы автоматически надените форму, как только зайдёте на сервер\nТекущим местом спавна должна быть выбрана организация (/setspawn)')
 
+				if imgui.Checkbox(u8'Авто-дубинка', auto_stick) then
+					cfg.main.auto_stick = auto_stick.v 
+					inicfg.save(cfg, 'Bank_Config.ini')
+				end
+				imgui.SameLine()
+				imgui.TextDisabled('(?)')
+				imgui.Hint('autostick', u8'Вы автоматически возьмёте дубинку, как только зайдёте на сервер\nТекущим местом спавна должна быть выбрана организация (/setspawn)')
+
 				imgui.PopItemWidth()
 				if imgui.Checkbox(u8'Статистика на кассе', ki_stat) then
 					cfg.main.ki_stat = ki_stat.v
@@ -2179,6 +2432,9 @@ function imgui.OnDrawFrame()
 				if imgui.SliderFloat('##MsgDelay', MsgDelay, 0.5, 10.0, u8'%0.2f с.') then
 					if MsgDelay.v < 0.5 then MsgDelay.v = 0.5 end
 					if MsgDelay.v > 10.0 then MsgDelay.v = 10.0 end
+
+					cfg.main.MsgDelay = MsgDelay.v
+					inicfg.save(cfg, 'Bank_Config.ini')
 				end
 				imgui.PopItemWidth()
 
@@ -2440,15 +2696,29 @@ function imgui.OnDrawFrame()
 				imgui.NewLine()
 			end
 
-			if imgui.Button(u8('Репозиторий ')..fa.ICON_FA_PUZZLE_PIECE, imgui.ImVec2(imgui.GetWindowWidth() / 2 - 12, 30)) then
+			imgui.NewLine()
+
+			imgui.BeginGroup()
+				if imgui.Button(u8('Проверить обновления ')..fa.ICON_FA_DOWNLOAD, imgui.ImVec2(150, 20)) then
+					autoupdate(jsn_upd); checkData()
+				end
+				if imgui.Button(u8('Ручное обновление ')..fa.ICON_FA_DOWNLOAD, imgui.ImVec2(150, 20)) then
+					local url = "https://gitlab.com/Cosmo-ctrl/bank-helper-for-arizona-rp/-/raw/main/Bank-Helper.lua?inline=false"
+					local path = getWorkingDirectory() .. "\\" .. thisScript().filename
+					local command = string.format("bitsadmin /transfer n \"%s\" \"%s\"", url, path)
+					os.execute(command)
+				end
+				imgui.Hint("HandUpdate", u8"Установить последнюю версию принудительно\n(Откроется консоль, может потребоваться некоторое время)")
+			imgui.EndGroup()
+
+			local h = imgui.GetItemRectSize().y
+			imgui.SameLine(nil, 5)
+
+			if imgui.Button(u8('Репозиторий ')..fa.ICON_FA_PUZZLE_PIECE, imgui.ImVec2(-1, h)) then
 				type_window.v = 6
 			end
-			imgui.SameLine()
-			if imgui.Button(u8('Проверить обновления ')..fa.ICON_FA_DOWNLOAD, imgui.ImVec2(imgui.GetWindowWidth() / 2 - 12, 30)) then
-				autoupdate(jsn_upd); checkData()
-			end
 
-			if imgui.GreenButton(u8'Список изменений', imgui.ImVec2(-1, 30)) then
+			if imgui.GreenButton(u8'Список изменений', imgui.ImVec2(-1, 20)) then
 				if not infoupdate.state then infoupdate:switch() end
 			end
 		end
@@ -2743,17 +3013,20 @@ function lection_editor(lection)
 	end
 end
 
-function go_expel(playerId)
+function go_expel(playerId, withoutRP)
 	local self_color = sampGetPlayerColor(select(2, sampGetPlayerIdByCharHandle(PLAYER_PED)))
 	local target_color = sampGetPlayerColor(playerId)
 	if target_color ~= self_color then
 		if not sampIsPlayerPaused(playerId) then
+			local cmd_expel = string.format("/expel %s %s", playerId, cfg.main.expelReason)
+			if withoutRP then return sampSendChat(cmd_expel) end
+
 			play_message(MsgDelay.v, true, {
 				{ "/do Рация висит на поясе." },
 				{ "/me {sex:снял|сняла} рацию с пояса и {sex:позвал|позвала} к себе охрану" },
 				{ "/do Сотрудник охраны подошёл и схватил за руки %s.", rpNick(playerId) },
 				{ "/do Сотрудник вывел %s из банка и закрыл за собой дверь.", rpNick(playerId) },
-				{ "/expel %s %s", playerId, cfg.main.expelReason }
+				{ cmd_expel }
 			})
 		else
 			addBankMessage('Нельзя выгнать игрока который в АФК!')
@@ -3497,7 +3770,7 @@ function se.onSendChat(msg)
 
 	if msg:find('{hello}') then
 		local result = "Здравствуйте"
-		local H = tonumber(os.date("%H", os.time()))
+		local H = tonumber(os.date("%H", os.time())) + cfg.main.time_offset
 
 		if H >= 4 and H <= 11 then
 			result = "Доброе утро"
@@ -3774,36 +4047,65 @@ function se.onSendPlayerSync(data)
 end
 
 function se.onSetSpawnInfo(team, skin, _, pos, rot, weapons, ammo)
-	if cfg.main.auto_uniform and not isUniformWearing() then
+	if CONNECTED_TO_ARIZONA then
+		CONNECTED_TO_ARIZONA = false
 		local x = math.modf(pos.x)
 		local y = math.modf(pos.y)
 		local z = math.modf(pos.z)
 
 		if x == -2674 and y == 819 and z == 1500 then
-			local pPos = unform_pickup_pos
-			local timer = os.clock()
+			if cfg.main.auto_uniform and not isUniformWearing() then
+				local p = unform_pickup_pos
+				local timer = os.clock()
 
-			lua_thread.create(function ()	
-				repeat 
-					if os.clock() - timer >= 5.00 then
-						addBankMessage("Не удалось автоматически надеть форму, вышло время ожидания")
-						return
-					end
-					wait(0)
-				until isAnyPickupAtCoords(pPos[1], pPos[2], pPos[3])
+				lua_thread.create(function ()	
+					repeat 
+						if os.clock() - timer >= 5.00 then
+							log("Не удалось автоматически надеть форму, вышло время ожидания")
+							return
+						end
+						wait(0)
+					until isAnyPickupAtCoords(p[1], p[2], p[3])
 
-				for id = 0, 4095 do
-					local pickup = sampGetPickupHandleBySampId(id)
-					if pickup ~= 0 then 
-						local x, y, z = getPickupCoordinates(pickup)
-						if x == pPos[1] and y == pPos[2] and z == pPos[3] then
-							await["uniform"] = os.clock()
-							sampSendPickedUpPickup(id)
-							break
+					for id = 0, 4095 do
+						local pickup = sampGetPickupHandleBySampId(id)
+						if pickup ~= 0 then 
+							local x, y, z = getPickupCoordinates(pickup)
+							if x == p[1] and y == p[2] and z == p[3] then
+								await["uniform"] = os.clock()
+								sampSendPickedUpPickup(id)
+								break
+							end
 						end
 					end
-				end
-			end)
+				end)
+			end
+
+			if cfg.main.auto_stick then
+				local p = stick_pickup_pos
+				local timer = os.clock()
+
+				lua_thread.create(function ()	
+					repeat 
+						if os.clock() - timer >= 5.00 then
+							log("Не удалось автоматически взять дубинку, вышло время ожидания")
+							return
+						end
+						wait(0)
+					until isAnyPickupAtCoords(p[1], p[2], p[3])
+
+					for id = 0, 4095 do
+						local pickup = sampGetPickupHandleBySampId(id)
+						if pickup ~= 0 then 
+							local x, y, z = getPickupCoordinates(pickup)
+							if x == p[1] and y == p[2] and z == p[3] then
+								sampSendPickedUpPickup(id)
+								break
+							end
+						end
+					end
+				end)
+			end
 		end
 	end
 end
@@ -3903,6 +4205,33 @@ function imgui.TextColoredRGB(text)
 	end
 
 	render_text(text)
+end
+
+function Spinner(radius, thickness, color)
+    local style = imgui.GetStyle()
+    local pos = imgui.GetCursorScreenPos()
+    local size = imgui.ImVec2(radius * 2, (radius + style.FramePadding.y) * 2)
+    
+    imgui.Dummy(imgui.ImVec2(size.x + style.ItemSpacing.x, size.y))
+
+    local DrawList = imgui.GetWindowDrawList()
+    DrawList:PathClear()
+    
+    local num_segments = 30
+    local start = math.abs(math.sin(imgui.GetTime() * 1.8) * (num_segments - 5))
+    
+    local a_min = 3.14 * 2.0 * start / num_segments
+    local a_max = 3.14 * 2.0 * (num_segments - 3) / num_segments
+
+    local centre = imgui.ImVec2(pos.x + radius, pos.y + radius + style.FramePadding.y)
+    
+    for i = 0, num_segments do
+        local a = a_min + (i / num_segments) * (a_max - a_min)
+        DrawList:PathLineTo(imgui.ImVec2(centre.x + math.cos(a + imgui.GetTime() * 8) * radius, centre.y + math.sin(a + imgui.GetTime() * 8) * radius))
+    end
+
+    DrawList:PathStroke(color, false, thickness)
+    return true
 end
 
 Button_ORIGINAL = imgui.Button
@@ -4289,12 +4618,20 @@ function isPlayerOnBlacklist(player)
 end
 
 function se.onDisplayGameText(style, time, text)
-	if hook_time and text:find('Played') then
-		lua_thread.create(function()
-			wait(500)
-			takeScreenshot()
-		end)
-		hook_time = false
+	if text:find('Played') and style == 1 and time == 4000 then
+		local H1 = tonumber(os.date("%H", os.time()))
+		local H2 = tonumber(string.match(text, "~w~(%d+):%d+~n~"))
+		if H1 and H2 then
+			cfg.main.time_offset = H2 - H1
+		end
+
+		if hook_time then
+			hook_time = false
+			lua_thread.create(function()
+				wait(500)
+				takeScreenshot()
+			end)
+		end
 	end
 end
 
@@ -4315,18 +4652,12 @@ function reload(show_error)
 end
 
 function takeScreenshot()
-	local base = getModuleHandle("samp.dll")
-	if base == 0x0 then return end
-	local hex = memory.tohex(base + 0xBABE, 10, true)
-	local offsets = {
-		["F8036A004050518D4C24"] = 0x70FC0, -- // R1
-		["E86D9A0A0083C41C85C0"] = 0x74EB0, -- // R3
-	}
-
-	local offset = offsets[hex]
-	if offset ~= nil then
-		ffi.cast("void (__cdecl *)(void)", base + offset)()
-	end
+	lua_thread.create(function()
+		wait(300)
+		setVirtualKeyDown(0x77, true)
+		wait(30)
+		setVirtualKeyDown(0x77, false)
+	end)
 end
 
 function addBankMessage(message, color)
@@ -4505,7 +4836,7 @@ end
 function getTimeAfter(unix)
 	local interval = os.time() - unix
 	if interval < 86400 then -- 1 day
-		return 'Сегодня'
+		return "Менее суток назад"
 	elseif interval < 604800 then -- 1 week
 		local days = math.floor(interval / 86400)
 		local text = plural(days, {'день', 'дня', 'дней'})
@@ -4668,6 +4999,29 @@ function imgui.ToggleButton(str_id, bool)
 end
 
 changelog = {
+	[25] = {
+		version = '25',
+		comment = '',
+		date = os.time({day = '26', month = '3', year = '2022'}),
+		log = {
+			"В причинах отказа о приеме в организацию добавлена кнопка «Нет прививки от короновируса»",
+			"Исправлено ложное срабатывание авто-формы. Теперь срабатывает только когда зашли на сервер",
+			"Теперь что-бы остановить проигрывающуюся отыгровку достаточно нажать «Backspace»",
+			"Если нажать правой кнопкой мыши по услуге (/bankmenu), то она выполнится без отыгровки",
+			"Через один/два часа (в зависимости от ранга) после получения ларца орг. вам придет уведомление, что пора получать новый",
+			"Теперь, если вы играете через лаунчер Arizona Games, то авто-скриншоты будут делаться через лаунчеровскую систему (сохраняясь по датам), а не через стандартную самповскую",
+			"В настройки добавлена кнопка «Ручное обновление», для тех, у кого по каким-то причинам не работает система автообновления.",
+			"Отыгровка приветствия (Через ПКМ + Q) теперь пишется в зависимости от времени на сервере, а не по вашему местному времени. Рекомендуется ввести /time что-бы откалибровать время",
+			"Раздел «Повышения» переименован в «Меню сотрудника». Теперь в нём можно не только повысить сотрудника, но и посмотреть его успеваемость, выдать выговор, уволить и так далее..",
+			"Настройка времени задержки отыгровок теперь сохраняется как положено",
+			"Добавлена функция «Авто-дубинка», аналогичная авто-форме",
+			"Изменено меню квестов у бота"
+		},
+		patches = {
+			show = false,
+			info = {}
+		}
+	},
 	[24] = {
 		version = '24',
 		comment = '',

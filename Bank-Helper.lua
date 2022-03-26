@@ -1,6 +1,6 @@
 script_name('Bank-Helper')
 script_author('Cosmo')
-script_version('25.0')
+script_version('25.1')
 
 require "moonloader"
 require "sampfuncs"
@@ -48,9 +48,6 @@ local cfg = inicfg.load({
 		colorDchat = 4294940723,
 		defaultColor = -1,
 		black_theme = true,
-		forma_post = '/r Докладывает: {my_name} | Пост: [ПОСТ] | Состояние: Стабильное',
-		forma_lect = '/r Сотрудники! Всем собраться в лекционной, будет лекция! За пропуск - выговор!',
-		forma_tr = '/r Сотрудники! Сейчас будет тренировка! Сбор на крыше! За пропуск - выговор!',
 		accent_status = false,
 		accent = '[Деловая речь]',
 		glass_light = 1.0,
@@ -191,9 +188,6 @@ local rpbat_false       = imgui.ImBuffer(u8(cfg.main.rpbat_false), 256)
 local colorRchat        = imgui.ImFloat4(imgui.ImColor(cfg.main.colorRchat):GetFloat4())
 local colorDchat        = imgui.ImFloat4(imgui.ImColor(cfg.main.colorDchat):GetFloat4())
 local black_theme       = imgui.ImBool(cfg.main.black_theme)
-local forma_post        = imgui.ImBuffer(u8(cfg.main.forma_post), 256)
-local forma_lect        = imgui.ImBuffer(u8(cfg.main.forma_lect), 256)
-local forma_tr          = imgui.ImBuffer(u8(cfg.main.forma_tr), 256)
 local accent_status     = imgui.ImBool(cfg.main.accent_status)
 local accent            = imgui.ImBuffer(u8(cfg.main.accent), 256)
 local glass_light       = imgui.ImFloat(cfg.main.glass_light)
@@ -593,19 +587,6 @@ function main()
 		if testCheat('BB') and not bank.state and not int_bank.state then
 			type_window.v = 1
 			bank:switch()
-		end
-
-		if sampGetChatInputText() == '!пост' then
-			sampSetChatInputText(cfg.main.forma_post)
-			sampSetChatInputCursor(0, 0)
-		end
-		if sampGetChatInputText() == '!лекция' then
-			sampSetChatInputText(cfg.main.forma_lect)
-			sampSetChatInputCursor(0, 0)
-		end
-		if sampGetChatInputText() == '!треня' then
-			sampSetChatInputText(cfg.main.forma_tr)
-			sampSetChatInputCursor(0, 0)
 		end
 
 		if status_button_gov then 
@@ -2586,43 +2567,6 @@ function imgui.OnDrawFrame()
 					if inicfg.save(cfg, 'Bank_Config.ini') then 
 						addBankMessage('Стандартный цвет чата департамента восстановлен!')
 						colorDchat = imgui.ImFloat4(imgui.ImColor(cfg.main.colorDchat):GetFloat4())
-					end
-				end
-			end
-			if imgui.CollapsingHeader(u8("Настройка форм")) then
-				imgui.TextColoredRGB('{868686}(Подробнее)')
-				imgui.Hint('setform', u8'Что бы не писать вручную длинную форму\nдостаточно в строку чата написать например !пост\nи скрипт сам за вас вставит в строку чата форму доклада')
-				imgui.PushItemWidth(280)
-				imgui.TextColoredRGB(mc..'Форма поста '..'{SSSSSS}'..'(!пост):')
-				imgui.InputText('##forma_post', forma_post)
-				imgui.PopItemWidth()
-				imgui.SameLine()
-				if imgui.Button('Save##3', imgui.ImVec2(-1, 20)) then 
-					cfg.main.forma_post = u8:decode(forma_post.v)
-					if inicfg.save(cfg, 'Bank_Config.ini') then 
-						addBankMessage('Форма сохранена!')
-					end
-				end
-				imgui.PushItemWidth(280)
-				imgui.TextColoredRGB(mc..'Форма начала лекции '..'{SSSSSS}'..'(!лекция):')
-				imgui.InputText('##forma_lect', forma_lect)
-				imgui.PopItemWidth()
-				imgui.SameLine()
-				if imgui.Button('Save##4', imgui.ImVec2(-1, 20)) then 
-					cfg.main.forma_lect = u8:decode(forma_lect.v)
-					if inicfg.save(cfg, 'Bank_Config.ini') then 
-						addBankMessage('Форма сохранена!')
-					end
-				end
-				imgui.PushItemWidth(280)
-				imgui.TextColoredRGB(mc..'Форма начала тренировки '..'{SSSSSS}'..'(!треня):')
-				imgui.InputText('##forma_tr', forma_tr)
-				imgui.PopItemWidth()
-				imgui.SameLine()
-				if imgui.Button('Save##5', imgui.ImVec2(-1, 20)) then 
-					cfg.main.forma_tr = u8:decode(forma_tr.v)
-					if inicfg.save(cfg, 'Bank_Config.ini') then 
-						addBankMessage('Форма сохранена!')
 					end
 				end
 			end
@@ -5019,7 +4963,9 @@ changelog = {
 		},
 		patches = {
 			show = false,
-			info = {}
+			info = {
+				"Вырезаны формы автозаполнения (!пост, !лекция, !треня) из за ненадобности, а так же они приводили некоторых пользователей к крашам"
+			}
 		}
 	},
 	[24] = {

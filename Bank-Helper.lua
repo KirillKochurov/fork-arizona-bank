@@ -1,6 +1,6 @@
 script_name('Bank-Helper')
 script_author('Cosmo')
-script_version('25.1')
+script_version('25.2')
 
 require "moonloader"
 require "sampfuncs"
@@ -37,8 +37,7 @@ local cfg = inicfg.load({
 		rank = 1,
 		dateuprank = os.time(),
 		sex = 1,
-		encode_ustav = true,
-		autoF8 = true,
+		autoF8 = false,
 		LectDelay = 5,
 		MsgDelay = 2.5,
 		rpbat = false,
@@ -46,20 +45,16 @@ local cfg = inicfg.load({
 		rpbat_false = "/me {sex:повесил|повесила} дубинку на пояс" , 
 		colorRchat = 4282626093,
 		colorDchat = 4294940723,
-		defaultColor = -1,
 		black_theme = true,
 		accent_status = false,
 		accent = '[Деловая речь]',
-		glass_light = 1.0,
-		glass_light_child = 1.0,
 		infoupdate = false,
 		loginupdate = true,
 		KipX = select(1, getScreenResolution()) - 250,
 		KipY = select(2, getScreenResolution()) / 2, 
 		ki_stat = true,
-		timeF9 = true, 
 		expelReason = 'Н.П.Б',
-		chat_calc = true,
+		chat_calc = false,
 		pincode = "",
 		auto_uniform = true,
 		auto_stick = true,
@@ -190,9 +185,6 @@ local colorDchat        = imgui.ImFloat4(imgui.ImColor(cfg.main.colorDchat):GetF
 local black_theme       = imgui.ImBool(cfg.main.black_theme)
 local accent_status     = imgui.ImBool(cfg.main.accent_status)
 local accent            = imgui.ImBuffer(u8(cfg.main.accent), 256)
-local glass_light       = imgui.ImFloat(cfg.main.glass_light)
-local glass_light_child = imgui.ImFloat(cfg.main.glass_light_child)
-local timeF9            = imgui.ImBool(cfg.main.timeF9)
 local expelReason       = imgui.ImBuffer(u8(cfg.main.expelReason), 256)
 local pincode 			= imgui.ImBuffer(tostring(cfg.main.pincode), 128)
 CONNECTED_TO_ARIZONA 	= false
@@ -544,10 +536,8 @@ function main()
  	
 	while true do
 
-		if cfg.main.timeF9 then 
-			if isKeyJustPressed(VK_F9) then 
-				sampSendChat('/time')
-			end
+		if isKeyJustPressed(VK_F9) then 
+			sampSendChat('/time')
 		end
 
 		if cfg.main.rpbat then 
@@ -603,8 +593,8 @@ function main()
 		end
 
 		if sampIsChatInputActive() and chat_calc.v then
-			local example = sampGetChatInputText()
-			if example:match('[0-9]+') and example:match('[-+/*^]+') then
+			local isCalled, example = pcall(sampGetChatInputText)
+			if isCalled and example:match('[0-9]+') and example:match('[-+/*^]+') then
 		        local result, answer = pcall(load('return ' .. example))
 		        if result then
 			        local element = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
@@ -2330,283 +2320,297 @@ function imgui.OnDrawFrame()
 
 		if type_window.v == 5 then -- Настройки
 			imgui.CenterTextColoredRGB(mc..'Настройки скрипта')
-			imgui.NewLine()
-			if imgui.CollapsingHeader(u8("Общие настройки")) then
-				imgui.PushItemWidth(80)
-				if imgui.Checkbox(u8'Авто-проверка обновлений', loginupdate) then
-					cfg.main.loginupdate = loginupdate.v 
-					if inicfg.save(cfg, 'Bank_Config.ini') then
-						addBankMessage(string.format('Авто-проверка обновлений при входе в игру {M}%s', (cfg.main.loginupdate and 'включена' or 'выключена')))
-					end
-				end
-				if imgui.Checkbox(u8'Чат-калькулятор', chat_calc) then
-					cfg.main.chat_calc = chat_calc.v 
-					inicfg.save(cfg, 'Bank_Config.ini')
-				end
-				imgui.SameLine()
-				imgui.TextDisabled('(?)')
-				imgui.Hint('chatcalc', u8'Если в чате написать математический пример, то под ним появится ответ')
-
-				if imgui.Checkbox(u8'Авто-форма', auto_uniform) then
-					cfg.main.auto_uniform = auto_uniform.v 
-					inicfg.save(cfg, 'Bank_Config.ini')
-				end
-				imgui.SameLine()
-				imgui.TextDisabled('(?)')
-				imgui.Hint('autouniform', u8'Вы автоматически надените форму, как только зайдёте на сервер\nТекущим местом спавна должна быть выбрана организация (/setspawn)')
-
-				if imgui.Checkbox(u8'Авто-дубинка', auto_stick) then
-					cfg.main.auto_stick = auto_stick.v 
-					inicfg.save(cfg, 'Bank_Config.ini')
-				end
-				imgui.SameLine()
-				imgui.TextDisabled('(?)')
-				imgui.Hint('autostick', u8'Вы автоматически возьмёте дубинку, как только зайдёте на сервер\nТекущим местом спавна должна быть выбрана организация (/setspawn)')
-
-				imgui.PopItemWidth()
-				if imgui.Checkbox(u8'Статистика на кассе', ki_stat) then
-					cfg.main.ki_stat = ki_stat.v
-					inicfg.save(cfg, 'Bank_Config.ini')
-					if kassa.state.v and ki_stat.v == false then 
-						kassa.state.v = false 
-					end
-				end
-				imgui.SameLine()
-				imgui.TextDisabled('(?)')
-				imgui.Hint('kippos', u8'Панель можно переместить командой /kip')
-				imgui.PushItemWidth(150)
-				if imgui.InputText(u8"Ваш PIN-код", pincode, imgui.InputTextFlags.CharsDecimal) then
-					cfg.main.pincode = tostring(pincode.v)
-				end
-				imgui.PopItemWidth()
-				imgui.SameLine()
-				imgui.TextDisabled('(?)')
-				imgui.Hint('pinhint', u8'PIN-Код от банковской карты будет вводится автоматически\nОставьте пустым, чтобы отключить эту функцию')
-			end
-
-			if imgui.CollapsingHeader(u8("Отображение сообщений в чате")) then
-				if imgui.Checkbox(u8'Сообщения о /expel', chat['expel']) then
-					cfg.Chat.expel = chat['expel'].v
-					inicfg.save(cfg, 'Bank_Config.ini')
-				end
-				if imgui.Checkbox(u8'Оплата штрафов', chat['shtrafs']) then
-					cfg.Chat.shtrafs = chat['shtrafs'].v
-					inicfg.save(cfg, 'Bank_Config.ini')
-				end
-				if imgui.Checkbox(u8'Пополнения казны сотрудниками', chat['incazna']) then
-					cfg.Chat.incazna = chat['incazna'].v
-					inicfg.save(cfg, 'Bank_Config.ini')
-				end
-				if imgui.Checkbox(u8'Принятие сотрудников', chat['invite']) then
-					cfg.Chat.invite = chat['invite'].v
-					inicfg.save(cfg, 'Bank_Config.ini')
-				end
-				if imgui.Checkbox(u8'Увольнения сотрудников', chat['uval']) then
-					cfg.Chat.uval = chat['uval'].v
-					inicfg.save(cfg, 'Bank_Config.ini')
-				end
-			end
-
-			if imgui.CollapsingHeader(u8("Настройка отыгровок/акцента")) then
-				imgui.TextColoredRGB(mc..'Задержка между сообщениями в отыгровках:')
-				imgui.PushItemWidth(200)
-				if imgui.SliderFloat('##MsgDelay', MsgDelay, 0.5, 10.0, u8'%0.2f с.') then
-					if MsgDelay.v < 0.5 then MsgDelay.v = 0.5 end
-					if MsgDelay.v > 10.0 then MsgDelay.v = 10.0 end
-
-					cfg.main.MsgDelay = MsgDelay.v
-					inicfg.save(cfg, 'Bank_Config.ini')
-				end
-				imgui.PopItemWidth()
-
-				imgui.TextColoredRGB(mc..'Ваш пол:')
-				imgui.SameLine()
-				if imgui.SmallButton(u8'Определить') then 
-					local aSex = autoGetSelfGender()
-					if inicfg.save(cfg, 'Bank_Config.ini') then 
-						addBankMessage(string.format('Ваш пол определён как {M}%s', (aSex == 1 and 'Мужской' or 'Женский')))
-					end
-				end
-				if imgui.RadioButton(u8("Мужской"), sex, 1) then
-					cfg.main.sex = sex.v
-					if inicfg.save(cfg, 'Bank_Config.ini') then 
-						addBankMessage('Пол изменён на {M}Мужской')
-					end
-				end
-				if imgui.RadioButton(u8("Женский"), sex, 2) then 
-					cfg.main.sex = sex.v
-					if inicfg.save(cfg, 'Bank_Config.ini') then 
-						addBankMessage('Пол изменён на {M}Женский')
-					end
-				end
-
-				imgui.TextColoredRGB(mc..'Авто-Скрин + /time {565656}(?)')
-				imgui.Hint('autoscreen', u8'Все ваши повышения, увольнения, выдачи рангов и т.п.\nбудут автоматически скринится с /time')
-				if imgui.Checkbox(u8(autoF8.v and 'Включено' or 'Выключено')..'##autoF8', autoF8) then 
-					cfg.main.autoF8 = autoF8.v
-					inicfg.save(cfg, 'Bank_Config.ini')
-				end
-				if autoF8.v then
-					if not doesFileExist(getGameDirectory()..'/Screenshot.asi') then
-						if imgui.Button(u8'Скачать Screenshot.asi', imgui.ImVec2(150, 20)) then 
-							downloadUrlToFile('https://gitlab.com/uploads/-/system/personal_snippet/1978930/0b4025da038173a8b1ce81d5e3848901/Screenshot.asi', getGameDirectory()..'/Screenshot.asi', function (id, status, p1, p2)
-								if status == dlstatus.STATUSEX_ENDDOWNLOAD then
-									runSampfuncsConsoleCommand('pload Screenshot.asi')
-									addBankMessage('Плагин {M}Screenshot.asi{W} загружен! Рекомендуется перезайти в игру!')
-								end
-							end)
-						end
-						imgui.Hint('screenplugin', u8('Позволяет делать моментальные скриншоты без зависания игры\nПосле скачивания нужно перезайти в игру\nАвтор: MISTER_GONWIK'), 0, u8'Нажмите, что-бы скачать')
-					else
-						imgui.TextColoredRGB('{30FF30}Используется Screenshot.asi')
-					end
-				end
-
-				imgui.TextColoredRGB(mc..'Акцент')
-				if imgui.Checkbox(u8(accent_status.v and 'Включено' or 'Выключено')..'##accent_status', accent_status) then 
-					cfg.main.accent_status = accent_status.v
-					inicfg.save(cfg, 'Bank_Config.ini')
-				end
-				if cfg.main.accent_status then
-					imgui.PushItemWidth(280)
-					imgui.InputText(u8"##accent", accent); imgui.SameLine()
-					imgui.PopItemWidth()
-					if imgui.Button('Save##accent', imgui.ImVec2(-1, 20)) then 
-						cfg.main.accent = u8:decode(accent.v)
-						if inicfg.save(cfg, 'Bank_Config.ini') then 
-							addBankMessage('Акцент сохранён!')
-						end
-					end
-				end
-				imgui.TextColoredRGB(mc..'Авто-Отыгровка дубинки')
-				if imgui.Checkbox(u8(rpbat.v and 'Включено' or 'Выключено')..'##rpbat', rpbat) then 
-					cfg.main.rpbat = rpbat.v
-					inicfg.save(cfg, 'Bank_Config.ini')
-				end
-				if rpbat.v then
-					imgui.TextColoredRGB(mc..'Взять дубинку')
-					imgui.PushItemWidth(280)
-					imgui.InputText(u8"##rpbat_true", rpbat_true); imgui.SameLine()
-					imgui.PopItemWidth()
-					if imgui.Button('Save##1', imgui.ImVec2(-1, 20)) then 
-						cfg.main.rpbat_true = u8:decode(rpbat_true.v)
-						if inicfg.save(cfg, 'Bank_Config.ini') then 
-							addBankMessage('Отыгровка сохранена!')
-						end
-					end
-
-					imgui.TextColoredRGB(mc..'Убрать дубинку')
-					imgui.PushItemWidth(280)
-					imgui.InputText(u8"##rpbat_false", rpbat_false); imgui.SameLine()
-					imgui.PopItemWidth()
-					if imgui.Button('Save##2', imgui.ImVec2(-1, 20)) then 
-						cfg.main.rpbat_false = u8:decode(rpbat_false.v)
-						if inicfg.save(cfg, 'Bank_Config.ini') then 
-							addBankMessage('Отыгровка сохранена!')
-						end
-					end
-				end
-			end
-			if imgui.CollapsingHeader(u8("Настройки цветов")) then
-				if imgui.ToggleButton(u8'Тёмная тема', black_theme) then
-					SCRIPT_STYLE.clock = os.clock()
-					cfg.main.black_theme = black_theme.v
-					inicfg.save(cfg, 'Bank_Config.ini')
-				end
-
-				local duration = 1.0
-				if SCRIPT_STYLE.clock ~= nil then
-					local B = black_theme.v and imgui.ImVec4(0.10, 0.10, 0.11, 1.00) or imgui.ImVec4(0.95, 0.95, 0.95, 1.00)
-					local E = black_theme.v and imgui.ImVec4(0.00, 0.40, 0.60, 1.00) or imgui.ImVec4(0.00, 0.40, 0.60, 1.00)
-					local T = black_theme.v and imgui.ImVec4(1.00, 1.00, 1.00, 1.00) or imgui.ImVec4(0.20, 0.20, 0.20, 1.00)
-
-					if os.clock() - SCRIPT_STYLE.clock <= duration then
-						SCRIPT_STYLE.colors['B'] = degrade(SCRIPT_STYLE.colors['B'], B, SCRIPT_STYLE.clock, duration)
-						SCRIPT_STYLE.colors['E'] = degrade(SCRIPT_STYLE.colors['E'], E, SCRIPT_STYLE.clock, duration)
-						SCRIPT_STYLE.colors['T'] = degrade(SCRIPT_STYLE.colors['T'], T, SCRIPT_STYLE.clock, duration)
-					else
-						SCRIPT_STYLE.colors = { B = B, E = E, T = T }
-						SCRIPT_STYLE.clock = nil
-					end
-
-					set_style(SCRIPT_STYLE.colors)
-				end
 			
-				if imgui.ColorEdit4(u8'Цвет чата организации', colorRchat, imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.NoAlpha) then
-					local clr = imgui.ImColor.FromFloat4(colorRchat.v[1], colorRchat.v[2], colorRchat.v[3], colorRchat.v[4]):GetU32()
-					cfg.main.colorRchat = clr
-					inicfg.save(cfg, 'Bank_Config.ini')
+			imgui.NewLine()
+			imgui.TextDisabled(u8"Функции:")
+			imgui.PushItemWidth(80)
+			if imgui.Checkbox(u8'Автоматические обновления', loginupdate) then
+				cfg.main.loginupdate = loginupdate.v 
+				if inicfg.save(cfg, 'Bank_Config.ini') then
+					addBankMessage(string.format('Авто-проверка обновлений при входе в игру {M}%s', (cfg.main.loginupdate and 'включена' or 'выключена')))
 				end
-				imgui.SameLine(imgui.GetWindowWidth() - 150)
-				if imgui.Button(u8("Тест##RCol"), imgui.ImVec2(50, 20)) then
-					local r, g, b, a = imgui.ImColor(cfg.main.colorRchat):GetRGBA()
-					sampAddChatMessage('[R] '..cfg.nameRank[cfg.main.rank]..' '..sampGetPlayerNickname(tonumber(selfid))..'['..selfid..']: (( Это сообщение видите только вы! ))', join_rgb(r, g, b))
-				end
-				imgui.SameLine(imgui.GetWindowWidth() - 95)
-				if imgui.Button(u8("Стандартный##Rcol"), imgui.ImVec2(90, 20)) then
-					cfg.main.colorRchat = 4282626093
-					if inicfg.save(cfg, 'Bank_Config.ini') then 
-						addBankMessage('Стандартный цвет чата организации восстановлен!')
-						colorRchat = imgui.ImFloat4(imgui.ImColor(cfg.main.colorRchat):GetFloat4())
-					end
-				end
+			end
 
-				if imgui.ColorEdit4(u8'Цвет чата департамента', colorDchat, imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.NoAlpha) then
-					local clr = imgui.ImColor.FromFloat4(colorDchat.v[1], colorDchat.v[2], colorDchat.v[3], colorDchat.v[4]):GetU32()
-					cfg.main.colorDchat = clr
-					inicfg.save(cfg, 'Bank_Config.ini')
+			if imgui.Checkbox(u8'Чат-калькулятор', chat_calc) then
+				cfg.main.chat_calc = chat_calc.v 
+				inicfg.save(cfg, 'Bank_Config.ini')
+			end
+			imgui.SameLine()
+			imgui.TextDisabled('(?)')
+			imgui.Hint('chatcalc', u8'Если в чате написать математический пример, то под ним появится ответ')
+
+			if imgui.Checkbox(u8'Авто-форма', auto_uniform) then
+				cfg.main.auto_uniform = auto_uniform.v 
+				inicfg.save(cfg, 'Bank_Config.ini')
+			end
+			imgui.SameLine()
+			imgui.TextDisabled('(?)')
+			imgui.Hint('autouniform', u8'Вы автоматически надените форму, как только зайдёте на сервер\nТекущим местом спавна должна быть выбрана организация (/setspawn)')
+
+			if imgui.Checkbox(u8'Авто-дубинка', auto_stick) then
+				cfg.main.auto_stick = auto_stick.v 
+				inicfg.save(cfg, 'Bank_Config.ini')
+			end
+			imgui.SameLine()
+			imgui.TextDisabled('(?)')
+			imgui.Hint('autostick', u8'Вы автоматически возьмёте дубинку, как только зайдёте на сервер\nТекущим местом спавна должна быть выбрана организация (/setspawn)')
+
+			imgui.PopItemWidth()
+			if imgui.Checkbox(u8'Статистика на кассе', ki_stat) then
+				cfg.main.ki_stat = ki_stat.v
+				inicfg.save(cfg, 'Bank_Config.ini')
+				if kassa.state.v and ki_stat.v == false then 
+					kassa.state.v = false 
 				end
-				imgui.SameLine(imgui.GetWindowWidth() - 150)
-				if imgui.Button(u8("Тест##DCol"), imgui.ImVec2(50, 20)) then
-					local r, g, b, a = imgui.ImColor(cfg.main.colorDchat):GetRGBA()
-					sampAddChatMessage('[D] '..cfg.nameRank[cfg.main.rank]..' '..sampGetPlayerNickname(tonumber(selfid))..'['..selfid..']: Это сообщение видите только вы!', join_rgb(r, g, b))
+			end
+			imgui.SameLine()
+			imgui.TextDisabled('(?)')
+			imgui.Hint('kippos', u8'Панель можно переместить командой /kip')
+			imgui.PushItemWidth(150)
+			if imgui.InputText(u8"Ваш PIN-код", pincode, imgui.InputTextFlags.CharsDecimal) then
+				cfg.main.pincode = tostring(pincode.v)
+			end
+			imgui.PopItemWidth()
+			imgui.SameLine()
+			imgui.TextDisabled('(?)')
+			imgui.Hint('pinhint', u8'PIN-Код от банковской карты будет вводится автоматически\nОставьте пустым, чтобы отключить эту функцию')
+
+			imgui.NewLine()
+			imgui.TextDisabled(u8"Сообщения в чате:")
+			if imgui.Checkbox(u8'Сообщения о /expel', chat['expel']) then
+				cfg.Chat.expel = chat['expel'].v
+				inicfg.save(cfg, 'Bank_Config.ini')
+			end
+			if imgui.Checkbox(u8'Оплата штрафов', chat['shtrafs']) then
+				cfg.Chat.shtrafs = chat['shtrafs'].v
+				inicfg.save(cfg, 'Bank_Config.ini')
+			end
+			if imgui.Checkbox(u8'Пополнения казны сотрудниками', chat['incazna']) then
+				cfg.Chat.incazna = chat['incazna'].v
+				inicfg.save(cfg, 'Bank_Config.ini')
+			end
+			if imgui.Checkbox(u8'Принятие сотрудников', chat['invite']) then
+				cfg.Chat.invite = chat['invite'].v
+				inicfg.save(cfg, 'Bank_Config.ini')
+			end
+			if imgui.Checkbox(u8'Увольнения сотрудников', chat['uval']) then
+				cfg.Chat.uval = chat['uval'].v
+				inicfg.save(cfg, 'Bank_Config.ini')
+			end
+
+			imgui.NewLine()
+			imgui.TextDisabled(u8"RP отыгровки:")
+			imgui.TextColoredRGB(mc..'Задержка между сообщениями в отыгровках:')
+			imgui.PushItemWidth(200)
+			if imgui.SliderFloat('##MsgDelay', MsgDelay, 0.5, 10.0, u8'%0.2f с.') then
+				if MsgDelay.v < 0.5 then MsgDelay.v = 0.5 end
+				if MsgDelay.v > 10.0 then MsgDelay.v = 10.0 end
+
+				cfg.main.MsgDelay = MsgDelay.v
+				inicfg.save(cfg, 'Bank_Config.ini')
+			end
+			imgui.PopItemWidth()
+
+			imgui.TextColoredRGB(mc..'Ваш пол:')
+			imgui.SameLine()
+			if imgui.SmallButton(u8'Определить') then 
+				local aSex = autoGetSelfGender()
+				if inicfg.save(cfg, 'Bank_Config.ini') then 
+					addBankMessage(string.format('Ваш пол определён как {M}%s', (aSex == 1 and 'Мужской' or 'Женский')))
 				end
-				imgui.SameLine(imgui.GetWindowWidth() - 95)
-				if imgui.Button(u8("Стандартный##DCol"), imgui.ImVec2(90, 20)) then
-					cfg.main.colorDchat = 4294940723
+			end
+			if imgui.RadioButton(u8("Мужской"), sex, 1) then
+				cfg.main.sex = sex.v
+				if inicfg.save(cfg, 'Bank_Config.ini') then 
+					addBankMessage('Пол изменён на {M}Мужской')
+				end
+			end
+			if imgui.RadioButton(u8("Женский"), sex, 2) then 
+				cfg.main.sex = sex.v
+				if inicfg.save(cfg, 'Bank_Config.ini') then 
+					addBankMessage('Пол изменён на {M}Женский')
+				end
+			end
+
+			imgui.TextColoredRGB(mc..'Авто-Скрин + /time {565656}(?)')
+			imgui.Hint('autoscreen', u8'Все ваши повышения, увольнения, выдачи рангов и т.п.\nбудут автоматически скринится с /time')
+			if imgui.Checkbox(u8(autoF8.v and 'Включено' or 'Выключено')..'##autoF8', autoF8) then 
+				cfg.main.autoF8 = autoF8.v
+				inicfg.save(cfg, 'Bank_Config.ini')
+			end
+			if autoF8.v then
+				if not doesFileExist(getGameDirectory()..'/Screenshot.asi') then
+					if imgui.Button(u8'Скачать Screenshot.asi', imgui.ImVec2(150, 20)) then 
+						downloadUrlToFile('https://gitlab.com/uploads/-/system/personal_snippet/1978930/0b4025da038173a8b1ce81d5e3848901/Screenshot.asi', getGameDirectory()..'/Screenshot.asi', function (id, status, p1, p2)
+							if status == dlstatus.STATUSEX_ENDDOWNLOAD then
+								runSampfuncsConsoleCommand('pload Screenshot.asi')
+								addBankMessage('Плагин {M}Screenshot.asi{W} загружен! Рекомендуется перезайти в игру!')
+							end
+						end)
+					end
+					imgui.Hint('screenplugin', u8('Позволяет делать моментальные скриншоты без зависания игры\nПосле скачивания нужно перезайти в игру\nАвтор: MISTER_GONWIK'), 0, u8'Нажмите, что-бы скачать')
+				else
+					imgui.TextColoredRGB('{30FF30}Используется Screenshot.asi')
+				end
+			end
+
+			imgui.TextColoredRGB(mc..'Акцент')
+			if imgui.Checkbox(u8(accent_status.v and 'Включено' or 'Выключено')..'##accent_status', accent_status) then 
+				cfg.main.accent_status = accent_status.v
+				inicfg.save(cfg, 'Bank_Config.ini')
+			end
+			if cfg.main.accent_status then
+				imgui.PushItemWidth(280)
+				imgui.InputText(u8"##accent", accent); imgui.SameLine()
+				imgui.PopItemWidth()
+				if imgui.Button('Save##accent', imgui.ImVec2(-1, 20)) then 
+					cfg.main.accent = u8:decode(accent.v)
 					if inicfg.save(cfg, 'Bank_Config.ini') then 
-						addBankMessage('Стандартный цвет чата департамента восстановлен!')
-						colorDchat = imgui.ImFloat4(imgui.ImColor(cfg.main.colorDchat):GetFloat4())
+						addBankMessage('Акцент сохранён!')
 					end
 				end
 			end
-			if imgui.CollapsingHeader(u8("О скрипте")) then
-				imgui.NewLine()
-				imgui.CenterTextColoredRGB('Автор скрипта: ' .. mc..'Cosmo')
-				imgui.CenterTextColoredRGB('{868686}Нашли ошибку или есть предложение? Пишите сюда:')
-				imgui.SetCursorPosX((imgui.GetWindowWidth() - (5 * 2) - (80 * 3)) / 2)
-				imgui.PushStyleVar(imgui.StyleVar.FrameRounding, 5)
-				imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.10, 0.35, 0.80, 0.8))
-				imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.10, 0.35, 0.80, 0.9))
-				imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.10, 0.35, 0.80, 1))
-				imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(1, 1, 1, 1))
-				if imgui.Button(u8("VK"), imgui.ImVec2(80, 25)) then
-					os.execute("explorer https://vk.me/cosui")
+			imgui.TextColoredRGB(mc..'Авто-Отыгровка дубинки')
+			if imgui.Checkbox(u8(rpbat.v and 'Включено' or 'Выключено')..'##rpbat', rpbat) then 
+				cfg.main.rpbat = rpbat.v
+				inicfg.save(cfg, 'Bank_Config.ini')
+			end
+			if rpbat.v then
+				imgui.TextColoredRGB(mc..'Взять дубинку')
+				imgui.PushItemWidth(280)
+				imgui.InputText(u8"##rpbat_true", rpbat_true); imgui.SameLine()
+				imgui.PopItemWidth()
+				if imgui.Button('Save##1', imgui.ImVec2(-1, 20)) then 
+					cfg.main.rpbat_true = u8:decode(rpbat_true.v)
+					if inicfg.save(cfg, 'Bank_Config.ini') then 
+						addBankMessage('Отыгровка сохранена!')
+					end
 				end
-				imgui.PopStyleColor(4)
-				imgui.SameLine(nil, 5)
-				imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.00, 0.60, 1.00, 0.8))
-				imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.00, 0.60, 1.00, 0.9))
-				imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.00, 0.60, 1.00, 1))
-				if imgui.Button(u8("Telegram"), imgui.ImVec2(80, 25)) then
-					os.execute("explorer https://t.me/cosmo_way")
-				end
-				imgui.PopStyleColor(3)
-				imgui.SameLine(nil, 5)
-				imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.15, 0.23, 0.36, 1.0))
-				imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.25, 0.33, 0.46, 1.0))
-				imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.35, 0.43, 0.56, 1.0))
-				if imgui.Button(u8("Blast Hack"), imgui.ImVec2(80, 25)) then
-					os.execute("explorer https://www.blast.hk/threads/58083/")
-				end
-				imgui.PopStyleColor(3)
-				imgui.PopStyleVar()
 
-				imgui.SetCursorPosX((imgui.GetWindowWidth() - 150) / 2)
+				imgui.TextColoredRGB(mc..'Убрать дубинку')
+				imgui.PushItemWidth(280)
+				imgui.InputText(u8"##rpbat_false", rpbat_false); imgui.SameLine()
+				imgui.PopItemWidth()
+				if imgui.Button('Save##2', imgui.ImVec2(-1, 20)) then 
+					cfg.main.rpbat_false = u8:decode(rpbat_false.v)
+					if inicfg.save(cfg, 'Bank_Config.ini') then 
+						addBankMessage('Отыгровка сохранена!')
+					end
+				end
+			end
+
+			imgui.NewLine()
+			imgui.TextDisabled(u8"Внешний вид:")
+			if imgui.ToggleButton(u8'Тёмная тема', black_theme) then
+				SCRIPT_STYLE.clock = os.clock()
+				cfg.main.black_theme = black_theme.v
+				inicfg.save(cfg, 'Bank_Config.ini')
+			end
+
+			local duration = 1.0
+			if SCRIPT_STYLE.clock ~= nil then
+				local B = black_theme.v and imgui.ImVec4(0.10, 0.10, 0.11, 1.00) or imgui.ImVec4(0.95, 0.95, 0.95, 1.00)
+				local E = black_theme.v and imgui.ImVec4(0.00, 0.40, 0.60, 1.00) or imgui.ImVec4(0.00, 0.40, 0.60, 1.00)
+				local T = black_theme.v and imgui.ImVec4(1.00, 1.00, 1.00, 1.00) or imgui.ImVec4(0.20, 0.20, 0.20, 1.00)
+
+				if os.clock() - SCRIPT_STYLE.clock <= duration then
+					SCRIPT_STYLE.colors['B'] = degrade(SCRIPT_STYLE.colors['B'], B, SCRIPT_STYLE.clock, duration)
+					SCRIPT_STYLE.colors['E'] = degrade(SCRIPT_STYLE.colors['E'], E, SCRIPT_STYLE.clock, duration)
+					SCRIPT_STYLE.colors['T'] = degrade(SCRIPT_STYLE.colors['T'], T, SCRIPT_STYLE.clock, duration)
+				else
+					SCRIPT_STYLE.colors = { B = B, E = E, T = T }
+					SCRIPT_STYLE.clock = nil
+				end
+
+				set_style(SCRIPT_STYLE.colors)
+			end
+		
+			if imgui.ColorEdit4(u8'Цвет чата организации', colorRchat, imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.NoAlpha) then
+				local clr = imgui.ImColor.FromFloat4(colorRchat.v[1], colorRchat.v[2], colorRchat.v[3], colorRchat.v[4]):GetU32()
+				cfg.main.colorRchat = clr
+				inicfg.save(cfg, 'Bank_Config.ini')
+			end
+			imgui.SameLine(imgui.GetWindowWidth() - 150)
+			if imgui.Button(u8("Тест##RCol"), imgui.ImVec2(50, 20)) then
+				local r, g, b, a = imgui.ImColor(cfg.main.colorRchat):GetRGBA()
+				sampAddChatMessage('[R] '..cfg.nameRank[cfg.main.rank]..' '..sampGetPlayerNickname(tonumber(selfid))..'['..selfid..']: (( Это сообщение видите только вы! ))', join_rgb(r, g, b))
+			end
+			imgui.SameLine(imgui.GetWindowWidth() - 95)
+			if imgui.Button(u8("Стандартный##Rcol"), imgui.ImVec2(90, 20)) then
+				cfg.main.colorRchat = 4282626093
+				if inicfg.save(cfg, 'Bank_Config.ini') then 
+					addBankMessage('Стандартный цвет чата организации восстановлен!')
+					colorRchat = imgui.ImFloat4(imgui.ImColor(cfg.main.colorRchat):GetFloat4())
+				end
+			end
+
+			if imgui.ColorEdit4(u8'Цвет чата департамента', colorDchat, imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.NoAlpha) then
+				local clr = imgui.ImColor.FromFloat4(colorDchat.v[1], colorDchat.v[2], colorDchat.v[3], colorDchat.v[4]):GetU32()
+				cfg.main.colorDchat = clr
+				inicfg.save(cfg, 'Bank_Config.ini')
+			end
+			imgui.SameLine(imgui.GetWindowWidth() - 150)
+			if imgui.Button(u8("Тест##DCol"), imgui.ImVec2(50, 20)) then
+				local r, g, b, a = imgui.ImColor(cfg.main.colorDchat):GetRGBA()
+				sampAddChatMessage('[D] '..cfg.nameRank[cfg.main.rank]..' '..sampGetPlayerNickname(tonumber(selfid))..'['..selfid..']: Это сообщение видите только вы!', join_rgb(r, g, b))
+			end
+			imgui.SameLine(imgui.GetWindowWidth() - 95)
+			if imgui.Button(u8("Стандартный##DCol"), imgui.ImVec2(90, 20)) then
+				cfg.main.colorDchat = 4294940723
+				if inicfg.save(cfg, 'Bank_Config.ini') then 
+					addBankMessage('Стандартный цвет чата департамента восстановлен!')
+					colorDchat = imgui.ImFloat4(imgui.ImColor(cfg.main.colorDchat):GetFloat4())
+				end
+			end
+
+			imgui.NewLine()
+			imgui.TextDisabled(u8"Связь с разработчиком:")
+
+			imgui.PushStyleVar(imgui.StyleVar.FrameRounding, 5)
+			imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.10, 0.35, 0.80, 0.8))
+			imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.10, 0.35, 0.80, 0.9))
+			imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.10, 0.35, 0.80, 1))
+			imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(1, 1, 1, 1))
+			if imgui.Button(u8("VK"), imgui.ImVec2(80, 25)) then
+				os.execute("explorer https://vk.me/cosui")
+			end
+			imgui.PopStyleColor(4)
+			imgui.SameLine(nil, 5)
+			imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.00, 0.60, 1.00, 0.8))
+			imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.00, 0.60, 1.00, 0.9))
+			imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.00, 0.60, 1.00, 1))
+			if imgui.Button(u8("Telegram"), imgui.ImVec2(80, 25)) then
+				os.execute("explorer https://t.me/cosmo_way")
+			end
+			imgui.PopStyleColor(3)
+			imgui.SameLine(nil, 5)
+			imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.15, 0.23, 0.36, 1.0))
+			imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.25, 0.33, 0.46, 1.0))
+			imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.35, 0.43, 0.56, 1.0))
+			if imgui.Button(u8("Blast Hack"), imgui.ImVec2(80, 25)) then
+				os.execute("explorer https://www.blast.hk/threads/58083/")
+			end
+			imgui.PopStyleColor(3)
+			imgui.PopStyleVar()
+			
+			imgui.NewLine()
+
+			imgui.BeginGroup()
+				if imgui.Button(u8('Проверить обновления ')..fa.ICON_FA_DOWNLOAD, imgui.ImVec2(150, 20)) then
+					autoupdate(jsn_upd); checkData()
+				end
+
+				if imgui.Button(u8('Ручное обновление ')..fa.ICON_FA_DOWNLOAD, imgui.ImVec2(150, 20)) then
+					local url = "https://gitlab.com/Cosmo-ctrl/bank-helper-for-arizona-rp/-/raw/main/Bank-Helper.lua?inline=false"
+					local path = getWorkingDirectory() .. "\\" .. thisScript().filename
+					local command = string.format("bitsadmin /transfer n \"%s\" \"%s\"", url, path)
+					os.execute(command)
+				end
+				imgui.Hint("HandUpdate", u8"Установить последнюю версию принудительно\n(Откроется консоль, может потребоваться некоторое время)")
+
 				if imgui.RedButton(u8'Удалить Bank-Helper', imgui.ImVec2(150, 20)) then
 					imgui.OpenPopup('##deleteBankHelper')
 				end
-
 				imgui.SetNextWindowSize(imgui.ImVec2(400, -1), imgui.Cond.FirstUseEver)
 				imgui.PushStyleColor(imgui.Col.ModalWindowDarkening, imgui.ImVec4(0.70, 0.00, 0.00, 0.10))
 				if imgui.BeginPopupModal('##deleteBankHelper', _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoTitleBar) then
@@ -2637,22 +2641,6 @@ function imgui.OnDrawFrame()
 					imgui.EndPopup()
 				end
 				imgui.PopStyleColor()
-				imgui.NewLine()
-			end
-
-			imgui.NewLine()
-
-			imgui.BeginGroup()
-				if imgui.Button(u8('Проверить обновления ')..fa.ICON_FA_DOWNLOAD, imgui.ImVec2(150, 20)) then
-					autoupdate(jsn_upd); checkData()
-				end
-				if imgui.Button(u8('Ручное обновление ')..fa.ICON_FA_DOWNLOAD, imgui.ImVec2(150, 20)) then
-					local url = "https://gitlab.com/Cosmo-ctrl/bank-helper-for-arizona-rp/-/raw/main/Bank-Helper.lua?inline=false"
-					local path = getWorkingDirectory() .. "\\" .. thisScript().filename
-					local command = string.format("bitsadmin /transfer n \"%s\" \"%s\"", url, path)
-					os.execute(command)
-				end
-				imgui.Hint("HandUpdate", u8"Установить последнюю версию принудительно\n(Откроется консоль, может потребоваться некоторое время)")
 			imgui.EndGroup()
 
 			local h = imgui.GetItemRectSize().y
@@ -2665,6 +2653,10 @@ function imgui.OnDrawFrame()
 			if imgui.GreenButton(u8'Список изменений', imgui.ImVec2(-1, 20)) then
 				if not infoupdate.state then infoupdate:switch() end
 			end
+
+			imgui.NewLine()
+			imgui.CenterTextColoredRGB('{AAAAAA}By Cosmo, 2020 - 2022')
+			imgui.Spacing()
 		end
 
 		if type_window.v == 6 then 
@@ -4596,12 +4588,10 @@ function reload(show_error)
 end
 
 function takeScreenshot()
-	lua_thread.create(function()
-		wait(300)
-		setVirtualKeyDown(0x77, true)
-		wait(30)
-		setVirtualKeyDown(0x77, false)
-	end)
+	local base = getModuleHandle("samp.dll")
+	local vSAMP = getGameGlobal(707) <= 21 and "R1" or "R3"
+	local offset = { ["R1"] = 0x70FC0, ["R3"] = 0x74EB0 }
+	ffi.cast("void (__cdecl *)(void)", base + offset[vSAMP])()
 end
 
 function addBankMessage(message, color)
@@ -4953,18 +4943,19 @@ changelog = {
 			"Теперь что-бы остановить проигрывающуюся отыгровку достаточно нажать «Backspace»",
 			"Если нажать правой кнопкой мыши по услуге (/bankmenu), то она выполнится без отыгровки",
 			"Через один/два часа (в зависимости от ранга) после получения ларца орг. вам придет уведомление, что пора получать новый",
-			"Теперь, если вы играете через лаунчер Arizona Games, то авто-скриншоты будут делаться через лаунчеровскую систему (сохраняясь по датам), а не через стандартную самповскую",
 			"В настройки добавлена кнопка «Ручное обновление», для тех, у кого по каким-то причинам не работает система автообновления.",
 			"Отыгровка приветствия (Через ПКМ + Q) теперь пишется в зависимости от времени на сервере, а не по вашему местному времени. Рекомендуется ввести /time что-бы откалибровать время",
 			"Раздел «Повышения» переименован в «Меню сотрудника». Теперь в нём можно не только повысить сотрудника, но и посмотреть его успеваемость, выдать выговор, уволить и так далее..",
 			"Настройка времени задержки отыгровок теперь сохраняется как положено",
+			"Немного изменён внешний вид раздела настроек",
 			"Добавлена функция «Авто-дубинка», аналогичная авто-форме",
 			"Изменено меню квестов у бота"
 		},
 		patches = {
 			show = false,
 			info = {
-				"Вырезаны формы автозаполнения (!пост, !лекция, !треня) из за ненадобности, а так же они приводили некоторых пользователей к крашам"
+				"Вырезаны формы автозаполнения (!пост, !лекция, !треня) из за ненадобности, а так же они приводили некоторых пользователей к крашам",
+				"Исправлены некоторые моменты, которые приводили к крашам"
 			}
 		}
 	},

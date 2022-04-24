@@ -1,6 +1,6 @@
 script_name('Bank-Helper')
 script_author('Cosmo')
-script_version('25.3')
+script_version('26.0')
 
 require "moonloader"
 require "sampfuncs"
@@ -1024,9 +1024,10 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук 
 		elseif await['card_recreate'] then 	send(1, 4); await['card_recreate'] = nil
 		elseif await['dep_plus'] then 		send(1, 5); await['dep_plus'] = nil
 		elseif await['dep_minus'] then 		send(1, 6); await['dep_minus'] = nil
-		elseif await['dep_check'] then 		send(1, 7); await['dep_check'] = nil
-		elseif await['vip_create'] then 	send(1, 8); await['vip_create'] = nil
-		elseif await['addcard'] then 		send(1, 9); await['addcard'] = nil
+		elseif await['dep_plus_10'] then 	send(1, 7); await['dep_plus_10'] = nil
+		elseif await['dep_check'] then 		send(1, 8); await['dep_check'] = nil
+		elseif await['vip_create'] then 	send(1, 9); await['vip_create'] = nil
+		elseif await['addcard'] then 		send(1, 10); await['addcard'] = nil
 		end
 		return false
 	end
@@ -1145,7 +1146,7 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук 
 				wait(2000)
 				addBankMessage('Вы не в организации {M}«Центральный Банк»')
 				addBankMessage('Скрипт работает только в этой организации')
-				addBankMessage('Если вы считаете, что это ошибка - напишите разработчику {M}vk.com/opasanya')
+				addBankMessage('Если вы считаете, что это ошибка - напишите разработчику {M}vk.com/cosui')
 				addBankMessage('Скрипт отключен..')
 				log('Скрипт отключен. Вы не в организации "Центральный Банк"')
 				unload(false)
@@ -1398,6 +1399,7 @@ function imgui.OnDrawFrame()
 							if imgui.Button(fa.ICON_FA_GAVEL, imgui.ImVec2(-1, 30)) then
 								imgui.OpenPopup("##edit_expel")
 							end
+							imgui.Hint('expelbut', u8'Выгнать из банка')
 						else
 							imgui.DisableButton(fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
 							imgui.Hint('expel2rank', u8'Доступно со 5 ранга')
@@ -1423,7 +1425,7 @@ function imgui.OnDrawFrame()
 						end
 
 						imgui.SetCursorPos(imgui.ImVec2(165, 45))
-						if cfg.main.rank > 4 then
+						if cfg.main.rank >= 3 then
 							if imgui.Button(u8('Снять депозит ')..fa.ICON_FA_MINUS_CIRCLE, imgui.ImVec2(250, 30)) then
 								int_bank:switch()
 								await['dep_minus'] = os.clock()
@@ -1441,12 +1443,35 @@ function imgui.OnDrawFrame()
 							end
 						else
 							imgui.DisableButton(u8('Снять депозит ')..fa.ICON_FA_LOCK, imgui.ImVec2(250, 30))
-							imgui.Hint('depositdown5rank', u8'Доступно с 5 ранга')
+							imgui.Hint('depositdown5rank', u8'Доступно с 3 ранга')
 						end
 
 						imgui.SetCursorPos(imgui.ImVec2(165, 80))
-						if cfg.main.rank > 4 then
-							if imgui.Button(u8('Пополнить депозит ')..fa.ICON_FA_PLUS_CIRCLE, imgui.ImVec2(250, 30)) then
+						if cfg.main.rank >= 3 then
+							if imgui.Button(u8('Пополнить депозит ')..fa.ICON_FA_PLUS_CIRCLE, imgui.ImVec2(cfg.main.rank > 3 and 250 or -1, 30)) then
+								int_bank:switch()
+								await[cfg.main.rank >= 4 and 'dep_plus_10' or 'dep_plus'] = os.clock()
+								play_message(MsgDelay.v, false, {
+									{ "/me {sex:открыл|открыла} на планшете раздел «Депозиты»" },
+									{ "/me {sex:выбрал|выбрала} пункт «Пополнить» и {sex:нажал|нажала} «Распечатать»" },
+									{ "/me {sex:взял|взяла} распечатанный бланк и {sex:передал|передала} его %s", rpNick(actionId) },
+									{ "/bankmenu %s", actionId }
+								})
+							end
+							if imgui.IsItemClicked(1) then
+								await[cfg.main.rank >= 4 and 'dep_plus_10' or 'dep_plus'] = os.clock()
+								sampSendChat(("/bankmenu %s"):format(actionId))
+								int_bank:switch()
+							end
+						else
+							imgui.DisableButton(u8('Пополнить депозит ')..fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
+							imgui.Hint('depositeup3rank', u8'Доступно с 3 ранга')
+						end
+
+						if cfg.main.rank >= 4 then
+							imgui.SameLine(nil, 5)
+
+							if imgui.Button(fa.ICON_FA_LEVEL_DOWN_ALT, imgui.ImVec2(-1, 30)) then
 								int_bank:switch()
 								await['dep_plus'] = os.clock()
 								play_message(MsgDelay.v, false, {
@@ -1456,18 +1481,16 @@ function imgui.OnDrawFrame()
 									{ "/bankmenu %s", actionId }
 								})
 							end
+							imgui.Hint('depositold', u8'Выдать форму пополнения депозита\nдо 5 миллионов (без комиссии)')
 							if imgui.IsItemClicked(1) then
 								await['dep_plus'] = os.clock()
 								sampSendChat(("/bankmenu %s"):format(actionId))
 								int_bank:switch()
 							end
-						else
-							imgui.DisableButton(u8('Пополнить депозит ')..fa.ICON_FA_LOCK, imgui.ImVec2(250, 30))
-							imgui.Hint('depositeup5rank', u8'Доступно с 5 ранга')
 						end
 
 						imgui.SetCursorPos(imgui.ImVec2(165, 115))
-						if cfg.main.rank > 5 then
+						if cfg.main.rank >= 6 then
 							if imgui.Button(u8('Оформить кредит ')..fa.ICON_FA_CALCULATOR, imgui.ImVec2(-1, 30)) then
 								go_credit = true
 								play_message(MsgDelay.v, false, {
@@ -1486,7 +1509,7 @@ function imgui.OnDrawFrame()
 						end
 
 						imgui.SetCursorPos(imgui.ImVec2(165, 150))
-						if cfg.main.rank > 4 then
+						if cfg.main.rank >= 3 then
 							if imgui.Button(u8('Задолженности ')..fa.ICON_FA_MONEY_CHECK, imgui.ImVec2(291 / 2 - 2.5, 30)) then
 								int_bank:switch()
 								await['debt'] = os.clock()
@@ -1503,12 +1526,12 @@ function imgui.OnDrawFrame()
 							end
 						else
 							imgui.DisableButton(u8('Задолженности ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
-							imgui.Hint('debt5rank', u8'Доступно с 5 ранга')
+							imgui.Hint('debt3rank', u8'Доступно с 3 ранга')
 						end
 
 						imgui.SameLine(nil, 5)
 
-						if cfg.main.rank > 4 then
+						if cfg.main.rank >= 3 then
 							if imgui.Button(u8('Выписка по счёту ')..fa.ICON_FA_PIGGY_BANK, imgui.ImVec2(291 / 2 - 2.5, 30)) then
 								int_bank:switch()
 								await['get_money'] = os.clock()
@@ -1525,11 +1548,11 @@ function imgui.OnDrawFrame()
 							end
 						else
 							imgui.DisableButton(u8('Выписка по счёту ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
-							imgui.Hint('howmuchmoney5rank', u8'Доступно с 5 ранга')
+							imgui.Hint('howmuchmoney3rank', u8'Доступно с 3 ранга')
 						end
 
 						imgui.SetCursorPos(imgui.ImVec2(165, 185))
-						if cfg.main.rank > 4 then
+						if cfg.main.rank >= 3 then
 							if imgui.Button(u8('Оформить карту ')..fa.ICON_FA_CREDIT_CARD, imgui.ImVec2(291 / 2 - 2.5, 30)) then
 								int_bank:switch()
 								await['card_create'] = os.clock()
@@ -1548,12 +1571,12 @@ function imgui.OnDrawFrame()
 							end
 						else
 							imgui.DisableButton(u8('Оформить карту ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
-							imgui.Hint('givecard5rank', u8'Доступно с 5 ранга')
+							imgui.Hint('givecard3rank', u8'Доступно с 3 ранга')
 						end
 
 						imgui.SameLine(nil, 5)
 
-						if cfg.main.rank > 4 then
+						if cfg.main.rank >= 3 then
 							if imgui.Button(u8('VIP-Карта ')..fa.ICON_FA_TICKET_ALT, imgui.ImVec2(291 / 2 - 2.5, 30)) then
 								int_bank:switch()
 								await['vip_create'] = os.clock()
@@ -1573,11 +1596,11 @@ function imgui.OnDrawFrame()
 							end
 						else
 							imgui.DisableButton(u8('VIP-Карта ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
-							imgui.Hint('givevip5rank', u8'Доступно с 5 ранга')
+							imgui.Hint('givevip3rank', u8'Доступно с 3 ранга')
 						end
 
 						imgui.SetCursorPos(imgui.ImVec2(165, 220))
-						if cfg.main.rank > 4 then
+						if cfg.main.rank >= 3 then
 							if imgui.Button(u8('Дополнительный счёт ')..fa.ICON_FA_PLUS_CIRCLE, imgui.ImVec2(-1, 30)) then
 								int_bank:switch()
 								await['addcard'] = os.clock()
@@ -1595,18 +1618,18 @@ function imgui.OnDrawFrame()
 								int_bank:switch()
 							end
 						else
-							imgui.DisableButton(u8('Дополнительный счёт ')..fa.ICON_FA_PLUS_CIRCLE, imgui.ImVec2(-1, 30))
-							imgui.Hint('addcard5rank', u8'Доступно с 5 ранга')
+							imgui.DisableButton(u8('Дополнительный счёт ')..fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
+							imgui.Hint('addcard3rank', u8'Доступно с 3 ранга')
 						end
 
 						imgui.SetCursorPos(imgui.ImVec2(165, 255))
-						if cfg.main.rank > 4 then
+						if cfg.main.rank >= 3 then
 							if imgui.Button(u8('Восстановить PIN-Код ')..fa.ICON_FA_RECYCLE, imgui.ImVec2(-1, 30)) then
 								imgui.OpenPopup(u8("Выбор действия##Card"))
 							end
 						else
 							imgui.DisableButton(u8('Восстановить PIN-Код ')..fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
-							imgui.Hint('restorecard5rank', u8'Доступно с 5 ранга')
+							imgui.Hint('restorecard3rank', u8'Доступно с 3 ранга')
 						end
 						if imgui.BeginPopupModal(u8("Выбор действия##Card"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
 							imgui.CenterTextColoredRGB(mc..'Обратите внимание!\nЭтот игрок возможно взломан, хотите\nспросить об этом в /report?')
@@ -1642,8 +1665,8 @@ function imgui.OnDrawFrame()
 							imgui.EndPopup()
 						end
 						imgui.SetCursorPos(imgui.ImVec2(420, 45))
-						if cfg.main.rank > 4 then
-							if imgui.Button(fa.ICON_FA_CLOCK, imgui.ImVec2(35, 65)) then
+						if cfg.main.rank >= 3 then
+							if imgui.Button(fa.ICON_FA_CLOCK, imgui.ImVec2(35, 30)) then
 								int_bank:switch()
 								await['dep_check'] = os.clock()
 								play_message(MsgDelay.v, false, {
@@ -1652,14 +1675,15 @@ function imgui.OnDrawFrame()
 									{ "/bankmenu %s", actionId }
 								})
 							end
+							imgui.Hint('getdeptime', u8'Узнать, через сколько можно\nснять с депозита')
 							if imgui.IsItemClicked(1) then
 								await['dep_check'] = os.clock()
 								sampSendChat(("/bankmenu %s"):format(actionId))
 								int_bank:switch()
 							end
 						else
-							imgui.DisableButton(fa.ICON_FA_LOCK, imgui.ImVec2(35, 65))
-							imgui.Hint('depositecheck5rank', u8'Доступно с 5 ранга')
+							imgui.DisableButton(fa.ICON_FA_LOCK, imgui.ImVec2(35, 30))
+							imgui.Hint('depositecheck3rank', u8'Доступно с 3 ранга')
 						end
 					else
 						imgui.BeginChild("##CreditWindow", imgui.ImVec2(-1, 275), true, imgui.WindowFlags.NoScrollbar)
@@ -1802,8 +1826,7 @@ function imgui.OnDrawFrame()
 											"/r Прошу подойти на кассу №%s, нужно принять человека прошедшего собеседование" 
 											or
 											"/r Прошу подойти ко мне, что-бы принять человека прошедшего собеседование"), kassa 
-										},
-										{ "Можете переодеваться и начинать работать!" }
+										}
 									})
 								end
 							else
@@ -3947,37 +3970,46 @@ local bank_pickups_pos = {
 	{ x = -2666, y = 792 }
 }
 
-function se.onSendPlayerSync(data)
-	if se.MODULEINFO.version < 3 and not WARNING_SE then
-		addBankMessage("Работа скрипта прервана! У Вас установлена старая версия модуля {M}SAMP.lua (samp.events)")
-		addBankMessage("Необходима версия не ниже {M}3{W} (У вас " .. tostring(se.MODULEINFO.version) .. ")")
-		addBankMessage("Для обновления следуйте инструкции в консоли {M}(Нажмите Alt + Ё)")
+function onSendPacket(id, bs)
+	if id == 207 then -- onSendPlayerSync
+		local Packet_ID = raknetBitStreamReadInt8(bs)
+		local lrKey = raknetBitStreamReadInt16(bs)
+		local udKey = raknetBitStreamReadInt16(bs)
+		local keys = raknetBitStreamReadInt16(bs)
+		local X = raknetBitStreamReadFloat(bs)
+		local Y = raknetBitStreamReadFloat(bs)
+		local Z = raknetBitStreamReadFloat(bs)
+		local quat_w = raknetBitStreamReadFloat(bs)
+		local quat_x = raknetBitStreamReadFloat(bs)
+		local quat_y = raknetBitStreamReadFloat(bs)
+		local quat_z = raknetBitStreamReadFloat(bs)
+		local health = raknetBitStreamReadInt8(bs)
+		local armour = raknetBitStreamReadInt8(bs)
+		local additional_key = raknetBitStreamReadInt8(bs)
+		local weapon_id = raknetBitStreamReadInt8(bs)
+		local special_action = raknetBitStreamReadInt8(bs)
+		local velocity_x = raknetBitStreamReadFloat(bs)
+		local velocity_y = raknetBitStreamReadFloat(bs)
+		local velocity_z = raknetBitStreamReadFloat(bs)
+		local surfing_offsets_x = raknetBitStreamReadFloat(bs)
+		local surfing_offsets_y = raknetBitStreamReadFloat(bs)
+		local surfing_offsets_z = raknetBitStreamReadFloat(bs)
+		local surfing_vehicle_id = raknetBitStreamReadInt16(bs)
+		local animation_id = raknetBitStreamReadInt16(bs)
+		local animation_flags = raknetBitStreamReadInt16(bs)
 
-		log("{FF2060}=========================================================================")
-		log("{FFDD00}Ссылка для скачивания последней версии SAMP.lua:")
-		log("{30AAFF}https://github.com/THE-FYP/SAMP.Lua/releases/latest")
-		log("")
-		log("{FFDD00}Установка:")
-		log("{FFDD00} - Скачать файл {FFFFFF}samp-lua-vX.X.X.zip")
-		log("{FFDD00} - Открыть архив и скопировать папку {FFFFFF}«samp» {FF6060}(Не содержимое папки, а её саму!)")
-		log("{FFDD00} - Вставить папку в {FFFFFF}" .. getWorkingDirectory() .. "\\lib\\")
-		log("{FFDD00} - Перезайти в игру")
-		log("{FF2060}=========================================================================")
-
-		WARNING_SE = true
-		unload(false)
-		return
-	elseif not WARNING_SE and data.specialKey == 2 and getActiveInterior() ~= 0 then
-		local pX, pY, pZ = getCharCoordinates(PLAYER_PED)
-		for id = 0, 4095 do
-			local pickup = sampGetPickupHandleBySampId(id)
-			if pickup ~= 0 then
-				local x, y, z = getPickupCoordinates(pickup)
-				for i, pos in ipairs(bank_pickups_pos) do
-					if pos.x == math.modf(x) and pos.y == math.modf(y) then
-						if getDistanceBetweenCoords2d(pX, pY, pos.x, pos.y) <= 3 then
-							sampSendPickedUpPickup(id)
-							return
+		if additional_key == 128 and getActiveInterior() ~= 0 then -- Pressed N
+			local pX, pY, pZ = getCharCoordinates(PLAYER_PED)
+			for id = 0, 4095 do
+				local pickup = sampGetPickupHandleBySampId(id)
+				if pickup ~= 0 then
+					local x, y, z = getPickupCoordinates(pickup)
+					for i, pos in ipairs(bank_pickups_pos) do
+						if pos.x == math.modf(x) and pos.y == math.modf(y) then
+							if getDistanceBetweenCoords2d(pX, pY, pos.x, pos.y) <= 3 then
+								sampSendPickedUpPickup(id)
+								return
+							end
 						end
 					end
 				end
@@ -4934,6 +4966,27 @@ function imgui.ToggleButton(str_id, bool)
 end
 
 changelog = {
+	[26] = {
+		version = '26',
+		comment = '',
+		date = os.time({day = '24', month = '4', year = '2022'}),
+		log = {
+			{
+				title = "Обновлено меню взаимодействия с клиентом",
+				show = true,
+				more = {
+					"а) Почти все банковские услуги понижены до 3 ранга",
+					"б) С 4 ранга доступна кнопка выдачи депозита до 10 миллионов (2 процента идёт сотруднику банка)"
+				}
+			},
+			"Улучшена стабильность и исправлены некоторые проблемы",
+			"Убрана зависимость от SAMP.lua версии 3.0 и выше"
+		},
+		patches = {
+			show = false,
+			info = {}
+		}
+	},
 	[25] = {
 		version = '25',
 		comment = '',

@@ -1,6 +1,6 @@
 script_name('Bank-Helper')
 script_author('Cosmo')
-script_version('27.0')
+script_version('28.0')
 
 require "moonloader"
 require "sampfuncs"
@@ -59,7 +59,8 @@ local cfg = inicfg.load({
 		auto_uniform = true,
 		auto_stick = true,
 		bank_color = 2150206647,
-		time_offset = 0
+		time_offset = 0,
+		interior_style = 1
 	},
 	Chat = {
 		expel = true,
@@ -708,6 +709,195 @@ function se.onCreatePickup(id, model, pickupType, position)
 	end
 end
 
+TEXTURE_WALL1 = "ab_hosWallUpr"
+TEXTURE_WALL2 = "GB_restaursmll11"
+TEXTURE_FLOR1 = "la_flair1"
+TEXTURE_FLOR2 = "sw_floor1"
+TEXTURE_CEILI = "concpanel_la"
+TEXTURE_COLUM = "sw_brick05"
+TEXTURE_WINDW = "GB_restaursmll10"
+TEXTURE_DOOR1 = "doorkb_1_256"
+TEXTURE_DOOR2 = "AH_stolewindow"
+TEXTURE_MLAMP = "tikireed01_128"
+TEXTURE_FRAME = "black64"
+TEXTURE_DJAMB = "CJ_WOOD6"
+TEXTURE_TUMB1 = "barbersmir1"
+TEXTURE_TUMB2 = "sanairtex2"
+TEXTURE_BANER = "metalic_64"
+TEXTURE_BNONE = "none"
+TEXTURE_GLASS = "sfe_arch8"
+
+Interior = {}
+Interior.pool = {}
+Interior.count_textures = {}
+Interior.presets = {
+	{
+		name = "Оригинальный",
+		[TEXTURE_WALL1] = { n = 0, id = 14674, txd = "civic02cj", name = "ab_hosWallUpr" },
+		[TEXTURE_WALL2] = { n = 0, id = 18029, txd = "genintintsmallrest", name = "GB_restaursmll11" },
+		[TEXTURE_FLOR1] = { n = 0, id = 14387, txd = "dr_gsnew", name = "la_flair1", color = -1 },
+		[TEXTURE_FLOR2] = { n = 0, id = 12853, txd = "cunte_gas01", name = "sw_floor1" },
+		[TEXTURE_CEILI] = { n = 0, id = 11301, txd = "carshow_sfse", name = "concpanel_la", color = -1 },
+		[TEXTURE_COLUM] = { n = 0, id = 12855, txd = "cunte_cop", name = "sw_brick05" },
+		[TEXTURE_WINDW] = { n = 0, id = 18029, txd = "genintintsmallrest", name = "GB_restaursmll10" },
+		[TEXTURE_DOOR1] = { n = 0, id = 5986, txd = "chateau_lawn", name = "doorkb_1_256" },
+		[TEXTURE_DOOR2] = { n = 1, id = 14488, txd = "dogsgym", name = "AH_stolewindow" },
+		[TEXTURE_MLAMP] = { n = 0, id = 8536, txd = "tikisign", name = "tikireed01_128" },
+		[TEXTURE_FRAME] = { n = 0, id = 10765, txd = "airportgnd_sfse", name = "black64", color = -1 },
+		[TEXTURE_DJAMB] = { n = 0, id = 14652, txd = "ab_trukstpa", name = "CJ_WOOD6" },
+		[TEXTURE_TUMB1] = { n = 0, id = 14581, txd = "ab_mafiasuitea", name = "barbersmir1", color = -1 },
+		[TEXTURE_TUMB2] = { n = 1, id = 4830, txd = "airport2", name = "sanairtex2" },
+		[TEXTURE_BANER] = { n = 1, id = 3440, txd = "airportpillar", name = "metalic_64" },
+		[TEXTURE_BNONE] = { n = 2, id = 65535, txd = "none", name = "none" },
+		[TEXTURE_GLASS] = { n = 0, id = 10023, txd = "bigwhitesfe", name = "sfe_arch8", color = -1 },
+	},
+	{
+		name = "Чёрно-белый",
+		[TEXTURE_WALL1] = { n = 0, id = 10938, txd = "skyscrap_sfse", name = "ws_skyscraperwin1" },
+		[TEXTURE_WALL2] = { n = 0, id = 8399, txd = "vgs_shops", name = "vgsclubwall05_128" },
+		[TEXTURE_FLOR1] = { n = 0, id = 3975, txd = "lanbloke", name = "p_floor3" },
+		[TEXTURE_FLOR2] = { n = 0, id = 3961, txd = "lee_kitch", name = "dinerfloor01_128" },
+		[TEXTURE_CEILI] = { n = 0, id = 10938, txd = "skyscrap_sfse", name = "concpanel_la" },
+		[TEXTURE_COLUM] = { n = 0, id = 18255, txd = "cw_junkyardcs_t", name = "Was_scrpyd_shack_wall" },
+		[TEXTURE_WINDW] = { n = 0, id = 18029, txd = "genintintsmallrest", name = "GB_restaursmll10" },
+		[TEXTURE_DOOR1] = { n = 0, id = 13065, txd = "sw_fact02alt", name = "sw_patiodoors" },
+		[TEXTURE_DOOR2] = { n = 1, id = 3975, txd = "lanbloke", name = "p_floor3" },
+		[TEXTURE_MLAMP] = { n = 0, id = 16069, txd = "des_stownstrip1", name = "gnhotelwall02_128" },
+		[TEXTURE_FRAME] = { n = 0, id = 16069, txd = "des_stownstrip1", name = "gnhotelwall02_128" },
+		[TEXTURE_DJAMB] = { n = 0, id = 18255, txd = "cw_junkyardcs_t", name = "Was_scrpyd_shack_wall" },
+		[TEXTURE_TUMB1] = { n = 0, id = 10938, txd = "skyscrap_sfse", name = "ws_skyscraperwin1" },
+		[TEXTURE_TUMB2] = { n = 1, id = 8399, txd = "vgs_shops", name = "vgsclubwall05_128" },
+		[TEXTURE_BANER] = { n = 1, id = 10412, txd = "hotel1", name = "ws_stationfloor" },
+		[TEXTURE_BNONE] = { n = 2, id = 10412, txd = "hotel1", name = "ws_stationfloor" },
+		[TEXTURE_GLASS] = { n = 0, id = 10023, txd = "bigwhitesfe", name = "sfe_arch8", color = 0xFFFFFFFF },
+	},
+	{
+		name = "Красный",
+		[TEXTURE_WALL1] = { n = 0, id = 8620, txd = "excalibursign", name = "vgsclubwall05_128", color = 0xFF3030FF },
+		[TEXTURE_WALL2] = { n = 0, id = 3922, txd = "bistro", name = "DinerFloor" },
+		[TEXTURE_FLOR1] = { n = 0, id = 8394, txd = "ballysign01", name = "ballywall02_128" },
+		[TEXTURE_FLOR2] = { n = 0, id = 3979, txd = "civic01_lan", name = "airportwall_256128" },
+		[TEXTURE_CEILI] = { n = 0, id = 3975, txd = "lanbloke", name = "p_floor3" },
+		[TEXTURE_COLUM] = { n = 0, id = 3922, txd = "bistro", name = "DinerFloor" },
+		[TEXTURE_WINDW] = { n = 0, id = 18029, txd = "genintintsmallrest", name = "GB_restaursmll10" },
+		[TEXTURE_DOOR1] = { n = 0, id = 10357, txd = "tvtower_sfs", name = "ws_airportdoors1" },
+		[TEXTURE_DOOR2] = { n = 1, id = 3906, txd = "libertyhi5", name = "walldirtyneward256128" },
+		[TEXTURE_MLAMP] = { n = 0, id = 3922, txd = "bistro", name = "DinerFloor" },
+		[TEXTURE_FRAME] = { n = 0, id = 8399, txd = "vgs_shops", name = "vgsclubwall05_128" },
+		[TEXTURE_DJAMB] = { n = 0, id = 3919, txd = "librest", name = "DinerFloor" },
+		[TEXTURE_TUMB1] = { n = 0, id = 8496, txd = "lowbuild03_lvs", name = "vgshopwall03_64" },
+		[TEXTURE_TUMB2] = { n = 1, id = 3975, txd = "lanbloke", name = "p_floor3" },
+		[TEXTURE_BANER] = { n = 1, id = 10412, txd = "hotel1", name = "ws_stationfloor" },
+		[TEXTURE_BNONE] = { n = 2, id = 3975, txd = "lanbloke", name = "p_floor3" },
+		[TEXTURE_GLASS] = { n = 0, id = 10023, txd = "bigwhitesfe", name = "sfe_arch8", color = 0xAA202020 },
+	},
+	{
+		name = "Зелёный", 
+		[TEXTURE_WALL1] = { n = 0, id = 17944, txd = "lngblok_lae2", name = "white64bumpy" },
+		[TEXTURE_WALL2] = { n = 0, id = 6038, txd = "lawwhitebuilds", name = "Grass_128HV" },
+		[TEXTURE_FLOR1] = { n = 0, id = 10932, txd = "station_sfse", name = "ws_stationfloor" },
+		[TEXTURE_FLOR2] = { n = 0, id = 5401, txd = "jeffers4_lae", name = "flooringwd01_int" },
+		[TEXTURE_CEILI] = { n = 0, id = 3975, txd = "lanbloke", name = "p_floor3" },
+		[TEXTURE_COLUM] = { n = 0, id = 10403, txd = "golf_sfs", name = "golf_greengrass" },
+		[TEXTURE_WINDW] = { n = 0, id = 18029, txd = "genintintsmallrest", name = "GB_restaursmll10" },
+		[TEXTURE_DOOR1] = { n = 0, id = 10357, txd = "tvtower_sfs", name = "ws_airportdoors1" },
+		[TEXTURE_DOOR2] = { n = 1, id = 3975, txd = "lanbloke", name = "p_floor3" },
+		[TEXTURE_MLAMP] = { n = 0, id = 5401, txd = "jeffers4_lae", name = "flooringwd01_int" },
+		[TEXTURE_FRAME] = { n = 0, id = 16069, txd = "des_stownstrip1", name = "gnhotelwall02_128" },
+		[TEXTURE_DJAMB] = { n = 0, id = 6038, txd = "lawwhitebuilds", name = "Grass_128HV" },
+		[TEXTURE_TUMB1] = { n = 0, id = 3924, txd = "rc_warhoose", name = "white" },
+		[TEXTURE_TUMB2] = { n = 1, id = 10403, txd = "golf_sfs", name = "golf_greengrass" },
+		[TEXTURE_BANER] = { n = 1, id = 10412, txd = "hotel1", name = "ws_stationfloor" },
+		[TEXTURE_BNONE] = { n = 2, id = 3975, txd = "lanbloke", name = "p_floor3" },
+		[TEXTURE_GLASS] = { n = 0, id = 10023, txd = "bigwhitesfe", name = "sfe_arch8", color = 0xFF60FF20 },
+	}
+}
+setmetatable(Interior.presets, {
+	__index = function(self, v)
+		if v == "names" then
+			local names = {}
+			for i, preset in ipairs(self) do
+				names[i] = u8(preset.name)
+			end
+			return names
+		end
+	end
+})
+Interior.style = imgui.ImInt(cfg.main.interior_style - 1)
+Interior.timer = os.clock()
+Interior.pos = { x = -2675, y = 800, z = 1500 }
+Interior.objects = {
+	19377, 19428, 19355,
+	19378, 19427, 19354, 
+	06959, 19379, 11714, 
+	01499, 19384, 19929, 
+	03851, 02791, 01897,
+	19325
+}
+
+function se.onCreateObject(id, data)
+	local dist = getDistanceBetweenCoords3d(
+		data.position.x, data.position.y, data.position.z,
+		Interior.pos.x, Interior.pos.y, Interior.pos.z
+	)
+
+	if dist < 150 then
+		if os.clock() - Interior.timer > 5 then
+			Interior.count_textures = {}
+			Interior.timer = os.clock()
+			Interior.pool = {}
+		end
+
+		for _, modelId in ipairs(Interior.objects) do
+			if data.modelId == modelId then
+				Interior.count_textures[id] = 0
+				Interior.timer = os.clock()
+				Interior.pool[id] = {}
+				break
+			end
+		end
+	end
+end
+
+function se.onSetObjectMaterial(id, data)
+	if Interior.pool[id] then
+		if Interior.style.v == 0 then
+			return
+		end
+
+		Interior.pool[id][data.materialId + 1] = data.textureName
+		local preset = Interior.presets[Interior.style.v + 1]
+		if preset ~= nil then
+			local material = preset[data.textureName]
+			if material ~= nil and Interior.count_textures[id] < 2 then
+				Interior.count_textures[id] = Interior.count_textures[id] + 1
+
+				data.materialId = material.n
+				data.modelId = material.id
+				data.libraryName = material.txd
+				data.textureName = material.name
+				data.color = (material.color or 0)
+				return { id, data }
+			end
+		end
+	end
+end
+
+function setObjectMaterial(objectId, materialId, modelId, txdName, textureName, color)
+	local bs = raknetNewBitStream()
+    raknetBitStreamWriteInt16(bs, objectId)
+	raknetBitStreamWriteInt8(bs, 1) -- \\ MATERIAL_TYPE_TEXTURE
+	raknetBitStreamWriteInt8(bs, materialId)
+	raknetBitStreamWriteInt16(bs, modelId)
+	raknetBitStreamWriteInt8(bs, #txdName)
+	raknetBitStreamWriteString(bs, txdName)
+	raknetBitStreamWriteInt8(bs, #textureName)
+	raknetBitStreamWriteString(bs, textureName)
+	raknetBitStreamWriteInt32(bs, color)
+	raknetEmulRpcReceiveBitStream(84, bs) -- \\ RPC_SCRSETOBJECTMATERIAL
+	raknetDeleteBitStream(bs)
+end
+
 function se.onCreate3DText(id, color, position, distance, testLOS, attachedPlayerId, attachedVehicleId, text)
 	if ki_stat.v then
 		if text:find('Касса') and text:find(sampGetPlayerNickname(select(2, sampGetPlayerIdByCharHandle(PLAYER_PED)))) then
@@ -788,8 +978,12 @@ function se.onServerMessage(clr, msg)
 
 	local rank = string.match(msg, "^Лидер [A-z0-9_]+ повысил до (%d+) ранга")
 	if rank ~= nil then
+		rank = tonumber(rank)
 		cfg.main.dateuprank = os.time()
-		cfg.main.rank = tonumber(rank)
+		cfg.main.rank = rank
+
+		msg = string.format("Руководитель назначил Вам новую должность: {W}%s(%d)", cfg.nameRank[rank], rank)
+		return { clr, msg }
 	end
 
 	if msg:find(sampGetPlayerNickname(self_id)..' переодевается в гражданскую одежду') then
@@ -1313,16 +1507,19 @@ end
 function imgui.BeforeDrawFrame()
 	if font == nil then
 		imgui.SwitchContext()
-	    imgui.GetIO().Fonts:Clear()
-
-	    local config = imgui.ImFontConfig()
-	    config.MergeMode, config.PixelSnapH = true, true
+	    
 	    local range = {
 	    	icon = imgui.ImGlyphRanges({ 0xf000, 0xf83e }),
 	    	font = imgui.GetIO().Fonts:GetGlyphRangesCyrillic()
 	    }
 	    font = {}
-	    
+
+		local config = imgui.ImFontConfig()
+		config.PixelSnapH = true
+	    config.MergeMode = true
+	    config.OversampleH = 1
+
+	    imgui.GetIO().Fonts:Clear()
 	    for i, size in ipairs({ 13, 11, 15, 20, 35, 45 }) do
 	    	font[size] = imgui.GetIO().Fonts:AddFontFromMemoryCompressedBase85TTF(sf_bold, size, nil, range.font)
 	    	imgui.GetIO().Fonts:AddFontFromMemoryCompressedBase85TTF(fa_base, size, config, range.icon)
@@ -2096,7 +2293,7 @@ function imgui.OnDrawFrame()
 		imgui.PushStyleVar(imgui.StyleVar.Alpha, bank.alpha)
 		imgui.SetNextWindowPos(imgui.ImVec2(ex / 2, ey / 2), imgui.Cond.Appearing, imgui.ImVec2(0.5, 0.5))
 		imgui.Begin(u8'##MainMenu', _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoTitleBar + imgui.WindowFlags.AlwaysAutoResize)
-		
+
 		imgui.BeginGroup()
 			imgui.PushFont(font[35])
 			imgui.TextColored(imgui.GetStyle().Colors[imgui.Col.ButtonHovered], fa.ICON_FA_UNIVERSITY.. ' Central Bank')
@@ -2415,13 +2612,42 @@ function imgui.OnDrawFrame()
 			if imgui.InputText("##PINCODE", pincode, imgui.InputTextFlags.CharsDecimal + (PIN_PASSWORD and 0 or imgui.InputTextFlags.Password)) then
 				cfg.main.pincode = tostring(pincode.v)
 			end
-			imgui.PopItemWidth()
 			imgui.Hint('pinhint', u8'PIN-Код от вашей банковской карты\nВведите его, чтобы он вводился автоматически или\nоставьте пустым, если желаете вводить вручную')
 			imgui.SameLine()
 			imgui.TextDisabled(PIN_PASSWORD and fa.ICON_FA_EYE or fa.ICON_FA_EYE_SLASH)
 			if imgui.IsItemClicked(0) then
 				PIN_PASSWORD = not PIN_PASSWORD
 			end
+			
+			if imgui.Combo(u8"Стиль интерьера", Interior.style, Interior.presets.names, #Interior.presets.names) then
+				local preset = Interior.presets[Interior.style.v + 1]
+				if preset ~= nil then
+					if next(Interior.pool) == nil then
+						addBankMessage("Интерьер банка обновится при следующем входе в него")
+					else
+						Interior.count_textures = {}
+						for objectId, textures in pairs(Interior.pool) do
+							Interior.count_textures[objectId] = 0
+							for materialId, textureName in ipairs(textures) do
+								if preset[textureName] and Interior.count_textures[objectId] < 2 then
+									Interior.count_textures[objectId] = Interior.count_textures[objectId] + 1
+									setObjectMaterial(
+										objectId,
+										preset[textureName].n,
+										preset[textureName].id,
+										preset[textureName].txd,
+										preset[textureName].name,
+										preset[textureName].color or 0
+									)
+								end
+							end
+						end
+						addBankMessage("Стиль интерьера банка изменён на {M}«" .. preset.name .. "»")
+					end
+				end
+				cfg.main.interior_style = (Interior.style.v + 1)
+			end
+			imgui.PopItemWidth()
 
 			imgui.NewLine()
 			imgui.TextDisabled(u8"Сообщения в чате:")
@@ -3528,7 +3754,6 @@ end
 function set_style(c)
 	imgui.SwitchContext()
 	local style = imgui.GetStyle()
-	local style = imgui.GetStyle()
 	local colors = style.Colors
 	local clr = imgui.Col
 	local ImVec4 = imgui.ImVec4
@@ -3834,6 +4059,10 @@ function se.onSendChat(msg)
 end
 
 function se.onSendCommand(cmd)
+	if cmd:find("^/jp$") or cmd:find("^/jp .*") then
+		cmd = cmd:gsub("^/jp", "/jobprogress")
+	end
+
 	if cmd:find('{select_id}') then
 		if actionId ~= nil then
 			cmd = cmd:gsub('{select_id}', actionId)
@@ -4979,6 +5208,20 @@ function imgui.ToggleButton(str_id, bool)
 end
 
 changelog = {
+	[28] = {
+		version = '28',
+		comment = '',
+		date = os.time({day = '14', month = '8', year = '2022'}),
+		log = {
+			"В настройках добавлена функция изменения стиля интерьера банка. Пока что в ней доступно 3 кастомных стиля на выбор, но не исключено, что этот список будет пополнятся",
+			"Немного оптимизирована работа на устройствах с малым объёмом графической памяти (возможное исправление проблемы с прямоугольниками вместо шрифта)",
+			"Добавлена команда /jp (Более короткий вариант команды /jobprogress)"
+		},
+		patches = {
+			show = true,
+			info = {}
+		}
+	},
 	[27] = {
 		version = '27',
 		comment = '',
@@ -4991,7 +5234,7 @@ changelog = {
 			"Добавлена поддержка сервера Sedona (22)"
 		},
 		patches = {
-			show = true,
+			show = false,
 			info = {}
 		}
 	},
@@ -5002,7 +5245,7 @@ changelog = {
 		log = {
 			{
 				title = "Обновлено меню взаимодействия с клиентом",
-				show = true,
+				show = false,
 				more = {
 					"а) Почти все банковские услуги понижены до 3 ранга",
 					"б) С 4 ранга доступна кнопка выдачи депозита до 10 миллионов (2 процента идёт сотруднику банка)"
@@ -5012,7 +5255,7 @@ changelog = {
 			"Убрана зависимость от SAMP.lua версии 3.0 и выше"
 		},
 		patches = {
-			show = true,
+			show = false,
 			info = {
 				"Добавлена поддержка сервера Queen Creek (21)",
 				"Исправлен баг с проверкой рангов в /members из-за нововведения с тегами перед ником"

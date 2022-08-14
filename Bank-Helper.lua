@@ -1,6 +1,6 @@
 script_name('Bank-Helper')
 script_author('Cosmo')
-script_version('28.0')
+script_version('28.1')
 
 require "moonloader"
 require "sampfuncs"
@@ -861,11 +861,8 @@ end
 
 function se.onSetObjectMaterial(id, data)
 	if Interior.pool[id] then
-		if Interior.style.v == 0 then
-			return
-		end
-
 		Interior.pool[id][data.materialId + 1] = data.textureName
+		if Interior.style.v == 0 then return end
 		local preset = Interior.presets[Interior.style.v + 1]
 		if preset ~= nil then
 			local material = preset[data.textureName]
@@ -2647,6 +2644,7 @@ function imgui.OnDrawFrame()
 				end
 				cfg.main.interior_style = (Interior.style.v + 1)
 			end
+			imgui.Hint('InteriorStyle', u8'Если белые текстуры после замены стиля выглядят\nслишком ярко, то перезайдите в интерьер (Баг SA:MP)')
 			imgui.PopItemWidth()
 
 			imgui.NewLine()
@@ -4063,6 +4061,10 @@ function se.onSendCommand(cmd)
 		cmd = cmd:gsub("^/jp", "/jobprogress")
 	end
 
+	if cmd:find("^/cjp$") or cmd:find("^/cjp .*") then
+		cmd = cmd:gsub("^/cjp", "/checkjobprogress")
+	end
+
 	if cmd:find('{select_id}') then
 		if actionId ~= nil then
 			cmd = cmd:gsub('{select_id}', actionId)
@@ -5215,7 +5217,7 @@ changelog = {
 		log = {
 			"В настройках добавлена функция изменения стиля интерьера банка. Пока что в ней доступно 3 кастомных стиля на выбор, но не исключено, что этот список будет пополнятся",
 			"Немного оптимизирована работа на устройствах с малым объёмом графической памяти (возможное исправление проблемы с прямоугольниками вместо шрифта)",
-			"Добавлена команда /jp (Более короткий вариант команды /jobprogress)"
+			"Добавлены команды /jp b /cjp (Более короткиe варианты команд /jobprogress и /checkjobprogress)"
 		},
 		patches = {
 			show = true,

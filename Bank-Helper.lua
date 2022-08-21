@@ -272,6 +272,7 @@ local pincode 			= imgui.ImBuffer(tostring(cfg.main.pincode), 128)
 
 STATUSEX_ENDDOWNLOAD = 58
 STATUS_DOWNLOADINGDATA = 5
+STATUS_ENDDOWNLOADDATA = 6
 LAST_PLAYER_WEAPON = nil
 
 local govstr = {
@@ -4931,7 +4932,7 @@ function autoupdate(json_url)
 								function(id3, status1, p13, p23)
 									if status1 == STATUS_DOWNLOADINGDATA then
 										-- something?
-									elseif status1 == dlstatus.STATUS_ENDDOWNLOADDATA then
+									elseif status1 == STATUS_ENDDOWNLOADDATA then
 										log('Загрузка окончена. Скрипт обновлен на версию '..mc..updateversion, "Обновление")
 										goupdatestatus = true
 

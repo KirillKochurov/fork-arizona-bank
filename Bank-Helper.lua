@@ -1,35 +1,28 @@
-script_name('Bank-Helper')
-script_author('Cosmo')
-script_version('28.1')
+script_name("Bank-Helper")
+script_author("Cosmo")
+script_version("28.2")
 
 require "moonloader"
-require "sampfuncs"
 local ffi = require "ffi"
+local imgui = require "imgui"
 local memory = require "memory"
-local dlstatus = require "moonloader".download_status
-local bInicfg, inicfg       = pcall(require, "inicfg")
-local bImgui, imgui         = pcall(require, "imgui")
-local bEncoding, encoding   = pcall(require, "encoding")
-local bse, se               = pcall(require, "samp.events")
+local inicfg = require "inicfg"
+local se = require "samp.events"
+local encoding = require "encoding"
+encoding.default = "CP1251"
+u8 = encoding.UTF8
 
-local mc, sc, wc = '{3F68D1}', '{516894}', '{FFFFFF}'
-local mcx = 0x3F68D1
+local tag = "[ Central Bank ] {FFFFFF}"
+local mc, sc = "{5F88CF}", "{4E78CC}"
+local mcx = 0x5F88CF
 
-local u8 = encoding.UTF8
-encoding.default = 'CP1251'
-local noErrorDialog = false
-local tag = string.format("[ Central Bank ] %s", wc)
-local id_kassa = 0
-local distBetweenKassa = 0
-local temp_prem = nil
 local lections = {}
-local status_button_gov = false
-local go_credit = false
+local hide_pincode = false
 local unform_pickup_pos = { -2687.625, 820.875, 1500.875 }
 local stick_pickup_pos = { -2687.625, 818.125, 1500.875 }
 local jsn_upd = "https://gitlab.com/snippets/1978930/raw"
-local lect_path = getWorkingDirectory() .. '\\BHelper\\Lections.json'
-local calc_font = renderCreateFont('Calibri', 12, 1)
+local lect_path = getWorkingDirectory() .. "\\BHelper\\Lections.json"
+local calc_font = renderCreateFont("Calibri", 12, 1)
 
 local cfg = inicfg.load({
 	main = 
@@ -97,36 +90,36 @@ local cfg = inicfg.load({
 }, "Bank_Config")
 
 local ui_meta = {
-    __index = function(self, v)
-        if v == "switch" then
-            local switch = function()
-                if self.process and self.process:status() ~= "dead" then
-                    return false
-                end
-                self.timer = os.clock()
-                self.state = not self.state
+	__index = function(self, v)
+		if v == "switch" then
+			local switch = function()
+				if self.process and self.process:status() ~= "dead" then
+					return false
+				end
+				self.timer = os.clock()
+				self.state = not self.state
 
-                self.process = lua_thread.create(function()
-                    local bringFloatTo = function(from, to, start_time, duration)
-                        local timer = os.clock() - start_time
-                        if timer >= 0.00 and timer <= duration then
-                            local count = timer / (duration / 100)
-                            return count * ((to - from) / 100)
-                        end
-                        return (timer > duration) and to or from
-                    end
+				self.process = lua_thread.create(function()
+					local bringFloatTo = function(from, to, start_time, duration)
+						local timer = os.clock() - start_time
+						if timer >= 0.00 and timer <= duration then
+							local count = timer / (duration / 100)
+							return count * ((to - from) / 100)
+						end
+						return (timer > duration) and to or from
+					end
 
-                    while true do wait(0)
-                        local a = bringFloatTo(0.00, 1.00, self.timer, self.duration)
-                        self.alpha = self.state and a or 1.00 - a
-                        if a == 1.00 then break end
-                    end
-                end)
-                return true
-            end
-            return switch
-        end
-    end
+					while true do wait(0)
+						local a = bringFloatTo(0.00, 1.00, self.timer, self.duration)
+						self.alpha = self.state and a or 1.00 - a
+						if a == 1.00 then break end
+					end
+				end)
+				return true
+			end
+			return switch
+		end
+	end
 }
 
 local bank = { state = false, alpha = 0.0, duration = 0.1 }
@@ -150,12 +143,100 @@ local kassa = {
 	money = 0
 }
 
--- Imgui variables
+local Repository = {
+	{ 
+		name = "On Screen Members",
+		file = "OSM.lua",
+		libs = { ["mimgui"] = "mimgui", ["SAMP.lua"] = "samp.events" },
+		desc = "Скрипт, который может вывести весь онлайн организации (/members) на ваш экран, крайне полезная вещь не только для руководителей, но и для обычных сотрудников организации",
+		source = "https://www.blast.hk/threads/59761/",
+		url = "https://gitlab.com/uploads/-/system/personal_snippet/1978930/8150cc96d0fc86d38b0964c0f6f739cc/OSM.lua",
+		cmds = { "/osmset" }
+	},
+	{ 
+		name = "Timer Online",
+		file = "TimerOnline.lua",
+		libs = { ["Dear Imgui"] = "imgui" },
+		desc = "Скрипт, который считает ваш онлайн в игре. Умеет считать чистый онлайн, онлайн в АФК, а так же онлайн за день и за неделю",
+		source = "https://www.blast.hk/threads/59396/",
+		url = "https://gitlab.com/uploads/-/system/personal_snippet/1978930/5b5c3c01f946e0a1087699417821c52e/TimerOnline.lua",
+		cmds = { "/toset" }
+	},
+	{ 
+		name = "Leader Logger",
+		file = "LeadLogger.lua",
+		libs = { ["mimgui"] = "mimgui", ["SAMP.lua"] = "samp.events" },
+		desc = "Данная утилита будет логировать все лидерские действия в организации такие как повышения, увольнения, инвайты, выговоры и так далее. Очень полезно лидерам при составлении отчётов на форум",
+		source = "https://www.blast.hk/threads/59244/",
+		url = "https://gitlab.com/uploads/-/system/personal_snippet/1978930/e8e7f813461cc789993acac2a3364054/LeadLogger.lua",
+		cmds = { "/logger" }
+	},
+	{ 
+		name = "Chat Clist",
+		file = "cnickchat.lua",
+		libs = { ["mimgui"] = "mimgui", ["SAMP.lua"] = "samp.events" },
+		desc = "Ник игрока который что-либо написал в чат будет окрашиваться цветом его клиста (Например: Grove - зеленый, СМИ - оранжевый и т.д.)",
+		source = nil,
+		url = "https://gitlab.com/uploads/-/system/personal_snippet/1978930/2d42272f260caa9dbe9c177e3317bef8/cnickchat.lua",
+		cmds = {}
+	},
+	{ 
+		name = "Reminder",
+		file = "npm.lua",
+		libs = {},
+		desc = "Напоминание по указанному времени. Например вводите: /npm 20:20 Подать гос-волну, а скрипт уведомит вас за минуту и в указанное время в чате, а так же моргнёт экраном",
+		source = "https://t.me/c0sui/63",
+		url = "https://gitlab.com/uploads/-/system/personal_snippet/1978930/9d1868bbacacb37e6c979049935734b8/npm.lua",
+		cmds = { "/npm", "/npm off" }
+	},
+	{ 
+		name = "Vehicle Damage Informer",
+		file = "VehDamageInformer.lua",
+		libs = { ["SAMP.lua"] = "samp.events" },
+		desc = "Простой скрипт, показывающий входящий урон по вашему авто, в котором вы сидите",
+		source = "https://t.me/c0sui/13",
+		url = "https://gitlab.com/uploads/-/system/personal_snippet/1978930/ef906c1aa9e584cf488cbb8613cc0eb3/VehDamageInformer.lua",
+		cmds = {}
+	},
+	{ 
+		name = "BitCount",
+		file = "BitCount.lua",
+		libs = { ["SAMP.lua"] = "samp.events" },
+		desc = "Данный скрипт подскажет, сколько BTC возможно купить с вашим бюджетом или сколько средств доступно для вывода из имеющегося количества криптовалюты",
+		source = "https://t.me/c0sui/124",
+		url = "https://gitlab.com/uploads/-/system/personal_snippet/1978930/b7c8464fa9bbc1879e915e12ece270d6/BitCount.lua",
+		cmds = {}
+	},
+	{ 
+		name = "Climate",
+		file = "Climate.lua",
+		libs = { ["SAMP.lua"] = "samp.events" },
+		desc = "Аналог известного скрипта для изменения погоды и времени, но с поддержкой работы на лаунчере ARIZONA GAMES",
+		source = "https://t.me/c0sui/88",
+		url = "https://gitlab.com/uploads/-/system/personal_snippet/1978930/3a5c3c205e570f207e1801d09ae16d41/Climate.lua",
+		cmds = { "/st", "/sw", "/bt", "/bw" }
+	},
+	{ 
+		name = "Clock",
+		file = "clock.lua",
+		libs = {},
+		desc = "Экранные часы показывающее время с точностью до миллисекунд, а так же показ сегодняшнего числа и дня недели",
+		source = "https://t.me/c0sui/81",
+		url = "https://gitlab.com/uploads/-/system/personal_snippet/1978930/d44d58f59a4b1240c7acf59ae35f314b/clock.lua",
+		cmds = { "/clockpos" }
+	}
+}
+
+local Libs = {
+	["mimgui"] = "https://www.blast.hk/threads/66959/",
+	["SAMP.lua"] = "https://www.blast.hk/threads/14624/"
+}
+
 local type_window       = imgui.ImInt(1)
 local TypeAction        = imgui.ImInt(1)
 local giverank          = imgui.ImInt(1)
-local text_binder       = imgui.ImBuffer(65536) 
-local binder_name       = imgui.ImBuffer(40) 
+local text_binder       = imgui.ImBuffer(65535) 
+local binder_name       = imgui.ImBuffer(64) 
 local binder_delay      = imgui.ImFloat(2.5)
 local search_ustav      = imgui.ImBuffer(256)
 local credit_sum        = imgui.ImInt(5000)
@@ -165,7 +246,7 @@ local gosScreen         = imgui.ImBool(true)
 local gosDep            = imgui.ImBool(true)
 local typeLect          = imgui.ImInt(1)
 local lect_edit_name    = imgui.ImBuffer(256)
-local lect_edit_text    = imgui.ImBuffer(65536)
+local lect_edit_text    = imgui.ImBuffer(65535)
 local delayGov          = imgui.ImInt(2500)
 local blacklist 		= imgui.ImBuffer(256)
 local chat_calc			= imgui.ImBool(cfg.main.chat_calc)
@@ -188,8 +269,10 @@ local accent_status     = imgui.ImBool(cfg.main.accent_status)
 local accent            = imgui.ImBuffer(u8(cfg.main.accent), 256)
 local expelReason       = imgui.ImBuffer(u8(cfg.main.expelReason), 256)
 local pincode 			= imgui.ImBuffer(tostring(cfg.main.pincode), 128)
-CONNECTED_TO_ARIZONA 	= false
-PIN_PASSWORD = false
+
+STATUSEX_ENDDOWNLOAD = 58
+STATUS_DOWNLOADINGDATA = 5
+LAST_PLAYER_WEAPON = nil
 
 local govstr = {
 	[1] = imgui.ImBuffer(u8(cfg.govstr[1]), 256),
@@ -212,15 +295,15 @@ local chat = {
 
 local UI_COLORS = {
 	["B"] = {
-		[true] = imgui.ImVec4(0.05, 0.05, 0.07, 1.00),
-		[false] = imgui.ImVec4(0.93, 0.93, 0.93, 1.00)
+		[true] = imgui.ImVec4(0.06, 0.07, 0.12, 1.00),
+		[false] = imgui.ImVec4(0.85, 0.85, 0.85, 1.00)
 	},
 	["E"] = {
-		[true] = imgui.ImVec4(0.10, 0.30, 0.50, 1.00),
+		[true] = imgui.ImVec4(0.10, 0.40, 0.75, 1.00),
 		[false] = imgui.ImVec4(0.10, 0.30, 0.50, 1.00)
 	},
 	["T"] = {
-		[true] = imgui.ImVec4(0.95, 0.95, 0.95, 1.00),
+		[true] = imgui.ImVec4(0.70, 0.90, 1.00, 1.00),
 		[false] = imgui.ImVec4(0.15, 0.15, 0.20, 1.00)
 	}
 }
@@ -276,12 +359,12 @@ function main()
 
 	if not checkServer(select(1, sampGetCurrentServerAddress())) then
 		addBankMessage('Скрипт работает только на проекте {M}Arizona RP')
-		unload(false)
+		return thisScript():unload()
 	end
 
 	log('Скрипт готов к работе!', "Подготовка")
-	addNotify("Меню: {90A5FF}/bank (или Ctrl + B)\nВзаимодействие: {90A5FF}ПКМ + Q", 5)
-	addNotify("Текущая версия: {90A5FF}"..thisScript().version.."\nСкрипт загружен!", 5)
+	addNotify("Меню: " .. mc .. "/bank (или Ctrl + B)\nВзаимодействие: " .. mc .. "ПКМ + Q", 5)
+	addNotify("Текущая версия: " .. mc .. thisScript().version .. "\nСкрипт загружен!", 5)
 
 	if cfg.main.infoupdate then
 		infoupdate:switch()
@@ -337,14 +420,14 @@ function main()
 		end
 		lua_thread.create(function ()
 			while imgui.IsMouseDown(0) do wait(0) end
-		    process_position = { true, cfg.main.KipX, cfg.main.KipY }
-		    addBankMessage('Нажмите {M}ЛКМ{W} что-бы сохранить местоположение, или {M}ESC{W} что-бы отменить')
-		    while process_position ~= nil do
-		        local x, y = getCursorPos()
-		        cfg.main.KipX = x
-		        cfg.main.KipY = y
-		        wait(0)
-		    end
+			process_position = { true, cfg.main.KipX, cfg.main.KipY }
+			addBankMessage('Нажмите {M}ЛКМ{W} что-бы сохранить местоположение, или {M}ESC{W} что-бы отменить')
+			while process_position ~= nil do
+				local x, y = getCursorPos()
+				cfg.main.KipX = x
+				cfg.main.KipY = y
+				wait(0)
+			end
 		end)
 	end)
 
@@ -551,7 +634,7 @@ function main()
 			sampSendChat('/stats')
 		end
 	end)
- 	
+	
 	while true do
 
 		if isKeyJustPressed(VK_F9) then 
@@ -559,7 +642,18 @@ function main()
 		end
 
 		if cfg.main.rpbat then 
-			frpbat()
+			local weapon = getCurrentCharWeapon(PLAYER_PED)
+			if LAST_PLAYER_WEAPON == nil then
+				LAST_PLAYER_WEAPON = weapon
+			elseif LAST_PLAYER_WEAPON ~= weapon then
+				if weapon == 3 then 
+					sampSendChat(cfg.main.rpbat_true)
+					LAST_PLAYER_WEAPON = weapon
+				elseif LAST_PLAYER_WEAPON == 3 then
+					sampSendChat(cfg.main.rpbat_false)
+					LAST_PLAYER_WEAPON = weapon
+				end
+			end
 		end
 
 		local result, id = sampGetPlayerIdOnTargetKey(VK_Q)
@@ -592,7 +686,7 @@ function main()
 			addBankMessage(string.format('Игрок {M}%s{W} выбран в качестве значения {M}{select_id/name}', rpNick(actionId)))
 		end
 
-		if status_button_gov then 
+		if GOV_BUTTON then 
 			if tonumber(os.date("%S", os.time())) == 00 and antiflud then
 				if tonumber(os.date("%H", os.time())) == hGov.v and tonumber(os.date("%M", os.time())) == mGov.v - 1 then
 					antiflud = false
@@ -600,14 +694,14 @@ function main()
 				end
 			end
 			if tonumber(os.date("%H", os.time())) == hGov.v and tonumber(os.date("%M", os.time())) == mGov.v then 
-				status_button_gov = false
+				GOV_BUTTON = nil
 				goGov()
 			end
 		end
 
 		if sampIsChatInputActive() and chat_calc.v then
 			local isCalled, input = pcall(sampGetChatInputText)
-		    if isCalled and string.find(input, "[0-9]+") and string.find(input, "[%+%-%*%/%^]+") then 
+			if isCalled and string.find(input, "[0-9]+") and string.find(input, "[%+%-%*%/%^]+") then 
 				local result, answer = pcall(load('return ' .. input))
 				if result then
 					local output = string.format('Результат: {50AAFF}%s', answer)
@@ -618,12 +712,12 @@ function main()
 					end
 					
 					local element = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
-			        local X = getStructElement(element, 0x8, 4)
-			        local Y = getStructElement(element, 0xC, 4) + 45
-			        local l = renderGetFontDrawTextLength(calc_font, output)
-			        local h = renderGetFontDrawHeight(calc_font)
-			        renderDrawBox(X, Y, l + 15, h + 15, 0xFF101010)
-			        renderFontDrawText(calc_font, output, X + 7.5, Y + 7.5, 0xFFFFFFFF)
+					local X = getStructElement(element, 0x8, 4)
+					local Y = getStructElement(element, 0xC, 4) + 45
+					local l = renderGetFontDrawTextLength(calc_font, output)
+					local h = renderGetFontDrawHeight(calc_font)
+					renderDrawBox(X, Y, l + 15, h + 15, 0xFF101010)
+					renderFontDrawText(calc_font, output, X + 7.5, Y + 7.5, 0xFFFFFFFF)
 					if isKeyJustPressed(0x09) then 
 						sampSetChatInputText(answer) 
 					end
@@ -638,7 +732,7 @@ function main()
 			end
 		elseif SPEAKING and not SPEAKING.dead then
 			local sx, sy = getScreenResolution()
-			local text = "Нажмите " .. sc .. "BACKSPACE" .. wc .. ", если хотите прервать отыгровку"
+			local text = "Нажмите " .. sc .. "BACKSPACE{FFFFFF}, если хотите прервать отыгровку"
 			local len = renderGetFontDrawTextLength(calc_font, text)
 			local hei = renderGetFontDrawHeight(calc_font)
 			local X, Y = 10, sy - hei - 5
@@ -882,7 +976,7 @@ end
 
 function setObjectMaterial(objectId, materialId, modelId, txdName, textureName, color)
 	local bs = raknetNewBitStream()
-    raknetBitStreamWriteInt16(bs, objectId)
+	raknetBitStreamWriteInt16(bs, objectId)
 	raknetBitStreamWriteInt8(bs, 1) -- \\ MATERIAL_TYPE_TEXTURE
 	raknetBitStreamWriteInt8(bs, materialId)
 	raknetBitStreamWriteInt16(bs, modelId)
@@ -979,7 +1073,7 @@ function se.onServerMessage(clr, msg)
 		cfg.main.dateuprank = os.time()
 		cfg.main.rank = rank
 
-		msg = string.format("Руководитель назначил Вам новую должность: {W}%s(%d)", cfg.nameRank[rank], rank)
+		msg = string.format("Руководитель назначил Вам новую должность: {EEEEEE}%s(%d)", cfg.nameRank[rank], rank)
 		return { clr, msg }
 	end
 
@@ -1003,16 +1097,17 @@ function se.onServerMessage(clr, msg)
 	local member, client, reason = msg:match('%[i%] (.+){FFFFFF} выгнал (.+) из банка! Причина: (.+)')
 	if member and client and reason then 
 		if chat['expel'].v then
-			msg = string.format(tag .. 'Сотрудник %s выгнал из банка %s по причине: %s', sc .. member .. wc, sc .. client .. wc, sc .. reason)
+			msg = string.format(tag .. 'Сотрудник %s выгнал из банка %s{FFFFFF}. Причина: %s', member, sc .. client, reason)
 			return { 0x3F68D1FF, msg }
 		end
 		return false
 	end
 
-	local sum, nick = msg:match('^%[БАНК%] {%x+}Организация получила (%d+%$) %(16 процентов%) за оплату штрафа игроком ([A-z0-9_]+)')
-	if sum and nick then 
+	local sum, nick = msg:match('%[БАНК%] {%x+}Организация получила %$([%p%d]+) %(%d+ процентов%) за оплату штрафа игроком ([A-z0-9_]+)')
+	if sum and nick then
+		sum = sum:gsub("%p", "")
 		if chat['shtrafs'].v then
-			msg = string.format(tag .. 'Казна банка пополнена на %s. Житель %s внёс оплату за штраф', sc .. sum .. wc, sc .. nick:gsub('_', ' ') .. wc)
+			msg = string.format(tag .. 'Казна банка пополнена на %s{FFFFFF}. Житель %s{FFFFFF} внёс оплату за штраф', sc .. sum, sc .. nick:gsub('_', ' '))
 			return { 0x3F68D1FF, msg }
 		end
 		return false
@@ -1023,7 +1118,7 @@ function se.onServerMessage(clr, msg)
 	local nick, sum = msg:match('^{%x+}([A-z0-9_]+) {%x+}пополнил счет организации на {%x+}(%d+%$)')
 	if nick and sum then 
 		if chat['incazna'].v then
-			msg = string.format(tag .. 'Сотрудник %s пополнил казну банка на %s', sc .. nick:gsub('_', ' ') .. wc, sc .. sum .. wc)
+			msg = string.format(tag .. 'Сотрудник %s{FFFFFF} пополнил казну банка на %s', sc .. nick:gsub('_', ' '), sc .. sum)
 			return { 0x3F68D1FF, msg }
 		end
 		return false
@@ -1032,7 +1127,7 @@ function se.onServerMessage(clr, msg)
 	local member, leader = msg:match('^Приветствуем нового члена нашей организации ([A-z0-9_]+), которого пригласил: ([A-z0-9_]+)')
 	if member and leader then 
 		if chat['invite'].v then
-			msg = string.format(tag .. 'Новый член нашей организации - %s, которого принял(а) %s', sc .. member:gsub('_', ' ') .. wc, sc .. leader:gsub('_', ' ') .. wc)
+			msg = string.format(tag .. 'Новый член нашей организации - %s{FFFFFF}, которого принял(а) %s', sc .. member:gsub('_', ' '), sc .. leader:gsub('_', ' '))
 			return { 0x3F68D1FF, msg }
 		end
 		return false
@@ -1041,7 +1136,7 @@ function se.onServerMessage(clr, msg)
 	local leader, member, reason = string.match(msg, '{FFFFFF}(.+) выгнал (.+) из организации. Причина: (.+)')
 	if leader and member and reason then 
 		if chat['uval'].v then
-			msg = string.format(tag .. 'Руководитель %s уволил сотрудника %s по причине: %s', sc .. leader:gsub('_', ' ') .. wc, sc .. member:gsub('_', ' ') .. wc, wc .. reason)
+			msg = string.format(tag .. 'Руководитель %s{FFFFFF} уволил сотрудника %s{FFFFFF} по причине: %s', sc .. leader:gsub('_', ' '), sc .. member:gsub('_', ' '), sc .. reason)
 			return { 0x3F68D1FF, msg }
 		end
 		return false
@@ -1241,6 +1336,10 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук 
 			kassa.info.dep = kassa.info.dep + 1
 		end
 
+		if text:find('Вы успешно дали игроку {73B461}бланк{FFFFFF}, для пополнения своего депозита') then
+			kassa.info.dep = kassa.info.dep + 1
+		end
+
 		if text:find('Вы успешно дали игроку {73B461}бланк{FFFFFF}, для получения своего депозита') then
 			kassa.info.dep = kassa.info.dep + 1
 		end
@@ -1337,7 +1436,7 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук 
 				addBankMessage('Если вы считаете, что это ошибка - напишите разработчику {M}vk.com/cosui')
 				addBankMessage('Скрипт отключен..')
 				log('Скрипт отключен. Вы не в организации "Центральный Банк"')
-				unload(false)
+				thisScript():unload()
 			end)
 			return false
 		end
@@ -1504,22 +1603,22 @@ end
 function imgui.BeforeDrawFrame()
 	if font == nil then
 		imgui.SwitchContext()
-	    
-	    local range = {
-	    	icon = imgui.ImGlyphRanges({ 0xf000, 0xf83e }),
-	    	font = imgui.GetIO().Fonts:GetGlyphRangesCyrillic()
-	    }
-	    font = {}
+		
+		local range = {
+			icon = imgui.ImGlyphRanges({ 0xf000, 0xf83e }),
+			font = imgui.GetIO().Fonts:GetGlyphRangesCyrillic()
+		}
+		font = {}
 
 		local config = imgui.ImFontConfig()
 		config.PixelSnapH = true
-	    config.MergeMode = true
-	    config.OversampleH = 1
+		config.MergeMode = true
+		config.OversampleH = 1
 
-	    imgui.GetIO().Fonts:Clear()
-	    for i, size in ipairs({ 13, 11, 15, 20, 35, 45 }) do
-	    	font[size] = imgui.GetIO().Fonts:AddFontFromMemoryCompressedBase85TTF(sf_bold, size, nil, range.font)
-	    	imgui.GetIO().Fonts:AddFontFromMemoryCompressedBase85TTF(fa_base, size, config, range.icon)
+		imgui.GetIO().Fonts:Clear()
+		for i, size in ipairs({ 13, 11, 15, 20, 35, 45 }) do
+			font[size] = imgui.GetIO().Fonts:AddFontFromMemoryCompressedBase85TTF(sf_bold, size, nil, range.font)
+			imgui.GetIO().Fonts:AddFontFromMemoryCompressedBase85TTF(fa_base, size, config, range.icon)
 		end
 
 		NOTF_ICON = imgui.CreateTextureFromMemory(memory.strptr(notfIcon), #notfIcon)
@@ -1582,7 +1681,7 @@ function imgui.OnDrawFrame()
 				imgui.BeginChild("##Actions", imgui.ImVec2(-1, 275), true, imgui.WindowFlags.NoScrollbar)
 			end
 				if TypeAction.v == 1 then
-					if not go_credit then
+					if CREDIT_AWAIT == nil then
 						imgui.SetCursorPos(imgui.ImVec2(165, 10))
 						if imgui.Button(u8('Приветствие ')..fa.ICON_FA_CHILD, imgui.ImVec2(250, 30)) then
 							int_bank:switch()
@@ -1690,7 +1789,7 @@ function imgui.OnDrawFrame()
 						imgui.SetCursorPos(imgui.ImVec2(165, 115))
 						if cfg.main.rank >= 6 then
 							if imgui.Button(u8('Оформить кредит ')..fa.ICON_FA_CALCULATOR, imgui.ImVec2(-1, 30)) then
-								go_credit = true
+								CREDIT_AWAIT = true
 								play_message(MsgDelay.v, false, {
 									{ "/me {sex:открыл|открыла} на планшете раздел «Кредитование»" },
 									{ "/me {sex:выбрал|выбрала} пункт «Оформление кредита» и {sex:нажал|нажала} «Распечатать»" },
@@ -1699,7 +1798,7 @@ function imgui.OnDrawFrame()
 								})
 							end
 							if imgui.IsItemClicked(1) then
-								go_credit = true
+								CREDIT_AWAIT = true
 							end
 						else
 							imgui.DisableButton(u8('Оформить кредит ')..fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
@@ -1902,7 +2001,7 @@ function imgui.OnDrawFrame()
 							system_credit()
 							imgui.NewLine()
 							if imgui.MainButton(u8('Выдать кредит на '..credit_sum.v..'$'), imgui.ImVec2(-1, 30)) then
-								go_credit = false
+								CREDIT_AWAIT = nil
 								int_bank:switch()
 								await['credit_send'] = os.clock()
 								play_message(MsgDelay.v, false, {
@@ -1914,14 +2013,14 @@ function imgui.OnDrawFrame()
 								})
 							end
 							if imgui.IsItemClicked(1) then
-								go_credit = false
+								CREDIT_AWAIT = nil
 								await['credit_send'] = os.clock()
 								sampSendChat(("/bankmenu %s"):format(actionId))
 								int_bank:switch()
 							end
 
 							if imgui.Button(u8('Отменить операцию'), imgui.ImVec2(-1, 30)) then
-								go_credit = false
+								CREDIT_AWAIT = nil
 								sampSendChat("/me {sex:выкинул|выкинула} бланк в мусорное ведро")
 							end
 						imgui.EndChild()
@@ -2606,14 +2705,14 @@ function imgui.OnDrawFrame()
 			imgui.TextDisabled('(?)')
 			imgui.Hint('kippos', u8'Панель можно переместить командой /kip')
 			imgui.PushItemWidth(150)
-			if imgui.InputText("##PINCODE", pincode, imgui.InputTextFlags.CharsDecimal + (PIN_PASSWORD and 0 or imgui.InputTextFlags.Password)) then
+			if imgui.InputText("##PINCODE", pincode, imgui.InputTextFlags.CharsDecimal + (hide_pincode and 0 or imgui.InputTextFlags.Password)) then
 				cfg.main.pincode = tostring(pincode.v)
 			end
 			imgui.Hint('pinhint', u8'PIN-Код от вашей банковской карты\nВведите его, чтобы он вводился автоматически или\nоставьте пустым, если желаете вводить вручную')
 			imgui.SameLine()
-			imgui.TextDisabled(PIN_PASSWORD and fa.ICON_FA_EYE or fa.ICON_FA_EYE_SLASH)
+			imgui.TextDisabled(hide_pincode and fa.ICON_FA_EYE or fa.ICON_FA_EYE_SLASH)
 			if imgui.IsItemClicked(0) then
-				PIN_PASSWORD = not PIN_PASSWORD
+				hide_pincode = not hide_pincode
 			end
 			
 			if imgui.Combo(u8"Стиль интерьера", Interior.style, Interior.presets.names, #Interior.presets.names) then
@@ -2714,7 +2813,7 @@ function imgui.OnDrawFrame()
 				if not doesFileExist(getGameDirectory()..'/Screenshot.asi') then
 					if imgui.Button(u8'Скачать Screenshot.asi', imgui.ImVec2(150, 20)) then 
 						downloadUrlToFile('https://gitlab.com/uploads/-/system/personal_snippet/1978930/0b4025da038173a8b1ce81d5e3848901/Screenshot.asi', getGameDirectory()..'/Screenshot.asi', function (id, status, p1, p2)
-							if status == dlstatus.STATUSEX_ENDDOWNLOAD then
+							if status == STATUSEX_ENDDOWNLOAD then
 								runSampfuncsConsoleCommand('pload Screenshot.asi')
 								addBankMessage('Плагин {M}Screenshot.asi{W} загружен! Рекомендуется перезайти в игру!')
 							end
@@ -2833,48 +2932,48 @@ function imgui.OnDrawFrame()
 			imgui.NewLine()
 			imgui.TextDisabled(u8"Связь с разработчиком:")
 
-			imgui.PushStyleVar(imgui.StyleVar.FrameRounding, 5)
-			imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.10, 0.35, 0.80, 0.8))
-			imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.10, 0.35, 0.80, 0.9))
-			imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.10, 0.35, 0.80, 1))
-			imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(1, 1, 1, 1))
-			if imgui.Button(u8("VK"), imgui.ImVec2(80, 25)) then
-				os.execute("explorer https://vk.me/cosui")
-			end
-			imgui.PopStyleColor(4)
-			imgui.SameLine(nil, 5)
-			imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.00, 0.60, 1.00, 0.8))
-			imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.00, 0.60, 1.00, 0.9))
-			imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.00, 0.60, 1.00, 1))
-			if imgui.Button(u8("Telegram"), imgui.ImVec2(80, 25)) then
-				os.execute("explorer https://t.me/cosmo_way")
+			imgui.BeginGroup()
+				imgui.PushStyleVar(imgui.StyleVar.FrameRounding, 5)
+				imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.10, 0.35, 0.80, 0.8))
+				imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.10, 0.35, 0.80, 0.9))
+				imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.10, 0.35, 0.80, 1))
+				imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(1, 1, 1, 1))
+				if imgui.Button(u8("VK"), imgui.ImVec2(80, 25)) then
+					os.execute("explorer https://vk.me/cosui")
+				end
+				imgui.PopStyleColor(4)
+				imgui.SameLine(nil, 5)
+				imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.00, 0.60, 1.00, 0.8))
+				imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.00, 0.60, 1.00, 0.9))
+				imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.00, 0.60, 1.00, 1))
+				if imgui.Button(u8("Telegram"), imgui.ImVec2(80, 25)) then
+					os.execute("explorer https://t.me/cosmo_way")
+				end
+				imgui.PopStyleColor(3)
+				imgui.SameLine(nil, 5)
+				imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.15, 0.23, 0.36, 1.0))
+				imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.25, 0.33, 0.46, 1.0))
+				imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.35, 0.43, 0.56, 1.0))
+				if imgui.Button(u8("Blast Hack"), imgui.ImVec2(80, 25)) then
+					os.execute("explorer https://www.blast.hk/threads/58083/")
+				end
+				imgui.PopStyleColor(3)
+				imgui.PopStyleVar()
+			imgui.EndGroup()
+
+			imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.60, 0.30, 0.60, 1.00))
+			imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.70, 0.30, 0.70, 1.00))
+			imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.80, 0.30, 0.80, 1.00))
+			if imgui.Button(u8("Подпишись на мой телеграм канал!"), imgui.ImVec2(imgui.GetItemRectSize().x, 25)) then
+				os.execute("explorer https://t.me/c0sui")
 			end
 			imgui.PopStyleColor(3)
-			imgui.SameLine(nil, 5)
-			imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.15, 0.23, 0.36, 1.0))
-			imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.25, 0.33, 0.46, 1.0))
-			imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.35, 0.43, 0.56, 1.0))
-			if imgui.Button(u8("Blast Hack"), imgui.ImVec2(80, 25)) then
-				os.execute("explorer https://www.blast.hk/threads/58083/")
-			end
-			imgui.PopStyleColor(3)
-			imgui.PopStyleVar()
 			
 			imgui.NewLine()
 
-			imgui.BeginGroup()
-				if imgui.Button(u8('Проверить обновления ')..fa.ICON_FA_DOWNLOAD, imgui.ImVec2(150, 30)) then
-					autoupdate(jsn_upd); checkData()
-				end
-
-				if imgui.Button(u8('Ручное обновление ')..fa.ICON_FA_DOWNLOAD, imgui.ImVec2(150, 30)) then
-					local url = "https://gitlab.com/Cosmo-ctrl/bank-helper-for-arizona-rp/-/raw/main/Bank-Helper.lua?inline=false"
-					local path = getWorkingDirectory() .. "\\" .. thisScript().filename
-					local command = string.format("bitsadmin /transfer n \"%s\" \"%s\"", url, path)
-					os.execute(command)
-				end
-				imgui.Hint("HandUpdate", u8"Установить последнюю версию принудительно\n(Откроется консоль, может потребоваться некоторое время)")
-			imgui.EndGroup()		
+			if imgui.Button(u8('Полезные скрипты ')..fa.ICON_FA_PUZZLE_PIECE, imgui.ImVec2(150, 64)) then
+				type_window.v = 6
+			end
 
 			imgui.SameLine(nil, 5)
 
@@ -2900,7 +2999,7 @@ function imgui.OnDrawFrame()
 						addBankMessage('Прощай :(')
 						os.remove(thisScript().path)
 						os.remove(getWorkingDirectory() .. '\\config\\Bank_Config.ini')
-						unload(false)
+						thisScript():unload()
 					end
 					imgui.SameLine()
 					imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.20, 0.20, 0.20, 1.00))
@@ -2913,8 +3012,8 @@ function imgui.OnDrawFrame()
 				end
 				imgui.PopStyleColor()
 
-				if imgui.Button(u8('Полезные скрипты ')..fa.ICON_FA_PUZZLE_PIECE, imgui.ImVec2(-1, 30)) then
-					type_window.v = 6
+				if imgui.Button(u8('Проверить обновления ')..fa.ICON_FA_DOWNLOAD, imgui.ImVec2(-1, 30)) then
+					autoupdate(jsn_upd); checkData()
 				end
 			imgui.EndGroup()
 
@@ -2928,14 +3027,81 @@ function imgui.OnDrawFrame()
 		end
 
 		if type_window.v == 6 then 
-			imgui.CenterTextColoredRGB(mc..'Репозиторий полезных скриптов {868686}(?)')
-			imgui.Hint('aboutrepository', u8'Все скрипты сделаны лично автором этого\nбанк-хелпера и не имеют в себе стиллеров.')
+			imgui.CenterTextColoredRGB('Раздел дополнительных полезных скриптов\nот разработчика Bank-Helper\'а')
 			imgui.Separator()
-			imgui.Repository('OnScreenMembers (OSM)', 'OnScreenMembers.lua', 'Скрипт, который может вывести весь /members\nорганизации на ваш экран, крайне полезная вещь для руководителей\nа так же простых сотрудников организации', '/osm', 'https://gitlab.com/uploads/-/system/personal_snippet/1978930/ec1816d3e019ad5e7a06283ec6308d19/OnScreenMembers.lua', 'https://www.blast.hk/threads/59761/')
-			imgui.Repository('Timer Online', 'TimerOnline.lua', 'Скрипт, который считает ваш онлайн в игре.\nУмеет считать чистый онлайн, онлайн в АФК,\nа так же онлайн за день и за неделю', '/toset', 'https://gitlab.com/uploads/-/system/personal_snippet/1978930/0e7c0070d9207abd5063ddbf2cd1cf59/TimerOnline.lua', 'https://www.blast.hk/threads/59396/')
-			imgui.Repository('Leader Logger', 'LeadLogger.lua', 'Данная утилита будет логировать все лидерские действия в организации такие как повышения, увольнения, инвайты, выговоры и так далее. Очень полезно лидерам при составлении отчётов на форум', '/logger', 'https://gitlab.com/uploads/-/system/personal_snippet/1978930/26668c363e85f146567d4e0cfa4e08ae/LeadLogger.lua', 'https://www.blast.hk/threads/59244/')
-			imgui.Repository('Chat Clist', 'cnickchat.lua', 'При разговоре ники игроков в чате будут цветом их клиста', 'Автоматически', 'https://gitlab.com/uploads/-/system/personal_snippet/1978930/28975bb7431741f67540db5406ca0bf8/cnickchat.lua')
-			imgui.Repository('Premium', 'Premium.lua', 'Продвинутое и удобное меню выдачи премий сотрудникам', '/prem', 'https://gitlab.com/uploads/-/system/personal_snippet/1978930/a73761a36dc0e6c4eb8277a7639c947c/Premium.lua')
+
+			local width = imgui.GetWindowWidth()
+			for i, info in ipairs(Repository) do
+				if imgui.CollapsingHeader(u8(info.name)) then
+					imgui.TextColoredRGB(mc .. "Имя файла: {SSSSSS}" .. info.file)
+					if info.source ~= nil then
+						imgui.TextColoredRGB(mc .. "Ссылка:")
+						imgui.SameLine(nil, 4)
+						if imgui.Link(u8(info.source .. "##" .. i)) then
+							os.execute(("explorer.exe \"%s\""):format(info.source))
+						end
+					end
+
+					if #info.cmds > 1 then
+						imgui.TextColoredRGB(mc .. "Команды скрипта: {SSSSSS}" .. table.concat(info.cmds, ", "))
+					elseif #info.cmds == 1 then
+						imgui.TextColoredRGB(mc .. "Команда скрипта: {SSSSSS}" .. info.cmds[1])
+					else
+						imgui.TextColoredRGB(mc .. "Активация: {SSSSSS}автоматическая")
+					end
+					imgui.TextColoredRGB(mc .. "Описание:")
+					imgui.TextWrapped(u8(info.desc))
+
+					imgui.NewLine()
+					local missing = {}
+					for name, lib in pairs(info.libs) do
+						local exist, _ = pcall(require, lib)
+						if not exist then table.insert(missing, name) end
+					end
+
+					local path = getWorkingDirectory() .. "\\" .. info.file
+					if #missing > 0 then
+						imgui.DisableButton(u8("Установить ") .. fa.ICON_FA_DOWNLOAD .. "##Repo" .. i, imgui.ImVec2(150, 20))
+						imgui.Hint("notlibwarn" .. i, u8"Для начала установите важные компоненты ниже!")
+
+						imgui.TextColoredRGB("{FF0000}Необходимо установить:")
+						for i, name in pairs(missing) do
+							imgui.SameLine(nil, 4)
+							if imgui.Link(u8(name)) then
+								os.execute(("explorer.exe \"%s\""):format(Libs[name]))
+							end
+						end
+					elseif not doesFileExist(path) then
+						if imgui.GreenButton(u8("Установить ") .. fa.ICON_FA_DOWNLOAD .. "##Repo" .. i, imgui.ImVec2(150, 20)) then
+							downloadUrlToFile(info.url, path, function (id, status, p1, p2)
+								if status == STATUSEX_ENDDOWNLOAD then
+									addBankMessage(string.format("Скрипт «{M}%s{W}» успешно загружен!", info.name))
+									script.load(path)
+								end
+							end)
+						end
+					else
+						imgui.DisableButton(u8("Установлено ") .. fa.ICON_FA_CHECK_CIRCLE .. "##Repo" .. i, imgui.ImVec2(150, 20))
+						imgui.SameLine()
+						if imgui.RedButton(u8("Удалить ") .. fa.ICON_FA_TRASH .. "##RepoDel" .. i, imgui.ImVec2(90, 20)) then
+							for _, s in ipairs(script.list()) do
+								if s.path == path then
+							  		s:unload()
+								end
+							end
+							os.remove(path)
+							addBankMessage(string.format("Скрипт «{M}%s{W}» успешно удалён!", info.name))
+						end
+					end
+				else
+					local ext = string.match(info.file, "(%.%a+)$")
+					if ext ~= nil then
+						local len = imgui.CalcTextSize(ext).x
+						imgui.SameLine(width - len - 15)
+						imgui.TextDisabled(ext)
+					end
+				end
+			end
 		end
 		imgui.EndChild()
 		imgui.EndGroup()
@@ -3054,7 +3220,7 @@ function GlobalNotify()
 					imgui.BeginGroup()
 						imgui.SetCursorPosY(8.5)
 						imgui.PushFont(font[15])
-						imgui.TextColoredRGB('{B4BEE1}Central Bank')
+						imgui.TextColoredRGB(mc .. 'Central Bank')
 						imgui.PopFont()
 						imgui.TextColoredRGB(tostring(v.text))
 					imgui.EndGroup()
@@ -3230,8 +3396,8 @@ end
 function onWindowMessage(msg, wparam, lparam)
 	if process_position then
 		if msg == 0x0201 then -- LButton
-            addBankMessage("Месторасположение сохранено!")
-            process_position = nil; consumeWindowMessage(true, true)
+			addBankMessage("Месторасположение сохранено!")
+			process_position = nil; consumeWindowMessage(true, true)
 		elseif msg == 0x0100 and wparam == 0x1B then -- Esc
 			cfg.main.KipX = process_position[2]
 			cfg.main.KipY = process_position[3]
@@ -3292,8 +3458,8 @@ function imgui.Hint(str_id, hint, delay)
 	end
 
 	local getContrastColor = function(col)
-	    local luminance = 1 - (0.299 * col.x + 0.587 * col.y + 0.114 * col.z)
-	    return luminance < 0.5 and imgui.ImVec4(0, 0, 0, 1) or imgui.ImVec4(1, 1, 1, 1)
+		local luminance = 1 - (0.299 * col.x + 0.587 * col.y + 0.114 * col.z)
+		return luminance < 0.5 and imgui.ImVec4(0, 0, 0, 1) or imgui.ImVec4(1, 1, 1, 1)
 	end
 
 	local bg_col = imgui.GetStyle().Colors[imgui.Col.Button]
@@ -3331,9 +3497,6 @@ function onScriptTerminate(script, quitGame)
 		if inicfg.save(cfg, 'Bank_Config.ini') then 
 			log('Все настройки сохранены!')
 		end
-		if not noErrorDialog and not devmode then
-			addBankMessage("Скрипт завершил свою работу в результате ошибки!", 0xAA3333)
-		end
 	end
 end
 
@@ -3360,7 +3523,11 @@ function system_credit()
 		imgui.InvisibleButton('##widewindowSC', imgui.ImVec2(400, 1))
 		local credits = io.open("moonloader/BHelper/Кредитование.txt", "r+")
 		for line in credits:lines() do
-			imgui.CenterTextColoredRGB(line)
+			if #line == 0 then
+				imgui.NewLine()
+			else
+				imgui.CenterTextColoredRGB(line)
+			end
 		end
 		credits:close()
 		imgui.Separator()
@@ -3384,7 +3551,11 @@ function system_cadr()
 
 		local cadrsys = io.open("moonloader/BHelper/Кадровая система.txt", "r+")
 		for line in cadrsys:lines() do
-			imgui.TextColoredRGB(line)
+			if #line == 0 then
+				imgui.NewLine()
+			else
+				imgui.TextColoredRGB(line)
+			end
 		end
 		cadrsys:close()
 		imgui.Separator()
@@ -3408,7 +3579,11 @@ function system_uprank()
 		
 		local file = io.open("moonloader/BHelper/Система повышения.txt", "r+")
 		for line in file:lines() do
-			imgui.TextColoredRGB(line)
+			if #line == 0 then
+				imgui.NewLine()
+			else
+				imgui.TextColoredRGB(line)
+			end
 		end
 		file:close()
 		imgui.Separator()
@@ -3481,12 +3656,12 @@ function gov()
 		imgui.PushStyleVar(imgui.StyleVar.ItemSpacing, imgui.ImVec2(1, 1))
 		imgui.SetCursorPosX(30)
 		if imgui.Button('+##PlusHour', imgui.ImVec2(40, 20)) then
-			status_button_gov = false
+			GOV_BUTTON = nil
 			hGov.v = hGov.v + 1
 		end
 		imgui.SameLine(93)
 		if imgui.Button('+##PlusMin', imgui.ImVec2(40, 20)) then
-			status_button_gov = false 
+			GOV_BUTTON = nil 
 			mGov.v = mGov.v + 5
 		end
 
@@ -3499,12 +3674,12 @@ function gov()
 
 		imgui.SetCursorPosX(30)
 		if imgui.Button('-##MinusHour', imgui.ImVec2(40, 20)) then
-			status_button_gov = false
+			GOV_BUTTON = nil
 			hGov.v = hGov.v - 1
 		end
 		imgui.SameLine(93)
 		if imgui.Button('-##MinusMin', imgui.ImVec2(40, 20)) then
-			status_button_gov = false
+			GOV_BUTTON = nil
 			mGov.v = mGov.v - 5
 		end
 		imgui.PopStyleVar()
@@ -3552,18 +3727,18 @@ function gov()
 		imgui.TextColoredRGB('Задержка {565656}(?)')
 		imgui.Hint('infodelaygov', u8('Задержка между сообщениями в GOV-волне\nУказывается в миллисекундах (1000 мс = 1 сек)'))
 		imgui.SetCursorPos(imgui.ImVec2(300, 10))
-		if not status_button_gov then 
+		if GOV_BUTTON == nil then 
 			if tonumber(os.date("%H", os.time())) == hGov.v and tonumber(os.date("%M", os.time())) == mGov.v then
 				imgui.DisableButton(u8'Включить##gov', imgui.ImVec2(-1, -1))
 			else
 				if imgui.GreenButton(u8'Включить##gov', imgui.ImVec2(-1, -1)) then 
-					status_button_gov = true
+					GOV_BUTTON = true
 					antiflud = true
 				end
 			end
 		else
-			if imgui.RedButton(u8'До подачи: '..getOstTime(), imgui.ImVec2(-1, -1)) then 
-				status_button_gov = false
+			if imgui.RedButton(u8'До подачи: ' .. getOstTime(), imgui.ImVec2(-1, -1)) then 
+				GOV_BUTTON = nil
 			end
 		end
 		imgui.EndChild()
@@ -3866,17 +4041,6 @@ function play_bind(num)
 			num = -1
 		end
 	end)
-end
-
-function frpbat()
-	local weapon = getCurrentCharWeapon(PLAYER_PED)
-	if weapon == 3 and not rp_check then 
-		sampSendChat(cfg.main.rpbat_true)
-		rp_check = true
-	elseif weapon ~= 3 and rp_check then
-		sampSendChat(cfg.main.rpbat_false)
-		rp_check = false
-	end
 end
 
 function getPlayerIdByNickname(name)
@@ -4190,9 +4354,9 @@ function se.onSendCommand(cmd)
 		local rank = cmd:match('^/premium %d+ %d+ (%d+)')
 		if rank then
 			rank = tonumber(rank)
-			if cfg.nameRank[rank] ~= nil and temp_prem ~= cfg.nameRank[rank] then
-				temp_prem = cfg.nameRank[rank]
-				sampSendChat('/rb Премия для сотрудников на должности ' .. temp_prem)
+			if cfg.nameRank[rank] ~= nil and LAST_RANK_PREMIUM ~= cfg.nameRank[rank] then
+				LAST_RANK_PREMIUM = cfg.nameRank[rank]
+				sampSendChat('/rb Премия для сотрудников на должности ' .. LAST_RANK_PREMIUM)
 				sampSendChat(cmd)
 				return false
 			end
@@ -4260,8 +4424,8 @@ function onSendPacket(id, bs)
 end
 
 function se.onSetSpawnInfo(team, skin, _, pos, rot, weapons, ammo)
-	if CONNECTED_TO_ARIZONA then
-		CONNECTED_TO_ARIZONA = false
+	if CONNECTED_TO_ARIZONA ~= nil then
+		CONNECTED_TO_ARIZONA = nil
 		local x = math.modf(pos.x)
 		local y = math.modf(pos.y)
 		local z = math.modf(pos.z)
@@ -4420,117 +4584,148 @@ function imgui.TextColoredRGB(text)
 	render_text(text)
 end
 
-function Spinner(radius, thickness, color)
-    local style = imgui.GetStyle()
-    local pos = imgui.GetCursorScreenPos()
-    local size = imgui.ImVec2(radius * 2, (radius + style.FramePadding.y) * 2)
-    
-    imgui.Dummy(imgui.ImVec2(size.x + style.ItemSpacing.x, size.y))
+function imgui.Link(label)
+	local text = label:gsub("##.+$", "")
+    local size = imgui.CalcTextSize(text)
+    local p = imgui.GetCursorScreenPos()
+    local p2 = imgui.GetCursorPos()
+    local result = imgui.InvisibleButton(label, size)
 
-    local DrawList = imgui.GetWindowDrawList()
-    DrawList:PathClear()
-    
-    local num_segments = 30
-    local start = math.abs(math.sin(imgui.GetTime() * 1.8) * (num_segments - 5))
-    
-    local a_min = 3.14 * 2.0 * start / num_segments
-    local a_max = 3.14 * 2.0 * (num_segments - 3) / num_segments
+    imgui.SetCursorPos(p2)
 
-    local centre = imgui.ImVec2(pos.x + radius, pos.y + radius + style.FramePadding.y)
-    
-    for i = 0, num_segments do
-        local a = a_min + (i / num_segments) * (a_max - a_min)
-        DrawList:PathLineTo(imgui.ImVec2(centre.x + math.cos(a + imgui.GetTime() * 8) * radius, centre.y + math.sin(a + imgui.GetTime() * 8) * radius))
+    if imgui.IsItemHovered() then
+        imgui.TextDisabled(text)
+        imgui.GetWindowDrawList():AddLine(imgui.ImVec2(p.x, p.y + size.y), imgui.ImVec2(p.x + size.x, p.y + size.y), imgui.GetColorU32(imgui.GetStyle().Colors[imgui.Col.TextDisabled]))
+    else
+        imgui.Text(text)
     end
 
-    DrawList:PathStroke(color, false, thickness)
-    return true
+    return result
+end
+
+function Spinner(radius, thickness, color)
+	local style = imgui.GetStyle()
+	local pos = imgui.GetCursorScreenPos()
+	local size = imgui.ImVec2(radius * 2, (radius + style.FramePadding.y) * 2)
+	
+	imgui.Dummy(imgui.ImVec2(size.x + style.ItemSpacing.x, size.y))
+
+	local DrawList = imgui.GetWindowDrawList()
+	DrawList:PathClear()
+	
+	local num_segments = 30
+	local start = math.abs(math.sin(imgui.GetTime() * 1.8) * (num_segments - 5))
+	
+	local a_min = 3.14 * 2.0 * start / num_segments
+	local a_max = 3.14 * 2.0 * (num_segments - 3) / num_segments
+
+	local centre = imgui.ImVec2(pos.x + radius, pos.y + radius + style.FramePadding.y)
+	
+	for i = 0, num_segments do
+		local a = a_min + (i / num_segments) * (a_max - a_min)
+		DrawList:PathLineTo(imgui.ImVec2(centre.x + math.cos(a + imgui.GetTime() * 8) * radius, centre.y + math.sin(a + imgui.GetTime() * 8) * radius))
+	end
+
+	DrawList:PathStroke(color, false, thickness)
+	return true
+end
+
+function getContrastColor(bg_col, col_1, col_2)
+	col_1 = col_1 or imgui.ImVec4(0.00, 0.00, 0.00, 1.00)
+	col_2 = col_2 or imgui.ImVec4(1.00, 1.00, 1.00, 1.00)
+	local luminance = 1 - (0.299 * bg_col.x + 0.587 * bg_col.y + 0.114 * bg_col.z)
+	return luminance < 0.5 and col_1 or col_2
 end
 
 Button_ORIGINAL = imgui.Button
 function imgui.Button(label, size, duration)
-   	duration = duration or {
-        1.0, -- Длительность переходов между hovered / idle
-        0.3  -- Длительность анимации после нажатия
-    }
+	duration = duration or {
+		1.0, -- Длительность переходов между hovered / idle
+		0.3  -- Длительность анимации после нажатия
+	}
 
-    local cols = {
-        default = imgui.ImVec4(imgui.GetStyle().Colors[imgui.Col.Button]),
-        hovered = imgui.ImVec4(imgui.GetStyle().Colors[imgui.Col.ButtonHovered]),
-        active  = imgui.ImVec4(imgui.GetStyle().Colors[imgui.Col.ButtonActive])
-    }
+	local cols = {
+		default = imgui.ImVec4(imgui.GetStyle().Colors[imgui.Col.Button]),
+		hovered = imgui.ImVec4(imgui.GetStyle().Colors[imgui.Col.ButtonHovered]),
+		active  = imgui.ImVec4(imgui.GetStyle().Colors[imgui.Col.ButtonActive])
+	}
 
-    if not FBUTPOOL then FBUTPOOL = {} end
-    if not FBUTPOOL[label] then
-        FBUTPOOL[label] = {
-            color = cols.default,
-            clicked = { nil, nil },
-            hovered = {
-                cur = false,
-                old = false,
-                clock = nil,
-            }
-        }
-    end
+	if not FBUTPOOL then FBUTPOOL = {} end
+	if not FBUTPOOL[label] then
+		FBUTPOOL[label] = {
+			color = cols.default,
+			clicked = { nil, nil },
+			hovered = {
+				cur = false,
+				old = false,
+				clock = nil,
+			}
+		}
+	end
 
-    if FBUTPOOL[label]['clicked'][1] and FBUTPOOL[label]['clicked'][2] then
-        if os.clock() - FBUTPOOL[label]['clicked'][1] <= duration[2] then
-            FBUTPOOL[label]['color'] = bringVec4To(
-                FBUTPOOL[label]['color'],
-                cols.active,
-                FBUTPOOL[label]['clicked'][1],
-                duration[2]
-            )
-            goto no_hovered
-        end
+	if FBUTPOOL[label]['clicked'][1] and FBUTPOOL[label]['clicked'][2] then
+		if os.clock() - FBUTPOOL[label]['clicked'][1] <= duration[2] then
+			FBUTPOOL[label]['color'] = bringVec4To(
+				FBUTPOOL[label]['color'],
+				cols.active,
+				FBUTPOOL[label]['clicked'][1],
+				duration[2]
+			)
+			goto no_hovered
+		end
 
-        if os.clock() - FBUTPOOL[label]['clicked'][2] <= duration[2] then
-            FBUTPOOL[label]['color'] = bringVec4To(
-                FBUTPOOL[label]['color'],
-                FBUTPOOL[label]['hovered']['cur'] and cols.hovered or cols.default,
-                FBUTPOOL[label]['clicked'][2],
-                duration[2]
-            )
-            goto no_hovered
-        end
-    end
+		if os.clock() - FBUTPOOL[label]['clicked'][2] <= duration[2] then
+			FBUTPOOL[label]['color'] = bringVec4To(
+				FBUTPOOL[label]['color'],
+				FBUTPOOL[label]['hovered']['cur'] and cols.hovered or cols.default,
+				FBUTPOOL[label]['clicked'][2],
+				duration[2]
+			)
+			goto no_hovered
+		end
+	end
 
-    if FBUTPOOL[label]['hovered']['clock'] ~= nil then
-        if os.clock() - FBUTPOOL[label]['hovered']['clock'] <= duration[1] then
-            FBUTPOOL[label]['color'] = bringVec4To(
-                FBUTPOOL[label]['color'],
-                FBUTPOOL[label]['hovered']['cur'] and cols.hovered or cols.default,
-                FBUTPOOL[label]['hovered']['clock'],
-                duration[1]
-            )
-        else
-            FBUTPOOL[label]['color'] = FBUTPOOL[label]['hovered']['cur'] and cols.hovered or cols.default
-        end
-    end
+	if FBUTPOOL[label]['hovered']['clock'] ~= nil then
+		if os.clock() - FBUTPOOL[label]['hovered']['clock'] <= duration[1] then
+			FBUTPOOL[label]['color'] = bringVec4To(
+				FBUTPOOL[label]['color'],
+				FBUTPOOL[label]['hovered']['cur'] and cols.hovered or cols.default,
+				FBUTPOOL[label]['hovered']['clock'],
+				duration[1]
+			)
+		else
+			FBUTPOOL[label]['color'] = FBUTPOOL[label]['hovered']['cur'] and cols.hovered or cols.default
+		end
+	end
 
-    ::no_hovered::
+	::no_hovered::
 
-    imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(1.0, 1.0, 1.0, 1.0))
-    imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(FBUTPOOL[label]['color']))
-    imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(FBUTPOOL[label]['color']))
-    imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(FBUTPOOL[label]['color']))
-    local result = Button_ORIGINAL(label, size or imgui.ImVec2(0, 0))
-    imgui.PopStyleColor(4)
+	local text_color = getContrastColor(
+		FBUTPOOL[label]['color'],
+		imgui.ImVec4(0.15, 0.15, 0.15, 1.00),
+		imgui.ImVec4(1.0, 1.0, 1.0, 1.0)
+	)
+	imgui.PushStyleColor(imgui.Col.Text, text_color)
+	imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(FBUTPOOL[label]['color']))
+	imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(FBUTPOOL[label]['color']))
+	imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(FBUTPOOL[label]['color']))
+	local result = Button_ORIGINAL(label, size or imgui.ImVec2(0, 0))
+	imgui.PopStyleColor(4)
 
-    if result then
-        FBUTPOOL[label]['clicked'] = {
-            os.clock(),
-            os.clock() + duration[2]
-        }
-    end
+	if result then
+		FBUTPOOL[label]['clicked'] = {
+			os.clock(),
+			os.clock() + duration[2]
+		}
+	end
 
-    FBUTPOOL[label]['hovered']['cur'] = imgui.IsItemHovered()
-    if FBUTPOOL[label]['hovered']['old'] ~= FBUTPOOL[label]['hovered']['cur'] then
-        FBUTPOOL[label]['hovered']['old'] = FBUTPOOL[label]['hovered']['cur']
-        FBUTPOOL[label]['hovered']['clock'] = os.clock()
-    end
+	FBUTPOOL[label]['hovered']['cur'] = imgui.IsItemHovered()
+	if FBUTPOOL[label]['hovered']['old'] ~= FBUTPOOL[label]['hovered']['cur'] then
+		FBUTPOOL[label]['hovered']['old'] = FBUTPOOL[label]['hovered']['cur']
+		FBUTPOOL[label]['hovered']['clock'] = os.clock()
+	end
 
-    return result
+	return result
 end
 
 function imgui.MainButton(...)
@@ -4592,7 +4787,7 @@ end
 
 function stringToLower(s)
   for i = 192, 223 do
-    s = s:gsub(_G.string.char(i), _G.string.char(i + 32))
+	s = s:gsub(_G.string.char(i), _G.string.char(i + 32))
   end
   s = s:gsub(_G.string.char(168), _G.string.char(184))
   return s:lower()
@@ -4600,7 +4795,7 @@ end
 
 function stringToUpper(s)
   for i = 224, 255 do
-    s = s:gsub(_G.string.char(i), _G.string.char(i - 32))
+	s = s:gsub(_G.string.char(i), _G.string.char(i - 32))
   end
   s = s:gsub(_G.string.char(184), _G.string.char(168))
   return s:upper()
@@ -4684,13 +4879,13 @@ end
 
 function sumFormat(sum)
 	sum = tostring(sum)
-    if sum and string.len(sum) > 3 then
-        local b, e = ('%d'):format(sum):gsub('^%-', '')
-        local c = b:reverse():gsub('%d%d%d', '%1.')
-        local d = c:reverse():gsub('^%.', '')
-        return (e == 1 and '-' or '')..d
-    end
-    return sum
+	if sum and string.len(sum) > 3 then
+		local b, e = ('%d'):format(sum):gsub('^%-', '')
+		local c = b:reverse():gsub('%d%d%d', '%1.')
+		local d = c:reverse():gsub('^%.', '')
+		return (e == 1 and '-' or '')..d
+	end
+	return sum
 end
 
 function getNumberOfKassa()
@@ -4712,57 +4907,13 @@ function getNumberOfKassa()
 	return false
 end
 
-function imgui.Repository(nameScript, nameLua, discription, cmds, d_Link, bh_Link)
-	if imgui.Button(u8(nameScript), imgui.ImVec2(280, 30)) then 
-		if not doesFileExist(getWorkingDirectory()..'\\'..nameLua) then
-			downloadUrlToFile(d_Link, getWorkingDirectory()..'\\'..nameLua, function (id, status, p1, p2)
-				if status == dlstatus.STATUSEX_ENDDOWNLOAD then
-					addBankMessage(string.format("Скрипт %s загружен! Подключаю..", nameScript))
-					addBankMessage(string.format("Команда активации: {M}%s", cmds))
-					script.load(getWorkingDirectory()..'\\'..nameLua)
-				end
-			end)
-		else
-			addBankMessage('У вас уже установлен этот скрипт!')
-			imgui.OpenPopup(u8"Удалить скрипт?##repository"..nameScript)
-		end
-	end
-	imgui.Hint('repositoryact'..nameScript, u8(discription..'\n\nКоманда активации: '..cmds))
-	imgui.SameLine()
-	if bh_Link then
-		if imgui.Button(fa.ICON_FA_LINK..'##'..nameScript, imgui.ImVec2(-1, 30)) then os.execute('explorer '..bh_Link) end
-		imgui.Hint('repositorylink'..nameScript, u8'Полная тема скрипта на blast.hk')
-	else
-		imgui.DisableButton(fa.ICON_FA_BAN, imgui.ImVec2(-1, 30))
-		imgui.Hint('repositorynolink'..nameScript, u8'Этого скрипта ещё нет на blast.hk')
-	end
-
-	if imgui.BeginPopupModal(u8"Удалить скрипт?##repository"..nameScript, _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
-		imgui.CenterTextColoredRGB(sc .. nameScript .. '\nУ вас уже установлен скрипт\nВы хотите удалить его?')
-
-		if imgui.RedButton(u8'Удалить##repository', imgui.ImVec2(150, 30)) then
-			local script = script.find(nameLua)
-			if script then script:unload() end
-			os.remove(getWorkingDirectory()..'\\'..nameLua)
-			addBankMessage('Скрипт удалён!')
-			imgui.CloseCurrentPopup()
-		end
-		imgui.SameLine()
-		if imgui.Button(u8'Отменить##repository', imgui.ImVec2(150, 30)) then 
-			imgui.CloseCurrentPopup()
-		end
-		imgui.EndPopup()
-	end
-end
-
 function autoupdate(json_url)
-	local dlstatus = require('moonloader').download_status
 	local json = getWorkingDirectory() .. '\\'..thisScript().name..'-version.json'
 	if doesFileExist(json) then os.remove(json) end
 	log('Начало проверки обновления', "Подготовка")
 	downloadUrlToFile(json_url, json,
 		function(id, status, p1, p2)
-			if status == dlstatus.STATUSEX_ENDDOWNLOAD then
+			if status == STATUSEX_ENDDOWNLOAD then
 			if doesFileExist(json) then
 				local f = io.open(json, 'r')
 				if f then
@@ -4773,13 +4924,13 @@ function autoupdate(json_url)
 					os.remove(json)
 					if updateversion ~= thisScript().version then
 						lua_thread.create(function()
-							local dlstatus = require('moonloader').download_status
 							local color = -1
 							log('Найдено обновление: '..thisScript().version..' -> '..updateversion..'! Загрузка..', "Обновление")
 							wait(250)
 							downloadUrlToFile(updatelink, thisScript().path,
 								function(id3, status1, p13, p23)
-									if status1 == dlstatus.STATUS_DOWNLOADINGDATA then
+									if status1 == STATUS_DOWNLOADINGDATA then
+										-- something?
 									elseif status1 == dlstatus.STATUS_ENDDOWNLOADDATA then
 										log('Загрузка окончена. Скрипт обновлен на версию '..mc..updateversion, "Обновление")
 										goupdatestatus = true
@@ -4790,9 +4941,9 @@ function autoupdate(json_url)
 											cfg.main.infoupdate = true
 										end
 
-										reload(false)
+										thisScript():reload()
 									end
-									if status1 == dlstatus.STATUSEX_ENDDOWNLOAD then
+									if status1 == STATUSEX_ENDDOWNLOAD then
 										if goupdatestatus == nil then
 											log('Скрипт не смог обновится на версию '..updateversion, "Ошибка")
 											update = false
@@ -4851,22 +5002,6 @@ function se.onDisplayGameText(style, time, text)
 	end
 end
 
-function unload(show_error)
-	lua_thread.create(function()
-		noErrorDialog = not show_error
-		wait(100)
-		thisScript():unload()
-	end)
-end
-
-function reload(show_error)
-	lua_thread.create(function()
-		noErrorDialog = not show_error
-		wait(100)
-		thisScript():reload()
-	end)
-end
-
 function takeScreenshot()
 	local base = getModuleHandle("samp.dll")
 	local vSAMP = getGameGlobal(707) <= 21 and "R1" or "R3"
@@ -4876,7 +5011,7 @@ end
 
 function addBankMessage(message, color)
 	message = message:gsub('{M}', mc)
-	message = message:gsub('{W}', wc)
+	message = message:gsub('{W}', "{FFFFFF}")
 	message = message:gsub('{S}', sc)
 	sampAddChatMessage(tag .. message, color or mcx)
 end
@@ -5002,17 +5137,17 @@ function Window_Info_Update()
 end
 
 function bringVec4To(from, dest, start_time, duration)
-    local timer = os.clock() - start_time
-    if timer >= 0.00 and timer <= duration then
-        local count = timer / (duration / 100)
-        return imgui.ImVec4(
-            from.x + (count * (dest.x - from.x) / 100),
-            from.y + (count * (dest.y - from.y) / 100),
-            from.z + (count * (dest.z - from.z) / 100),
-            from.w + (count * (dest.w - from.w) / 100)
-        ), true
-    end
-    return (timer > duration) and dest or from, false
+	local timer = os.clock() - start_time
+	if timer >= 0.00 and timer <= duration then
+		local count = timer / (duration / 100)
+		return imgui.ImVec4(
+			from.x + (count * (dest.x - from.x) / 100),
+			from.y + (count * (dest.y - from.y) / 100),
+			from.z + (count * (dest.z - from.z) / 100),
+			from.w + (count * (dest.w - from.w) / 100)
+		), true
+	end
+	return (timer > duration) and dest or from, false
 end
 
 function plural(n, forms) 
@@ -5066,7 +5201,7 @@ function getTimeAfter(unix)
 end
 
 function log(text, tag)
-	local output = string.format("%s[%s]: %s%s", sc, (tag or "Info"), wc, text)
+	local output = string.format("%s[%s]: {FFFFFF}%s", sc, (tag or "Info"), text)
 	local result = pcall(sampfuncsLog, output)
 	if not result then print(output) end
 end
@@ -5091,6 +5226,8 @@ function helpCommands()
 			imgui.TextColoredRGB(mc..'/unfwarn [id]{SSSSSS} - Снятие выговора сотруднику с РП отыгровкой (9+ ранг)')
 			imgui.TextColoredRGB(mc..'/kip{SSSSSS} - Сменить позицию панели информации на кассе')
 			imgui.TextColoredRGB(mc..'/getprize{SSSSSS} - Проверить пикап с ларцами орг. на расстоянии')
+			imgui.TextColoredRGB(mc..'/jp{SSSSSS} - альтервнатива /jobprogress')
+			imgui.TextColoredRGB(mc..'/cjp{SSSSSS} - альтервнатива /checkjobprogress')
 		imgui.EndGroup()
 		imgui.Spacing()
 		imgui.TextColoredRGB(sc..'Сочетания клавиш:')
@@ -5144,7 +5281,6 @@ function checkData()
 			file:close()
 		end
 	end
-	files = nil
 	return true
 end
 
@@ -5221,7 +5357,10 @@ changelog = {
 		},
 		patches = {
 			show = true,
-			info = {}
+			info = {
+				"Обновлён репозиторий скриптов",
+				"Исправления и улучшения"
+			}
 		}
 	},
 	[27] = {
@@ -5318,7 +5457,7 @@ changelog = {
 			"В меню взаимодействия (ПКМ + Q) добавлен новый пункт \"Дополнительный счёт\"",
 			{
 				title = "Улучшена статистика \"Баланса фракций\"",
-				show = true,
+				show = false,
 				more = {
 					"а) Сортировка от самой богатой фракции, к самой бедной",
 					"б) Суммы разделяются точками",
@@ -5328,7 +5467,7 @@ changelog = {
 			"Радиус взаимодействия c кассой (N) увеличен до 3 метров (Теперь её можно открыть с обоих сторон перегородки)",
 			{
 				title = "Изменены некоторые стандартные отыгровки",
-				show = true,
+				show = false,
 				more = {
 					"а) Отыгровка приветствия",
 					"б) Отыгровка оформления карты",
@@ -5779,7 +5918,7 @@ changelog = {
 
 charter_default = [[Глава 1. Общие положения.
 1.1. Устав Центрального Банка - это внутриорганизационный регламентирующий деятельность сотрудников документ.
-1.2. Устав может быть отредактирован только после того как большинство депутатов парламента проголосуют “За” принятие изменений в нём.
+Устав может быть отредактирован только после того как он будет одобрен сенатом, а также при одобрении голосованием Конгресса штата - 50% + 1.
 1.3. Устав ставится действительным только с момента публикации на официальном портале штата.
 1.4. За незнание, несоблюдение устава руководство организации имеет право ввести дисциплинарное взыскание против сотрудника в виде выговора, понижения, увольнения.
 
@@ -5789,25 +5928,26 @@ charter_default = [[Глава 1. Общие положения.
 2.3. Каждый сотрудник обязан соблюдать конституцию, трудовой кодекс и иные правовые акты. При несоблюдении сотрудник будет наказан в соответствии с действующим законодательством.
 2.4. Каждый сотрудник обязан подходить к задаче поставленной руководством ответственно.
 2.5. Каждый сотрудник обязан выполнять законные требования руководства.
-2.6. Каждый сотрудник обязан быть подключён к спец.рации во время выполнения своих должностных обязанностей.
-2.7. Каждый сотрудник обязан разговаривать со всеми уважительно в деловом тоне.
+2.6. Каждый сотрудник обязан разговаривать со всеми уважительно в деловом тоне.
+2.7. Каждый сотрудник во время работы обязан быть подключённым к спец.рации Дискорд.
 
 Глава 3. Полномочия и права сотрудников.
 3.1. Сотрудники охраны имеют право применить физическую силу если руководству угрожает опасность.
 3.2. Сотрудники имеют право получить любую информацию на официальном правовом портале штата.
-3.3. Сотрудники Центрального Банка, а именно: Начальники отдела сбережений, Заведующие отделом сбережений, Менеджеры, Заместители Директора, Министр Финансов имеют право пользоваться рацией департамента в служебных целях.
-3.4. Сотрудники правительства имеют право на личную жизнь вне рабочего времени.
-3.5. Сотрудники имеют право на отпуск в соответствии с современным Трудовым Кодексом.
-3.5.1. Отпуск может быть взят только один раз в месяц.
-3.5.2. Охрана и сотрудники банка [2] имеют право на отпуск в течении недели (семь календарных дней).
-2.5.3. Старшие сотрудники банка, Начальники отдела сбережений, Заведующие отделом сбережений, Менеджеры имеют право на отпуск в течении пяти календарных дней.
-2.5.4. Директора Банка имеют право на отпуск в течении трёх дней.
+3.3. Сотрудники Центрального Банка, а именно: Операционисты, Кредитные эксперты, Менеджеры банка, Заместители Директора банка, Министр Финансов имеют право пользоваться рацией департамента в служебных целях.
+3.4. Сотрудники Центрального Банка имеют право на личную жизнь вне рабочего времени.
+3.5: Сотрудники центрального банка имеют право на отпуск в соответствии с современным Трудовым Кодексом;
+3.5.1: Отпуск может быть взят только раз в 2 недели на 1-2 дня;
+3.5.2: Отпуск подразумевает под собой возможность не исполнять свои должностные обязанности и заниматься личными делами;
+3.5.3: Неактив подразумевает под собой возможность не заходить в игру в течении определенного времени(макс. 5 дней в месяц);
+3.5.4: Во время отпуска запрещено использовать форму, рацию, бейджик и т.д;
+3.5.5: Во время отпуска/неактива строго запрещено нарушать законы штата;
 
 Глава 4. Сотрудникам запрещается.
-4.1. Сотрудникам Центрального Банка строго запрещено нарушать: Конституцию, Трудовой Кодекс, Устав Центрального Банка, Уголовный и Административный кодексы.
+4.1. Сотрудникам Центрального Банка строго запрещено нарушать: Законодательство Штата Red-Rock
 4.2. Сотрудникам Центрального Банка строго запрещено бездействовать при угрозе органам высшей исполнительной власти.
 4.3. Сотрудникам Центрального Банка строго запрещено прогуливать рабочий день
-4.3.1. Рабочий день в будние дни с 9:00 до 20:00.
+4.3.1. Рабочий день в будние дни с 10:00 до 20:00.
 4.3.2. Рабочий день в выходные с 10:00 до 19:00.
 4.3.3. Обеденный перерыв с 14:00 до 15:00 ежедневно.
 4.4 Сотрудникам Центрального Банка строго запрещено пользоваться имуществом организации в личных целях.
@@ -5820,7 +5960,7 @@ charter_default = [[Глава 1. Общие положения.
 4.8. Сотрудникам Центрального Банка строго запрещено выражаться нецензурно.
 4.9. Сотрудникам Центрального Банка строго запрещено оспаривать законные указания руководства.
 4.10. Сотрудникам Центрального Банка строго запрещено носить на себе аксессуары.
-4.10.1. Исключения: Тёмные очки чёрного цвета, часы, усы.
+4.10.1. Исключения: Тёмные очки чёрного цвета, часы, усы, цилиндр любого цвета, монокль, Звезда на грудь, Сердце на грудь, Рубашка на грудь, Замок на грудь, Крест на грудь, шляпа (полицейская).
 4.11. Сотрудникам Центрального Банка строго запрещено запрещено самостоятельно менять\покидать пост.
 4.12. Сотрудникам Центрального Банка строго запрещено просить и намекать на повышение.
 4.13. Сотрудникам Центрального Банка строго запрещено просить и намекать на проверку отчётов.
@@ -5831,6 +5971,8 @@ charter_default = [[Глава 1. Общие положения.
 4.17.1. Охрана и сотрудники Банка [1-4] не более десяти минут.
 4.17.2. Старшие сотрудники банка, Начальники отдела сбережений, Заведующие отделом сбережений, [5-8] не более десяти минут.
 4.17.3. Заместители Директора [9] не более десяти минут.
+4.18 Сотрудникам запрещено не являться на рабочее место в течении 5 дней, без учёта отпуска.
+4.19 Запрещено находится вне Центрального банка в форме(исключение: мп, рп, помощь руководству)
 
 Глава 5. Дисциплина в строю.
 5.1. Время построения зависит от требований человека проводящего строй (не менее пяти минут).
@@ -5840,24 +5982,23 @@ charter_default = [[Глава 1. Общие положения.
 5.5. В строю сотрудникам запрещено использовать рацию в строю.
 5.6. В строю сотрудникам запрещено передавать что либо.
 5.7. В строю сотрудник обязан внимательно слушать информацию передаваемую человеком который проводит строй.
-5.8. Собирать сотрудников организации на построение имеют право сотрудники с должности Начальника Охраны и выше.
+5.8. Собирать сотрудников организации на построение имеют право сотрудники с должности Операционист (5+) и выше.
 5.9. За поведение сотрудников в строю отвечает человек который проводит строй.
 
 Глава 6. Особые положения при проведении тренировок и лекционных задач
-6.1 Лекционные задачи могут выдавать исключительно сотрудники с должности Начальника охраны и выше (3+)
-6.2 Тренировки могут проводить сотрудники, находящиеся на должности Начальника охраны и выше (3+)
-6.3 Между лекционными задачами общий перерыв составляет 20 минут.
+6.1 Лекционные задачи могут выдавать исключительно сотрудники с должности Операционист и выше (5+)
+6.2 Тренировки могут проводить сотрудники, находящиеся на должности Операционист и выше (5+)
 6.3.1 Один сотрудник Центрального Банка имеет право выдавать лекционные задачи один раз в 25 минут.
-6.3 Между тренировочными мероприятиями общий перерыв составляет 30 минут.
-6.3.1 Один сотрудник Центрального Банка имеет право проводить тренировочные мероприятия один раз в 35 минут.
-6.4 За невыполнение данных норм управляющие лица организации ОБЯЗАНЫ отклонить дальнейший отчёт на повышение сотрудника в должности.
+6.3.2 Между тренировочными мероприятиями общий перерыв составляет 30 минут.
+6.3.3 Один сотрудник Центрального Банка имеет право проводить тренировочные мероприятия один раз в 35 минут.
+6.4 За невыполнение данных норм управляющие лица организации ОБЯЗАНЫ отклонить дальнейшй отчёт на повышение сотрудника в должности.
 6.4.1 В случае игнорирования нарушений руководитель организации получает устное предупреждение.]]
 
 HRsystem_default = [[{006AC2}Кадровая система{SSSSSS} - система отсчёта времени нахождения на 
 каждом ранге. Другими словами - это ваш испытательный 
 срок на вашем ранге. Раньше него вы не можете перейти
 на следующий. Испытательные сроки с 1 по 9 ранг:
- 
+
 {006AC2}1 {SSSSSS}->{006AC2} 2 ранг {SSSSSS}- Отсутствует
 {006AC2}2 {SSSSSS}->{006AC2} 3 ранг {SSSSSS}- 12 часов
 {006AC2}3 {SSSSSS}->{006AC2} 4 ранг {SSSSSS}- 24 часа
@@ -5868,22 +6009,30 @@ HRsystem_default = [[{006AC2}Кадровая система{SSSSSS} - система отсчёта времени 
 {006AC2}8 {SSSSSS}->{006AC2} 9 ранг {SSSSSS}- 144 часа (6 суток)
 {006AC2}9 {SSSSSS}->{006AC2} 10 ранг {SSSSSS}- 360 часов (15 суток)]]
 
-Promotion_default = [[{0088C2}Система повышения для 1 - 7 рангов
-C мая 2020 года - отменена. Лидер повышает на своё усмотрение, оценивая вашу работу
- 
-{0088C2}Менеджер [7] -> Зам. директора [8]
-Проработать на данной должности 120 часов {868686}(5 дней)
-1. Простоять за кассой 2 часа {868686}(скриншоты каждые 10 минут с /time)
-2. Провести 30 лекций составу {868686}(КД между строчками 5 секунд; обязательно /timestamp)
-3. Помочь на 15-и собеседованиях
-4. Провести 5 мероприятия для состава
-5. Выполнить 5 задания {868686}(РП задание; /me /do /todo минимум 10 РП отыгровок)
- 
-{0088C2}Зам.Директора [8] -> Директор Банка [9]
-Проработать на данной должности 144 часа {868686}(6 дней)
-Составить отчёт
-Подготовится к беседе на пост Директора Центрального Банка
-Примечание: отчёт на 9-й ранг подобный отчёту на 8-й, но с увеличенной нормой перечисленного]]
+Promotion_default = [[{SSSSSS}Для повышения вы должны составить отчёт о проделанной работе, который должен включать задания из списка ниже:
+
+{SSSSSS}1) Проверить знания устава и речь у стажера {006AC2}[2 балла]
+{SSSSSS}2) Два раза помочь в собеседовании {006AC2}[1 балл]
+{SSSSSS}3) Провести лекцию для состава {006AC2}[3 балла]
+{SSSSSS}4) Провести МП с составом {006AC2}[4 балла]
+{SSSSSS}5) Провести РП с составом {006AC2}[5 баллов]
+{SSSSSS}6) Провести МП с другой организацией {006AC2}[6 баллов]
+{SSSSSS}7) Провести РП с другой организацией {006AC2}[7 баллов]
+{SSSSSS}8) Активное участие в ГРП {006AC2}[7 баллов]
+{SSSSSS}9) ГМП с гражданами штата {006AC2}[10 баллов]
+{SSSSSS}10) Главная роль в ГРП {006AC2}[10 баллов]
+{SSSSSS}11) Выполнить поручение от Эдуарда "Выдаем депозит" {006AC2}[3 балла]
+{SSSSSS}12) Выполнить поручение от Эдуарда "Снимаем деньги" {006AC2}[3 балла]
+{SSSSSS}13) Выполнить поручение от Эдуарда "Регистрируем счета!" {006AC2}[2 балла]
+{SSSSSS}14) Выполнить поручение от Эдуарда "Восстанавливаем счета" {006AC2}[2 балла]
+{SSSSSS}15) Выполнить поручение от Эдуарда "Нелегкая работа" {006AC2}[2 балла]
+
+{SSSSSS}Норма колличества баллов для повышения:
+{006AC2}5-6 ранг {SSSSSS}- Нет нормы, отчет включает только то, что вы сделали вообще
+{006AC2}6-7 ранг {SSSSSS}- Нет нормы, отчет включает только то, что вы сделали вообще
+{006AC2}7-8 ранг {SSSSSS}- 100 баллов
+{006AC2}8-9 ранг {SSSSSS}- 200 баллов
+]]
 
 lending_default = [[От {009000}5.000${FFFFFF} до {009000}25.000${FFFFFF}:
 Проживать в штате от 3-х до 5-ми лет
@@ -6003,942 +6152,942 @@ lections_default = {
 
 fa = {
 	['ICON_FA_NOTES_MEDICAL'] = "\xef\x92\x81",
- 	['ICON_FA_CLOUD_SHOWERS_HEAVY'] = "\xef\x9d\x80",
- 	['ICON_FA_SMS'] = "\xef\x9f\x8d",
- 	['ICON_FA_COPY'] = "\xef\x83\x85",
- 	['ICON_FA_CHEVRON_CIRCLE_RIGHT'] = "\xef\x84\xb8",
- 	['ICON_FA_CROSSHAIRS'] = "\xef\x81\x9b",
- 	['ICON_FA_BROADCAST_TOWER'] = "\xef\x94\x99",
- 	['ICON_FA_EXTERNAL_LINK_SQUARE_ALT'] = "\xef\x8d\xa0",
- 	['ICON_FA_SMOKING'] = "\xef\x92\x8d",
- 	['ICON_FA_KISS_BEAM'] = "\xef\x96\x97",
- 	['ICON_FA_CHESS_BISHOP'] = "\xef\x90\xba",
- 	['ICON_FA_TV'] = "\xef\x89\xac",
- 	['ICON_FA_CROP_ALT'] = "\xef\x95\xa5",
- 	['ICON_FA_TH'] = "\xef\x80\x8a",
- 	['ICON_FA_RECYCLE'] = "\xef\x86\xb8",
- 	['ICON_FA_SMILE'] = "\xef\x84\x98",
- 	['ICON_FA_FAX'] = "\xef\x86\xac",
- 	['ICON_FA_DRAFTING_COMPASS'] = "\xef\x95\xa8",
- 	['ICON_FA_USER_INJURED'] = "\xef\x9c\xa8",
- 	['ICON_FA_SCREWDRIVER'] = "\xef\x95\x8a",
- 	['ICON_FA_DHARMACHAKRA'] = "\xef\x99\x95",
- 	['ICON_FA_PRINT'] = "\xef\x80\xaf",
- 	['ICON_FA_BABY_CARRIAGE'] = "\xef\x9d\xbd",
- 	['ICON_FA_CARET_UP'] = "\xef\x83\x98",
- 	['ICON_FA_SCHOOL'] = "\xef\x95\x89",
- 	['ICON_FA_SORT_NUMERIC_UP'] = "\xef\x85\xa3",
- 	['ICON_FA_TRUCK_LOADING'] = "\xef\x93\x9e",
- 	['ICON_FA_LIST'] = "\xef\x80\xba",
- 	['ICON_FA_UPLOAD'] = "\xef\x82\x93",
- 	['ICON_FA_LAPTOP_MEDICAL'] = "\xef\xa0\x92",
- 	['ICON_FA_EXPAND_ARROWS_ALT'] = "\xef\x8c\x9e",
- 	['ICON_FA_ADJUST'] = "\xef\x81\x82",
- 	['ICON_FA_VENUS'] = "\xef\x88\xa1",
- 	['ICON_FA_HEADING'] = "\xef\x87\x9c",
- 	['ICON_FA_ARROW_DOWN'] = "\xef\x81\xa3",
- 	['ICON_FA_BICYCLE'] = "\xef\x88\x86",
- 	['ICON_FA_TIRED'] = "\xef\x97\x88",
- 	['ICON_FA_AIR_FRESHENER'] = "\xef\x97\x90",
- 	['ICON_FA_BACON'] = "\xef\x9f\xa5",
- 	['ICON_FA_SYNC'] = "\xef\x80\xa1",
- 	['ICON_FA_PAPER_PLANE'] = "\xef\x87\x98",
- 	['ICON_FA_VOLLEYBALL_BALL'] = "\xef\x91\x9f",
- 	['ICON_FA_RIBBON'] = "\xef\x93\x96",
- 	['ICON_FA_HAND_LIZARD'] = "\xef\x89\x98",
- 	['ICON_FA_CLOCK'] = "\xef\x80\x97",
- 	['ICON_FA_SUN'] = "\xef\x86\x85",
- 	['ICON_FA_FILE_POWERPOINT'] = "\xef\x87\x84",
- 	['ICON_FA_MICROCHIP'] = "\xef\x8b\x9b",
- 	['ICON_FA_TRASH_RESTORE_ALT'] = "\xef\xa0\xaa",
- 	['ICON_FA_GRADUATION_CAP'] = "\xef\x86\x9d",
- 	['ICON_FA_ANGLE_DOUBLE_DOWN'] = "\xef\x84\x83",
- 	['ICON_FA_INFO_CIRCLE'] = "\xef\x81\x9a",
- 	['ICON_FA_TAGS'] = "\xef\x80\xac",
- 	['ICON_FA_FILE_ALT'] = "\xef\x85\x9c",
- 	['ICON_FA_EQUALS'] = "\xef\x94\xac",
- 	['ICON_FA_DIRECTIONS'] = "\xef\x97\xab",
- 	['ICON_FA_FILE_INVOICE'] = "\xef\x95\xb0",
- 	['ICON_FA_SEARCH'] = "\xef\x80\x82",
- 	['ICON_FA_BIBLE'] = "\xef\x99\x87",
- 	['ICON_FA_FLASK'] = "\xef\x83\x83",
- 	['ICON_FA_CALENDAR_TIMES'] = "\xef\x89\xb3",
- 	['ICON_FA_GREATER_THAN_EQUAL'] = "\xef\x94\xb2",
- 	['ICON_FA_SLIDERS_H'] = "\xef\x87\x9e",
- 	['ICON_FA_EYE_SLASH'] = "\xef\x81\xb0",
- 	['ICON_FA_BIRTHDAY_CAKE'] = "\xef\x87\xbd",
- 	['ICON_FA_FEATHER_ALT'] = "\xef\x95\xab",
- 	['ICON_FA_DNA'] = "\xef\x91\xb1",
- 	['ICON_FA_BASEBALL_BALL'] = "\xef\x90\xb3",
- 	['ICON_FA_HOSPITAL'] = "\xef\x83\xb8",
- 	['ICON_FA_COINS'] = "\xef\x94\x9e",
- 	['ICON_FA_HRYVNIA'] = "\xef\x9b\xb2",
- 	['ICON_FA_TEMPERATURE_HIGH'] = "\xef\x9d\xa9",
- 	['ICON_FA_FONT_AWESOME_LOGO_FULL'] = "\xef\x93\xa6",
- 	['ICON_FA_PASSPORT'] = "\xef\x96\xab",
- 	['ICON_FA_TAG'] = "\xef\x80\xab",
- 	['ICON_FA_SHOPPING_CART'] = "\xef\x81\xba",
- 	['ICON_FA_AWARD'] = "\xef\x95\x99",
- 	['ICON_FA_WINDOW_RESTORE'] = "\xef\x8b\x92",
- 	['ICON_FA_PHONE'] = "\xef\x82\x95",
- 	['ICON_FA_FLAG'] = "\xef\x80\xa4",
- 	['ICON_FA_STETHOSCOPE'] = "\xef\x83\xb1",
- 	['ICON_FA_DICE_D6'] = "\xef\x9b\x91",
- 	['ICON_FA_OUTDENT'] = "\xef\x80\xbb",
- 	['ICON_FA_LONG_ARROW_ALT_RIGHT'] = "\xef\x8c\x8b",
- 	['ICON_FA_PIZZA_SLICE'] = "\xef\xa0\x98",
- 	['ICON_FA_ADDRESS_CARD'] = "\xef\x8a\xbb",
- 	['ICON_FA_PARAGRAPH'] = "\xef\x87\x9d",
- 	['ICON_FA_MALE'] = "\xef\x86\x83",
- 	['ICON_FA_HISTORY'] = "\xef\x87\x9a",
- 	['ICON_FA_HAMBURGER'] = "\xef\xa0\x85",
- 	['ICON_FA_SEARCH_PLUS'] = "\xef\x80\x8e",
- 	['ICON_FA_FIRE_ALT'] = "\xef\x9f\xa4",
- 	['ICON_FA_LIFE_RING'] = "\xef\x87\x8d",
- 	['ICON_FA_SHARE'] = "\xef\x81\xa4",
- 	['ICON_FA_ALIGN_JUSTIFY'] = "\xef\x80\xb9",
- 	['ICON_FA_BATTERY_THREE_QUARTERS'] = "\xef\x89\x81",
- 	['ICON_FA_OBJECT_UNGROUP'] = "\xef\x89\x88",
- 	['ICON_FA_BRIEFCASE'] = "\xef\x82\xb1",
- 	['ICON_FA_OIL_CAN'] = "\xef\x98\x93",
- 	['ICON_FA_THERMOMETER_FULL'] = "\xef\x8b\x87",
- 	['ICON_FA_PLANE'] = "\xef\x81\xb2",
- 	['ICON_FA_HEARTBEAT'] = "\xef\x88\x9e",
- 	['ICON_FA_UNLINK'] = "\xef\x84\xa7",
- 	['ICON_FA_WINDOW_MAXIMIZE'] = "\xef\x8b\x90",
- 	['ICON_FA_HEADPHONES'] = "\xef\x80\xa5",
- 	['ICON_FA_STEP_BACKWARD'] = "\xef\x81\x88",
- 	['ICON_FA_DRAGON'] = "\xef\x9b\x95",
- 	['ICON_FA_MICROPHONE_SLASH'] = "\xef\x84\xb1",
- 	['ICON_FA_USER_PLUS'] = "\xef\x88\xb4",
- 	['ICON_FA_WRENCH'] = "\xef\x82\xad",
- 	['ICON_FA_AMBULANCE'] = "\xef\x83\xb9",
- 	['ICON_FA_ETHERNET'] = "\xef\x9e\x96",
- 	['ICON_FA_EGG'] = "\xef\x9f\xbb",
- 	['ICON_FA_WIND'] = "\xef\x9c\xae",
- 	['ICON_FA_UNIVERSAL_ACCESS'] = "\xef\x8a\x9a",
- 	['ICON_FA_BURN'] = "\xef\x91\xaa",
- 	['ICON_FA_HAND_HOLDING_HEART'] = "\xef\x92\xbe",
- 	['ICON_FA_DICE_ONE'] = "\xef\x94\xa5",
- 	['ICON_FA_KEYBOARD'] = "\xef\x84\x9c",
- 	['ICON_FA_CHECK_DOUBLE'] = "\xef\x95\xa0",
- 	['ICON_FA_HEADPHONES_ALT'] = "\xef\x96\x8f",
- 	['ICON_FA_BATTERY_HALF'] = "\xef\x89\x82",
- 	['ICON_FA_PROJECT_DIAGRAM'] = "\xef\x95\x82",
- 	['ICON_FA_PRAY'] = "\xef\x9a\x83",
- 	['ICON_FA_GOPURAM'] = "\xef\x99\xa4",
- 	['ICON_FA_GRIN_TEARS'] = "\xef\x96\x88",
- 	['ICON_FA_SORT_AMOUNT_UP'] = "\xef\x85\xa1",
- 	['ICON_FA_COFFEE'] = "\xef\x83\xb4",
- 	['ICON_FA_TABLET_ALT'] = "\xef\x8f\xba",
- 	['ICON_FA_GRIN_BEAM_SWEAT'] = "\xef\x96\x83",
- 	['ICON_FA_HAND_POINT_RIGHT'] = "\xef\x82\xa4",
- 	['ICON_FA_MAGIC'] = "\xef\x83\x90",
- 	['ICON_FA_CHARGING_STATION'] = "\xef\x97\xa7",
- 	['ICON_FA_GRIN_TONGUE'] = "\xef\x96\x89",
- 	['ICON_FA_VOLUME_OFF'] = "\xef\x80\xa6",
- 	['ICON_FA_SAD_TEAR'] = "\xef\x96\xb4",
- 	['ICON_FA_CARET_RIGHT'] = "\xef\x83\x9a",
- 	['ICON_FA_BONG'] = "\xef\x95\x9c",
- 	['ICON_FA_BONE'] = "\xef\x97\x97",
- 	['ICON_FA_ELLIPSIS_V'] = "\xef\x85\x82",
- 	['ICON_FA_BALANCE_SCALE'] = "\xef\x89\x8e",
- 	['ICON_FA_FISH'] = "\xef\x95\xb8",
- 	['ICON_FA_SPIDER'] = "\xef\x9c\x97",
- 	['ICON_FA_CAMPGROUND'] = "\xef\x9a\xbb",
- 	['ICON_FA_CARET_SQUARE_UP'] = "\xef\x85\x91",
- 	['ICON_FA_RUPEE_SIGN'] = "\xef\x85\x96",
- 	['ICON_FA_ASSISTIVE_LISTENING_SYSTEMS'] = "\xef\x8a\xa2",
- 	['ICON_FA_POUND_SIGN'] = "\xef\x85\x94",
- 	['ICON_FA_ANKH'] = "\xef\x99\x84",
- 	['ICON_FA_BATTERY_QUARTER'] = "\xef\x89\x83",
- 	['ICON_FA_HAND_PEACE'] = "\xef\x89\x9b",
- 	['ICON_FA_SURPRISE'] = "\xef\x97\x82",
- 	['ICON_FA_FILE_PDF'] = "\xef\x87\x81",
- 	['ICON_FA_VIDEO_SLASH'] = "\xef\x93\xa2",
- 	['ICON_FA_SUBWAY'] = "\xef\x88\xb9",
- 	['ICON_FA_HORSE'] = "\xef\x9b\xb0",
- 	['ICON_FA_WINE_BOTTLE'] = "\xef\x9c\xaf",
- 	['ICON_FA_BOOK_READER'] = "\xef\x97\x9a",
- 	['ICON_FA_COOKIE'] = "\xef\x95\xa3",
- 	['ICON_FA_MONEY_BILL'] = "\xef\x83\x96",
- 	['ICON_FA_CHEVRON_DOWN'] = "\xef\x81\xb8",
- 	['ICON_FA_CAR_SIDE'] = "\xef\x97\xa4",
- 	['ICON_FA_FILTER'] = "\xef\x82\xb0",
- 	['ICON_FA_FOLDER_OPEN'] = "\xef\x81\xbc",
- 	['ICON_FA_SIGNATURE'] = "\xef\x96\xb7",
- 	['ICON_FA_SNOWBOARDING'] = "\xef\x9f\x8e",
- 	['ICON_FA_THUMBTACK'] = "\xef\x82\x8d",
- 	['ICON_FA_DICE_TWO'] = "\xef\x94\xa8",
- 	['ICON_FA_LAUGH_WINK'] = "\xef\x96\x9c",
- 	['ICON_FA_BREAD_SLICE'] = "\xef\x9f\xac",
- 	['ICON_FA_TEXT_HEIGHT'] = "\xef\x80\xb4",
- 	['ICON_FA_VOLUME_MUTE'] = "\xef\x9a\xa9",
- 	['ICON_FA_VOTE_YEA'] = "\xef\x9d\xb2",
- 	['ICON_FA_QRCODE'] = "\xef\x80\xa9",
- 	['ICON_FA_MERCURY'] = "\xef\x88\xa3",
- 	['ICON_FA_USER_ASTRONAUT'] = "\xef\x93\xbb",
- 	['ICON_FA_SORT_AMOUNT_DOWN'] = "\xef\x85\xa0",
- 	['ICON_FA_SORT_DOWN'] = "\xef\x83\x9d",
- 	['ICON_FA_COMPACT_DISC'] = "\xef\x94\x9f",
- 	['ICON_FA_PERCENTAGE'] = "\xef\x95\x81",
- 	['ICON_FA_COMMENT_MEDICAL'] = "\xef\x9f\xb5",
- 	['ICON_FA_STORE'] = "\xef\x95\x8e",
- 	['ICON_FA_COMMENT_DOTS'] = "\xef\x92\xad",
- 	['ICON_FA_SMILE_WINK'] = "\xef\x93\x9a",
- 	['ICON_FA_HOTEL'] = "\xef\x96\x94",
- 	['ICON_FA_PEPPER_HOT'] = "\xef\xa0\x96",
- 	['ICON_FA_USER_EDIT'] = "\xef\x93\xbf",
- 	['ICON_FA_DUMPSTER_FIRE'] = "\xef\x9e\x94",
- 	['ICON_FA_CLOUD_SUN_RAIN'] = "\xef\x9d\x83",
- 	['ICON_FA_GLOBE_ASIA'] = "\xef\x95\xbe",
- 	['ICON_FA_VIAL'] = "\xef\x92\x92",
- 	['ICON_FA_STROOPWAFEL'] = "\xef\x95\x91",
- 	['ICON_FA_DATABASE'] = "\xef\x87\x80",
- 	['ICON_FA_TREE'] = "\xef\x86\xbb",
- 	['ICON_FA_SHOWER'] = "\xef\x8b\x8c",
- 	['ICON_FA_DRUM_STEELPAN'] = "\xef\x95\xaa",
- 	['ICON_FA_FILE_UPLOAD'] = "\xef\x95\xb4",
- 	['ICON_FA_MEDKIT'] = "\xef\x83\xba",
- 	['ICON_FA_MINUS'] = "\xef\x81\xa8",
- 	['ICON_FA_SHEKEL_SIGN'] = "\xef\x88\x8b",
- 	['ICON_FA_BELL_SLASH'] = "\xef\x87\xb6",
- 	['ICON_FA_MAIL_BULK'] = "\xef\x99\xb4",
- 	['ICON_FA_MOUNTAIN'] = "\xef\x9b\xbc",
- 	['ICON_FA_COUCH'] = "\xef\x92\xb8",
- 	['ICON_FA_CHESS'] = "\xef\x90\xb9",
- 	['ICON_FA_FILE_EXPORT'] = "\xef\x95\xae",
- 	['ICON_FA_SIGN_LANGUAGE'] = "\xef\x8a\xa7",
- 	['ICON_FA_SNOWFLAKE'] = "\xef\x8b\x9c",
- 	['ICON_FA_PLAY'] = "\xef\x81\x8b",
- 	['ICON_FA_HEADSET'] = "\xef\x96\x90",
- 	['ICON_FA_SQUARE_ROOT_ALT'] = "\xef\x9a\x98",
- 	['ICON_FA_CHART_BAR'] = "\xef\x82\x80",
- 	['ICON_FA_WAVE_SQUARE'] = "\xef\xa0\xbe",
- 	['ICON_FA_CHART_AREA'] = "\xef\x87\xbe",
- 	['ICON_FA_EURO_SIGN'] = "\xef\x85\x93",
- 	['ICON_FA_CHESS_KING'] = "\xef\x90\xbf",
- 	['ICON_FA_MOBILE'] = "\xef\x84\x8b",
- 	['ICON_FA_BOX_OPEN'] = "\xef\x92\x9e",
- 	['ICON_FA_DOG'] = "\xef\x9b\x93",
- 	['ICON_FA_FUTBOL'] = "\xef\x87\xa3",
- 	['ICON_FA_LIRA_SIGN'] = "\xef\x86\x95",
- 	['ICON_FA_LIGHTBULB'] = "\xef\x83\xab",
- 	['ICON_FA_BOMB'] = "\xef\x87\xa2",
- 	['ICON_FA_MITTEN'] = "\xef\x9e\xb5",
- 	['ICON_FA_TRUCK_MONSTER'] = "\xef\x98\xbb",
- 	['ICON_FA_ARROWS_ALT_H'] = "\xef\x8c\xb7",
- 	['ICON_FA_CHESS_ROOK'] = "\xef\x91\x87",
- 	['ICON_FA_FIRE_EXTINGUISHER'] = "\xef\x84\xb4",
- 	['ICON_FA_BOOKMARK'] = "\xef\x80\xae",
- 	['ICON_FA_ARROWS_ALT_V'] = "\xef\x8c\xb8",
- 	['ICON_FA_ICICLES'] = "\xef\x9e\xad",
- 	['ICON_FA_FONT'] = "\xef\x80\xb1",
- 	['ICON_FA_CAMERA_RETRO'] = "\xef\x82\x83",
- 	['ICON_FA_BLENDER'] = "\xef\x94\x97",
- 	['ICON_FA_THUMBS_DOWN'] = "\xef\x85\xa5",
- 	['ICON_FA_GAMEPAD'] = "\xef\x84\x9b",
- 	['ICON_FA_COPYRIGHT'] = "\xef\x87\xb9",
- 	['ICON_FA_JEDI'] = "\xef\x99\xa9",
- 	['ICON_FA_HOCKEY_PUCK'] = "\xef\x91\x93",
- 	['ICON_FA_STOP_CIRCLE'] = "\xef\x8a\x8d",
- 	['ICON_FA_BEZIER_CURVE'] = "\xef\x95\x9b",
- 	['ICON_FA_FOLDER'] = "\xef\x81\xbb",
- 	['ICON_FA_RSS'] = "\xef\x82\x9e",
- 	['ICON_FA_COLUMNS'] = "\xef\x83\x9b",
- 	['ICON_FA_GLASS_CHEERS'] = "\xef\x9e\x9f",
- 	['ICON_FA_GRIN_WINK'] = "\xef\x96\x8c",
- 	['ICON_FA_STOP'] = "\xef\x81\x8d",
- 	['ICON_FA_MONEY_CHECK_ALT'] = "\xef\x94\xbd",
- 	['ICON_FA_COMPASS'] = "\xef\x85\x8e",
- 	['ICON_FA_TOOLBOX'] = "\xef\x95\x92",
- 	['ICON_FA_LIST_OL'] = "\xef\x83\x8b",
- 	['ICON_FA_WINE_GLASS'] = "\xef\x93\xa3",
- 	['ICON_FA_HORSE_HEAD'] = "\xef\x9e\xab",
- 	['ICON_FA_USER_ALT_SLASH'] = "\xef\x93\xba",
- 	['ICON_FA_USER_TAG'] = "\xef\x94\x87",
- 	['ICON_FA_MICROSCOPE'] = "\xef\x98\x90",
- 	['ICON_FA_BRUSH'] = "\xef\x95\x9d",
- 	['ICON_FA_BAN'] = "\xef\x81\x9e",
- 	['ICON_FA_BARS'] = "\xef\x83\x89",
- 	['ICON_FA_CAR_CRASH'] = "\xef\x97\xa1",
- 	['ICON_FA_ARROW_ALT_CIRCLE_DOWN'] = "\xef\x8d\x98",
- 	['ICON_FA_MONEY_BILL_ALT'] = "\xef\x8f\x91",
- 	['ICON_FA_JOURNAL_WHILLS'] = "\xef\x99\xaa",
- 	['ICON_FA_CHALKBOARD_TEACHER'] = "\xef\x94\x9c",
- 	['ICON_FA_PORTRAIT'] = "\xef\x8f\xa0",
- 	['ICON_FA_HAMMER'] = "\xef\x9b\xa3",
- 	['ICON_FA_RETWEET'] = "\xef\x81\xb9",
- 	['ICON_FA_HOURGLASS'] = "\xef\x89\x94",
- 	['ICON_FA_HAND_PAPER'] = "\xef\x89\x96",
- 	['ICON_FA_SUBSCRIPT'] = "\xef\x84\xac",
- 	['ICON_FA_DONATE'] = "\xef\x92\xb9",
- 	['ICON_FA_GLASS_MARTINI_ALT'] = "\xef\x95\xbb",
- 	['ICON_FA_CODE_BRANCH'] = "\xef\x84\xa6",
- 	['ICON_FA_NOT_EQUAL'] = "\xef\x94\xbe",
- 	['ICON_FA_MEH'] = "\xef\x84\x9a",
- 	['ICON_FA_LIST_ALT'] = "\xef\x80\xa2",
- 	['ICON_FA_USER_COG'] = "\xef\x93\xbe",
- 	['ICON_FA_PRESCRIPTION'] = "\xef\x96\xb1",
- 	['ICON_FA_TABLET'] = "\xef\x84\x8a",
- 	['ICON_FA_PENCIL_RULER'] = "\xef\x96\xae",
- 	['ICON_FA_CREDIT_CARD'] = "\xef\x82\x9d",
- 	['ICON_FA_ARCHWAY'] = "\xef\x95\x97",
- 	['ICON_FA_HARD_HAT'] = "\xef\xa0\x87",
- 	['ICON_FA_MAP_MARKER_ALT'] = "\xef\x8f\x85",
- 	['ICON_FA_COG'] = "\xef\x80\x93",
- 	['ICON_FA_HANUKIAH'] = "\xef\x9b\xa6",
- 	['ICON_FA_SHUTTLE_VAN'] = "\xef\x96\xb6",
- 	['ICON_FA_MONEY_CHECK'] = "\xef\x94\xbc",
- 	['ICON_FA_BELL'] = "\xef\x83\xb3",
- 	['ICON_FA_CALENDAR_DAY'] = "\xef\x9e\x83",
- 	['ICON_FA_TINT_SLASH'] = "\xef\x97\x87",
- 	['ICON_FA_PLANE_DEPARTURE'] = "\xef\x96\xb0",
- 	['ICON_FA_USER_CHECK'] = "\xef\x93\xbc",
- 	['ICON_FA_CHURCH'] = "\xef\x94\x9d",
- 	['ICON_FA_SEARCH_MINUS'] = "\xef\x80\x90",
- 	['ICON_FA_PALLET'] = "\xef\x92\x82",
- 	['ICON_FA_TINT'] = "\xef\x81\x83",
- 	['ICON_FA_STAMP'] = "\xef\x96\xbf",
- 	['ICON_FA_KAABA'] = "\xef\x99\xab",
- 	['ICON_FA_ALIGN_RIGHT'] = "\xef\x80\xb8",
- 	['ICON_FA_QUOTE_RIGHT'] = "\xef\x84\x8e",
- 	['ICON_FA_BEER'] = "\xef\x83\xbc",
- 	['ICON_FA_GRIN_ALT'] = "\xef\x96\x81",
- 	['ICON_FA_SORT_NUMERIC_DOWN'] = "\xef\x85\xa2",
- 	['ICON_FA_FIRE'] = "\xef\x81\xad",
- 	['ICON_FA_FAST_FORWARD'] = "\xef\x81\x90",
- 	['ICON_FA_MAP_MARKED_ALT'] = "\xef\x96\xa0",
- 	['ICON_FA_PENCIL_ALT'] = "\xef\x8c\x83",
- 	['ICON_FA_USERS_COG'] = "\xef\x94\x89",
- 	['ICON_FA_CARET_SQUARE_DOWN'] = "\xef\x85\x90",
- 	['ICON_FA_CRUTCH'] = "\xef\x9f\xb7",
- 	['ICON_FA_OBJECT_GROUP'] = "\xef\x89\x87",
- 	['ICON_FA_ANCHOR'] = "\xef\x84\xbd",
- 	['ICON_FA_HAND_POINT_LEFT'] = "\xef\x82\xa5",
- 	['ICON_FA_USER_TIMES'] = "\xef\x88\xb5",
- 	['ICON_FA_CALCULATOR'] = "\xef\x87\xac",
- 	['ICON_FA_DIZZY'] = "\xef\x95\xa7",
- 	['ICON_FA_KISS_WINK_HEART'] = "\xef\x96\x98",
- 	['ICON_FA_FILE_MEDICAL'] = "\xef\x91\xb7",
- 	['ICON_FA_SWIMMING_POOL'] = "\xef\x97\x85",
- 	['ICON_FA_WEIGHT_HANGING'] = "\xef\x97\x8d",
- 	['ICON_FA_VR_CARDBOARD'] = "\xef\x9c\xa9",
- 	['ICON_FA_FAST_BACKWARD'] = "\xef\x81\x89",
- 	['ICON_FA_SATELLITE'] = "\xef\x9e\xbf",
- 	['ICON_FA_USER'] = "\xef\x80\x87",
- 	['ICON_FA_MINUS_CIRCLE'] = "\xef\x81\x96",
- 	['ICON_FA_CHESS_PAWN'] = "\xef\x91\x83",
- 	['ICON_FA_CALENDAR_MINUS'] = "\xef\x89\xb2",
- 	['ICON_FA_CHESS_BOARD'] = "\xef\x90\xbc",
- 	['ICON_FA_LANDMARK'] = "\xef\x99\xaf",
- 	['ICON_FA_SWATCHBOOK'] = "\xef\x97\x83",
- 	['ICON_FA_HOTDOG'] = "\xef\xa0\x8f",
- 	['ICON_FA_SNOWMAN'] = "\xef\x9f\x90",
- 	['ICON_FA_LAPTOP'] = "\xef\x84\x89",
- 	['ICON_FA_TORAH'] = "\xef\x9a\xa0",
- 	['ICON_FA_FROWN_OPEN'] = "\xef\x95\xba",
- 	['ICON_FA_USER_LOCK'] = "\xef\x94\x82",
- 	['ICON_FA_AD'] = "\xef\x99\x81",
- 	['ICON_FA_USER_CIRCLE'] = "\xef\x8a\xbd",
- 	['ICON_FA_DIVIDE'] = "\xef\x94\xa9",
- 	['ICON_FA_HANDSHAKE'] = "\xef\x8a\xb5",
- 	['ICON_FA_CUT'] = "\xef\x83\x84",
- 	['ICON_FA_HIKING'] = "\xef\x9b\xac",
- 	['ICON_FA_STREET_VIEW'] = "\xef\x88\x9d",
- 	['ICON_FA_GREATER_THAN'] = "\xef\x94\xb1",
- 	['ICON_FA_PASTAFARIANISM'] = "\xef\x99\xbb",
- 	['ICON_FA_MINUS_SQUARE'] = "\xef\x85\x86",
- 	['ICON_FA_SAVE'] = "\xef\x83\x87",
- 	['ICON_FA_COMMENT_DOLLAR'] = "\xef\x99\x91",
- 	['ICON_FA_TRASH_ALT'] = "\xef\x8b\xad",
- 	['ICON_FA_PUZZLE_PIECE'] = "\xef\x84\xae",
- 	['ICON_FA_MENORAH'] = "\xef\x99\xb6",
- 	['ICON_FA_CLOUD_SUN'] = "\xef\x9b\x84",
- 	['ICON_FA_USER_FRIENDS'] = "\xef\x94\x80",
- 	['ICON_FA_FILE_MEDICAL_ALT'] = "\xef\x91\xb8",
- 	['ICON_FA_ARROW_LEFT'] = "\xef\x81\xa0",
- 	['ICON_FA_BOXES'] = "\xef\x91\xa8",
- 	['ICON_FA_THERMOMETER_EMPTY'] = "\xef\x8b\x8b",
- 	['ICON_FA_EXCLAMATION_TRIANGLE'] = "\xef\x81\xb1",
- 	['ICON_FA_GIFT'] = "\xef\x81\xab",
- 	['ICON_FA_COGS'] = "\xef\x82\x85",
- 	['ICON_FA_SIGNAL'] = "\xef\x80\x92",
- 	['ICON_FA_SHAPES'] = "\xef\x98\x9f",
- 	['ICON_FA_CLOUD_RAIN'] = "\xef\x9c\xbd",
- 	['ICON_FA_ELLIPSIS_H'] = "\xef\x85\x81",
- 	['ICON_FA_LESS_THAN_EQUAL'] = "\xef\x94\xb7",
- 	['ICON_FA_CHEVRON_CIRCLE_LEFT'] = "\xef\x84\xb7",
- 	['ICON_FA_MORTAR_PESTLE'] = "\xef\x96\xa7",
- 	['ICON_FA_SITEMAP'] = "\xef\x83\xa8",
- 	['ICON_FA_BUS_ALT'] = "\xef\x95\x9e",
- 	['ICON_FA_ID_BADGE'] = "\xef\x8b\x81",
- 	['ICON_FA_FIST_RAISED'] = "\xef\x9b\x9e",
- 	['ICON_FA_BATTERY_FULL'] = "\xef\x89\x80",
- 	['ICON_FA_CROWN'] = "\xef\x94\xa1",
- 	['ICON_FA_EXCHANGE_ALT'] = "\xef\x8d\xa2",
- 	['ICON_FA_SOCKS'] = "\xef\x9a\x96",
- 	['ICON_FA_CASH_REGISTER'] = "\xef\x9e\x88",
- 	['ICON_FA_REDO'] = "\xef\x80\x9e",
- 	['ICON_FA_EXCLAMATION_CIRCLE'] = "\xef\x81\xaa",
- 	['ICON_FA_COMMENTS'] = "\xef\x82\x86",
- 	['ICON_FA_BRIEFCASE_MEDICAL'] = "\xef\x91\xa9",
- 	['ICON_FA_CARET_SQUARE_RIGHT'] = "\xef\x85\x92",
- 	['ICON_FA_PEN'] = "\xef\x8c\x84",
- 	['ICON_FA_BACKSPACE'] = "\xef\x95\x9a",
- 	['ICON_FA_SLASH'] = "\xef\x9c\x95",
- 	['ICON_FA_HOT_TUB'] = "\xef\x96\x93",
- 	['ICON_FA_SUITCASE_ROLLING'] = "\xef\x97\x81",
- 	['ICON_FA_BATTERY_EMPTY'] = "\xef\x89\x84",
- 	['ICON_FA_GLOBE_AFRICA'] = "\xef\x95\xbc",
- 	['ICON_FA_SLEIGH'] = "\xef\x9f\x8c",
- 	['ICON_FA_BOLT'] = "\xef\x83\xa7",
- 	['ICON_FA_THERMOMETER_QUARTER'] = "\xef\x8b\x8a",
- 	['ICON_FA_EYE'] = "\xef\x81\xae",
- 	['ICON_FA_TROPHY'] = "\xef\x82\x91",
- 	['ICON_FA_BRAILLE'] = "\xef\x8a\xa1",
- 	['ICON_FA_PLUS'] = "\xef\x81\xa7",
- 	['ICON_FA_LIST_UL'] = "\xef\x83\x8a",
- 	['ICON_FA_SMOKING_BAN'] = "\xef\x95\x8d",
- 	['ICON_FA_BATH'] = "\xef\x8b\x8d",
- 	['ICON_FA_VOLUME_DOWN'] = "\xef\x80\xa7",
- 	['ICON_FA_QUESTION_CIRCLE'] = "\xef\x81\x99",
- 	['ICON_FA_FILE_CODE'] = "\xef\x87\x89",
- 	['ICON_FA_GAVEL'] = "\xef\x83\xa3",
- 	['ICON_FA_CANDY_CANE'] = "\xef\x9e\x86",
- 	['ICON_FA_NETWORK_WIRED'] = "\xef\x9b\xbf",
- 	['ICON_FA_CARET_SQUARE_LEFT'] = "\xef\x86\x91",
- 	['ICON_FA_PLANE_ARRIVAL'] = "\xef\x96\xaf",
- 	['ICON_FA_SHARE_SQUARE'] = "\xef\x85\x8d",
- 	['ICON_FA_MEDAL'] = "\xef\x96\xa2",
- 	['ICON_FA_THERMOMETER_HALF'] = "\xef\x8b\x89",
- 	['ICON_FA_QUESTION'] = "\xef\x84\xa8",
- 	['ICON_FA_CAR_BATTERY'] = "\xef\x97\x9f",
- 	['ICON_FA_DOOR_CLOSED'] = "\xef\x94\xaa",
- 	['ICON_FA_LEAF'] = "\xef\x81\xac",
- 	['ICON_FA_USER_MINUS'] = "\xef\x94\x83",
- 	['ICON_FA_MUSIC'] = "\xef\x80\x81",
- 	['ICON_FA_GLOBE_EUROPE'] = "\xef\x9e\xa2",
- 	['ICON_FA_HOUSE_DAMAGE'] = "\xef\x9b\xb1",
- 	['ICON_FA_CHEVRON_RIGHT'] = "\xef\x81\x94",
- 	['ICON_FA_GRIP_HORIZONTAL'] = "\xef\x96\x8d",
- 	['ICON_FA_DICE_FOUR'] = "\xef\x94\xa4",
- 	['ICON_FA_DEAF'] = "\xef\x8a\xa4",
- 	['ICON_FA_REGISTERED'] = "\xef\x89\x9d",
- 	['ICON_FA_WINDOW_CLOSE'] = "\xef\x90\x90",
- 	['ICON_FA_LINK'] = "\xef\x83\x81",
- 	['ICON_FA_YEN_SIGN'] = "\xef\x85\x97",
- 	['ICON_FA_ATOM'] = "\xef\x97\x92",
- 	['ICON_FA_LESS_THAN'] = "\xef\x94\xb6",
- 	['ICON_FA_OTTER'] = "\xef\x9c\x80",
- 	['ICON_FA_INFO'] = "\xef\x84\xa9",
- 	['ICON_FA_MARS_DOUBLE'] = "\xef\x88\xa7",
- 	['ICON_FA_CLIPBOARD_CHECK'] = "\xef\x91\xac",
- 	['ICON_FA_SKULL'] = "\xef\x95\x8c",
- 	['ICON_FA_GRIP_LINES'] = "\xef\x9e\xa4",
- 	['ICON_FA_HOSPITAL_SYMBOL'] = "\xef\x91\xbe",
- 	['ICON_FA_X_RAY'] = "\xef\x92\x97",
- 	['ICON_FA_ARROW_UP'] = "\xef\x81\xa2",
- 	['ICON_FA_MONEY_BILL_WAVE'] = "\xef\x94\xba",
- 	['ICON_FA_DOT_CIRCLE'] = "\xef\x86\x92",
- 	['ICON_FA_PAUSE_CIRCLE'] = "\xef\x8a\x8b",
- 	['ICON_FA_IMAGES'] = "\xef\x8c\x82",
- 	['ICON_FA_STAR_HALF'] = "\xef\x82\x89",
- 	['ICON_FA_SPLOTCH'] = "\xef\x96\xbc",
- 	['ICON_FA_STAR_HALF_ALT'] = "\xef\x97\x80",
- 	['ICON_FA_SHIP'] = "\xef\x88\x9a",
- 	['ICON_FA_BOOK_DEAD'] = "\xef\x9a\xb7",
- 	['ICON_FA_CHECK'] = "\xef\x80\x8c",
- 	['ICON_FA_RAINBOW'] = "\xef\x9d\x9b",
- 	['ICON_FA_POWER_OFF'] = "\xef\x80\x91",
- 	['ICON_FA_LEMON'] = "\xef\x82\x94",
- 	['ICON_FA_GLOBE_AMERICAS'] = "\xef\x95\xbd",
- 	['ICON_FA_PEACE'] = "\xef\x99\xbc",
- 	['ICON_FA_THERMOMETER_THREE_QUARTERS'] = "\xef\x8b\x88",
- 	['ICON_FA_WAREHOUSE'] = "\xef\x92\x94",
- 	['ICON_FA_TRANSGENDER'] = "\xef\x88\xa4",
- 	['ICON_FA_PLUS_SQUARE'] = "\xef\x83\xbe",
- 	['ICON_FA_BULLSEYE'] = "\xef\x85\x80",
- 	['ICON_FA_COOKIE_BITE'] = "\xef\x95\xa4",
- 	['ICON_FA_USERS'] = "\xef\x83\x80",
- 	['ICON_FA_TRANSGENDER_ALT'] = "\xef\x88\xa5",
- 	['ICON_FA_ASTERISK'] = "\xef\x81\xa9",
- 	['ICON_FA_STAR_OF_DAVID'] = "\xef\x9a\x9a",
- 	['ICON_FA_PLUS_CIRCLE'] = "\xef\x81\x95",
- 	['ICON_FA_CART_ARROW_DOWN'] = "\xef\x88\x98",
- 	['ICON_FA_FLUSHED'] = "\xef\x95\xb9",
- 	['ICON_FA_STORE_ALT'] = "\xef\x95\x8f",
- 	['ICON_FA_PEOPLE_CARRY'] = "\xef\x93\x8e",
- 	['ICON_FA_LONG_ARROW_ALT_DOWN'] = "\xef\x8c\x89",
- 	['ICON_FA_SAD_CRY'] = "\xef\x96\xb3",
- 	['ICON_FA_DIGITAL_TACHOGRAPH'] = "\xef\x95\xa6",
- 	['ICON_FA_FILE_EXCEL'] = "\xef\x87\x83",
- 	['ICON_FA_TEETH'] = "\xef\x98\xae",
- 	['ICON_FA_HAND_SCISSORS'] = "\xef\x89\x97",
- 	['ICON_FA_FILE_INVOICE_DOLLAR'] = "\xef\x95\xb1",
- 	['ICON_FA_STEP_FORWARD'] = "\xef\x81\x91",
- 	['ICON_FA_BACKWARD'] = "\xef\x81\x8a",
- 	['ICON_FA_SCROLL'] = "\xef\x9c\x8e",
- 	['ICON_FA_IGLOO'] = "\xef\x9e\xae",
- 	['ICON_FA_CODE'] = "\xef\x84\xa1",
- 	['ICON_FA_TRAM'] = "\xef\x9f\x9a",
- 	['ICON_FA_TORII_GATE'] = "\xef\x9a\xa1",
- 	['ICON_FA_SKIING'] = "\xef\x9f\x89",
- 	['ICON_FA_CHAIR'] = "\xef\x9b\x80",
- 	['ICON_FA_DUMBBELL'] = "\xef\x91\x8b",
- 	['ICON_FA_ANGLE_DOUBLE_UP'] = "\xef\x84\x82",
- 	['ICON_FA_ANGLE_DOUBLE_LEFT'] = "\xef\x84\x80",
- 	['ICON_FA_MOSQUE'] = "\xef\x99\xb8",
- 	['ICON_FA_COMMENTS_DOLLAR'] = "\xef\x99\x93",
- 	['ICON_FA_FILE_PRESCRIPTION'] = "\xef\x95\xb2",
- 	['ICON_FA_ANGLE_LEFT'] = "\xef\x84\x84",
- 	['ICON_FA_ATLAS'] = "\xef\x95\x98",
- 	['ICON_FA_PIGGY_BANK'] = "\xef\x93\x93",
- 	['ICON_FA_DOLLY_FLATBED'] = "\xef\x91\xb4",
- 	['ICON_FA_RANDOM'] = "\xef\x81\xb4",
- 	['ICON_FA_PEN_ALT'] = "\xef\x8c\x85",
- 	['ICON_FA_PRAYING_HANDS'] = "\xef\x9a\x84",
- 	['ICON_FA_VOLUME_UP'] = "\xef\x80\xa8",
- 	['ICON_FA_CLIPBOARD_LIST'] = "\xef\x91\xad",
- 	['ICON_FA_GRIN_STARS'] = "\xef\x96\x87",
- 	['ICON_FA_FOLDER_MINUS'] = "\xef\x99\x9d",
- 	['ICON_FA_DEMOCRAT'] = "\xef\x9d\x87",
- 	['ICON_FA_MAGNET'] = "\xef\x81\xb6",
- 	['ICON_FA_VIHARA'] = "\xef\x9a\xa7",
- 	['ICON_FA_GRIMACE'] = "\xef\x95\xbf",
- 	['ICON_FA_CHECK_CIRCLE'] = "\xef\x81\x98",
- 	['ICON_FA_SEARCH_DOLLAR'] = "\xef\x9a\x88",
- 	['ICON_FA_LONG_ARROW_ALT_LEFT'] = "\xef\x8c\x8a",
- 	['ICON_FA_CROW'] = "\xef\x94\xa0",
- 	['ICON_FA_EYE_DROPPER'] = "\xef\x87\xbb",
- 	['ICON_FA_CROP'] = "\xef\x84\xa5",
- 	['ICON_FA_SIGN'] = "\xef\x93\x99",
- 	['ICON_FA_ARROW_CIRCLE_DOWN'] = "\xef\x82\xab",
- 	['ICON_FA_VIDEO'] = "\xef\x80\xbd",
- 	['ICON_FA_DOWNLOAD'] = "\xef\x80\x99",
- 	['ICON_FA_BOLD'] = "\xef\x80\xb2",
- 	['ICON_FA_CARET_DOWN'] = "\xef\x83\x97",
- 	['ICON_FA_CHEVRON_LEFT'] = "\xef\x81\x93",
- 	['ICON_FA_HAMSA'] = "\xef\x99\xa5",
- 	['ICON_FA_CART_PLUS'] = "\xef\x88\x97",
- 	['ICON_FA_CLIPBOARD'] = "\xef\x8c\xa8",
- 	['ICON_FA_SHOE_PRINTS'] = "\xef\x95\x8b",
- 	['ICON_FA_PHONE_SLASH'] = "\xef\x8f\x9d",
- 	['ICON_FA_REPLY'] = "\xef\x8f\xa5",
- 	['ICON_FA_HOURGLASS_HALF'] = "\xef\x89\x92",
- 	['ICON_FA_LONG_ARROW_ALT_UP'] = "\xef\x8c\x8c",
- 	['ICON_FA_CHESS_KNIGHT'] = "\xef\x91\x81",
- 	['ICON_FA_BARCODE'] = "\xef\x80\xaa",
- 	['ICON_FA_DRAW_POLYGON'] = "\xef\x97\xae",
- 	['ICON_FA_WATER'] = "\xef\x9d\xb3",
- 	['ICON_FA_PAUSE'] = "\xef\x81\x8c",
- 	['ICON_FA_WINE_GLASS_ALT'] = "\xef\x97\x8e",
- 	['ICON_FA_GLASS_WHISKEY'] = "\xef\x9e\xa0",
- 	['ICON_FA_BOX'] = "\xef\x91\xa6",
- 	['ICON_FA_DIAGNOSES'] = "\xef\x91\xb0",
- 	['ICON_FA_FILE_IMAGE'] = "\xef\x87\x85",
- 	['ICON_FA_ARROW_CIRCLE_RIGHT'] = "\xef\x82\xa9",
- 	['ICON_FA_TASKS'] = "\xef\x82\xae",
- 	['ICON_FA_VECTOR_SQUARE'] = "\xef\x97\x8b",
- 	['ICON_FA_QUOTE_LEFT'] = "\xef\x84\x8d",
- 	['ICON_FA_MOBILE_ALT'] = "\xef\x8f\x8d",
- 	['ICON_FA_USER_SHIELD'] = "\xef\x94\x85",
- 	['ICON_FA_BLOG'] = "\xef\x9e\x81",
- 	['ICON_FA_MARKER'] = "\xef\x96\xa1",
- 	['ICON_FA_USER_TIE'] = "\xef\x94\x88",
- 	['ICON_FA_TOOLS'] = "\xef\x9f\x99",
- 	['ICON_FA_CLOUD'] = "\xef\x83\x82",
- 	['ICON_FA_HAND_HOLDING_USD'] = "\xef\x93\x80",
- 	['ICON_FA_CERTIFICATE'] = "\xef\x82\xa3",
- 	['ICON_FA_CLOUD_DOWNLOAD_ALT'] = "\xef\x8e\x81",
- 	['ICON_FA_ANGRY'] = "\xef\x95\x96",
- 	['ICON_FA_FROG'] = "\xef\x94\xae",
- 	['ICON_FA_CAMERA'] = "\xef\x80\xb0",
- 	['ICON_FA_DICE_THREE'] = "\xef\x94\xa7",
- 	['ICON_FA_MEMORY'] = "\xef\x94\xb8",
- 	['ICON_FA_PEN_SQUARE'] = "\xef\x85\x8b",
- 	['ICON_FA_SORT'] = "\xef\x83\x9c",
- 	['ICON_FA_PLUG'] = "\xef\x87\xa6",
- 	['ICON_FA_MOUSE_POINTER'] = "\xef\x89\x85",
- 	['ICON_FA_ENVELOPE'] = "\xef\x83\xa0",
- 	['ICON_FA_LAYER_GROUP'] = "\xef\x97\xbd",
- 	['ICON_FA_TRAIN'] = "\xef\x88\xb8",
- 	['ICON_FA_BULLHORN'] = "\xef\x82\xa1",
- 	['ICON_FA_BABY'] = "\xef\x9d\xbc",
- 	['ICON_FA_CONCIERGE_BELL'] = "\xef\x95\xa2",
- 	['ICON_FA_CIRCLE'] = "\xef\x84\x91",
- 	['ICON_FA_I_CURSOR'] = "\xef\x89\x86",
- 	['ICON_FA_CAR'] = "\xef\x86\xb9",
- 	['ICON_FA_CAT'] = "\xef\x9a\xbe",
- 	['ICON_FA_WALLET'] = "\xef\x95\x95",
- 	['ICON_FA_BOOK_MEDICAL'] = "\xef\x9f\xa6",
- 	['ICON_FA_H_SQUARE'] = "\xef\x83\xbd",
- 	['ICON_FA_HEART'] = "\xef\x80\x84",
- 	['ICON_FA_LOCK_OPEN'] = "\xef\x8f\x81",
- 	['ICON_FA_STREAM'] = "\xef\x95\x90",
- 	['ICON_FA_LOCK'] = "\xef\x80\xa3",
- 	['ICON_FA_CARROT'] = "\xef\x9e\x87",
- 	['ICON_FA_SMILE_BEAM'] = "\xef\x96\xb8",
- 	['ICON_FA_USER_NURSE'] = "\xef\xa0\xaf",
- 	['ICON_FA_MICROPHONE_ALT'] = "\xef\x8f\x89",
- 	['ICON_FA_SPA'] = "\xef\x96\xbb",
- 	['ICON_FA_CHEVRON_CIRCLE_DOWN'] = "\xef\x84\xba",
- 	['ICON_FA_FOLDER_PLUS'] = "\xef\x99\x9e",
- 	['ICON_FA_CLOUD_MEATBALL'] = "\xef\x9c\xbb",
- 	['ICON_FA_BOOK_OPEN'] = "\xef\x94\x98",
- 	['ICON_FA_MAP'] = "\xef\x89\xb9",
- 	['ICON_FA_COCKTAIL'] = "\xef\x95\xa1",
- 	['ICON_FA_CLONE'] = "\xef\x89\x8d",
- 	['ICON_FA_ID_CARD_ALT'] = "\xef\x91\xbf",
- 	['ICON_FA_CHECK_SQUARE'] = "\xef\x85\x8a",
- 	['ICON_FA_CHART_LINE'] = "\xef\x88\x81",
- 	['ICON_FA_FILE_ARCHIVE'] = "\xef\x87\x86",
- 	['ICON_FA_DOVE'] = "\xef\x92\xba",
- 	['ICON_FA_MARS_STROKE'] = "\xef\x88\xa9",
- 	['ICON_FA_ENVELOPE_OPEN'] = "\xef\x8a\xb6",
- 	['ICON_FA_WHEELCHAIR'] = "\xef\x86\x93",
- 	['ICON_FA_ROBOT'] = "\xef\x95\x84",
- 	['ICON_FA_UNDO_ALT'] = "\xef\x8b\xaa",
- 	['ICON_FA_TICKET_ALT'] = "\xef\x8f\xbf",
- 	['ICON_FA_TRUCK'] = "\xef\x83\x91",
- 	['ICON_FA_WON_SIGN'] = "\xef\x85\x99",
- 	['ICON_FA_SUPERSCRIPT'] = "\xef\x84\xab",
- 	['ICON_FA_TTY'] = "\xef\x87\xa4",
- 	['ICON_FA_USER_MD'] = "\xef\x83\xb0",
- 	['ICON_FA_ALIGN_LEFT'] = "\xef\x80\xb6",
- 	['ICON_FA_TABLETS'] = "\xef\x92\x90",
- 	['ICON_FA_MOTORCYCLE'] = "\xef\x88\x9c",
- 	['ICON_FA_ANGLE_UP'] = "\xef\x84\x86",
- 	['ICON_FA_BROOM'] = "\xef\x94\x9a",
- 	['ICON_FA_TOILET_PAPER'] = "\xef\x9c\x9e",
- 	['ICON_FA_DICE_D20'] = "\xef\x9b\x8f",
- 	['ICON_FA_LEVEL_DOWN_ALT'] = "\xef\x8e\xbe",
- 	['ICON_FA_PAPERCLIP'] = "\xef\x83\x86",
- 	['ICON_FA_USER_CLOCK'] = "\xef\x93\xbd",
- 	['ICON_FA_SORT_ALPHA_UP'] = "\xef\x85\x9e",
- 	['ICON_FA_AUDIO_DESCRIPTION'] = "\xef\x8a\x9e",
- 	['ICON_FA_FILE_CSV'] = "\xef\x9b\x9d",
- 	['ICON_FA_FILE_DOWNLOAD'] = "\xef\x95\xad",
- 	['ICON_FA_SYNC_ALT'] = "\xef\x8b\xb1",
- 	['ICON_FA_KISS'] = "\xef\x96\x96",
- 	['ICON_FA_HANDS'] = "\xef\x93\x82",
- 	['ICON_FA_REPUBLICAN'] = "\xef\x9d\x9e",
- 	['ICON_FA_EDIT'] = "\xef\x81\x84",
- 	['ICON_FA_UNIVERSITY'] = "\xef\x86\x9c",
- 	['ICON_FA_KHANDA'] = "\xef\x99\xad",
- 	['ICON_FA_GLASSES'] = "\xef\x94\xb0",
- 	['ICON_FA_SQUARE'] = "\xef\x83\x88",
- 	['ICON_FA_GRIN_SQUINT'] = "\xef\x96\x85",
- 	['ICON_FA_GLOBE'] = "\xef\x82\xac",
- 	['ICON_FA_RECEIPT'] = "\xef\x95\x83",
- 	['ICON_FA_STRIKETHROUGH'] = "\xef\x83\x8c",
- 	['ICON_FA_UNLOCK'] = "\xef\x82\x9c",
- 	['ICON_FA_DICE_SIX'] = "\xef\x94\xa6",
- 	['ICON_FA_GRIP_VERTICAL'] = "\xef\x96\x8e",
- 	['ICON_FA_PILLS'] = "\xef\x92\x84",
- 	['ICON_FA_EXCLAMATION'] = "\xef\x84\xaa",
- 	['ICON_FA_PERSON_BOOTH'] = "\xef\x9d\x96",
- 	['ICON_FA_CALENDAR_PLUS'] = "\xef\x89\xb1",
- 	['ICON_FA_SMOG'] = "\xef\x9d\x9f",
- 	['ICON_FA_LOCATION_ARROW'] = "\xef\x84\xa4",
- 	['ICON_FA_UMBRELLA'] = "\xef\x83\xa9",
- 	['ICON_FA_QURAN'] = "\xef\x9a\x87",
- 	['ICON_FA_UNDO'] = "\xef\x83\xa2",
- 	['ICON_FA_DUMPSTER'] = "\xef\x9e\x93",
- 	['ICON_FA_FUNNEL_DOLLAR'] = "\xef\x99\xa2",
- 	['ICON_FA_INDENT'] = "\xef\x80\xbc",
- 	['ICON_FA_LANGUAGE'] = "\xef\x86\xab",
- 	['ICON_FA_ARROW_ALT_CIRCLE_UP'] = "\xef\x8d\x9b",
- 	['ICON_FA_ROUTE'] = "\xef\x93\x97",
- 	['ICON_FA_USER_ALT'] = "\xef\x90\x86",
- 	['ICON_FA_TIMES'] = "\xef\x80\x8d",
- 	['ICON_FA_CLINIC_MEDICAL'] = "\xef\x9f\xb2",
- 	['ICON_FA_LEVEL_UP_ALT'] = "\xef\x8e\xbf",
- 	['ICON_FA_BLIND'] = "\xef\x8a\x9d",
- 	['ICON_FA_CHEESE'] = "\xef\x9f\xaf",
- 	['ICON_FA_PHONE_SQUARE'] = "\xef\x82\x98",
- 	['ICON_FA_SHOPPING_BASKET'] = "\xef\x8a\x91",
- 	['ICON_FA_ICE_CREAM'] = "\xef\xa0\x90",
- 	['ICON_FA_RING'] = "\xef\x9c\x8b",
- 	['ICON_FA_CITY'] = "\xef\x99\x8f",
- 	['ICON_FA_TEXT_WIDTH'] = "\xef\x80\xb5",
- 	['ICON_FA_RSS_SQUARE'] = "\xef\x85\x83",
- 	['ICON_FA_PAINT_BRUSH'] = "\xef\x87\xbc",
- 	['ICON_FA_PARACHUTE_BOX'] = "\xef\x93\x8d",
- 	['ICON_FA_SIM_CARD'] = "\xef\x9f\x84",
- 	['ICON_FA_CLOUD_UPLOAD_ALT'] = "\xef\x8e\x82",
- 	['ICON_FA_SORT_UP'] = "\xef\x83\x9e",
- 	['ICON_FA_SIGN_OUT_ALT'] = "\xef\x8b\xb5",
- 	['ICON_FA_USER_NINJA'] = "\xef\x94\x84",
- 	['ICON_FA_SIGN_IN_ALT'] = "\xef\x8b\xb6",
- 	['ICON_FA_MUG_HOT'] = "\xef\x9e\xb6",
- 	['ICON_FA_SHARE_ALT'] = "\xef\x87\xa0",
- 	['ICON_FA_CALENDAR_CHECK'] = "\xef\x89\xb4",
- 	['ICON_FA_PEN_FANCY'] = "\xef\x96\xac",
- 	['ICON_FA_BIOHAZARD'] = "\xef\x9e\x80",
- 	['ICON_FA_BED'] = "\xef\x88\xb6",
- 	['ICON_FA_FILE_SIGNATURE'] = "\xef\x95\xb3",
- 	['ICON_FA_TOGGLE_OFF'] = "\xef\x88\x84",
- 	['ICON_FA_TRAFFIC_LIGHT'] = "\xef\x98\xb7",
- 	['ICON_FA_TRACTOR'] = "\xef\x9c\xa2",
- 	['ICON_FA_MEH_ROLLING_EYES'] = "\xef\x96\xa5",
- 	['ICON_FA_COMMENT_ALT'] = "\xef\x89\xba",
- 	['ICON_FA_RULER_HORIZONTAL'] = "\xef\x95\x87",
- 	['ICON_FA_PAINT_ROLLER'] = "\xef\x96\xaa",
- 	['ICON_FA_HAT_WIZARD'] = "\xef\x9b\xa8",
- 	['ICON_FA_CALENDAR'] = "\xef\x84\xb3",
- 	['ICON_FA_MICROPHONE'] = "\xef\x84\xb0",
- 	['ICON_FA_FOOTBALL_BALL'] = "\xef\x91\x8e",
- 	['ICON_FA_ALLERGIES'] = "\xef\x91\xa1",
- 	['ICON_FA_ID_CARD'] = "\xef\x8b\x82",
- 	['ICON_FA_REDO_ALT'] = "\xef\x8b\xb9",
- 	['ICON_FA_PLAY_CIRCLE'] = "\xef\x85\x84",
- 	['ICON_FA_THERMOMETER'] = "\xef\x92\x91",
- 	['ICON_FA_DOLLAR_SIGN'] = "\xef\x85\x95",
- 	['ICON_FA_DUNGEON'] = "\xef\x9b\x99",
- 	['ICON_FA_COMPRESS'] = "\xef\x81\xa6",
- 	['ICON_FA_SEARCH_LOCATION'] = "\xef\x9a\x89",
- 	['ICON_FA_BLENDER_PHONE'] = "\xef\x9a\xb6",
- 	['ICON_FA_ANGLE_RIGHT'] = "\xef\x84\x85",
- 	['ICON_FA_CHESS_QUEEN'] = "\xef\x91\x85",
- 	['ICON_FA_PAGER'] = "\xef\xa0\x95",
- 	['ICON_FA_MEH_BLANK'] = "\xef\x96\xa4",
- 	['ICON_FA_EJECT'] = "\xef\x81\x92",
- 	['ICON_FA_HOURGLASS_END'] = "\xef\x89\x93",
- 	['ICON_FA_TOOTH'] = "\xef\x97\x89",
- 	['ICON_FA_BUSINESS_TIME'] = "\xef\x99\x8a",
- 	['ICON_FA_PLACE_OF_WORSHIP'] = "\xef\x99\xbf",
- 	['ICON_FA_MOON'] = "\xef\x86\x86",
- 	['ICON_FA_GRIN_TONGUE_SQUINT'] = "\xef\x96\x8a",
- 	['ICON_FA_WALKING'] = "\xef\x95\x94",
- 	['ICON_FA_SHIPPING_FAST'] = "\xef\x92\x8b",
- 	['ICON_FA_CARET_LEFT'] = "\xef\x83\x99",
- 	['ICON_FA_DICE'] = "\xef\x94\xa2",
- 	['ICON_FA_RUBLE_SIGN'] = "\xef\x85\x98",
- 	['ICON_FA_RULER_VERTICAL'] = "\xef\x95\x88",
- 	['ICON_FA_HAND_POINTER'] = "\xef\x89\x9a",
- 	['ICON_FA_TAPE'] = "\xef\x93\x9b",
- 	['ICON_FA_SHOPPING_BAG'] = "\xef\x8a\x90",
- 	['ICON_FA_SKIING_NORDIC'] = "\xef\x9f\x8a",
- 	['ICON_FA_HIPPO'] = "\xef\x9b\xad",
- 	['ICON_FA_CUBE'] = "\xef\x86\xb2",
- 	['ICON_FA_CAPSULES'] = "\xef\x91\xab",
- 	['ICON_FA_KIWI_BIRD'] = "\xef\x94\xb5",
- 	['ICON_FA_CHEVRON_CIRCLE_UP'] = "\xef\x84\xb9",
- 	['ICON_FA_MARS_STROKE_V'] = "\xef\x88\xaa",
- 	['ICON_FA_POO_STORM'] = "\xef\x9d\x9a",
- 	['ICON_FA_JOINT'] = "\xef\x96\x95",
- 	['ICON_FA_MARS_STROKE_H'] = "\xef\x88\xab",
- 	['ICON_FA_ADDRESS_BOOK'] = "\xef\x8a\xb9",
- 	['ICON_FA_PROCEDURES'] = "\xef\x92\x87",
- 	['ICON_FA_GEM'] = "\xef\x8e\xa5",
- 	['ICON_FA_RULER_COMBINED'] = "\xef\x95\x86",
- 	['ICON_FA_BRAIN'] = "\xef\x97\x9c",
- 	['ICON_FA_STAR_AND_CRESCENT'] = "\xef\x9a\x99",
- 	['ICON_FA_FIGHTER_JET'] = "\xef\x83\xbb",
- 	['ICON_FA_SPACE_SHUTTLE'] = "\xef\x86\x97",
- 	['ICON_FA_MAP_PIN'] = "\xef\x89\xb6",
- 	['ICON_FA_ALIGN_CENTER'] = "\xef\x80\xb7",
- 	['ICON_FA_SORT_ALPHA_DOWN'] = "\xef\x85\x9d",
- 	['ICON_FA_PARKING'] = "\xef\x95\x80",
- 	['ICON_FA_MAP_SIGNS'] = "\xef\x89\xb7",
- 	['ICON_FA_PALETTE'] = "\xef\x94\xbf",
- 	['ICON_FA_GLASS_MARTINI'] = "\xef\x80\x80",
- 	['ICON_FA_TIMES_CIRCLE'] = "\xef\x81\x97",
- 	['ICON_FA_MONUMENT'] = "\xef\x96\xa6",
- 	['ICON_FA_GUITAR'] = "\xef\x9e\xa6",
- 	['ICON_FA_GRIN_BEAM'] = "\xef\x96\x82",
- 	['ICON_FA_KEY'] = "\xef\x82\x84",
- 	['ICON_FA_TH_LIST'] = "\xef\x80\x8b",
- 	['ICON_FA_SHARE_ALT_SQUARE'] = "\xef\x87\xa1",
- 	['ICON_FA_DRUM'] = "\xef\x95\xa9",
- 	['ICON_FA_FILE_CONTRACT'] = "\xef\x95\xac",
- 	['ICON_FA_RESTROOM'] = "\xef\x9e\xbd",
- 	['ICON_FA_UNLOCK_ALT'] = "\xef\x84\xbe",
- 	['ICON_FA_MICROPHONE_ALT_SLASH'] = "\xef\x94\xb9",
- 	['ICON_FA_USER_SECRET'] = "\xef\x88\x9b",
- 	['ICON_FA_ARROW_RIGHT'] = "\xef\x81\xa1",
- 	['ICON_FA_FILE_VIDEO'] = "\xef\x87\x88",
- 	['ICON_FA_ARROW_ALT_CIRCLE_RIGHT'] = "\xef\x8d\x9a",
- 	['ICON_FA_COMMENT'] = "\xef\x81\xb5",
- 	['ICON_FA_CALENDAR_WEEK'] = "\xef\x9e\x84",
- 	['ICON_FA_USER_GRADUATE'] = "\xef\x94\x81",
- 	['ICON_FA_HAND_MIDDLE_FINGER'] = "\xef\xa0\x86",
- 	['ICON_FA_POO'] = "\xef\x8b\xbe",
- 	['ICON_FA_GRIP_LINES_VERTICAL'] = "\xef\x9e\xa5",
- 	['ICON_FA_TABLE'] = "\xef\x83\x8e",
- 	['ICON_FA_POLL'] = "\xef\x9a\x81",
- 	['ICON_FA_CAR_ALT'] = "\xef\x97\x9e",
- 	['ICON_FA_THUMBS_UP'] = "\xef\x85\xa4",
- 	['ICON_FA_TRADEMARK'] = "\xef\x89\x9c",
- 	['ICON_FA_CLOUD_MOON'] = "\xef\x9b\x83",
- 	['ICON_FA_VIALS'] = "\xef\x92\x93",
- 	['ICON_FA_FIRST_AID'] = "\xef\x91\xb9",
- 	['ICON_FA_ERASER'] = "\xef\x84\xad",
- 	['ICON_FA_MARS'] = "\xef\x88\xa2",
- 	['ICON_FA_STAR_OF_LIFE'] = "\xef\x98\xa1",
- 	['ICON_FA_FEATHER'] = "\xef\x94\xad",
- 	['ICON_FA_SQUARE_FULL'] = "\xef\x91\x9c",
- 	['ICON_FA_DOLLY'] = "\xef\x91\xb2",
- 	['ICON_FA_HOURGLASS_START'] = "\xef\x89\x91",
- 	['ICON_FA_GRIN_HEARTS'] = "\xef\x96\x84",
- 	['ICON_FA_CUBES'] = "\xef\x86\xb3",
- 	['ICON_FA_HASHTAG'] = "\xef\x8a\x92",
- 	['ICON_FA_SEEDLING'] = "\xef\x93\x98",
- 	['ICON_FA_HAYKAL'] = "\xef\x99\xa6",
- 	['ICON_FA_TSHIRT'] = "\xef\x95\x93",
- 	['ICON_FA_LAUGH_SQUINT'] = "\xef\x96\x9b",
- 	['ICON_FA_HDD'] = "\xef\x82\xa0",
- 	['ICON_FA_NEWSPAPER'] = "\xef\x87\xaa",
- 	['ICON_FA_HOSPITAL_ALT'] = "\xef\x91\xbd",
- 	['ICON_FA_USER_SLASH'] = "\xef\x94\x86",
- 	['ICON_FA_FILE_WORD'] = "\xef\x87\x82",
- 	['ICON_FA_ENVELOPE_SQUARE'] = "\xef\x86\x99",
- 	['ICON_FA_GENDERLESS'] = "\xef\x88\xad",
- 	['ICON_FA_DICE_FIVE'] = "\xef\x94\xa3",
- 	['ICON_FA_SYNAGOGUE'] = "\xef\x9a\x9b",
- 	['ICON_FA_PAW'] = "\xef\x86\xb0",
- 	['ICON_FA_RADIATION'] = "\xef\x9e\xb9",
- 	['ICON_FA_CROSS'] = "\xef\x99\x94",
- 	['ICON_FA_ARCHIVE'] = "\xef\x86\x87",
- 	['ICON_FA_PHONE_VOLUME'] = "\xef\x8a\xa0",
- 	['ICON_FA_SOLAR_PANEL'] = "\xef\x96\xba",
- 	['ICON_FA_INFINITY'] = "\xef\x94\xb4",
- 	['ICON_FA_HAND_POINT_DOWN'] = "\xef\x82\xa7",
- 	['ICON_FA_MAP_MARKER'] = "\xef\x81\x81",
- 	['ICON_FA_CALENDAR_ALT'] = "\xef\x81\xb3",
- 	['ICON_FA_AMERICAN_SIGN_LANGUAGE_INTERPRETING'] = "\xef\x8a\xa3",
- 	['ICON_FA_BINOCULARS'] = "\xef\x87\xa5",
- 	['ICON_FA_STICKY_NOTE'] = "\xef\x89\x89",
- 	['ICON_FA_RUNNING'] = "\xef\x9c\x8c",
- 	['ICON_FA_PEN_NIB'] = "\xef\x96\xad",
- 	['ICON_FA_MAP_MARKED'] = "\xef\x96\x9f",
- 	['ICON_FA_EXPAND'] = "\xef\x81\xa5",
- 	['ICON_FA_TRUCK_PICKUP'] = "\xef\x98\xbc",
- 	['ICON_FA_HOLLY_BERRY'] = "\xef\x9e\xaa",
- 	['ICON_FA_PRESCRIPTION_BOTTLE'] = "\xef\x92\x85",
- 	['ICON_FA_LAPTOP_CODE'] = "\xef\x97\xbc",
- 	['ICON_FA_GOLF_BALL'] = "\xef\x91\x90",
- 	['ICON_FA_SKULL_CROSSBONES'] = "\xef\x9c\x94",
- 	['ICON_FA_TAXI'] = "\xef\x86\xba",
- 	['ICON_FA_ROCKET'] = "\xef\x84\xb5",
- 	['ICON_FA_YIN_YANG'] = "\xef\x9a\xad",
- 	['ICON_FA_FINGERPRINT'] = "\xef\x95\xb7",
- 	['ICON_FA_ARROWS_ALT'] = "\xef\x82\xb2",
- 	['ICON_FA_UNDERLINE'] = "\xef\x83\x8d",
- 	['ICON_FA_ARROW_CIRCLE_UP'] = "\xef\x82\xaa",
- 	['ICON_FA_BASKETBALL_BALL'] = "\xef\x90\xb4",
- 	['ICON_FA_DESKTOP'] = "\xef\x84\x88",
- 	['ICON_FA_SPINNER'] = "\xef\x84\x90",
- 	['ICON_FA_TOGGLE_ON'] = "\xef\x88\x85",
- 	['ICON_FA_STOPWATCH'] = "\xef\x8b\xb2",
- 	['ICON_FA_ARROW_ALT_CIRCLE_LEFT'] = "\xef\x8d\x99",
- 	['ICON_FA_GAS_PUMP'] = "\xef\x94\xaf",
- 	['ICON_FA_EXTERNAL_LINK_ALT'] = "\xef\x8d\x9d",
- 	['ICON_FA_FROWN'] = "\xef\x84\x99",
- 	['ICON_FA_RULER'] = "\xef\x95\x85",
- 	['ICON_FA_FLAG_USA'] = "\xef\x9d\x8d",
- 	['ICON_FA_GRIN'] = "\xef\x96\x80",
- 	['ICON_FA_THEATER_MASKS'] = "\xef\x98\xb0",
- 	['ICON_FA_ARROW_CIRCLE_LEFT'] = "\xef\x82\xa8",
- 	['ICON_FA_HIGHLIGHTER'] = "\xef\x96\x91",
- 	['ICON_FA_POLL_H'] = "\xef\x9a\x82",
- 	['ICON_FA_SERVER'] = "\xef\x88\xb3",
- 	['ICON_FA_TRASH_RESTORE'] = "\xef\xa0\xa9",
- 	['ICON_FA_SPRAY_CAN'] = "\xef\x96\xbd",
- 	['ICON_FA_BOWLING_BALL'] = "\xef\x90\xb6",
- 	['ICON_FA_LAUGH'] = "\xef\x96\x99",
- 	['ICON_FA_TERMINAL'] = "\xef\x84\xa0",
- 	['ICON_FA_WINDOW_MINIMIZE'] = "\xef\x8b\x91",
- 	['ICON_FA_HOME'] = "\xef\x80\x95",
- 	['ICON_FA_UTENSIL_SPOON'] = "\xef\x8b\xa5",
- 	['ICON_FA_QUIDDITCH'] = "\xef\x91\x98",
- 	['ICON_FA_APPLE_ALT'] = "\xef\x97\x91",
- 	['ICON_FA_UMBRELLA_BEACH'] = "\xef\x97\x8a",
- 	['ICON_FA_CANNABIS'] = "\xef\x95\x9f",
- 	['ICON_FA_LAUGH_BEAM'] = "\xef\x96\x9a",
- 	['ICON_FA_TEETH_OPEN'] = "\xef\x98\xaf",
- 	['ICON_FA_DRUMSTICK_BITE'] = "\xef\x9b\x97",
- 	['ICON_FA_CHART_PIE'] = "\xef\x88\x80",
- 	['ICON_FA_SD_CARD'] = "\xef\x9f\x82",
- 	['ICON_FA_HANDS_HELPING'] = "\xef\x93\x84",
- 	['ICON_FA_PASTE'] = "\xef\x83\xaa",
- 	['ICON_FA_OM'] = "\xef\x99\xb9",
- 	['ICON_FA_LUGGAGE_CART'] = "\xef\x96\x9d",
- 	['ICON_FA_INDUSTRY'] = "\xef\x89\xb5",
- 	['ICON_FA_SWIMMER'] = "\xef\x97\x84",
- 	['ICON_FA_RADIATION_ALT'] = "\xef\x9e\xba",
- 	['ICON_FA_COMPRESS_ARROWS_ALT'] = "\xef\x9e\x8c",
- 	['ICON_FA_ROAD'] = "\xef\x80\x98",
- 	['ICON_FA_IMAGE'] = "\xef\x80\xbe",
- 	['ICON_FA_CHILD'] = "\xef\x86\xae",
- 	['ICON_FA_ANGLE_DOUBLE_RIGHT'] = "\xef\x84\x81",
- 	['ICON_FA_CLOUD_MOON_RAIN'] = "\xef\x9c\xbc",
- 	['ICON_FA_DOOR_OPEN'] = "\xef\x94\xab",
- 	['ICON_FA_GRIN_TONGUE_WINK'] = "\xef\x96\x8b",
- 	['ICON_FA_REPLY_ALL'] = "\xef\x84\xa2",
- 	['ICON_FA_TEMPERATURE_LOW'] = "\xef\x9d\xab",
- 	['ICON_FA_INBOX'] = "\xef\x80\x9c",
- 	['ICON_FA_FEMALE'] = "\xef\x86\x82",
- 	['ICON_FA_SYRINGE'] = "\xef\x92\x8e",
- 	['ICON_FA_CIRCLE_NOTCH'] = "\xef\x87\x8e",
- 	['ICON_FA_WEIGHT'] = "\xef\x92\x96",
- 	['ICON_FA_SNOWPLOW'] = "\xef\x9f\x92",
- 	['ICON_FA_TABLE_TENNIS'] = "\xef\x91\x9d",
- 	['ICON_FA_LOW_VISION'] = "\xef\x8a\xa8",
- 	['ICON_FA_FILE_IMPORT'] = "\xef\x95\xaf",
- 	['ICON_FA_ITALIC'] = "\xef\x80\xb3",
- 	['ICON_FA_CLOSED_CAPTIONING'] = "\xef\x88\x8a",
- 	['ICON_FA_CHALKBOARD'] = "\xef\x94\x9b",
- 	['ICON_FA_BUILDING'] = "\xef\x86\xad",
- 	['ICON_FA_TACHOMETER_ALT'] = "\xef\x8f\xbd",
- 	['ICON_FA_BUS'] = "\xef\x88\x87",
- 	['ICON_FA_ANGLE_DOWN'] = "\xef\x84\x87",
- 	['ICON_FA_HAND_ROCK'] = "\xef\x89\x95",
- 	['ICON_FA_FORWARD'] = "\xef\x81\x8e",
- 	['ICON_FA_HELICOPTER'] = "\xef\x94\xb3",
- 	['ICON_FA_PODCAST'] = "\xef\x8b\x8e",
- 	['ICON_FA_TRUCK_MOVING'] = "\xef\x93\x9f",
- 	['ICON_FA_BUG'] = "\xef\x86\x88",
- 	['ICON_FA_SHIELD_ALT'] = "\xef\x8f\xad",
- 	['ICON_FA_FILL_DRIP'] = "\xef\x95\xb6",
- 	['ICON_FA_COMMENT_SLASH'] = "\xef\x92\xb3",
- 	['ICON_FA_SUITCASE'] = "\xef\x83\xb2",
- 	['ICON_FA_SKATING'] = "\xef\x9f\x85",
- 	['ICON_FA_TOILET'] = "\xef\x9f\x98",
- 	['ICON_FA_ENVELOPE_OPEN_TEXT'] = "\xef\x99\x98",
- 	['ICON_FA_HAND_HOLDING'] = "\xef\x92\xbd",
- 	['ICON_FA_VENUS_MARS'] = "\xef\x88\xa8",
- 	['ICON_FA_HEART_BROKEN'] = "\xef\x9e\xa9",
- 	['ICON_FA_UTENSILS'] = "\xef\x8b\xa7",
- 	['ICON_FA_TH_LARGE'] = "\xef\x80\x89",
- 	['ICON_FA_AT'] = "\xef\x87\xba",
- 	['ICON_FA_FILE'] = "\xef\x85\x9b",
- 	['ICON_FA_TENGE'] = "\xef\x9f\x97",
- 	['ICON_FA_FLAG_CHECKERED'] = "\xef\x84\x9e",
- 	['ICON_FA_FILM'] = "\xef\x80\x88",
- 	['ICON_FA_FILL'] = "\xef\x95\xb5",
- 	['ICON_FA_GRIN_SQUINT_TEARS'] = "\xef\x96\x86",
- 	['ICON_FA_PERCENT'] = "\xef\x8a\x95",
- 	['ICON_FA_BOOK'] = "\xef\x80\xad",
- 	['ICON_FA_METEOR'] = "\xef\x9d\x93",
- 	['ICON_FA_TRASH'] = "\xef\x87\xb8",
- 	['ICON_FA_FILE_AUDIO'] = "\xef\x87\x87",
- 	['ICON_FA_SATELLITE_DISH'] = "\xef\x9f\x80",
- 	['ICON_FA_POOP'] = "\xef\x98\x99",
- 	['ICON_FA_STAR'] = "\xef\x80\x85",
- 	['ICON_FA_GIFTS'] = "\xef\x9e\x9c",
- 	['ICON_FA_GHOST'] = "\xef\x9b\xa2",
- 	['ICON_FA_PRESCRIPTION_BOTTLE_ALT'] = "\xef\x92\x86",
- 	['ICON_FA_MONEY_BILL_WAVE_ALT'] = "\xef\x94\xbb",
- 	['ICON_FA_NEUTER'] = "\xef\x88\xac",
- 	['ICON_FA_BAND_AID'] = "\xef\x91\xa2",
- 	['ICON_FA_WIFI'] = "\xef\x87\xab",
- 	['ICON_FA_MASK'] = "\xef\x9b\xba",
- 	['ICON_FA_VENUS_DOUBLE'] = "\xef\x88\xa6",
- 	['ICON_FA_CHEVRON_UP'] = "\xef\x81\xb7",
- 	['ICON_FA_HAND_SPOCK'] = "\xef\x89\x99",
- 	['ICON_FA_HAND_POINT_UP'] = "\xea\x9b\xb0"
+	['ICON_FA_CLOUD_SHOWERS_HEAVY'] = "\xef\x9d\x80",
+	['ICON_FA_SMS'] = "\xef\x9f\x8d",
+	['ICON_FA_COPY'] = "\xef\x83\x85",
+	['ICON_FA_CHEVRON_CIRCLE_RIGHT'] = "\xef\x84\xb8",
+	['ICON_FA_CROSSHAIRS'] = "\xef\x81\x9b",
+	['ICON_FA_BROADCAST_TOWER'] = "\xef\x94\x99",
+	['ICON_FA_EXTERNAL_LINK_SQUARE_ALT'] = "\xef\x8d\xa0",
+	['ICON_FA_SMOKING'] = "\xef\x92\x8d",
+	['ICON_FA_KISS_BEAM'] = "\xef\x96\x97",
+	['ICON_FA_CHESS_BISHOP'] = "\xef\x90\xba",
+	['ICON_FA_TV'] = "\xef\x89\xac",
+	['ICON_FA_CROP_ALT'] = "\xef\x95\xa5",
+	['ICON_FA_TH'] = "\xef\x80\x8a",
+	['ICON_FA_RECYCLE'] = "\xef\x86\xb8",
+	['ICON_FA_SMILE'] = "\xef\x84\x98",
+	['ICON_FA_FAX'] = "\xef\x86\xac",
+	['ICON_FA_DRAFTING_COMPASS'] = "\xef\x95\xa8",
+	['ICON_FA_USER_INJURED'] = "\xef\x9c\xa8",
+	['ICON_FA_SCREWDRIVER'] = "\xef\x95\x8a",
+	['ICON_FA_DHARMACHAKRA'] = "\xef\x99\x95",
+	['ICON_FA_PRINT'] = "\xef\x80\xaf",
+	['ICON_FA_BABY_CARRIAGE'] = "\xef\x9d\xbd",
+	['ICON_FA_CARET_UP'] = "\xef\x83\x98",
+	['ICON_FA_SCHOOL'] = "\xef\x95\x89",
+	['ICON_FA_SORT_NUMERIC_UP'] = "\xef\x85\xa3",
+	['ICON_FA_TRUCK_LOADING'] = "\xef\x93\x9e",
+	['ICON_FA_LIST'] = "\xef\x80\xba",
+	['ICON_FA_UPLOAD'] = "\xef\x82\x93",
+	['ICON_FA_LAPTOP_MEDICAL'] = "\xef\xa0\x92",
+	['ICON_FA_EXPAND_ARROWS_ALT'] = "\xef\x8c\x9e",
+	['ICON_FA_ADJUST'] = "\xef\x81\x82",
+	['ICON_FA_VENUS'] = "\xef\x88\xa1",
+	['ICON_FA_HEADING'] = "\xef\x87\x9c",
+	['ICON_FA_ARROW_DOWN'] = "\xef\x81\xa3",
+	['ICON_FA_BICYCLE'] = "\xef\x88\x86",
+	['ICON_FA_TIRED'] = "\xef\x97\x88",
+	['ICON_FA_AIR_FRESHENER'] = "\xef\x97\x90",
+	['ICON_FA_BACON'] = "\xef\x9f\xa5",
+	['ICON_FA_SYNC'] = "\xef\x80\xa1",
+	['ICON_FA_PAPER_PLANE'] = "\xef\x87\x98",
+	['ICON_FA_VOLLEYBALL_BALL'] = "\xef\x91\x9f",
+	['ICON_FA_RIBBON'] = "\xef\x93\x96",
+	['ICON_FA_HAND_LIZARD'] = "\xef\x89\x98",
+	['ICON_FA_CLOCK'] = "\xef\x80\x97",
+	['ICON_FA_SUN'] = "\xef\x86\x85",
+	['ICON_FA_FILE_POWERPOINT'] = "\xef\x87\x84",
+	['ICON_FA_MICROCHIP'] = "\xef\x8b\x9b",
+	['ICON_FA_TRASH_RESTORE_ALT'] = "\xef\xa0\xaa",
+	['ICON_FA_GRADUATION_CAP'] = "\xef\x86\x9d",
+	['ICON_FA_ANGLE_DOUBLE_DOWN'] = "\xef\x84\x83",
+	['ICON_FA_INFO_CIRCLE'] = "\xef\x81\x9a",
+	['ICON_FA_TAGS'] = "\xef\x80\xac",
+	['ICON_FA_FILE_ALT'] = "\xef\x85\x9c",
+	['ICON_FA_EQUALS'] = "\xef\x94\xac",
+	['ICON_FA_DIRECTIONS'] = "\xef\x97\xab",
+	['ICON_FA_FILE_INVOICE'] = "\xef\x95\xb0",
+	['ICON_FA_SEARCH'] = "\xef\x80\x82",
+	['ICON_FA_BIBLE'] = "\xef\x99\x87",
+	['ICON_FA_FLASK'] = "\xef\x83\x83",
+	['ICON_FA_CALENDAR_TIMES'] = "\xef\x89\xb3",
+	['ICON_FA_GREATER_THAN_EQUAL'] = "\xef\x94\xb2",
+	['ICON_FA_SLIDERS_H'] = "\xef\x87\x9e",
+	['ICON_FA_EYE_SLASH'] = "\xef\x81\xb0",
+	['ICON_FA_BIRTHDAY_CAKE'] = "\xef\x87\xbd",
+	['ICON_FA_FEATHER_ALT'] = "\xef\x95\xab",
+	['ICON_FA_DNA'] = "\xef\x91\xb1",
+	['ICON_FA_BASEBALL_BALL'] = "\xef\x90\xb3",
+	['ICON_FA_HOSPITAL'] = "\xef\x83\xb8",
+	['ICON_FA_COINS'] = "\xef\x94\x9e",
+	['ICON_FA_HRYVNIA'] = "\xef\x9b\xb2",
+	['ICON_FA_TEMPERATURE_HIGH'] = "\xef\x9d\xa9",
+	['ICON_FA_FONT_AWESOME_LOGO_FULL'] = "\xef\x93\xa6",
+	['ICON_FA_PASSPORT'] = "\xef\x96\xab",
+	['ICON_FA_TAG'] = "\xef\x80\xab",
+	['ICON_FA_SHOPPING_CART'] = "\xef\x81\xba",
+	['ICON_FA_AWARD'] = "\xef\x95\x99",
+	['ICON_FA_WINDOW_RESTORE'] = "\xef\x8b\x92",
+	['ICON_FA_PHONE'] = "\xef\x82\x95",
+	['ICON_FA_FLAG'] = "\xef\x80\xa4",
+	['ICON_FA_STETHOSCOPE'] = "\xef\x83\xb1",
+	['ICON_FA_DICE_D6'] = "\xef\x9b\x91",
+	['ICON_FA_OUTDENT'] = "\xef\x80\xbb",
+	['ICON_FA_LONG_ARROW_ALT_RIGHT'] = "\xef\x8c\x8b",
+	['ICON_FA_PIZZA_SLICE'] = "\xef\xa0\x98",
+	['ICON_FA_ADDRESS_CARD'] = "\xef\x8a\xbb",
+	['ICON_FA_PARAGRAPH'] = "\xef\x87\x9d",
+	['ICON_FA_MALE'] = "\xef\x86\x83",
+	['ICON_FA_HISTORY'] = "\xef\x87\x9a",
+	['ICON_FA_HAMBURGER'] = "\xef\xa0\x85",
+	['ICON_FA_SEARCH_PLUS'] = "\xef\x80\x8e",
+	['ICON_FA_FIRE_ALT'] = "\xef\x9f\xa4",
+	['ICON_FA_LIFE_RING'] = "\xef\x87\x8d",
+	['ICON_FA_SHARE'] = "\xef\x81\xa4",
+	['ICON_FA_ALIGN_JUSTIFY'] = "\xef\x80\xb9",
+	['ICON_FA_BATTERY_THREE_QUARTERS'] = "\xef\x89\x81",
+	['ICON_FA_OBJECT_UNGROUP'] = "\xef\x89\x88",
+	['ICON_FA_BRIEFCASE'] = "\xef\x82\xb1",
+	['ICON_FA_OIL_CAN'] = "\xef\x98\x93",
+	['ICON_FA_THERMOMETER_FULL'] = "\xef\x8b\x87",
+	['ICON_FA_PLANE'] = "\xef\x81\xb2",
+	['ICON_FA_HEARTBEAT'] = "\xef\x88\x9e",
+	['ICON_FA_UNLINK'] = "\xef\x84\xa7",
+	['ICON_FA_WINDOW_MAXIMIZE'] = "\xef\x8b\x90",
+	['ICON_FA_HEADPHONES'] = "\xef\x80\xa5",
+	['ICON_FA_STEP_BACKWARD'] = "\xef\x81\x88",
+	['ICON_FA_DRAGON'] = "\xef\x9b\x95",
+	['ICON_FA_MICROPHONE_SLASH'] = "\xef\x84\xb1",
+	['ICON_FA_USER_PLUS'] = "\xef\x88\xb4",
+	['ICON_FA_WRENCH'] = "\xef\x82\xad",
+	['ICON_FA_AMBULANCE'] = "\xef\x83\xb9",
+	['ICON_FA_ETHERNET'] = "\xef\x9e\x96",
+	['ICON_FA_EGG'] = "\xef\x9f\xbb",
+	['ICON_FA_WIND'] = "\xef\x9c\xae",
+	['ICON_FA_UNIVERSAL_ACCESS'] = "\xef\x8a\x9a",
+	['ICON_FA_BURN'] = "\xef\x91\xaa",
+	['ICON_FA_HAND_HOLDING_HEART'] = "\xef\x92\xbe",
+	['ICON_FA_DICE_ONE'] = "\xef\x94\xa5",
+	['ICON_FA_KEYBOARD'] = "\xef\x84\x9c",
+	['ICON_FA_CHECK_DOUBLE'] = "\xef\x95\xa0",
+	['ICON_FA_HEADPHONES_ALT'] = "\xef\x96\x8f",
+	['ICON_FA_BATTERY_HALF'] = "\xef\x89\x82",
+	['ICON_FA_PROJECT_DIAGRAM'] = "\xef\x95\x82",
+	['ICON_FA_PRAY'] = "\xef\x9a\x83",
+	['ICON_FA_GOPURAM'] = "\xef\x99\xa4",
+	['ICON_FA_GRIN_TEARS'] = "\xef\x96\x88",
+	['ICON_FA_SORT_AMOUNT_UP'] = "\xef\x85\xa1",
+	['ICON_FA_COFFEE'] = "\xef\x83\xb4",
+	['ICON_FA_TABLET_ALT'] = "\xef\x8f\xba",
+	['ICON_FA_GRIN_BEAM_SWEAT'] = "\xef\x96\x83",
+	['ICON_FA_HAND_POINT_RIGHT'] = "\xef\x82\xa4",
+	['ICON_FA_MAGIC'] = "\xef\x83\x90",
+	['ICON_FA_CHARGING_STATION'] = "\xef\x97\xa7",
+	['ICON_FA_GRIN_TONGUE'] = "\xef\x96\x89",
+	['ICON_FA_VOLUME_OFF'] = "\xef\x80\xa6",
+	['ICON_FA_SAD_TEAR'] = "\xef\x96\xb4",
+	['ICON_FA_CARET_RIGHT'] = "\xef\x83\x9a",
+	['ICON_FA_BONG'] = "\xef\x95\x9c",
+	['ICON_FA_BONE'] = "\xef\x97\x97",
+	['ICON_FA_ELLIPSIS_V'] = "\xef\x85\x82",
+	['ICON_FA_BALANCE_SCALE'] = "\xef\x89\x8e",
+	['ICON_FA_FISH'] = "\xef\x95\xb8",
+	['ICON_FA_SPIDER'] = "\xef\x9c\x97",
+	['ICON_FA_CAMPGROUND'] = "\xef\x9a\xbb",
+	['ICON_FA_CARET_SQUARE_UP'] = "\xef\x85\x91",
+	['ICON_FA_RUPEE_SIGN'] = "\xef\x85\x96",
+	['ICON_FA_ASSISTIVE_LISTENING_SYSTEMS'] = "\xef\x8a\xa2",
+	['ICON_FA_POUND_SIGN'] = "\xef\x85\x94",
+	['ICON_FA_ANKH'] = "\xef\x99\x84",
+	['ICON_FA_BATTERY_QUARTER'] = "\xef\x89\x83",
+	['ICON_FA_HAND_PEACE'] = "\xef\x89\x9b",
+	['ICON_FA_SURPRISE'] = "\xef\x97\x82",
+	['ICON_FA_FILE_PDF'] = "\xef\x87\x81",
+	['ICON_FA_VIDEO_SLASH'] = "\xef\x93\xa2",
+	['ICON_FA_SUBWAY'] = "\xef\x88\xb9",
+	['ICON_FA_HORSE'] = "\xef\x9b\xb0",
+	['ICON_FA_WINE_BOTTLE'] = "\xef\x9c\xaf",
+	['ICON_FA_BOOK_READER'] = "\xef\x97\x9a",
+	['ICON_FA_COOKIE'] = "\xef\x95\xa3",
+	['ICON_FA_MONEY_BILL'] = "\xef\x83\x96",
+	['ICON_FA_CHEVRON_DOWN'] = "\xef\x81\xb8",
+	['ICON_FA_CAR_SIDE'] = "\xef\x97\xa4",
+	['ICON_FA_FILTER'] = "\xef\x82\xb0",
+	['ICON_FA_FOLDER_OPEN'] = "\xef\x81\xbc",
+	['ICON_FA_SIGNATURE'] = "\xef\x96\xb7",
+	['ICON_FA_SNOWBOARDING'] = "\xef\x9f\x8e",
+	['ICON_FA_THUMBTACK'] = "\xef\x82\x8d",
+	['ICON_FA_DICE_TWO'] = "\xef\x94\xa8",
+	['ICON_FA_LAUGH_WINK'] = "\xef\x96\x9c",
+	['ICON_FA_BREAD_SLICE'] = "\xef\x9f\xac",
+	['ICON_FA_TEXT_HEIGHT'] = "\xef\x80\xb4",
+	['ICON_FA_VOLUME_MUTE'] = "\xef\x9a\xa9",
+	['ICON_FA_VOTE_YEA'] = "\xef\x9d\xb2",
+	['ICON_FA_QRCODE'] = "\xef\x80\xa9",
+	['ICON_FA_MERCURY'] = "\xef\x88\xa3",
+	['ICON_FA_USER_ASTRONAUT'] = "\xef\x93\xbb",
+	['ICON_FA_SORT_AMOUNT_DOWN'] = "\xef\x85\xa0",
+	['ICON_FA_SORT_DOWN'] = "\xef\x83\x9d",
+	['ICON_FA_COMPACT_DISC'] = "\xef\x94\x9f",
+	['ICON_FA_PERCENTAGE'] = "\xef\x95\x81",
+	['ICON_FA_COMMENT_MEDICAL'] = "\xef\x9f\xb5",
+	['ICON_FA_STORE'] = "\xef\x95\x8e",
+	['ICON_FA_COMMENT_DOTS'] = "\xef\x92\xad",
+	['ICON_FA_SMILE_WINK'] = "\xef\x93\x9a",
+	['ICON_FA_HOTEL'] = "\xef\x96\x94",
+	['ICON_FA_PEPPER_HOT'] = "\xef\xa0\x96",
+	['ICON_FA_USER_EDIT'] = "\xef\x93\xbf",
+	['ICON_FA_DUMPSTER_FIRE'] = "\xef\x9e\x94",
+	['ICON_FA_CLOUD_SUN_RAIN'] = "\xef\x9d\x83",
+	['ICON_FA_GLOBE_ASIA'] = "\xef\x95\xbe",
+	['ICON_FA_VIAL'] = "\xef\x92\x92",
+	['ICON_FA_STROOPWAFEL'] = "\xef\x95\x91",
+	['ICON_FA_DATABASE'] = "\xef\x87\x80",
+	['ICON_FA_TREE'] = "\xef\x86\xbb",
+	['ICON_FA_SHOWER'] = "\xef\x8b\x8c",
+	['ICON_FA_DRUM_STEELPAN'] = "\xef\x95\xaa",
+	['ICON_FA_FILE_UPLOAD'] = "\xef\x95\xb4",
+	['ICON_FA_MEDKIT'] = "\xef\x83\xba",
+	['ICON_FA_MINUS'] = "\xef\x81\xa8",
+	['ICON_FA_SHEKEL_SIGN'] = "\xef\x88\x8b",
+	['ICON_FA_BELL_SLASH'] = "\xef\x87\xb6",
+	['ICON_FA_MAIL_BULK'] = "\xef\x99\xb4",
+	['ICON_FA_MOUNTAIN'] = "\xef\x9b\xbc",
+	['ICON_FA_COUCH'] = "\xef\x92\xb8",
+	['ICON_FA_CHESS'] = "\xef\x90\xb9",
+	['ICON_FA_FILE_EXPORT'] = "\xef\x95\xae",
+	['ICON_FA_SIGN_LANGUAGE'] = "\xef\x8a\xa7",
+	['ICON_FA_SNOWFLAKE'] = "\xef\x8b\x9c",
+	['ICON_FA_PLAY'] = "\xef\x81\x8b",
+	['ICON_FA_HEADSET'] = "\xef\x96\x90",
+	['ICON_FA_SQUARE_ROOT_ALT'] = "\xef\x9a\x98",
+	['ICON_FA_CHART_BAR'] = "\xef\x82\x80",
+	['ICON_FA_WAVE_SQUARE'] = "\xef\xa0\xbe",
+	['ICON_FA_CHART_AREA'] = "\xef\x87\xbe",
+	['ICON_FA_EURO_SIGN'] = "\xef\x85\x93",
+	['ICON_FA_CHESS_KING'] = "\xef\x90\xbf",
+	['ICON_FA_MOBILE'] = "\xef\x84\x8b",
+	['ICON_FA_BOX_OPEN'] = "\xef\x92\x9e",
+	['ICON_FA_DOG'] = "\xef\x9b\x93",
+	['ICON_FA_FUTBOL'] = "\xef\x87\xa3",
+	['ICON_FA_LIRA_SIGN'] = "\xef\x86\x95",
+	['ICON_FA_LIGHTBULB'] = "\xef\x83\xab",
+	['ICON_FA_BOMB'] = "\xef\x87\xa2",
+	['ICON_FA_MITTEN'] = "\xef\x9e\xb5",
+	['ICON_FA_TRUCK_MONSTER'] = "\xef\x98\xbb",
+	['ICON_FA_ARROWS_ALT_H'] = "\xef\x8c\xb7",
+	['ICON_FA_CHESS_ROOK'] = "\xef\x91\x87",
+	['ICON_FA_FIRE_EXTINGUISHER'] = "\xef\x84\xb4",
+	['ICON_FA_BOOKMARK'] = "\xef\x80\xae",
+	['ICON_FA_ARROWS_ALT_V'] = "\xef\x8c\xb8",
+	['ICON_FA_ICICLES'] = "\xef\x9e\xad",
+	['ICON_FA_FONT'] = "\xef\x80\xb1",
+	['ICON_FA_CAMERA_RETRO'] = "\xef\x82\x83",
+	['ICON_FA_BLENDER'] = "\xef\x94\x97",
+	['ICON_FA_THUMBS_DOWN'] = "\xef\x85\xa5",
+	['ICON_FA_GAMEPAD'] = "\xef\x84\x9b",
+	['ICON_FA_COPYRIGHT'] = "\xef\x87\xb9",
+	['ICON_FA_JEDI'] = "\xef\x99\xa9",
+	['ICON_FA_HOCKEY_PUCK'] = "\xef\x91\x93",
+	['ICON_FA_STOP_CIRCLE'] = "\xef\x8a\x8d",
+	['ICON_FA_BEZIER_CURVE'] = "\xef\x95\x9b",
+	['ICON_FA_FOLDER'] = "\xef\x81\xbb",
+	['ICON_FA_RSS'] = "\xef\x82\x9e",
+	['ICON_FA_COLUMNS'] = "\xef\x83\x9b",
+	['ICON_FA_GLASS_CHEERS'] = "\xef\x9e\x9f",
+	['ICON_FA_GRIN_WINK'] = "\xef\x96\x8c",
+	['ICON_FA_STOP'] = "\xef\x81\x8d",
+	['ICON_FA_MONEY_CHECK_ALT'] = "\xef\x94\xbd",
+	['ICON_FA_COMPASS'] = "\xef\x85\x8e",
+	['ICON_FA_TOOLBOX'] = "\xef\x95\x92",
+	['ICON_FA_LIST_OL'] = "\xef\x83\x8b",
+	['ICON_FA_WINE_GLASS'] = "\xef\x93\xa3",
+	['ICON_FA_HORSE_HEAD'] = "\xef\x9e\xab",
+	['ICON_FA_USER_ALT_SLASH'] = "\xef\x93\xba",
+	['ICON_FA_USER_TAG'] = "\xef\x94\x87",
+	['ICON_FA_MICROSCOPE'] = "\xef\x98\x90",
+	['ICON_FA_BRUSH'] = "\xef\x95\x9d",
+	['ICON_FA_BAN'] = "\xef\x81\x9e",
+	['ICON_FA_BARS'] = "\xef\x83\x89",
+	['ICON_FA_CAR_CRASH'] = "\xef\x97\xa1",
+	['ICON_FA_ARROW_ALT_CIRCLE_DOWN'] = "\xef\x8d\x98",
+	['ICON_FA_MONEY_BILL_ALT'] = "\xef\x8f\x91",
+	['ICON_FA_JOURNAL_WHILLS'] = "\xef\x99\xaa",
+	['ICON_FA_CHALKBOARD_TEACHER'] = "\xef\x94\x9c",
+	['ICON_FA_PORTRAIT'] = "\xef\x8f\xa0",
+	['ICON_FA_HAMMER'] = "\xef\x9b\xa3",
+	['ICON_FA_RETWEET'] = "\xef\x81\xb9",
+	['ICON_FA_HOURGLASS'] = "\xef\x89\x94",
+	['ICON_FA_HAND_PAPER'] = "\xef\x89\x96",
+	['ICON_FA_SUBSCRIPT'] = "\xef\x84\xac",
+	['ICON_FA_DONATE'] = "\xef\x92\xb9",
+	['ICON_FA_GLASS_MARTINI_ALT'] = "\xef\x95\xbb",
+	['ICON_FA_CODE_BRANCH'] = "\xef\x84\xa6",
+	['ICON_FA_NOT_EQUAL'] = "\xef\x94\xbe",
+	['ICON_FA_MEH'] = "\xef\x84\x9a",
+	['ICON_FA_LIST_ALT'] = "\xef\x80\xa2",
+	['ICON_FA_USER_COG'] = "\xef\x93\xbe",
+	['ICON_FA_PRESCRIPTION'] = "\xef\x96\xb1",
+	['ICON_FA_TABLET'] = "\xef\x84\x8a",
+	['ICON_FA_PENCIL_RULER'] = "\xef\x96\xae",
+	['ICON_FA_CREDIT_CARD'] = "\xef\x82\x9d",
+	['ICON_FA_ARCHWAY'] = "\xef\x95\x97",
+	['ICON_FA_HARD_HAT'] = "\xef\xa0\x87",
+	['ICON_FA_MAP_MARKER_ALT'] = "\xef\x8f\x85",
+	['ICON_FA_COG'] = "\xef\x80\x93",
+	['ICON_FA_HANUKIAH'] = "\xef\x9b\xa6",
+	['ICON_FA_SHUTTLE_VAN'] = "\xef\x96\xb6",
+	['ICON_FA_MONEY_CHECK'] = "\xef\x94\xbc",
+	['ICON_FA_BELL'] = "\xef\x83\xb3",
+	['ICON_FA_CALENDAR_DAY'] = "\xef\x9e\x83",
+	['ICON_FA_TINT_SLASH'] = "\xef\x97\x87",
+	['ICON_FA_PLANE_DEPARTURE'] = "\xef\x96\xb0",
+	['ICON_FA_USER_CHECK'] = "\xef\x93\xbc",
+	['ICON_FA_CHURCH'] = "\xef\x94\x9d",
+	['ICON_FA_SEARCH_MINUS'] = "\xef\x80\x90",
+	['ICON_FA_PALLET'] = "\xef\x92\x82",
+	['ICON_FA_TINT'] = "\xef\x81\x83",
+	['ICON_FA_STAMP'] = "\xef\x96\xbf",
+	['ICON_FA_KAABA'] = "\xef\x99\xab",
+	['ICON_FA_ALIGN_RIGHT'] = "\xef\x80\xb8",
+	['ICON_FA_QUOTE_RIGHT'] = "\xef\x84\x8e",
+	['ICON_FA_BEER'] = "\xef\x83\xbc",
+	['ICON_FA_GRIN_ALT'] = "\xef\x96\x81",
+	['ICON_FA_SORT_NUMERIC_DOWN'] = "\xef\x85\xa2",
+	['ICON_FA_FIRE'] = "\xef\x81\xad",
+	['ICON_FA_FAST_FORWARD'] = "\xef\x81\x90",
+	['ICON_FA_MAP_MARKED_ALT'] = "\xef\x96\xa0",
+	['ICON_FA_PENCIL_ALT'] = "\xef\x8c\x83",
+	['ICON_FA_USERS_COG'] = "\xef\x94\x89",
+	['ICON_FA_CARET_SQUARE_DOWN'] = "\xef\x85\x90",
+	['ICON_FA_CRUTCH'] = "\xef\x9f\xb7",
+	['ICON_FA_OBJECT_GROUP'] = "\xef\x89\x87",
+	['ICON_FA_ANCHOR'] = "\xef\x84\xbd",
+	['ICON_FA_HAND_POINT_LEFT'] = "\xef\x82\xa5",
+	['ICON_FA_USER_TIMES'] = "\xef\x88\xb5",
+	['ICON_FA_CALCULATOR'] = "\xef\x87\xac",
+	['ICON_FA_DIZZY'] = "\xef\x95\xa7",
+	['ICON_FA_KISS_WINK_HEART'] = "\xef\x96\x98",
+	['ICON_FA_FILE_MEDICAL'] = "\xef\x91\xb7",
+	['ICON_FA_SWIMMING_POOL'] = "\xef\x97\x85",
+	['ICON_FA_WEIGHT_HANGING'] = "\xef\x97\x8d",
+	['ICON_FA_VR_CARDBOARD'] = "\xef\x9c\xa9",
+	['ICON_FA_FAST_BACKWARD'] = "\xef\x81\x89",
+	['ICON_FA_SATELLITE'] = "\xef\x9e\xbf",
+	['ICON_FA_USER'] = "\xef\x80\x87",
+	['ICON_FA_MINUS_CIRCLE'] = "\xef\x81\x96",
+	['ICON_FA_CHESS_PAWN'] = "\xef\x91\x83",
+	['ICON_FA_CALENDAR_MINUS'] = "\xef\x89\xb2",
+	['ICON_FA_CHESS_BOARD'] = "\xef\x90\xbc",
+	['ICON_FA_LANDMARK'] = "\xef\x99\xaf",
+	['ICON_FA_SWATCHBOOK'] = "\xef\x97\x83",
+	['ICON_FA_HOTDOG'] = "\xef\xa0\x8f",
+	['ICON_FA_SNOWMAN'] = "\xef\x9f\x90",
+	['ICON_FA_LAPTOP'] = "\xef\x84\x89",
+	['ICON_FA_TORAH'] = "\xef\x9a\xa0",
+	['ICON_FA_FROWN_OPEN'] = "\xef\x95\xba",
+	['ICON_FA_USER_LOCK'] = "\xef\x94\x82",
+	['ICON_FA_AD'] = "\xef\x99\x81",
+	['ICON_FA_USER_CIRCLE'] = "\xef\x8a\xbd",
+	['ICON_FA_DIVIDE'] = "\xef\x94\xa9",
+	['ICON_FA_HANDSHAKE'] = "\xef\x8a\xb5",
+	['ICON_FA_CUT'] = "\xef\x83\x84",
+	['ICON_FA_HIKING'] = "\xef\x9b\xac",
+	['ICON_FA_STREET_VIEW'] = "\xef\x88\x9d",
+	['ICON_FA_GREATER_THAN'] = "\xef\x94\xb1",
+	['ICON_FA_PASTAFARIANISM'] = "\xef\x99\xbb",
+	['ICON_FA_MINUS_SQUARE'] = "\xef\x85\x86",
+	['ICON_FA_SAVE'] = "\xef\x83\x87",
+	['ICON_FA_COMMENT_DOLLAR'] = "\xef\x99\x91",
+	['ICON_FA_TRASH_ALT'] = "\xef\x8b\xad",
+	['ICON_FA_PUZZLE_PIECE'] = "\xef\x84\xae",
+	['ICON_FA_MENORAH'] = "\xef\x99\xb6",
+	['ICON_FA_CLOUD_SUN'] = "\xef\x9b\x84",
+	['ICON_FA_USER_FRIENDS'] = "\xef\x94\x80",
+	['ICON_FA_FILE_MEDICAL_ALT'] = "\xef\x91\xb8",
+	['ICON_FA_ARROW_LEFT'] = "\xef\x81\xa0",
+	['ICON_FA_BOXES'] = "\xef\x91\xa8",
+	['ICON_FA_THERMOMETER_EMPTY'] = "\xef\x8b\x8b",
+	['ICON_FA_EXCLAMATION_TRIANGLE'] = "\xef\x81\xb1",
+	['ICON_FA_GIFT'] = "\xef\x81\xab",
+	['ICON_FA_COGS'] = "\xef\x82\x85",
+	['ICON_FA_SIGNAL'] = "\xef\x80\x92",
+	['ICON_FA_SHAPES'] = "\xef\x98\x9f",
+	['ICON_FA_CLOUD_RAIN'] = "\xef\x9c\xbd",
+	['ICON_FA_ELLIPSIS_H'] = "\xef\x85\x81",
+	['ICON_FA_LESS_THAN_EQUAL'] = "\xef\x94\xb7",
+	['ICON_FA_CHEVRON_CIRCLE_LEFT'] = "\xef\x84\xb7",
+	['ICON_FA_MORTAR_PESTLE'] = "\xef\x96\xa7",
+	['ICON_FA_SITEMAP'] = "\xef\x83\xa8",
+	['ICON_FA_BUS_ALT'] = "\xef\x95\x9e",
+	['ICON_FA_ID_BADGE'] = "\xef\x8b\x81",
+	['ICON_FA_FIST_RAISED'] = "\xef\x9b\x9e",
+	['ICON_FA_BATTERY_FULL'] = "\xef\x89\x80",
+	['ICON_FA_CROWN'] = "\xef\x94\xa1",
+	['ICON_FA_EXCHANGE_ALT'] = "\xef\x8d\xa2",
+	['ICON_FA_SOCKS'] = "\xef\x9a\x96",
+	['ICON_FA_CASH_REGISTER'] = "\xef\x9e\x88",
+	['ICON_FA_REDO'] = "\xef\x80\x9e",
+	['ICON_FA_EXCLAMATION_CIRCLE'] = "\xef\x81\xaa",
+	['ICON_FA_COMMENTS'] = "\xef\x82\x86",
+	['ICON_FA_BRIEFCASE_MEDICAL'] = "\xef\x91\xa9",
+	['ICON_FA_CARET_SQUARE_RIGHT'] = "\xef\x85\x92",
+	['ICON_FA_PEN'] = "\xef\x8c\x84",
+	['ICON_FA_BACKSPACE'] = "\xef\x95\x9a",
+	['ICON_FA_SLASH'] = "\xef\x9c\x95",
+	['ICON_FA_HOT_TUB'] = "\xef\x96\x93",
+	['ICON_FA_SUITCASE_ROLLING'] = "\xef\x97\x81",
+	['ICON_FA_BATTERY_EMPTY'] = "\xef\x89\x84",
+	['ICON_FA_GLOBE_AFRICA'] = "\xef\x95\xbc",
+	['ICON_FA_SLEIGH'] = "\xef\x9f\x8c",
+	['ICON_FA_BOLT'] = "\xef\x83\xa7",
+	['ICON_FA_THERMOMETER_QUARTER'] = "\xef\x8b\x8a",
+	['ICON_FA_EYE'] = "\xef\x81\xae",
+	['ICON_FA_TROPHY'] = "\xef\x82\x91",
+	['ICON_FA_BRAILLE'] = "\xef\x8a\xa1",
+	['ICON_FA_PLUS'] = "\xef\x81\xa7",
+	['ICON_FA_LIST_UL'] = "\xef\x83\x8a",
+	['ICON_FA_SMOKING_BAN'] = "\xef\x95\x8d",
+	['ICON_FA_BATH'] = "\xef\x8b\x8d",
+	['ICON_FA_VOLUME_DOWN'] = "\xef\x80\xa7",
+	['ICON_FA_QUESTION_CIRCLE'] = "\xef\x81\x99",
+	['ICON_FA_FILE_CODE'] = "\xef\x87\x89",
+	['ICON_FA_GAVEL'] = "\xef\x83\xa3",
+	['ICON_FA_CANDY_CANE'] = "\xef\x9e\x86",
+	['ICON_FA_NETWORK_WIRED'] = "\xef\x9b\xbf",
+	['ICON_FA_CARET_SQUARE_LEFT'] = "\xef\x86\x91",
+	['ICON_FA_PLANE_ARRIVAL'] = "\xef\x96\xaf",
+	['ICON_FA_SHARE_SQUARE'] = "\xef\x85\x8d",
+	['ICON_FA_MEDAL'] = "\xef\x96\xa2",
+	['ICON_FA_THERMOMETER_HALF'] = "\xef\x8b\x89",
+	['ICON_FA_QUESTION'] = "\xef\x84\xa8",
+	['ICON_FA_CAR_BATTERY'] = "\xef\x97\x9f",
+	['ICON_FA_DOOR_CLOSED'] = "\xef\x94\xaa",
+	['ICON_FA_LEAF'] = "\xef\x81\xac",
+	['ICON_FA_USER_MINUS'] = "\xef\x94\x83",
+	['ICON_FA_MUSIC'] = "\xef\x80\x81",
+	['ICON_FA_GLOBE_EUROPE'] = "\xef\x9e\xa2",
+	['ICON_FA_HOUSE_DAMAGE'] = "\xef\x9b\xb1",
+	['ICON_FA_CHEVRON_RIGHT'] = "\xef\x81\x94",
+	['ICON_FA_GRIP_HORIZONTAL'] = "\xef\x96\x8d",
+	['ICON_FA_DICE_FOUR'] = "\xef\x94\xa4",
+	['ICON_FA_DEAF'] = "\xef\x8a\xa4",
+	['ICON_FA_REGISTERED'] = "\xef\x89\x9d",
+	['ICON_FA_WINDOW_CLOSE'] = "\xef\x90\x90",
+	['ICON_FA_LINK'] = "\xef\x83\x81",
+	['ICON_FA_YEN_SIGN'] = "\xef\x85\x97",
+	['ICON_FA_ATOM'] = "\xef\x97\x92",
+	['ICON_FA_LESS_THAN'] = "\xef\x94\xb6",
+	['ICON_FA_OTTER'] = "\xef\x9c\x80",
+	['ICON_FA_INFO'] = "\xef\x84\xa9",
+	['ICON_FA_MARS_DOUBLE'] = "\xef\x88\xa7",
+	['ICON_FA_CLIPBOARD_CHECK'] = "\xef\x91\xac",
+	['ICON_FA_SKULL'] = "\xef\x95\x8c",
+	['ICON_FA_GRIP_LINES'] = "\xef\x9e\xa4",
+	['ICON_FA_HOSPITAL_SYMBOL'] = "\xef\x91\xbe",
+	['ICON_FA_X_RAY'] = "\xef\x92\x97",
+	['ICON_FA_ARROW_UP'] = "\xef\x81\xa2",
+	['ICON_FA_MONEY_BILL_WAVE'] = "\xef\x94\xba",
+	['ICON_FA_DOT_CIRCLE'] = "\xef\x86\x92",
+	['ICON_FA_PAUSE_CIRCLE'] = "\xef\x8a\x8b",
+	['ICON_FA_IMAGES'] = "\xef\x8c\x82",
+	['ICON_FA_STAR_HALF'] = "\xef\x82\x89",
+	['ICON_FA_SPLOTCH'] = "\xef\x96\xbc",
+	['ICON_FA_STAR_HALF_ALT'] = "\xef\x97\x80",
+	['ICON_FA_SHIP'] = "\xef\x88\x9a",
+	['ICON_FA_BOOK_DEAD'] = "\xef\x9a\xb7",
+	['ICON_FA_CHECK'] = "\xef\x80\x8c",
+	['ICON_FA_RAINBOW'] = "\xef\x9d\x9b",
+	['ICON_FA_POWER_OFF'] = "\xef\x80\x91",
+	['ICON_FA_LEMON'] = "\xef\x82\x94",
+	['ICON_FA_GLOBE_AMERICAS'] = "\xef\x95\xbd",
+	['ICON_FA_PEACE'] = "\xef\x99\xbc",
+	['ICON_FA_THERMOMETER_THREE_QUARTERS'] = "\xef\x8b\x88",
+	['ICON_FA_WAREHOUSE'] = "\xef\x92\x94",
+	['ICON_FA_TRANSGENDER'] = "\xef\x88\xa4",
+	['ICON_FA_PLUS_SQUARE'] = "\xef\x83\xbe",
+	['ICON_FA_BULLSEYE'] = "\xef\x85\x80",
+	['ICON_FA_COOKIE_BITE'] = "\xef\x95\xa4",
+	['ICON_FA_USERS'] = "\xef\x83\x80",
+	['ICON_FA_TRANSGENDER_ALT'] = "\xef\x88\xa5",
+	['ICON_FA_ASTERISK'] = "\xef\x81\xa9",
+	['ICON_FA_STAR_OF_DAVID'] = "\xef\x9a\x9a",
+	['ICON_FA_PLUS_CIRCLE'] = "\xef\x81\x95",
+	['ICON_FA_CART_ARROW_DOWN'] = "\xef\x88\x98",
+	['ICON_FA_FLUSHED'] = "\xef\x95\xb9",
+	['ICON_FA_STORE_ALT'] = "\xef\x95\x8f",
+	['ICON_FA_PEOPLE_CARRY'] = "\xef\x93\x8e",
+	['ICON_FA_LONG_ARROW_ALT_DOWN'] = "\xef\x8c\x89",
+	['ICON_FA_SAD_CRY'] = "\xef\x96\xb3",
+	['ICON_FA_DIGITAL_TACHOGRAPH'] = "\xef\x95\xa6",
+	['ICON_FA_FILE_EXCEL'] = "\xef\x87\x83",
+	['ICON_FA_TEETH'] = "\xef\x98\xae",
+	['ICON_FA_HAND_SCISSORS'] = "\xef\x89\x97",
+	['ICON_FA_FILE_INVOICE_DOLLAR'] = "\xef\x95\xb1",
+	['ICON_FA_STEP_FORWARD'] = "\xef\x81\x91",
+	['ICON_FA_BACKWARD'] = "\xef\x81\x8a",
+	['ICON_FA_SCROLL'] = "\xef\x9c\x8e",
+	['ICON_FA_IGLOO'] = "\xef\x9e\xae",
+	['ICON_FA_CODE'] = "\xef\x84\xa1",
+	['ICON_FA_TRAM'] = "\xef\x9f\x9a",
+	['ICON_FA_TORII_GATE'] = "\xef\x9a\xa1",
+	['ICON_FA_SKIING'] = "\xef\x9f\x89",
+	['ICON_FA_CHAIR'] = "\xef\x9b\x80",
+	['ICON_FA_DUMBBELL'] = "\xef\x91\x8b",
+	['ICON_FA_ANGLE_DOUBLE_UP'] = "\xef\x84\x82",
+	['ICON_FA_ANGLE_DOUBLE_LEFT'] = "\xef\x84\x80",
+	['ICON_FA_MOSQUE'] = "\xef\x99\xb8",
+	['ICON_FA_COMMENTS_DOLLAR'] = "\xef\x99\x93",
+	['ICON_FA_FILE_PRESCRIPTION'] = "\xef\x95\xb2",
+	['ICON_FA_ANGLE_LEFT'] = "\xef\x84\x84",
+	['ICON_FA_ATLAS'] = "\xef\x95\x98",
+	['ICON_FA_PIGGY_BANK'] = "\xef\x93\x93",
+	['ICON_FA_DOLLY_FLATBED'] = "\xef\x91\xb4",
+	['ICON_FA_RANDOM'] = "\xef\x81\xb4",
+	['ICON_FA_PEN_ALT'] = "\xef\x8c\x85",
+	['ICON_FA_PRAYING_HANDS'] = "\xef\x9a\x84",
+	['ICON_FA_VOLUME_UP'] = "\xef\x80\xa8",
+	['ICON_FA_CLIPBOARD_LIST'] = "\xef\x91\xad",
+	['ICON_FA_GRIN_STARS'] = "\xef\x96\x87",
+	['ICON_FA_FOLDER_MINUS'] = "\xef\x99\x9d",
+	['ICON_FA_DEMOCRAT'] = "\xef\x9d\x87",
+	['ICON_FA_MAGNET'] = "\xef\x81\xb6",
+	['ICON_FA_VIHARA'] = "\xef\x9a\xa7",
+	['ICON_FA_GRIMACE'] = "\xef\x95\xbf",
+	['ICON_FA_CHECK_CIRCLE'] = "\xef\x81\x98",
+	['ICON_FA_SEARCH_DOLLAR'] = "\xef\x9a\x88",
+	['ICON_FA_LONG_ARROW_ALT_LEFT'] = "\xef\x8c\x8a",
+	['ICON_FA_CROW'] = "\xef\x94\xa0",
+	['ICON_FA_EYE_DROPPER'] = "\xef\x87\xbb",
+	['ICON_FA_CROP'] = "\xef\x84\xa5",
+	['ICON_FA_SIGN'] = "\xef\x93\x99",
+	['ICON_FA_ARROW_CIRCLE_DOWN'] = "\xef\x82\xab",
+	['ICON_FA_VIDEO'] = "\xef\x80\xbd",
+	['ICON_FA_DOWNLOAD'] = "\xef\x80\x99",
+	['ICON_FA_BOLD'] = "\xef\x80\xb2",
+	['ICON_FA_CARET_DOWN'] = "\xef\x83\x97",
+	['ICON_FA_CHEVRON_LEFT'] = "\xef\x81\x93",
+	['ICON_FA_HAMSA'] = "\xef\x99\xa5",
+	['ICON_FA_CART_PLUS'] = "\xef\x88\x97",
+	['ICON_FA_CLIPBOARD'] = "\xef\x8c\xa8",
+	['ICON_FA_SHOE_PRINTS'] = "\xef\x95\x8b",
+	['ICON_FA_PHONE_SLASH'] = "\xef\x8f\x9d",
+	['ICON_FA_REPLY'] = "\xef\x8f\xa5",
+	['ICON_FA_HOURGLASS_HALF'] = "\xef\x89\x92",
+	['ICON_FA_LONG_ARROW_ALT_UP'] = "\xef\x8c\x8c",
+	['ICON_FA_CHESS_KNIGHT'] = "\xef\x91\x81",
+	['ICON_FA_BARCODE'] = "\xef\x80\xaa",
+	['ICON_FA_DRAW_POLYGON'] = "\xef\x97\xae",
+	['ICON_FA_WATER'] = "\xef\x9d\xb3",
+	['ICON_FA_PAUSE'] = "\xef\x81\x8c",
+	['ICON_FA_WINE_GLASS_ALT'] = "\xef\x97\x8e",
+	['ICON_FA_GLASS_WHISKEY'] = "\xef\x9e\xa0",
+	['ICON_FA_BOX'] = "\xef\x91\xa6",
+	['ICON_FA_DIAGNOSES'] = "\xef\x91\xb0",
+	['ICON_FA_FILE_IMAGE'] = "\xef\x87\x85",
+	['ICON_FA_ARROW_CIRCLE_RIGHT'] = "\xef\x82\xa9",
+	['ICON_FA_TASKS'] = "\xef\x82\xae",
+	['ICON_FA_VECTOR_SQUARE'] = "\xef\x97\x8b",
+	['ICON_FA_QUOTE_LEFT'] = "\xef\x84\x8d",
+	['ICON_FA_MOBILE_ALT'] = "\xef\x8f\x8d",
+	['ICON_FA_USER_SHIELD'] = "\xef\x94\x85",
+	['ICON_FA_BLOG'] = "\xef\x9e\x81",
+	['ICON_FA_MARKER'] = "\xef\x96\xa1",
+	['ICON_FA_USER_TIE'] = "\xef\x94\x88",
+	['ICON_FA_TOOLS'] = "\xef\x9f\x99",
+	['ICON_FA_CLOUD'] = "\xef\x83\x82",
+	['ICON_FA_HAND_HOLDING_USD'] = "\xef\x93\x80",
+	['ICON_FA_CERTIFICATE'] = "\xef\x82\xa3",
+	['ICON_FA_CLOUD_DOWNLOAD_ALT'] = "\xef\x8e\x81",
+	['ICON_FA_ANGRY'] = "\xef\x95\x96",
+	['ICON_FA_FROG'] = "\xef\x94\xae",
+	['ICON_FA_CAMERA'] = "\xef\x80\xb0",
+	['ICON_FA_DICE_THREE'] = "\xef\x94\xa7",
+	['ICON_FA_MEMORY'] = "\xef\x94\xb8",
+	['ICON_FA_PEN_SQUARE'] = "\xef\x85\x8b",
+	['ICON_FA_SORT'] = "\xef\x83\x9c",
+	['ICON_FA_PLUG'] = "\xef\x87\xa6",
+	['ICON_FA_MOUSE_POINTER'] = "\xef\x89\x85",
+	['ICON_FA_ENVELOPE'] = "\xef\x83\xa0",
+	['ICON_FA_LAYER_GROUP'] = "\xef\x97\xbd",
+	['ICON_FA_TRAIN'] = "\xef\x88\xb8",
+	['ICON_FA_BULLHORN'] = "\xef\x82\xa1",
+	['ICON_FA_BABY'] = "\xef\x9d\xbc",
+	['ICON_FA_CONCIERGE_BELL'] = "\xef\x95\xa2",
+	['ICON_FA_CIRCLE'] = "\xef\x84\x91",
+	['ICON_FA_I_CURSOR'] = "\xef\x89\x86",
+	['ICON_FA_CAR'] = "\xef\x86\xb9",
+	['ICON_FA_CAT'] = "\xef\x9a\xbe",
+	['ICON_FA_WALLET'] = "\xef\x95\x95",
+	['ICON_FA_BOOK_MEDICAL'] = "\xef\x9f\xa6",
+	['ICON_FA_H_SQUARE'] = "\xef\x83\xbd",
+	['ICON_FA_HEART'] = "\xef\x80\x84",
+	['ICON_FA_LOCK_OPEN'] = "\xef\x8f\x81",
+	['ICON_FA_STREAM'] = "\xef\x95\x90",
+	['ICON_FA_LOCK'] = "\xef\x80\xa3",
+	['ICON_FA_CARROT'] = "\xef\x9e\x87",
+	['ICON_FA_SMILE_BEAM'] = "\xef\x96\xb8",
+	['ICON_FA_USER_NURSE'] = "\xef\xa0\xaf",
+	['ICON_FA_MICROPHONE_ALT'] = "\xef\x8f\x89",
+	['ICON_FA_SPA'] = "\xef\x96\xbb",
+	['ICON_FA_CHEVRON_CIRCLE_DOWN'] = "\xef\x84\xba",
+	['ICON_FA_FOLDER_PLUS'] = "\xef\x99\x9e",
+	['ICON_FA_CLOUD_MEATBALL'] = "\xef\x9c\xbb",
+	['ICON_FA_BOOK_OPEN'] = "\xef\x94\x98",
+	['ICON_FA_MAP'] = "\xef\x89\xb9",
+	['ICON_FA_COCKTAIL'] = "\xef\x95\xa1",
+	['ICON_FA_CLONE'] = "\xef\x89\x8d",
+	['ICON_FA_ID_CARD_ALT'] = "\xef\x91\xbf",
+	['ICON_FA_CHECK_SQUARE'] = "\xef\x85\x8a",
+	['ICON_FA_CHART_LINE'] = "\xef\x88\x81",
+	['ICON_FA_FILE_ARCHIVE'] = "\xef\x87\x86",
+	['ICON_FA_DOVE'] = "\xef\x92\xba",
+	['ICON_FA_MARS_STROKE'] = "\xef\x88\xa9",
+	['ICON_FA_ENVELOPE_OPEN'] = "\xef\x8a\xb6",
+	['ICON_FA_WHEELCHAIR'] = "\xef\x86\x93",
+	['ICON_FA_ROBOT'] = "\xef\x95\x84",
+	['ICON_FA_UNDO_ALT'] = "\xef\x8b\xaa",
+	['ICON_FA_TICKET_ALT'] = "\xef\x8f\xbf",
+	['ICON_FA_TRUCK'] = "\xef\x83\x91",
+	['ICON_FA_WON_SIGN'] = "\xef\x85\x99",
+	['ICON_FA_SUPERSCRIPT'] = "\xef\x84\xab",
+	['ICON_FA_TTY'] = "\xef\x87\xa4",
+	['ICON_FA_USER_MD'] = "\xef\x83\xb0",
+	['ICON_FA_ALIGN_LEFT'] = "\xef\x80\xb6",
+	['ICON_FA_TABLETS'] = "\xef\x92\x90",
+	['ICON_FA_MOTORCYCLE'] = "\xef\x88\x9c",
+	['ICON_FA_ANGLE_UP'] = "\xef\x84\x86",
+	['ICON_FA_BROOM'] = "\xef\x94\x9a",
+	['ICON_FA_TOILET_PAPER'] = "\xef\x9c\x9e",
+	['ICON_FA_DICE_D20'] = "\xef\x9b\x8f",
+	['ICON_FA_LEVEL_DOWN_ALT'] = "\xef\x8e\xbe",
+	['ICON_FA_PAPERCLIP'] = "\xef\x83\x86",
+	['ICON_FA_USER_CLOCK'] = "\xef\x93\xbd",
+	['ICON_FA_SORT_ALPHA_UP'] = "\xef\x85\x9e",
+	['ICON_FA_AUDIO_DESCRIPTION'] = "\xef\x8a\x9e",
+	['ICON_FA_FILE_CSV'] = "\xef\x9b\x9d",
+	['ICON_FA_FILE_DOWNLOAD'] = "\xef\x95\xad",
+	['ICON_FA_SYNC_ALT'] = "\xef\x8b\xb1",
+	['ICON_FA_KISS'] = "\xef\x96\x96",
+	['ICON_FA_HANDS'] = "\xef\x93\x82",
+	['ICON_FA_REPUBLICAN'] = "\xef\x9d\x9e",
+	['ICON_FA_EDIT'] = "\xef\x81\x84",
+	['ICON_FA_UNIVERSITY'] = "\xef\x86\x9c",
+	['ICON_FA_KHANDA'] = "\xef\x99\xad",
+	['ICON_FA_GLASSES'] = "\xef\x94\xb0",
+	['ICON_FA_SQUARE'] = "\xef\x83\x88",
+	['ICON_FA_GRIN_SQUINT'] = "\xef\x96\x85",
+	['ICON_FA_GLOBE'] = "\xef\x82\xac",
+	['ICON_FA_RECEIPT'] = "\xef\x95\x83",
+	['ICON_FA_STRIKETHROUGH'] = "\xef\x83\x8c",
+	['ICON_FA_UNLOCK'] = "\xef\x82\x9c",
+	['ICON_FA_DICE_SIX'] = "\xef\x94\xa6",
+	['ICON_FA_GRIP_VERTICAL'] = "\xef\x96\x8e",
+	['ICON_FA_PILLS'] = "\xef\x92\x84",
+	['ICON_FA_EXCLAMATION'] = "\xef\x84\xaa",
+	['ICON_FA_PERSON_BOOTH'] = "\xef\x9d\x96",
+	['ICON_FA_CALENDAR_PLUS'] = "\xef\x89\xb1",
+	['ICON_FA_SMOG'] = "\xef\x9d\x9f",
+	['ICON_FA_LOCATION_ARROW'] = "\xef\x84\xa4",
+	['ICON_FA_UMBRELLA'] = "\xef\x83\xa9",
+	['ICON_FA_QURAN'] = "\xef\x9a\x87",
+	['ICON_FA_UNDO'] = "\xef\x83\xa2",
+	['ICON_FA_DUMPSTER'] = "\xef\x9e\x93",
+	['ICON_FA_FUNNEL_DOLLAR'] = "\xef\x99\xa2",
+	['ICON_FA_INDENT'] = "\xef\x80\xbc",
+	['ICON_FA_LANGUAGE'] = "\xef\x86\xab",
+	['ICON_FA_ARROW_ALT_CIRCLE_UP'] = "\xef\x8d\x9b",
+	['ICON_FA_ROUTE'] = "\xef\x93\x97",
+	['ICON_FA_USER_ALT'] = "\xef\x90\x86",
+	['ICON_FA_TIMES'] = "\xef\x80\x8d",
+	['ICON_FA_CLINIC_MEDICAL'] = "\xef\x9f\xb2",
+	['ICON_FA_LEVEL_UP_ALT'] = "\xef\x8e\xbf",
+	['ICON_FA_BLIND'] = "\xef\x8a\x9d",
+	['ICON_FA_CHEESE'] = "\xef\x9f\xaf",
+	['ICON_FA_PHONE_SQUARE'] = "\xef\x82\x98",
+	['ICON_FA_SHOPPING_BASKET'] = "\xef\x8a\x91",
+	['ICON_FA_ICE_CREAM'] = "\xef\xa0\x90",
+	['ICON_FA_RING'] = "\xef\x9c\x8b",
+	['ICON_FA_CITY'] = "\xef\x99\x8f",
+	['ICON_FA_TEXT_WIDTH'] = "\xef\x80\xb5",
+	['ICON_FA_RSS_SQUARE'] = "\xef\x85\x83",
+	['ICON_FA_PAINT_BRUSH'] = "\xef\x87\xbc",
+	['ICON_FA_PARACHUTE_BOX'] = "\xef\x93\x8d",
+	['ICON_FA_SIM_CARD'] = "\xef\x9f\x84",
+	['ICON_FA_CLOUD_UPLOAD_ALT'] = "\xef\x8e\x82",
+	['ICON_FA_SORT_UP'] = "\xef\x83\x9e",
+	['ICON_FA_SIGN_OUT_ALT'] = "\xef\x8b\xb5",
+	['ICON_FA_USER_NINJA'] = "\xef\x94\x84",
+	['ICON_FA_SIGN_IN_ALT'] = "\xef\x8b\xb6",
+	['ICON_FA_MUG_HOT'] = "\xef\x9e\xb6",
+	['ICON_FA_SHARE_ALT'] = "\xef\x87\xa0",
+	['ICON_FA_CALENDAR_CHECK'] = "\xef\x89\xb4",
+	['ICON_FA_PEN_FANCY'] = "\xef\x96\xac",
+	['ICON_FA_BIOHAZARD'] = "\xef\x9e\x80",
+	['ICON_FA_BED'] = "\xef\x88\xb6",
+	['ICON_FA_FILE_SIGNATURE'] = "\xef\x95\xb3",
+	['ICON_FA_TOGGLE_OFF'] = "\xef\x88\x84",
+	['ICON_FA_TRAFFIC_LIGHT'] = "\xef\x98\xb7",
+	['ICON_FA_TRACTOR'] = "\xef\x9c\xa2",
+	['ICON_FA_MEH_ROLLING_EYES'] = "\xef\x96\xa5",
+	['ICON_FA_COMMENT_ALT'] = "\xef\x89\xba",
+	['ICON_FA_RULER_HORIZONTAL'] = "\xef\x95\x87",
+	['ICON_FA_PAINT_ROLLER'] = "\xef\x96\xaa",
+	['ICON_FA_HAT_WIZARD'] = "\xef\x9b\xa8",
+	['ICON_FA_CALENDAR'] = "\xef\x84\xb3",
+	['ICON_FA_MICROPHONE'] = "\xef\x84\xb0",
+	['ICON_FA_FOOTBALL_BALL'] = "\xef\x91\x8e",
+	['ICON_FA_ALLERGIES'] = "\xef\x91\xa1",
+	['ICON_FA_ID_CARD'] = "\xef\x8b\x82",
+	['ICON_FA_REDO_ALT'] = "\xef\x8b\xb9",
+	['ICON_FA_PLAY_CIRCLE'] = "\xef\x85\x84",
+	['ICON_FA_THERMOMETER'] = "\xef\x92\x91",
+	['ICON_FA_DOLLAR_SIGN'] = "\xef\x85\x95",
+	['ICON_FA_DUNGEON'] = "\xef\x9b\x99",
+	['ICON_FA_COMPRESS'] = "\xef\x81\xa6",
+	['ICON_FA_SEARCH_LOCATION'] = "\xef\x9a\x89",
+	['ICON_FA_BLENDER_PHONE'] = "\xef\x9a\xb6",
+	['ICON_FA_ANGLE_RIGHT'] = "\xef\x84\x85",
+	['ICON_FA_CHESS_QUEEN'] = "\xef\x91\x85",
+	['ICON_FA_PAGER'] = "\xef\xa0\x95",
+	['ICON_FA_MEH_BLANK'] = "\xef\x96\xa4",
+	['ICON_FA_EJECT'] = "\xef\x81\x92",
+	['ICON_FA_HOURGLASS_END'] = "\xef\x89\x93",
+	['ICON_FA_TOOTH'] = "\xef\x97\x89",
+	['ICON_FA_BUSINESS_TIME'] = "\xef\x99\x8a",
+	['ICON_FA_PLACE_OF_WORSHIP'] = "\xef\x99\xbf",
+	['ICON_FA_MOON'] = "\xef\x86\x86",
+	['ICON_FA_GRIN_TONGUE_SQUINT'] = "\xef\x96\x8a",
+	['ICON_FA_WALKING'] = "\xef\x95\x94",
+	['ICON_FA_SHIPPING_FAST'] = "\xef\x92\x8b",
+	['ICON_FA_CARET_LEFT'] = "\xef\x83\x99",
+	['ICON_FA_DICE'] = "\xef\x94\xa2",
+	['ICON_FA_RUBLE_SIGN'] = "\xef\x85\x98",
+	['ICON_FA_RULER_VERTICAL'] = "\xef\x95\x88",
+	['ICON_FA_HAND_POINTER'] = "\xef\x89\x9a",
+	['ICON_FA_TAPE'] = "\xef\x93\x9b",
+	['ICON_FA_SHOPPING_BAG'] = "\xef\x8a\x90",
+	['ICON_FA_SKIING_NORDIC'] = "\xef\x9f\x8a",
+	['ICON_FA_HIPPO'] = "\xef\x9b\xad",
+	['ICON_FA_CUBE'] = "\xef\x86\xb2",
+	['ICON_FA_CAPSULES'] = "\xef\x91\xab",
+	['ICON_FA_KIWI_BIRD'] = "\xef\x94\xb5",
+	['ICON_FA_CHEVRON_CIRCLE_UP'] = "\xef\x84\xb9",
+	['ICON_FA_MARS_STROKE_V'] = "\xef\x88\xaa",
+	['ICON_FA_POO_STORM'] = "\xef\x9d\x9a",
+	['ICON_FA_JOINT'] = "\xef\x96\x95",
+	['ICON_FA_MARS_STROKE_H'] = "\xef\x88\xab",
+	['ICON_FA_ADDRESS_BOOK'] = "\xef\x8a\xb9",
+	['ICON_FA_PROCEDURES'] = "\xef\x92\x87",
+	['ICON_FA_GEM'] = "\xef\x8e\xa5",
+	['ICON_FA_RULER_COMBINED'] = "\xef\x95\x86",
+	['ICON_FA_BRAIN'] = "\xef\x97\x9c",
+	['ICON_FA_STAR_AND_CRESCENT'] = "\xef\x9a\x99",
+	['ICON_FA_FIGHTER_JET'] = "\xef\x83\xbb",
+	['ICON_FA_SPACE_SHUTTLE'] = "\xef\x86\x97",
+	['ICON_FA_MAP_PIN'] = "\xef\x89\xb6",
+	['ICON_FA_ALIGN_CENTER'] = "\xef\x80\xb7",
+	['ICON_FA_SORT_ALPHA_DOWN'] = "\xef\x85\x9d",
+	['ICON_FA_PARKING'] = "\xef\x95\x80",
+	['ICON_FA_MAP_SIGNS'] = "\xef\x89\xb7",
+	['ICON_FA_PALETTE'] = "\xef\x94\xbf",
+	['ICON_FA_GLASS_MARTINI'] = "\xef\x80\x80",
+	['ICON_FA_TIMES_CIRCLE'] = "\xef\x81\x97",
+	['ICON_FA_MONUMENT'] = "\xef\x96\xa6",
+	['ICON_FA_GUITAR'] = "\xef\x9e\xa6",
+	['ICON_FA_GRIN_BEAM'] = "\xef\x96\x82",
+	['ICON_FA_KEY'] = "\xef\x82\x84",
+	['ICON_FA_TH_LIST'] = "\xef\x80\x8b",
+	['ICON_FA_SHARE_ALT_SQUARE'] = "\xef\x87\xa1",
+	['ICON_FA_DRUM'] = "\xef\x95\xa9",
+	['ICON_FA_FILE_CONTRACT'] = "\xef\x95\xac",
+	['ICON_FA_RESTROOM'] = "\xef\x9e\xbd",
+	['ICON_FA_UNLOCK_ALT'] = "\xef\x84\xbe",
+	['ICON_FA_MICROPHONE_ALT_SLASH'] = "\xef\x94\xb9",
+	['ICON_FA_USER_SECRET'] = "\xef\x88\x9b",
+	['ICON_FA_ARROW_RIGHT'] = "\xef\x81\xa1",
+	['ICON_FA_FILE_VIDEO'] = "\xef\x87\x88",
+	['ICON_FA_ARROW_ALT_CIRCLE_RIGHT'] = "\xef\x8d\x9a",
+	['ICON_FA_COMMENT'] = "\xef\x81\xb5",
+	['ICON_FA_CALENDAR_WEEK'] = "\xef\x9e\x84",
+	['ICON_FA_USER_GRADUATE'] = "\xef\x94\x81",
+	['ICON_FA_HAND_MIDDLE_FINGER'] = "\xef\xa0\x86",
+	['ICON_FA_POO'] = "\xef\x8b\xbe",
+	['ICON_FA_GRIP_LINES_VERTICAL'] = "\xef\x9e\xa5",
+	['ICON_FA_TABLE'] = "\xef\x83\x8e",
+	['ICON_FA_POLL'] = "\xef\x9a\x81",
+	['ICON_FA_CAR_ALT'] = "\xef\x97\x9e",
+	['ICON_FA_THUMBS_UP'] = "\xef\x85\xa4",
+	['ICON_FA_TRADEMARK'] = "\xef\x89\x9c",
+	['ICON_FA_CLOUD_MOON'] = "\xef\x9b\x83",
+	['ICON_FA_VIALS'] = "\xef\x92\x93",
+	['ICON_FA_FIRST_AID'] = "\xef\x91\xb9",
+	['ICON_FA_ERASER'] = "\xef\x84\xad",
+	['ICON_FA_MARS'] = "\xef\x88\xa2",
+	['ICON_FA_STAR_OF_LIFE'] = "\xef\x98\xa1",
+	['ICON_FA_FEATHER'] = "\xef\x94\xad",
+	['ICON_FA_SQUARE_FULL'] = "\xef\x91\x9c",
+	['ICON_FA_DOLLY'] = "\xef\x91\xb2",
+	['ICON_FA_HOURGLASS_START'] = "\xef\x89\x91",
+	['ICON_FA_GRIN_HEARTS'] = "\xef\x96\x84",
+	['ICON_FA_CUBES'] = "\xef\x86\xb3",
+	['ICON_FA_HASHTAG'] = "\xef\x8a\x92",
+	['ICON_FA_SEEDLING'] = "\xef\x93\x98",
+	['ICON_FA_HAYKAL'] = "\xef\x99\xa6",
+	['ICON_FA_TSHIRT'] = "\xef\x95\x93",
+	['ICON_FA_LAUGH_SQUINT'] = "\xef\x96\x9b",
+	['ICON_FA_HDD'] = "\xef\x82\xa0",
+	['ICON_FA_NEWSPAPER'] = "\xef\x87\xaa",
+	['ICON_FA_HOSPITAL_ALT'] = "\xef\x91\xbd",
+	['ICON_FA_USER_SLASH'] = "\xef\x94\x86",
+	['ICON_FA_FILE_WORD'] = "\xef\x87\x82",
+	['ICON_FA_ENVELOPE_SQUARE'] = "\xef\x86\x99",
+	['ICON_FA_GENDERLESS'] = "\xef\x88\xad",
+	['ICON_FA_DICE_FIVE'] = "\xef\x94\xa3",
+	['ICON_FA_SYNAGOGUE'] = "\xef\x9a\x9b",
+	['ICON_FA_PAW'] = "\xef\x86\xb0",
+	['ICON_FA_RADIATION'] = "\xef\x9e\xb9",
+	['ICON_FA_CROSS'] = "\xef\x99\x94",
+	['ICON_FA_ARCHIVE'] = "\xef\x86\x87",
+	['ICON_FA_PHONE_VOLUME'] = "\xef\x8a\xa0",
+	['ICON_FA_SOLAR_PANEL'] = "\xef\x96\xba",
+	['ICON_FA_INFINITY'] = "\xef\x94\xb4",
+	['ICON_FA_HAND_POINT_DOWN'] = "\xef\x82\xa7",
+	['ICON_FA_MAP_MARKER'] = "\xef\x81\x81",
+	['ICON_FA_CALENDAR_ALT'] = "\xef\x81\xb3",
+	['ICON_FA_AMERICAN_SIGN_LANGUAGE_INTERPRETING'] = "\xef\x8a\xa3",
+	['ICON_FA_BINOCULARS'] = "\xef\x87\xa5",
+	['ICON_FA_STICKY_NOTE'] = "\xef\x89\x89",
+	['ICON_FA_RUNNING'] = "\xef\x9c\x8c",
+	['ICON_FA_PEN_NIB'] = "\xef\x96\xad",
+	['ICON_FA_MAP_MARKED'] = "\xef\x96\x9f",
+	['ICON_FA_EXPAND'] = "\xef\x81\xa5",
+	['ICON_FA_TRUCK_PICKUP'] = "\xef\x98\xbc",
+	['ICON_FA_HOLLY_BERRY'] = "\xef\x9e\xaa",
+	['ICON_FA_PRESCRIPTION_BOTTLE'] = "\xef\x92\x85",
+	['ICON_FA_LAPTOP_CODE'] = "\xef\x97\xbc",
+	['ICON_FA_GOLF_BALL'] = "\xef\x91\x90",
+	['ICON_FA_SKULL_CROSSBONES'] = "\xef\x9c\x94",
+	['ICON_FA_TAXI'] = "\xef\x86\xba",
+	['ICON_FA_ROCKET'] = "\xef\x84\xb5",
+	['ICON_FA_YIN_YANG'] = "\xef\x9a\xad",
+	['ICON_FA_FINGERPRINT'] = "\xef\x95\xb7",
+	['ICON_FA_ARROWS_ALT'] = "\xef\x82\xb2",
+	['ICON_FA_UNDERLINE'] = "\xef\x83\x8d",
+	['ICON_FA_ARROW_CIRCLE_UP'] = "\xef\x82\xaa",
+	['ICON_FA_BASKETBALL_BALL'] = "\xef\x90\xb4",
+	['ICON_FA_DESKTOP'] = "\xef\x84\x88",
+	['ICON_FA_SPINNER'] = "\xef\x84\x90",
+	['ICON_FA_TOGGLE_ON'] = "\xef\x88\x85",
+	['ICON_FA_STOPWATCH'] = "\xef\x8b\xb2",
+	['ICON_FA_ARROW_ALT_CIRCLE_LEFT'] = "\xef\x8d\x99",
+	['ICON_FA_GAS_PUMP'] = "\xef\x94\xaf",
+	['ICON_FA_EXTERNAL_LINK_ALT'] = "\xef\x8d\x9d",
+	['ICON_FA_FROWN'] = "\xef\x84\x99",
+	['ICON_FA_RULER'] = "\xef\x95\x85",
+	['ICON_FA_FLAG_USA'] = "\xef\x9d\x8d",
+	['ICON_FA_GRIN'] = "\xef\x96\x80",
+	['ICON_FA_THEATER_MASKS'] = "\xef\x98\xb0",
+	['ICON_FA_ARROW_CIRCLE_LEFT'] = "\xef\x82\xa8",
+	['ICON_FA_HIGHLIGHTER'] = "\xef\x96\x91",
+	['ICON_FA_POLL_H'] = "\xef\x9a\x82",
+	['ICON_FA_SERVER'] = "\xef\x88\xb3",
+	['ICON_FA_TRASH_RESTORE'] = "\xef\xa0\xa9",
+	['ICON_FA_SPRAY_CAN'] = "\xef\x96\xbd",
+	['ICON_FA_BOWLING_BALL'] = "\xef\x90\xb6",
+	['ICON_FA_LAUGH'] = "\xef\x96\x99",
+	['ICON_FA_TERMINAL'] = "\xef\x84\xa0",
+	['ICON_FA_WINDOW_MINIMIZE'] = "\xef\x8b\x91",
+	['ICON_FA_HOME'] = "\xef\x80\x95",
+	['ICON_FA_UTENSIL_SPOON'] = "\xef\x8b\xa5",
+	['ICON_FA_QUIDDITCH'] = "\xef\x91\x98",
+	['ICON_FA_APPLE_ALT'] = "\xef\x97\x91",
+	['ICON_FA_UMBRELLA_BEACH'] = "\xef\x97\x8a",
+	['ICON_FA_CANNABIS'] = "\xef\x95\x9f",
+	['ICON_FA_LAUGH_BEAM'] = "\xef\x96\x9a",
+	['ICON_FA_TEETH_OPEN'] = "\xef\x98\xaf",
+	['ICON_FA_DRUMSTICK_BITE'] = "\xef\x9b\x97",
+	['ICON_FA_CHART_PIE'] = "\xef\x88\x80",
+	['ICON_FA_SD_CARD'] = "\xef\x9f\x82",
+	['ICON_FA_HANDS_HELPING'] = "\xef\x93\x84",
+	['ICON_FA_PASTE'] = "\xef\x83\xaa",
+	['ICON_FA_OM'] = "\xef\x99\xb9",
+	['ICON_FA_LUGGAGE_CART'] = "\xef\x96\x9d",
+	['ICON_FA_INDUSTRY'] = "\xef\x89\xb5",
+	['ICON_FA_SWIMMER'] = "\xef\x97\x84",
+	['ICON_FA_RADIATION_ALT'] = "\xef\x9e\xba",
+	['ICON_FA_COMPRESS_ARROWS_ALT'] = "\xef\x9e\x8c",
+	['ICON_FA_ROAD'] = "\xef\x80\x98",
+	['ICON_FA_IMAGE'] = "\xef\x80\xbe",
+	['ICON_FA_CHILD'] = "\xef\x86\xae",
+	['ICON_FA_ANGLE_DOUBLE_RIGHT'] = "\xef\x84\x81",
+	['ICON_FA_CLOUD_MOON_RAIN'] = "\xef\x9c\xbc",
+	['ICON_FA_DOOR_OPEN'] = "\xef\x94\xab",
+	['ICON_FA_GRIN_TONGUE_WINK'] = "\xef\x96\x8b",
+	['ICON_FA_REPLY_ALL'] = "\xef\x84\xa2",
+	['ICON_FA_TEMPERATURE_LOW'] = "\xef\x9d\xab",
+	['ICON_FA_INBOX'] = "\xef\x80\x9c",
+	['ICON_FA_FEMALE'] = "\xef\x86\x82",
+	['ICON_FA_SYRINGE'] = "\xef\x92\x8e",
+	['ICON_FA_CIRCLE_NOTCH'] = "\xef\x87\x8e",
+	['ICON_FA_WEIGHT'] = "\xef\x92\x96",
+	['ICON_FA_SNOWPLOW'] = "\xef\x9f\x92",
+	['ICON_FA_TABLE_TENNIS'] = "\xef\x91\x9d",
+	['ICON_FA_LOW_VISION'] = "\xef\x8a\xa8",
+	['ICON_FA_FILE_IMPORT'] = "\xef\x95\xaf",
+	['ICON_FA_ITALIC'] = "\xef\x80\xb3",
+	['ICON_FA_CLOSED_CAPTIONING'] = "\xef\x88\x8a",
+	['ICON_FA_CHALKBOARD'] = "\xef\x94\x9b",
+	['ICON_FA_BUILDING'] = "\xef\x86\xad",
+	['ICON_FA_TACHOMETER_ALT'] = "\xef\x8f\xbd",
+	['ICON_FA_BUS'] = "\xef\x88\x87",
+	['ICON_FA_ANGLE_DOWN'] = "\xef\x84\x87",
+	['ICON_FA_HAND_ROCK'] = "\xef\x89\x95",
+	['ICON_FA_FORWARD'] = "\xef\x81\x8e",
+	['ICON_FA_HELICOPTER'] = "\xef\x94\xb3",
+	['ICON_FA_PODCAST'] = "\xef\x8b\x8e",
+	['ICON_FA_TRUCK_MOVING'] = "\xef\x93\x9f",
+	['ICON_FA_BUG'] = "\xef\x86\x88",
+	['ICON_FA_SHIELD_ALT'] = "\xef\x8f\xad",
+	['ICON_FA_FILL_DRIP'] = "\xef\x95\xb6",
+	['ICON_FA_COMMENT_SLASH'] = "\xef\x92\xb3",
+	['ICON_FA_SUITCASE'] = "\xef\x83\xb2",
+	['ICON_FA_SKATING'] = "\xef\x9f\x85",
+	['ICON_FA_TOILET'] = "\xef\x9f\x98",
+	['ICON_FA_ENVELOPE_OPEN_TEXT'] = "\xef\x99\x98",
+	['ICON_FA_HAND_HOLDING'] = "\xef\x92\xbd",
+	['ICON_FA_VENUS_MARS'] = "\xef\x88\xa8",
+	['ICON_FA_HEART_BROKEN'] = "\xef\x9e\xa9",
+	['ICON_FA_UTENSILS'] = "\xef\x8b\xa7",
+	['ICON_FA_TH_LARGE'] = "\xef\x80\x89",
+	['ICON_FA_AT'] = "\xef\x87\xba",
+	['ICON_FA_FILE'] = "\xef\x85\x9b",
+	['ICON_FA_TENGE'] = "\xef\x9f\x97",
+	['ICON_FA_FLAG_CHECKERED'] = "\xef\x84\x9e",
+	['ICON_FA_FILM'] = "\xef\x80\x88",
+	['ICON_FA_FILL'] = "\xef\x95\xb5",
+	['ICON_FA_GRIN_SQUINT_TEARS'] = "\xef\x96\x86",
+	['ICON_FA_PERCENT'] = "\xef\x8a\x95",
+	['ICON_FA_BOOK'] = "\xef\x80\xad",
+	['ICON_FA_METEOR'] = "\xef\x9d\x93",
+	['ICON_FA_TRASH'] = "\xef\x87\xb8",
+	['ICON_FA_FILE_AUDIO'] = "\xef\x87\x87",
+	['ICON_FA_SATELLITE_DISH'] = "\xef\x9f\x80",
+	['ICON_FA_POOP'] = "\xef\x98\x99",
+	['ICON_FA_STAR'] = "\xef\x80\x85",
+	['ICON_FA_GIFTS'] = "\xef\x9e\x9c",
+	['ICON_FA_GHOST'] = "\xef\x9b\xa2",
+	['ICON_FA_PRESCRIPTION_BOTTLE_ALT'] = "\xef\x92\x86",
+	['ICON_FA_MONEY_BILL_WAVE_ALT'] = "\xef\x94\xbb",
+	['ICON_FA_NEUTER'] = "\xef\x88\xac",
+	['ICON_FA_BAND_AID'] = "\xef\x91\xa2",
+	['ICON_FA_WIFI'] = "\xef\x87\xab",
+	['ICON_FA_MASK'] = "\xef\x9b\xba",
+	['ICON_FA_VENUS_DOUBLE'] = "\xef\x88\xa6",
+	['ICON_FA_CHEVRON_UP'] = "\xef\x81\xb7",
+	['ICON_FA_HAND_SPOCK'] = "\xef\x89\x99",
+	['ICON_FA_HAND_POINT_UP'] = "\xea\x9b\xb0"
 }
 
 setmetatable(fa, {

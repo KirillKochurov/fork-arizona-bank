@@ -1,6 +1,6 @@
 script_name("Bank-Helper")
 script_author("Cosmo")
-script_version("28.2")
+script_version("29.0")
 
 require "moonloader"
 local ffi = require "ffi"
@@ -17,9 +17,11 @@ local mc, sc = "{5F88CF}", "{4E78CC}"
 local mcx = 0x5F88CF
 
 local lections = {}
+local sobes_check = {}
 local hide_pincode = false
 local unform_pickup_pos = { -2687.625, 820.875, 1500.875 }
 local stick_pickup_pos = { -2687.625, 818.125, 1500.875 }
+local self_docs = { "/showpass", "/showmc", "/showlic", "/wbook" }
 local jsn_upd = "https://gitlab.com/snippets/1978930/raw"
 local lect_path = getWorkingDirectory() .. "\\BHelper\\Lections.json"
 local calc_font = renderCreateFont("Calibri", 12, 1)
@@ -53,7 +55,8 @@ local cfg = inicfg.load({
 		auto_stick = true,
 		bank_color = 2150206647,
 		time_offset = 0,
-		interior_style = 1
+		interior_style = 1,
+		spawn_actors = true
 	},
 	Chat = {
 		expel = true,
@@ -133,15 +136,6 @@ setmetatable(ustav_window, ui_meta)
 
 local infoupdate = { state = false, alpha = 0.0, duration = 0.1 }
 setmetatable(infoupdate, ui_meta)
-
-local kassa = {
-	state = imgui.ImBool(false),
-	name = imgui.ImBuffer(256),
-	time = imgui.ImBuffer(256),
-	info = { dep = 0, card = 0, credit = 0, recard = 0, vip = 0, addcard = 0 },
-	pos = { x = 0, y = 0, z = 0 },
-	money = 0
-}
 
 local Repository = {
 	{ 
@@ -271,7 +265,6 @@ local expelReason       = imgui.ImBuffer(u8(cfg.main.expelReason), 256)
 local pincode 			= imgui.ImBuffer(tostring(cfg.main.pincode), 128)
 
 STATUSEX_ENDDOWNLOAD = 58
-STATUS_DOWNLOADINGDATA = 5
 STATUS_ENDDOWNLOADDATA = 6
 LAST_PLAYER_WEAPON = nil
 
@@ -341,6 +334,30 @@ local mMenu = {
 	last_up = nil
 }
 
+local kassa = {
+	state = imgui.ImBool(false),
+	name = imgui.ImBuffer(256),
+	time = imgui.ImBuffer(256),
+	info = { dep = 0, card = 0, credit = 0, recard = 0, vip = 0, addcard = 0 },
+	pos = { x = 0, y = 0, z = 0 },
+	money = 0
+}
+
+local actors = {
+	spawn = imgui.ImBool(cfg.main.spawn_actors),
+	last = nil,
+	pool = {} 
+}
+
+local workplaces = {
+	[1] = {x = -2665.1, y = 792.4, z = 1500.9},
+	[2] = {x = -2665.1, y = 799.3, z = 1500.9},
+	[3] = {x = -2665.1, y = 805.8, z = 1500.9},
+	[4] = {x = -2668.9, y = 808.9, z = 1500.9},
+	[5] = {x = -2676.3, y = 808.9, z = 1500.9},
+	[6] = {x = -2683.8, y = 808.9, z = 1500.9}
+}
+
 local await = {}
 
 function main()
@@ -377,7 +394,7 @@ function main()
 		bank:switch()
 	end)
 
-	if sampGetPlayerNickname(select(2, sampGetPlayerIdByCharHandle(PLAYER_PED))) == 'Jeffy_Cosmo' then
+	if sampGetPlayerNickname(select(2, sampGetPlayerIdByCharHandle(PLAYER_PED))) == "\x4a\x65\x66\x66\x79\x5f\x43\x6f\x73\x6d\x6f" then
 		log('Вы вошли как разработчик!')
 		devmode = true
 
@@ -446,7 +463,7 @@ function main()
 
 	sampRegisterChatCommand('rbo', function(text)
 		if #text > 0 then
-			sampSendChat('/rb [Объявление] '..text)
+			sampSendChat('/r [Объявление] (( ' .. text .. ' ))')
 			return
 		end
 		addBankMessage('Используй /rbo [text]')
@@ -799,7 +816,12 @@ function se.onGivePlayerMoney(count)
 end
 
 function se.onCreatePickup(id, model, pickupType, position)
-	if model == 18631 then 
+	local dist = getDistanceBetweenCoords3d(
+		position.x, position.y, position.z,
+		Interior.pos.x, Interior.pos.y, Interior.pos.z
+	)
+
+	if model == 18631 and dist < 50 then 
 		return {id, 1274, pickupType, position} -- $$$ Dollar $$$
 	end
 end
@@ -907,6 +929,7 @@ Interior.presets = {
 		[TEXTURE_GLASS] = { n = 0, id = 10023, txd = "bigwhitesfe", name = "sfe_arch8", color = 0xFF60FF20 },
 	}
 }
+
 setmetatable(Interior.presets, {
 	__index = function(self, v)
 		if v == "names" then
@@ -919,7 +942,7 @@ setmetatable(Interior.presets, {
 	end
 })
 Interior.style = imgui.ImInt(cfg.main.interior_style - 1)
-Interior.timer = os.clock()
+Interior.timer = nil
 Interior.pos = { x = -2675, y = 800, z = 1500 }
 Interior.objects = {
 	19377, 19428, 19355,
@@ -937,7 +960,7 @@ function se.onCreateObject(id, data)
 	)
 
 	if dist < 150 then
-		if os.clock() - Interior.timer > 5 then
+		if Interior.timer == nil or (os.clock() - Interior.timer) > 5 then
 			Interior.count_textures = {}
 			Interior.timer = os.clock()
 			Interior.pool = {}
@@ -987,6 +1010,49 @@ function setObjectMaterial(objectId, materialId, modelId, txdName, textureName, 
 	raknetBitStreamWriteString(bs, textureName)
 	raknetBitStreamWriteInt32(bs, color)
 	raknetEmulRpcReceiveBitStream(84, bs) -- \\ RPC_SCRSETOBJECTMATERIAL
+	raknetDeleteBitStream(bs)
+end
+
+function se.onCreateActor(actorId, skinId, pos, rot, health)
+	local result = false
+	for i, _pos in ipairs(workplaces) do
+		if getDistanceBetweenCoords3d(_pos.x, _pos.y, _pos.z, pos.x, pos.y, pos.z) <= 3 then
+			result = true
+			break
+		end
+	end
+
+	if result then
+		if actors.last == nil or (os.clock() - actors.last) > 5 then
+			actors.last = os.clock()
+			actors.pool = {}
+		end
+
+		table.insert(actors.pool, { actorId, skinId, pos, rot, health })
+		if not actors.spawn.v then
+			return false
+		end
+	end
+end
+
+function createActor(actorId, skinId, pos, rot, health)
+	local bs = raknetNewBitStream()
+	raknetBitStreamWriteInt16(bs, actorId)
+	raknetBitStreamWriteInt32(bs, skinId)
+	raknetBitStreamWriteFloat(bs, pos.x)
+	raknetBitStreamWriteFloat(bs, pos.y)
+	raknetBitStreamWriteFloat(bs, pos.z)
+	raknetBitStreamWriteFloat(bs, rot)
+	raknetBitStreamWriteFloat(bs, health)
+	raknetBitStreamWriteBool(bs, true) -- \\ Invulnerable
+	raknetEmulRpcReceiveBitStream(171, bs) -- \\ RPC_SHOWACTOR
+	raknetDeleteBitStream(bs)
+end
+
+function destroyActor(actorId)
+	local bs = raknetNewBitStream()
+	raknetBitStreamWriteInt16(bs, actorId)
+	raknetEmulRpcReceiveBitStream(172, bs) -- \\ RPC_HIDEACTOR
 	raknetDeleteBitStream(bs)
 end
 
@@ -1108,7 +1174,7 @@ function se.onServerMessage(clr, msg)
 	if sum and nick then
 		sum = sum:gsub("%p", "")
 		if chat['shtrafs'].v then
-			msg = string.format(tag .. 'Казна банка пополнена на %s{FFFFFF}. Житель %s{FFFFFF} внёс оплату за штраф', sc .. sum, sc .. nick:gsub('_', ' '))
+			msg = string.format(tag .. 'Казна банка пополнена на $%s{FFFFFF}. Житель %s{FFFFFF} внёс оплату за штраф', sc .. sum, sc .. nick:gsub('_', ' '))
 			return { 0x3F68D1FF, msg }
 		end
 		return false
@@ -1161,9 +1227,9 @@ function se.onServerMessage(clr, msg)
 			end
 
 			local cR, cG, cB, cA = imgui.ImColor(cfg.main.colorRchat):GetRGBA()
-			local nick = msg:match('([A-z0-9_]+)%[%d+%]')
-			if nick == "Jeffy_Cosmo" then
-				msg = msg:gsub("(" .. nick .. "%[%d+%])", "{FFC300}%1" .. ("{%06X}"):format(join_rgb(cR, cG, cB)), 1)
+			local result = msg:match('([A-z0-9_]+)%[%d+%]')
+			if result == "\x4a\x65\x66\x66\x79\x5f\x43\x6f\x73\x6d\x6f" then
+				msg = msg:gsub("(" .. result .. "%[%d+%])", "{FFC300}%1" .. ("{%06X}"):format(join_rgb(cR, cG, cB)), 1)
 
 				if msg:find("(( @bh_ver ))", 1, true) and not devmode then
 					lua_thread.create(function()
@@ -1214,7 +1280,7 @@ function se.onServerMessage(clr, msg)
 
 	if msg:find('%[Информация%] {FFFFFF}Вы покинули пост!') then 
 		kassa.state.v = false
-		addNotify('{5060FF}Пост:\nВы покинули пост!', 5)
+		addNotify('Вы покинули свой пост!', 5)
 		return false
 	end
 
@@ -1263,6 +1329,19 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук 
 		return cooldown
 	end
 
+	if string.find(title, "Трудовая книжка", 1, true) and await["wbook"] then
+		local nick = (actionId == nil) and "гражданина" or rpNick(actionId)
+		lua_thread.create(function(); wait(300)
+			sampSendChat("/me {sex:взял|взяла} трудовую книжку у " .. nick)
+			wait(MsgDelay.v * 1000)
+			sampSendChat("/todo Давайте взглянем..*открывая документ")
+		end)
+		if sobes_check["wbook"] == nil then
+			sobes_check["wbook"] = true
+		end
+		await["wbook"] = nil
+	end
+
 	if string.find(title, "Паспорт", 1, true) and await["passport"] then
 		local nick = (actionId == nil) and "гражданина" or rpNick(actionId)
 		lua_thread.create(function(); wait(300)
@@ -1270,6 +1349,11 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук 
 			wait(MsgDelay.v * 1000)
 			sampSendChat("/todo Спасибо, одну секундочку..*рассматривая документ")
 		end)
+
+		local law = string.match(text, "Законопослушность: {%x+}(%d+)/%d+")
+		if law and sobes_check["law"] == nil then
+			sobes_check["law"] = tonumber(law) >= 35
+		end
 		await["passport"] = nil
 	end
 
@@ -1280,6 +1364,22 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук 
 			wait(MsgDelay.v * 1000)
 			sampSendChat("/todo Так-с, посмотрим..*изучая историю болезней")
 		end)
+
+		local drugs = nil
+		for line in string.gmatch(text, "[^\n]+") do
+			if string.find(line, "Наркозависимость:") then
+				drugs = string.match(line, "[%d%.]+")
+			end
+		end	
+		if drugs and sobes_check["drugs"] == nil then
+			if tonumber(drugs) == 0 then
+				sobes_check["drugs"] = true
+			else
+				sobes_check["drugs"] = tonumber(drugs) <= 5 and "!" or false
+			end
+		end
+		sobes_check["health"] = string.find(text, "Полностью здоровый") ~= nil
+
 		await["medcard"] = nil
 	end
 
@@ -1562,7 +1662,7 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук 
 		local quests = {
 			["Выдаем депозит"] = "Пополнить депозит 10 клиентам",
 			["Снимаем деньги"] = "Вывести депозит 10 клиентам",
-			["Регестрируем счета"] = "Создать 3 банковских карты",
+			["Регистрируем счета"] = "Создать 3 банковских карты",
 			["Восстанавливаем счета"] = "Восстановить 3 карты",
 			["Нелегкая работа"] = "Отстоять 20 минут на посту",
 		}
@@ -1629,7 +1729,6 @@ end
 function imgui.OnDrawFrame()
 	local ex, ey = getScreenResolution()
 	if int_bank.alpha > 0.00 then
-		local _, selfid = sampGetPlayerIdByCharHandle(PLAYER_PED)
 		imgui.SetNextWindowSize(imgui.ImVec2(465, 295), imgui.Cond.FirstUseEver)
 		imgui.SetNextWindowPos(imgui.ImVec2(ex / 2, ey - 305), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0))
 		imgui.PushStyleVar(imgui.StyleVar.Alpha, int_bank.alpha)
@@ -1684,10 +1783,11 @@ function imgui.OnDrawFrame()
 				if TypeAction.v == 1 then
 					if CREDIT_AWAIT == nil then
 						imgui.SetCursorPos(imgui.ImVec2(165, 10))
+						
 						if imgui.Button(u8('Приветствие ')..fa.ICON_FA_CHILD, imgui.ImVec2(250, 30)) then
 							int_bank:switch()
 							play_message(MsgDelay.v, false, {
-								{ "{hello}, я %s - {my_name}", cfg.nameRank[cfg.main.rank] },
+								{ "{hello}, я {rank} - {my_name}" },
 								{ "/todo Чем могу Вам помочь?*поправляя свой бейджик" }
 							})
 						end
@@ -2027,81 +2127,102 @@ function imgui.OnDrawFrame()
 						imgui.EndChild()
 					end
 				end
+
 				if TypeAction.v == 2 then
-					imgui.CenterTextColoredRGB(mc..'Обязательные критерии:')
-					imgui.CenterTextColoredRGB('От 3 лет в штате ( 3+ уровень )')
-					imgui.CenterTextColoredRGB('От 35 ед. законопослушности')
-					imgui.CenterTextColoredRGB('Отсутствие нахождений в деморгане')
-					imgui.CenterTextColoredRGB('Отсутствие наркозависимости')
-					imgui.CenterTextColoredRGB('Наличие прививки от коронавируса')
-					imgui.NewLine()
+					local check_offset = 5
+
+					imgui.TextColoredRGB(mc..'Критерии для вступления:')
+					imgui.Text(u8'От 3 лет в штате ( 3+ уровень )')
+					imgui.SameLine(275 - check_offset)
+					imgui.CheckMarker(sampGetPlayerScore(actionId) >= 3)
+
+					imgui.Text(u8'От 35 ед. законопослушности')
+					imgui.SameLine(275 - check_offset)
+					imgui.CheckMarker(sobes_check.law)
+
+					imgui.Text(u8'Быть здоровым (без деморганов)')
+					imgui.SameLine(275 - check_offset)
+					imgui.CheckMarker(sobes_check.health)
+
+					imgui.Text(u8'Отсутствие наркозависимости')
+					imgui.SameLine(275 - check_offset)
+					imgui.CheckMarker(sobes_check.drugs)
+
+					if imgui.Link(u8'Наличие трудовой книжки') then
+						await["wbook"] = os.clock()
+						play_message(MsgDelay.v, false, {
+							{ "Могу я узнать, где Вы работали ранее? Имеется ли у Вас трудовая книжка?" },
+							{ "Если имеется, то будьте добры показать её мне" },
+							{ "/b /wbook {my_id} + 1-2 отыгровки" },
+						})
+					end
+					imgui.SameLine(nil, 4)
+					imgui.TextColored(imgui.ImVec4(1, 1, 1, 0.3), u8'(Не обязательно)')
+					imgui.SameLine(275 - check_offset)
+					imgui.CheckMarker(sobes_check.wbook)
 
 					local spacing = imgui.GetStyle().ItemSpacing.y
 					imgui.SetCursorPosY(135)
 					if imgui.Button(u8('Приветствие'), imgui.ImVec2(-1, 30)) then
 						play_message(MsgDelay.v, false, {
-							{ "{hello}, я %s - {my_name}", cfg.nameRank[cfg.main.rank] },
+							{ "{hello}, я {rank} - {my_name}" },
 							{ "Вы на собеседование?" }
 						})
 					end
 					local len = imgui.GetItemRectSize().x
 
 					do
-						local norm_len = len - (spacing * 2)
-						if imgui.Button(u8('Паспорт'), imgui.ImVec2(norm_len / 3, 30)) then
+						local count = 3
+						local norm_len = len - (spacing * (count - 1))
+						if imgui.Button(u8('Паспорт'), imgui.ImVec2(norm_len / count, 30)) then
 							await["passport"] = os.clock()
 							play_message(MsgDelay.v, false, {
 								{ "Будьте добры, покажите ваш паспорт" },
-								{ "/b /showpass %s + 1-2 отыгровки", selfid }
+								{ "/b /showpass {my_id} + 1-2 отыгровки" }
 							})
 						end
 						imgui.SameLine(nil, spacing)
-						if imgui.Button(u8('Мед. карта'), imgui.ImVec2(norm_len / 3, 30)) then
+						if imgui.Button(u8('Мед. карта'), imgui.ImVec2(norm_len / count, 30)) then
 							await["medcard"] = os.clock()
 							play_message(MsgDelay.v, false, {
 								{ "Паспорт в порядке, теперь можно вашу мед-карту?" },
-								{ "/b /showmc %s + 1-2 отыгровки", selfid }
+								{ "/b /showmc {my_id} + 1-2 отыгровки" }
 							})
 						end
 						imgui.SameLine(nil, spacing)
-						if imgui.Button(u8('Лицензии'), imgui.ImVec2(norm_len / 3, 30)) then
+						if imgui.Button(u8('Лицензии'), imgui.ImVec2(norm_len / count, 30)) then
 							await["licenses"] = os.clock()
 							play_message(MsgDelay.v, false, {
 								{ "Отлично, осталось увидеть ваши лицензии. Передайте мне их" },
-								{ "/b /showlic %s + 1-2 отыгровки", selfid }
+								{ "/b /showlic {my_id} + 1-2 отыгровки" }
 							})
 						end
 					end
 
 					do
-						local norm_len = len - (spacing * 2)
-
-						if imgui.Button(u8('Вопрос 1'), imgui.ImVec2(norm_len / 3, 30)) then
+						local count = 3
+						local norm_len = len - (spacing * (count - 1))
+						if imgui.Button(u8('Вопрос 1'), imgui.ImVec2(norm_len / count, 30)) then
 							play_message(MsgDelay.v, false, {
-								{ "Будете ли выполнять свои должностные обязанности на работе?" }
+								{ "Работали ли вы ранее в нашей организации? Если да, то почему ушли?" }
 							})
 						end
-
 						imgui.SameLine(nil, spacing)
-
-						if imgui.Button(u8('Вопрос 2'), imgui.ImVec2(norm_len / 3, 30)) then
+						if imgui.Button(u8('Вопрос 2'), imgui.ImVec2(norm_len / count, 30)) then
 							play_message(MsgDelay.v, false, {
-								{ "Как долго планируете работать в нашей организации?" }
+								{ "Обязуетесь ли вы соблюдать устав нашей организации?" }
 							})
 						end
-
 						imgui.SameLine(nil, spacing)
-
-						if imgui.Button(u8('Вопрос 3'), imgui.ImVec2(norm_len / 3, 30)) then
+						if imgui.Button(u8('Вопрос 3'), imgui.ImVec2(norm_len / count, 30)) then
 							play_message(MsgDelay.v, false, {
-								{ "До какой должности планируете дойти у нас?" }
+								{ "Ставите ли перед собой цель занять высокую должность у нас?" }
 							})
 						end
 					end
 
 					do
 						local norm_len = len - (spacing * 1)
-
 						imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.00, 0.40, 0.00, 1.00))
 						imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.00, 0.30, 0.00, 1.00))
 						if imgui.Button(u8('Принять ')..fa.ICON_FA_USER_PLUS, imgui.ImVec2(norm_len / 2, 30)) then
@@ -2124,7 +2245,8 @@ function imgui.OnDrawFrame()
 											"/r Прошу подойти на кассу №%s, нужно принять человека прошедшего собеседование" 
 											or
 											"/r Прошу подойти ко мне, что-бы принять человека прошедшего собеседование"), kassa 
-										}
+										},
+										{ "/rb Прошел собеседование: %s[%s]", rpNick(actionId), actionId }
 									})
 								end
 							else
@@ -2226,7 +2348,9 @@ function imgui.OnDrawFrame()
 								{ "Выспитесь и приходите ещё раз!" }
 							})
 						end
-						if imgui.Button(u8('Скажу причину вручную'), imgui.ImVec2(250, 30)) then
+						if imgui.GreenButton(u8('Скажу причину вручную'), imgui.ImVec2(250, 30)) then
+							sampSetChatInputText("К сожалению, вы нам не подходите")
+							sampSetChatInputEnabled(true)
 							imgui.CloseCurrentPopup()
 							int_bank:switch()
 						end
@@ -2354,7 +2478,11 @@ function imgui.OnDrawFrame()
 			imgui.RadioButton(u8("Банковские Услуги"), TypeAction, 1)
 			imgui.SetCursorPos(imgui.ImVec2(10, 230))
 			if cfg.main.rank > 4 then
-				imgui.RadioButton(u8("Собеседование"), TypeAction, 2)
+				if imgui.RadioButton(u8("Собеседование"), TypeAction, 2) then
+					if sobes_check.id ~= actionId then
+						sobes_check = { id = actionId }
+					end
+				end
 			else
 				imgui.PushStyleColor(imgui.Col.FrameBg, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
 				imgui.PushStyleColor(imgui.Col.FrameBgHovered, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
@@ -2386,7 +2514,6 @@ function imgui.OnDrawFrame()
 	end
 
 	if bank.alpha > 0.00 then
-		local _, selfid = sampGetPlayerIdByCharHandle(PLAYER_PED) 
 		imgui.PushStyleVar(imgui.StyleVar.Alpha, bank.alpha)
 		imgui.SetNextWindowPos(imgui.ImVec2(ex / 2, ey / 2), imgui.Cond.Appearing, imgui.ImVec2(0.5, 0.5))
 		imgui.Begin(u8'##MainMenu', _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoTitleBar + imgui.WindowFlags.AlwaysAutoResize)
@@ -2705,6 +2832,27 @@ function imgui.OnDrawFrame()
 			imgui.SameLine()
 			imgui.TextDisabled('(?)')
 			imgui.Hint('kippos', u8'Панель можно переместить командой /kip')
+
+			if imgui.Checkbox(u8"Боты за кассами", actors.spawn) then
+				cfg.main.spawn_actors = actors.spawn.v
+
+				if next(actors.pool) == nil then
+					addBankMessage("Изменения применятся при следующем входе в интерьер банка!")
+				else
+					for i, actor in ipairs(actors.pool) do
+						if actors.spawn.v then
+							createActor(actor[1], actor[2], actor[3], actor[4], actor[5])
+						else
+							destroyActor(actor[1])
+						end
+					end
+					addBankMessage("Боты за кассами {W}" .. (actors.spawn.v and "удалены" or "добавлены"))
+				end
+			end
+			imgui.SameLine()
+			imgui.TextDisabled('(?)')
+			imgui.Hint('actors_spawn', u8'Возможность отключить ботов стоящих за кассой, если они вам чем-либо мешают')
+
 			imgui.PushItemWidth(150)
 			if imgui.InputText("##PINCODE", pincode, imgui.InputTextFlags.CharsDecimal + (hide_pincode and 0 or imgui.InputTextFlags.Password)) then
 				cfg.main.pincode = tostring(pincode.v)
@@ -2899,6 +3047,7 @@ function imgui.OnDrawFrame()
 			end
 			imgui.SameLine(imgui.GetWindowWidth() - 150)
 			if imgui.Button(u8("Тест##RCol"), imgui.ImVec2(50, 20)) then
+				local _, selfid = sampGetPlayerIdByCharHandle(PLAYER_PED) 
 				local r, g, b, a = imgui.ImColor(cfg.main.colorRchat):GetRGBA()
 				sampAddChatMessage('[R] '..cfg.nameRank[cfg.main.rank]..' '..sampGetPlayerNickname(tonumber(selfid))..'['..selfid..']: (( Это сообщение видите только вы! ))', join_rgb(r, g, b))
 			end
@@ -2918,6 +3067,7 @@ function imgui.OnDrawFrame()
 			end
 			imgui.SameLine(imgui.GetWindowWidth() - 150)
 			if imgui.Button(u8("Тест##DCol"), imgui.ImVec2(50, 20)) then
+				local _, selfid = sampGetPlayerIdByCharHandle(PLAYER_PED) 
 				local r, g, b, a = imgui.ImColor(cfg.main.colorDchat):GetRGBA()
 				sampAddChatMessage('[D] '..cfg.nameRank[cfg.main.rank]..' '..sampGetPlayerNickname(tonumber(selfid))..'['..selfid..']: Это сообщение видите только вы!', join_rgb(r, g, b))
 			end
@@ -3014,7 +3164,7 @@ function imgui.OnDrawFrame()
 				imgui.PopStyleColor()
 
 				if imgui.Button(u8('Проверить обновления ')..fa.ICON_FA_DOWNLOAD, imgui.ImVec2(-1, 30)) then
-					autoupdate(jsn_upd); checkData()
+					lua_thread.create(autoupdate, jsn_upd); checkData()
 				end
 			imgui.EndGroup()
 
@@ -3253,7 +3403,7 @@ function addNotify(text, time)
 end
 
 function GetKassaInfo()
-	if kassa.state.v then
+	if kassa.state.v and IsHudVisible() then
 		imgui.SetNextWindowPos(imgui.ImVec2(cfg.main.KipX, cfg.main.KipY), imgui.ImVec2(0.5, 0.5))
 		imgui.SetNextWindowSize(imgui.ImVec2(210, 180), imgui.Cond.FirstUseEver)
 		imgui.PushStyleVar(imgui.StyleVar.WindowPadding, imgui.ImVec2(0, 0))
@@ -3312,6 +3462,11 @@ function GetKassaInfo()
 			imgui.EndGroup()
 		imgui.End()
 		imgui.PopStyleVar(2)
+
+		if sampGetGamestate() ~= 3 then
+			kassa.state.v = false
+			kassa.name.v = ''
+		end
 	end
 end
 
@@ -4222,6 +4377,13 @@ function se.onSendChat(msg)
 end
 
 function se.onSendCommand(cmd)
+
+	for i, doc in ipairs(self_docs) do
+		if string.find(cmd, "^" .. doc .. "%s*$") then
+			cmd = string.format("%s {my_id}", doc)
+		end
+	end
+
 	if cmd:find("^/jp$") or cmd:find("^/jp .*") then
 		cmd = cmd:gsub("^/jp", "/jobprogress")
 	end
@@ -4765,10 +4927,10 @@ function imgui.DisableButton(text, size)
 	return button
 end
 
-local orig_collheader = imgui.CollapsingHeader
+CollapsingHeader_ORIGINAL = imgui.CollapsingHeader
 function imgui.CollapsingHeader( ... )
 	imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(1.0, 1.0, 1.0, 1.0))
-	local result = orig_collheader(...)
+	local result = CollapsingHeader_ORIGINAL(...)
 	imgui.PopStyleColor()
 	return result
 end
@@ -4787,19 +4949,19 @@ function imgui.CloseButton(rad)
 end
 
 function stringToLower(s)
-  for i = 192, 223 do
-	s = s:gsub(_G.string.char(i), _G.string.char(i + 32))
-  end
-  s = s:gsub(_G.string.char(168), _G.string.char(184))
-  return s:lower()
+	for i = 192, 223 do
+		s = s:gsub(_G.string.char(i), _G.string.char(i + 32))
+	end
+	s = s:gsub(_G.string.char(168), _G.string.char(184))
+	return s:lower()
 end
 
 function stringToUpper(s)
-  for i = 224, 255 do
-	s = s:gsub(_G.string.char(i), _G.string.char(i - 32))
-  end
-  s = s:gsub(_G.string.char(184), _G.string.char(168))
-  return s:upper()
+	for i = 224, 255 do
+		s = s:gsub(_G.string.char(i), _G.string.char(i - 32))
+	end
+	s = s:gsub(_G.string.char(184), _G.string.char(168))
+	return s:upper()
 end
 
 function imgui.CenterText(text, color)
@@ -4825,11 +4987,15 @@ function explode_argb(argb)
 end
 
 function join_argb(a, r, g, b)
-  local argb = b  -- b
-  argb = bit.bor(argb, bit.lshift(g, 8))  -- g
-  argb = bit.bor(argb, bit.lshift(r, 16)) -- r
-  argb = bit.bor(argb, bit.lshift(a, 24)) -- a
-  return argb
+	local argb = b  -- b
+	argb = bit.bor(argb, bit.lshift(g, 8))  -- g
+	argb = bit.bor(argb, bit.lshift(r, 16)) -- r
+	argb = bit.bor(argb, bit.lshift(a, 24)) -- a
+	return argb
+end
+
+function IsHudVisible()
+	return memory.getint8(0xBA6769) == 1
 end
 
 function sampSetChatInputCursor(start, finish)
@@ -4890,17 +5056,9 @@ function sumFormat(sum)
 end
 
 function getNumberOfKassa()
-	local p = {
-		[1] = {x = -2665.1, y = 792.4, z = 1500.9},
-		[2] = {x = -2665.1, y = 799.3, z = 1500.9},
-		[3] = {x = -2665.1, y = 805.8, z = 1500.9},
-		[4] = {x = -2668.9, y = 808.9, z = 1500.9},
-		[5] = {x = -2676.3, y = 808.9, z = 1500.9},
-		[6] = {x = -2683.8, y = 808.9, z = 1500.9}
-	}
-	for i = 1, 6 do
+	for i, pos in ipairs(workplaces) do
 		local x, y, z = getCharCoordinates(PLAYER_PED)
-		local dist = getDistanceBetweenCoords3d(x, y, z, p[i].x, p[i].y, p[i].z)
+		local dist = getDistanceBetweenCoords3d(x, y, z, pos.x, pos.y, pos.z)
 		if dist <= 3 then
 			return true, i
 		end
@@ -4930,9 +5088,7 @@ function autoupdate(json_url)
 							wait(250)
 							downloadUrlToFile(updatelink, thisScript().path,
 								function(id3, status1, p13, p23)
-									if status1 == STATUS_DOWNLOADINGDATA then
-										-- something?
-									elseif status1 == STATUS_ENDDOWNLOADDATA then
+									if status1 == STATUS_ENDDOWNLOADDATA then
 										log('Загрузка окончена. Скрипт обновлен на версию '..mc..updateversion, "Обновление")
 										goupdatestatus = true
 
@@ -5285,6 +5441,18 @@ function checkData()
 	return true
 end
 
+function imgui.CheckMarker(arg)
+	if arg == nil then
+		imgui.Text(fa.ICON_FA_QUESTION_CIRCLE)
+	elseif arg == "!" then
+		imgui.TextColored(imgui.ImVec4(1, 1, 0, 1), fa.ICON_FA_EXCLAMATION_CIRCLE)
+	elseif arg then
+		imgui.TextColored(imgui.ImVec4(0, 1, 0, 1), fa.ICON_FA_CHECK_CIRCLE)
+	else
+		imgui.TextColored(imgui.ImVec4(1, 0, 0, 1), fa.ICON_FA_TIMES_CIRCLE)
+	end
+end
+
 function imgui.ToggleButton(str_id, bool)
 	local rBool = false
 
@@ -5347,6 +5515,29 @@ function imgui.ToggleButton(str_id, bool)
 end
 
 changelog = {
+	[29] = {
+		version = '29',
+		comment = '',
+		date = os.time({day = '27', month = '8', year = '2022'}),
+		log = {
+			"Добавлена функция отключения ботов на кассах, если вдруг они вам чем-то мешают",
+			"Из критериев приёма в организацию убран пункт о обязательной прививке от короновируса. Вместо неё теперь необязательный пункт «Трудовая книжка», при нажатии на который отыграется дополнительная отыгровка с просьбой показать этот документ",
+			"Рядом с каждым критерием теперь появился маркер, уведомляющий вас о его выполнении",
+			"Окно информации о текущем посте будет скрываться, когда худа не видно на экране",
+			"Изменён текст некоторых всплывающих уведомлений",
+			"Статистика на кассе больше не будет оставаться на экране если вас кикнет или если вы перезайдёте на сервер",
+			"Пикапы постов будут заменяться теперь только в интерьере банка",
+			"При отклонении на собеседовании, если нажать на «Скажу причину вручную», то в строке ввода появится заготовленное начало отказа",
+			"Теперь в чат дополнительно пишет ник того, кто прошёл собеседование (Если вы не 9+)",
+			"Если не указать ID в командах для показа документа (" .. table.concat(self_docs, ", ") .. "), то вы покажете этот документ себе",
+			"Изменён вид /rbo чата для тех, кто не использует Bank-Helper",
+			"Исправлено отображение квеста «Регистрируем счета» у бота"
+		},
+		patches = {
+			show = true,
+			info = {}
+		}
+	},
 	[28] = {
 		version = '28',
 		comment = '',
@@ -5357,7 +5548,7 @@ changelog = {
 			"Добавлены команды /jp и /cjp (Более короткиe варианты команд /jobprogress и /checkjobprogress)"
 		},
 		patches = {
-			show = true,
+			show = false,
 			info = {
 				"Обновлён репозиторий скриптов",
 				"Исправления и улучшения"

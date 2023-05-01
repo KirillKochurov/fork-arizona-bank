@@ -36,19 +36,19 @@ local cfg = inicfg.load({
 		LectDelay = 5,
 		MsgDelay = 2.5,
 		rpbat = false,
-		rpbat_true = "/me {sex:СЃРЅСЏР»|СЃРЅСЏР»Р°} РґСѓР±РёРЅРєСѓ СЃ РїРѕСЏСЃР° РІР·СЏРІ РІ РїСЂР°РІСѓСЋ СЂСѓРєСѓ",
-		rpbat_false = "/me {sex:РїРѕРІРµСЃРёР»|РїРѕРІРµСЃРёР»Р°} РґСѓР±РёРЅРєСѓ РЅР° РїРѕСЏСЃ" , 
+		rpbat_true = "/me {sex:снял|сняла} дубинку с пояса взяв в правую руку",
+		rpbat_false = "/me {sex:повесил|повесила} дубинку на пояс" , 
 		colorRchat = 4282626093,
 		colorDchat = 4294940723,
 		black_theme = true,
 		accent_status = false,
-		accent = '[Р”РµР»РѕРІР°СЏ СЂРµС‡СЊ]',
+		accent = '[Деловая речь]',
 		infoupdate = false,
 		loginupdate = true,
 		KipX = select(1, getScreenResolution()) - 250,
 		KipY = select(2, getScreenResolution()) / 2, 
 		ki_stat = true,
-		expelReason = 'Рќ.Рџ.Р‘',
+		expelReason = 'Н.П.Б',
 		chat_calc = false,
 		pincode = "",
 		auto_uniform = true,
@@ -67,25 +67,25 @@ local cfg = inicfg.load({
 		uval = true
 	},
 	nameRank = {
-		'РћС…СЂР°РЅРЅРёРє', 
-		'РЎС‚Р°СЂС€РёР№ РѕС…СЂР°РЅРЅРёРє', 
-		'РќР°С‡Р°Р»СЊРЅРёРє РѕС…СЂР°РЅС‹', 
-		'РЎС‚.РЎРѕС‚СЂСѓРґРЅРёРє Р±Р°РЅРєР°', 
-		'РќР°С‡.РћС‚РґРµР»Р° СЃР±РµСЂРµР¶РµРЅРёР№', 
-		'Р—Р°РІ.РћС‚РґРµР»Р° СЃР±РµСЂРµР¶РµРЅРёР№', 
-		'РњРµРЅРµРґР¶РµСЂ', 
-		'Р—Р°Рј.Р”РёСЂРµРєС‚РѕСЂР°', 
-		'Р”РёСЂРµРєС‚РѕСЂ Р‘Р°РЅРєР°', 
-		'РњРёРЅРёСЃС‚СЂ Р¤РёРЅР°РЅСЃРѕРІ'
+		'Охранник', 
+		'Старший охранник', 
+		'Начальник охраны', 
+		'Ст.Сотрудник банка', 
+		'Нач.Отдела сбережений', 
+		'Зав.Отдела сбережений', 
+		'Менеджер', 
+		'Зам.Директора', 
+		'Директор Банка', 
+		'Министр Финансов'
 	},
 	govstr = {
-		'[Р¦РµРЅС‚СЂР°Р»СЊРЅС‹Р№ Р±Р°РЅРє] РЈРІР°Р¶Р°РµРјС‹Рµ Р¶РёС‚РµР»Рё С€С‚Р°С‚Р°!',
-		'[Р¦РµРЅС‚СЂР°Р»СЊРЅС‹Р№ Р±Р°РЅРє] РќР° РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ РїСЂРѕС…РѕРґРёС‚ Р”РµРЅСЊ РћС‚РєСЂС‹С‚С‹С… Р”РІРµСЂРµР№ РІ Р¦РµРЅС‚СЂР°Р»СЊРЅС‹Р№ Р±Р°РЅРє!',
-		'[Р¦РµРЅС‚СЂР°Р»СЊРЅС‹Р№ Р±Р°РЅРє] Р’Р°Рј РЅСѓР¶РЅРѕ СЏРІРёС‚СЊСЃСЏ РІ РҐРѕР»Р» Р‘Р°РЅРєР°! Р–РґС‘Рј РІР°СЃ!'
+		'[Центральный банк] Уважаемые жители штата!',
+		'[Центральный банк] На данный момент проходит День Открытых Дверей в Центральный банк!',
+		'[Центральный банк] Вам нужно явиться в Холл Банка! Ждём вас!'
 	},
 	govdep = {
-		'[Р‘РђРќРљ] - [Р’СЃРµРј] Р—Р°РЅРёРјР°СЋ РіРѕСЃ.РІРѕР»РЅСѓ, РїСЂРѕСЃСЊР±Р° РЅРµ РїРµСЂРµР±РёРІР°С‚СЊ',
-		'[Р‘РђРќРљ] - [Р’СЃРµРј] РћСЃРІРѕР±РѕР¶РґР°СЋ РіРѕСЃ.РІРѕР»РЅСѓ'
+		'[БАНК] - [Всем] Занимаю гос.волну, просьба не перебивать',
+		'[БАНК] - [Всем] Освобождаю гос.волну'
 	},
 	blacklist = {},
 	Binds_Name = {},
@@ -143,7 +143,7 @@ local Repository = {
 		name = "Timer Online",
 		file = "TimerOnline.lua",
 		libs = { ["Dear Imgui"] = "imgui" },
-		desc = "РЎРєСЂРёРїС‚, РєРѕС‚РѕСЂС‹Р№ СЃС‡РёС‚Р°РµС‚ РІР°С€ РѕРЅР»Р°Р№РЅ РІ РёРіСЂРµ. РЈРјРµРµС‚ СЃС‡РёС‚Р°С‚СЊ С‡РёСЃС‚С‹Р№ РѕРЅР»Р°Р№РЅ, РѕРЅР»Р°Р№РЅ РІ РђР¤Рљ, Р° С‚Р°Рє Р¶Рµ РѕРЅР»Р°Р№РЅ Р·Р° РґРµРЅСЊ Рё Р·Р° РЅРµРґРµР»СЋ",
+		desc = "Скрипт, который считает ваш онлайн в игре. Умеет считать чистый онлайн, онлайн в АФК, а так же онлайн за день и за неделю",
 		source = "https://www.blast.hk/threads/59396/",
 		url = "https://gitlab.com/Cosmo-ctrl/arizona-bank/-/raw/main/scripts/TimerOnline.lua",
 		cmds = { "/toset" }
@@ -152,7 +152,7 @@ local Repository = {
 		name = "Leader Logger",
 		file = "LeadLogger.lua",
 		libs = { ["mimgui"] = "mimgui", ["SAMP.lua"] = "samp.events" },
-		desc = "Р”Р°РЅРЅР°СЏ СѓС‚РёР»РёС‚Р° Р±СѓРґРµС‚ Р»РѕРіРёСЂРѕРІР°С‚СЊ РІСЃРµ Р»РёРґРµСЂСЃРєРёРµ РґРµР№СЃС‚РІРёСЏ РІ РѕСЂРіР°РЅРёР·Р°С†РёРё С‚Р°РєРёРµ РєР°Рє РїРѕРІС‹С€РµРЅРёСЏ, СѓРІРѕР»СЊРЅРµРЅРёСЏ, РёРЅРІР°Р№С‚С‹, РІС‹РіРѕРІРѕСЂС‹ Рё С‚Р°Рє РґР°Р»РµРµ. РћС‡РµРЅСЊ РїРѕР»РµР·РЅРѕ Р»РёРґРµСЂР°Рј РїСЂРё СЃРѕСЃС‚Р°РІР»РµРЅРёРё РѕС‚С‡С‘С‚РѕРІ РЅР° С„РѕСЂСѓРј",
+		desc = "Данная утилита будет логировать все лидерские действия в организации такие как повышения, увольнения, инвайты, выговоры и так далее. Очень полезно лидерам при составлении отчётов на форум",
 		source = "https://www.blast.hk/threads/59244/",
 		url = "https://gitlab.com/Cosmo-ctrl/arizona-bank/-/raw/main/scripts/LeadLogger.lua",
 		cmds = { "/logger" }
@@ -161,7 +161,7 @@ local Repository = {
 		name = "Chat Clist",
 		file = "cnickchat.lua",
 		libs = { ["mimgui"] = "mimgui", ["SAMP.lua"] = "samp.events" },
-		desc = "РќРёРє РёРіСЂРѕРєР° РєРѕС‚РѕСЂС‹Р№ С‡С‚Рѕ-Р»РёР±Рѕ РЅР°РїРёСЃР°Р» РІ С‡Р°С‚ Р±СѓРґРµС‚ РѕРєСЂР°С€РёРІР°С‚СЊСЃСЏ С†РІРµС‚РѕРј РµРіРѕ РєР»РёСЃС‚Р° (РќР°РїСЂРёРјРµСЂ: Grove - Р·РµР»РµРЅС‹Р№, РЎРњР - РѕСЂР°РЅР¶РµРІС‹Р№ Рё С‚.Рґ.)",
+		desc = "Ник игрока который что-либо написал в чат будет окрашиваться цветом его клиста (Например: Grove - зеленый, СМИ - оранжевый и т.д.)",
 		source = nil,
 		url = "https://gitlab.com/Cosmo-ctrl/arizona-bank/-/raw/main/scripts/cnickchat.lua",
 		cmds = {}
@@ -170,7 +170,7 @@ local Repository = {
 		name = "Reminder",
 		file = "npm.lua",
 		libs = {},
-		desc = "РќР°РїРѕРјРёРЅР°РЅРёРµ РїРѕ СѓРєР°Р·Р°РЅРЅРѕРјСѓ РІСЂРµРјРµРЅРё. РќР°РїСЂРёРјРµСЂ РІРІРѕРґРёС‚Рµ: /npm 20:20 РџРѕРґР°С‚СЊ РіРѕСЃ-РІРѕР»РЅСѓ, Р° СЃРєСЂРёРїС‚ СѓРІРµРґРѕРјРёС‚ РІР°СЃ Р·Р° РјРёРЅСѓС‚Сѓ Рё РІ СѓРєР°Р·Р°РЅРЅРѕРµ РІСЂРµРјСЏ РІ С‡Р°С‚Рµ, Р° С‚Р°Рє Р¶Рµ РјРѕСЂРіРЅС‘С‚ СЌРєСЂР°РЅРѕРј",
+		desc = "Напоминание по указанному времени. Например вводите: /npm 20:20 Подать гос-волну, а скрипт уведомит вас за минуту и в указанное время в чате, а так же моргнёт экраном",
 		source = "https://t.me/c0sui/63",
 		url = "https://gitlab.com/Cosmo-ctrl/arizona-bank/-/raw/main/scripts/npm.lua",
 		cmds = { "/npm", "/npm off" }
@@ -179,7 +179,7 @@ local Repository = {
 		name = "Vehicle Damage Informer",
 		file = "VehDamageInformer.lua",
 		libs = { ["SAMP.lua"] = "samp.events" },
-		desc = "РџСЂРѕСЃС‚РѕР№ СЃРєСЂРёРїС‚, РїРѕРєР°Р·С‹РІР°СЋС‰РёР№ РІС…РѕРґСЏС‰РёР№ СѓСЂРѕРЅ РїРѕ РІР°С€РµРјСѓ Р°РІС‚Рѕ, РІ РєРѕС‚РѕСЂРѕРј РІС‹ СЃРёРґРёС‚Рµ",
+		desc = "Простой скрипт, показывающий входящий урон по вашему авто, в котором вы сидите",
 		source = "https://t.me/c0sui/13",
 		url = "https://gitlab.com/Cosmo-ctrl/arizona-bank/-/raw/main/scripts/VehDamageInformer.lua",
 		cmds = {}
@@ -188,7 +188,7 @@ local Repository = {
 		name = "BitCount",
 		file = "BitCount.lua",
 		libs = { ["SAMP.lua"] = "samp.events" },
-		desc = "Р”Р°РЅРЅС‹Р№ СЃРєСЂРёРїС‚ РїРѕРґСЃРєР°Р¶РµС‚, СЃРєРѕР»СЊРєРѕ BTC РІРѕР·РјРѕР¶РЅРѕ РєСѓРїРёС‚СЊ СЃ РІР°С€РёРј Р±СЋРґР¶РµС‚РѕРј РёР»Рё СЃРєРѕР»СЊРєРѕ СЃСЂРµРґСЃС‚РІ РґРѕСЃС‚СѓРїРЅРѕ РґР»СЏ РІС‹РІРѕРґР° РёР· РёРјРµСЋС‰РµРіРѕСЃСЏ РєРѕР»РёС‡РµСЃС‚РІР° РєСЂРёРїС‚РѕРІР°Р»СЋС‚С‹",
+		desc = "Данный скрипт подскажет, сколько BTC возможно купить с вашим бюджетом или сколько средств доступно для вывода из имеющегося количества криптовалюты",
 		source = "https://t.me/c0sui/124",
 		url = "https://gitlab.com/Cosmo-ctrl/arizona-bank/-/raw/main/scripts/BitCount.lua",
 		cmds = {}
@@ -197,7 +197,7 @@ local Repository = {
 		name = "Climate",
 		file = "Climate.lua",
 		libs = { ["SAMP.lua"] = "samp.events" },
-		desc = "РђРЅР°Р»РѕРі РёР·РІРµСЃС‚РЅРѕРіРѕ СЃРєСЂРёРїС‚Р° РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ РїРѕРіРѕРґС‹ Рё РІСЂРµРјРµРЅРё, РЅРѕ СЃ РїРѕРґРґРµСЂР¶РєРѕР№ СЂР°Р±РѕС‚С‹ РЅР° Р»Р°СѓРЅС‡РµСЂРµ ARIZONA GAMES",
+		desc = "Аналог известного скрипта для изменения погоды и времени, но с поддержкой работы на лаунчере ARIZONA GAMES",
 		source = "https://t.me/c0sui/88",
 		url = "https://gitlab.com/Cosmo-ctrl/arizona-bank/-/raw/main/scripts/Climate.lua",
 		cmds = { "/st", "/sw", "/bt", "/bw" }
@@ -206,7 +206,7 @@ local Repository = {
 		name = "Clock",
 		file = "clock.lua",
 		libs = {},
-		desc = "Р­РєСЂР°РЅРЅС‹Рµ С‡Р°СЃС‹ РїРѕРєР°Р·С‹РІР°СЋС‰РµРµ РІСЂРµРјСЏ СЃ С‚РѕС‡РЅРѕСЃС‚СЊСЋ РґРѕ РјРёР»Р»РёСЃРµРєСѓРЅРґ, Р° С‚Р°Рє Р¶Рµ РїРѕРєР°Р· СЃРµРіРѕРґРЅСЏС€РЅРµРіРѕ С‡РёСЃР»Р° Рё РґРЅСЏ РЅРµРґРµР»Рё",
+		desc = "Экранные часы показывающее время с точностью до миллисекунд, а так же показ сегодняшнего числа и дня недели",
 		source = "https://t.me/c0sui/81",
 		url = "https://gitlab.com/Cosmo-ctrl/arizona-bank/-/raw/main/scripts/clock.lua",
 		cmds = { "/clockpos" }
@@ -356,26 +356,26 @@ local await = {}
 function main()
 	if not isSampLoaded() or not isSampfuncsLoaded() then return end
 	while not isSampAvailable() do wait(0) end
-	log('РќР°С‡Р°Р»Рѕ РїРѕРґРіРѕС‚РѕРІРєРё Рє Р·Р°РїСѓСЃРєСѓ..', "РџРѕРґРіРѕС‚РѕРІРєР°")
+	log('Начало подготовки к запуску..', "Подготовка")
 
 	if loginupdate.v then autoupdate(jsn_upd) end
 
 	if not doesFileExist('moonloader/config/Bank_Config.ini') then
-		if inicfg.save(cfg, 'Bank_Config.ini') then log('РЎРѕР·РґР°РЅ С„Р°Р№Р» Bank_Config.ini', "РџРѕРґРіРѕС‚РѕРІРєР°") end
+		if inicfg.save(cfg, 'Bank_Config.ini') then log('Создан файл Bank_Config.ini', "Подготовка") end
 	end
 
 	if checkData() then
-		log('РџСЂРѕРІРµСЂРєР° С„Р°Р№Р»РѕРІ РїСЂРѕС€Р»Р° СѓСЃРїРµС€РЅРѕ!', "РџРѕРґРіРѕС‚РѕРІРєР°")
+		log('Проверка файлов прошла успешно!', "Подготовка")
 	end
 
 	if not checkServer(select(1, sampGetCurrentServerAddress())) then
-		addBankMessage('РЎРєСЂРёРїС‚ СЂР°Р±РѕС‚Р°РµС‚ С‚РѕР»СЊРєРѕ РЅР° РїСЂРѕРµРєС‚Рµ {M}Arizona RP')
+		addBankMessage('Скрипт работает только на проекте {M}Arizona RP')
 		return thisScript():unload()
 	end
 
-	log('РЎРєСЂРёРїС‚ РіРѕС‚РѕРІ Рє СЂР°Р±РѕС‚Рµ!', "РџРѕРґРіРѕС‚РѕРІРєР°")
-	addNotify("РњРµРЅСЋ: " .. mc .. "/bank (РёР»Рё Ctrl + B)\nР’Р·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ: " .. mc .. "РџРљРњ + Q", 5)
-	addNotify("РўРµРєСѓС‰Р°СЏ РІРµСЂСЃРёСЏ: " .. mc .. thisScript().version .. "\nРЎРєСЂРёРїС‚ Р·Р°РіСЂСѓР¶РµРЅ!", 5)
+	log('Скрипт готов к работе!', "Подготовка")
+	addNotify("Меню: " .. mc .. "/bank (или Ctrl + B)\nВзаимодействие: " .. mc .. "ПКМ + Q", 5)
+	addNotify("Текущая версия: " .. mc .. thisScript().version .. "\nСкрипт загружен!", 5)
 
 	if cfg.main.infoupdate then
 		infoupdate:switch()
@@ -388,14 +388,14 @@ function main()
 	end)
 
 	if sampGetPlayerNickname(select(2, sampGetPlayerIdByCharHandle(PLAYER_PED))) == "\x4a\x65\x66\x66\x79\x5f\x43\x6f\x73\x6d\x6f" then
-		log('Р’С‹ РІРѕС€Р»Рё РєР°Рє СЂР°Р·СЂР°Р±РѕС‚С‡РёРє!')
+		log('Вы вошли как разработчик!')
 		devmode = true
 
 		sampRegisterChatCommand('setrankdev', function(rank)
 			rank = tonumber(rank)
 			if rank and rank >= 1 and rank <= 10 then
 				cfg.main.rank = tonumber(rank)
-				addBankMessage(string.format('РўРµСЃС‚РѕРІС‹Р№ СЂР°РЅРі [%s] РІС‹РґР°РЅ', rank))
+				addBankMessage(string.format('Тестовый ранг [%s] выдан', rank))
 			end
 		end)
 	end
@@ -421,18 +421,18 @@ function main()
 				end
 			end
 		end
-		addBankMessage("РџРёРєР°Рї РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ Р»Р°СЂС†Р° СЃР»РёС€РєРѕРј РґР°Р»РµРєРѕ РѕС‚ РІР°СЃ!")
+		addBankMessage("Пикап для получения ларца слишком далеко от вас!")
 	end)
 
 	sampRegisterChatCommand('kip', function()
 		if not kassa.state.v then 
-			addBankMessage('Р’СЃС‚Р°РЅСЊС‚Рµ РЅР° РїРѕСЃС‚ РёР»Рё РІРєР»СЋС‡РёС‚Рµ РїР°РЅРµР»СЊ РІ РЅР°СЃС‚СЂРѕР№РєР°С…')
+			addBankMessage('Встаньте на пост или включите панель в настройках')
 			return false
 		end
 		lua_thread.create(function ()
 			while imgui.IsMouseDown(0) do wait(0) end
 			process_position = { true, cfg.main.KipX, cfg.main.KipY }
-			addBankMessage('РќР°Р¶РјРёС‚Рµ {M}Р›РљРњ{W} С‡С‚Рѕ-Р±С‹ СЃРѕС…СЂР°РЅРёС‚СЊ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ, РёР»Рё {M}ESC{W} С‡С‚Рѕ-Р±С‹ РѕС‚РјРµРЅРёС‚СЊ')
+			addBankMessage('Нажмите {M}ЛКМ{W} что-бы сохранить местоположение, или {M}ESC{W} что-бы отменить')
 			while process_position ~= nil do
 				local x, y = getCursorPos()
 				cfg.main.KipX = x
@@ -448,18 +448,18 @@ function main()
 
 	sampRegisterChatCommand('ro', function(text)
 		if #text > 0 then
-			sampSendChat('/r [РћР±СЉСЏРІР»РµРЅРёРµ] '..text)
+			sampSendChat('/r [Объявление] '..text)
 			return
 		end
-		addBankMessage('РСЃРїРѕР»СЊР·СѓР№ /ro [text]')
+		addBankMessage('Используй /ro [text]')
 	end)
 
 	sampRegisterChatCommand('rbo', function(text)
 		if #text > 0 then
-			sampSendChat('/r [РћР±СЉСЏРІР»РµРЅРёРµ] (( ' .. text .. ' ))')
+			sampSendChat('/r [Объявление] (( ' .. text .. ' ))')
 			return
 		end
-		addBankMessage('РСЃРїРѕР»СЊР·СѓР№ /rbo [text]')
+		addBankMessage('Используй /rbo [text]')
 	end)
 
 	sampRegisterChatCommand('fwarn', function(args)
@@ -469,20 +469,20 @@ function main()
 				id = tonumber(id)
 				if sampIsPlayerConnected(id) then
 					play_message(MsgDelay.v, true, {
-						{ "/me {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} РЅР° РїР»Р°РЅС€РµС‚Рµ СЂР°Р·РґРµР» В«РЎРѕС‚СЂСѓРґРЅРёРєРёВ»" },
-						{ "/me {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} СЃРѕС‚СЂСѓРґРЅРёРєР° %s", rpNick(id) },
-						{ "/me РІ РјРµРЅСЋ {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} РїСѓРЅРєС‚ В«Р’С‹РґР°С‚СЊ РІС‹РіРѕРІРѕСЂВ»" },
+						{ "/me {sex:открыл|открыла} на планшете раздел «Сотрудники»" },
+						{ "/me {sex:выбрал|выбрала} сотрудника %s", rpNick(id) },
+						{ "/me в меню {sex:выбрал|выбрала} пункт «Выдать выговор»" },
 						{ "/fwarn %s %s", id, reason }
 					})
 					return
 				end
-				addBankMessage('РўР°РєРѕРіРѕ РёРіСЂРѕРєР° РЅРµС‚ РІ СЃРµС‚Рё!')
+				addBankMessage('Такого игрока нет в сети!')
 				return
 			end
-			addBankMessage('РСЃРїРѕР»СЊР·СѓР№: /fwarn [id] [РїСЂРёС‡РёРЅР°]')
+			addBankMessage('Используй: /fwarn [id] [причина]')
 			return
 		end
-		addBankMessage('РљРѕРјР°РЅРґР° РґРѕСЃС‚СѓРїРЅР° С‚РѕР»СЊРєРѕ СЃ 9-РѕРіРѕ СЂР°РЅРіР°')
+		addBankMessage('Команда доступна только с 9-ого ранга')
 		return
 	end)
 
@@ -493,24 +493,24 @@ function main()
 				if sampIsPlayerConnected(id) then
 					if not isPlayerOnBlacklist(sampGetPlayerNickname(id)) then 
 						play_message(MsgDelay.v, true, {
-							{ "/me {sex:РґРѕСЃС‚Р°Р»|РґРѕСЃС‚Р°Р»Р°} РїР»Р°РЅС€РµС‚ Рё {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} Р±Р°Р·Сѓ РґР°РЅРЅС‹С…" },
-							{ "/me {sex:РїРµСЂРµС€С‘Р»|РїРµСЂРµС€Р»Р°} РІ СЂР°Р·РґРµР» В«РЎРѕС‚СЂСѓРґРЅРёРєРёВ» Рё {sex:РІРЅС‘СЃ|РІРЅРµСЃР»Р°} С‚СѓРґР° РЅРѕРІРѕРіРѕ СЃРѕС‚СЂСѓРґРЅРёРєР° %s", rpNick(id) },
-							{ "/me {sex:РїРµСЂРµРґР°Р»|РїРµСЂРµРґР°Р»Р°} СЃРѕС‚СЂСѓРґРЅРёРєСѓ РєР»СЋС‡Рё РѕС‚ С€РєР°С„С‡РёРєР°" },
+							{ "/me {sex:достал|достала} планшет и {sex:открыл|открыла} базу данных" },
+							{ "/me {sex:перешёл|перешла} в раздел «Сотрудники» и {sex:внёс|внесла} туда нового сотрудника %s", rpNick(id) },
+							{ "/me {sex:передал|передала} сотруднику ключи от шкафчика" },
 							{ "/invite %s", id }
 						})
 						return
 					end
-					addBankMessage('Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РїСЂРёРЅСЏС‚СЊ СЌС‚РѕРіРѕ РёРіСЂРѕРєР° РІРѕ С„СЂР°РєС†РёСЋ!')
-					addBankMessage(string.format('РРіСЂРѕРє {M}%s{W} РЅР°С…РѕРґРёС‚СЃСЏ РІ {FF0000}С‡С‘СЂРЅРѕРј СЃРїРёСЃРєРµ{W}!', rpNick(id)))
+					addBankMessage('Вы не можете принять этого игрока во фракцию!')
+					addBankMessage(string.format('Игрок {M}%s{W} находится в {FF0000}чёрном списке{W}!', rpNick(id)))
 					return
 				end
-				addBankMessage('РўР°РєРѕРіРѕ РёРіСЂРѕРєР° РЅРµС‚ РІ СЃРµС‚Рё!')
+				addBankMessage('Такого игрока нет в сети!')
 				return
 			end
-			addBankMessage('РСЃРїРѕР»СЊР·СѓР№: /invite [id]')
+			addBankMessage('Используй: /invite [id]')
 			return
 		end
-		addBankMessage('РљРѕРјР°РЅРґР° РґРѕСЃС‚СѓРїРЅР° С‚РѕР»СЊРєРѕ СЃ 9-РѕРіРѕ СЂР°РЅРіР°')
+		addBankMessage('Команда доступна только с 9-ого ранга')
 		return
 	end)
 
@@ -523,24 +523,24 @@ function main()
 				if result and dist < 5 then
 					if rank >= 1 and rank <= 9 then
 						play_message(MsgDelay.v, true, {
-							{ "/me {sex:РґРѕСЃС‚Р°Р»|РґРѕСЃС‚Р°Р»Р°} РёР· РєР°СЂРјР°РЅР° РљРџРљ" },
-							{ "/me {sex:РІРєР»СЋС‡РёР»|РІРєР»СЋС‡РёР»Р°} РљРџРљ Рё {sex:Р·Р°С€С‘Р»|Р·Р°С€Р»Р°} РІ СЂР°Р·РґРµР» В«РЎРѕС‚СЂСѓРґРЅРёРєРёВ»" },
-							{ "/me {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} СЃРѕС‚СЂСѓРґРЅРёРєР° %s", rpNick(id) },
-							{ "/me {sex:РёР·РјРµРЅРёР»|РёР·РјРµРЅРёР»Р°} РґРѕР»Р¶РЅРѕСЃС‚СЊ СЃРѕС‚СЂСѓРґРЅРёРєСѓ РЅР° В«%sВ»", cfg.nameRank[rank] },
+							{ "/me {sex:достал|достала} из кармана КПК" },
+							{ "/me {sex:включил|включила} КПК и {sex:зашёл|зашла} в раздел «Сотрудники»" },
+							{ "/me {sex:выбрал|выбрала} сотрудника %s", rpNick(id) },
+							{ "/me {sex:изменил|изменила} должность сотруднику на «%s»", cfg.nameRank[rank] },
 							{ "/giverank %s %s", id, rank }
 						})
 						return
 					end
-					addBankMessage('РЈРєР°Р¶РёС‚Рµ РґРѕР»Р¶РЅРѕСЃС‚СЊ РѕС‚ 1 РґРѕ 9!')
+					addBankMessage('Укажите должность от 1 до 9!')
 					return
 				end
-				addBankMessage('Р’С‹ РґР°Р»РµРєРѕ РѕС‚ СЌС‚РѕРіРѕ СЃРѕС‚СЂСѓРґРЅРёРєР°!')
+				addBankMessage('Вы далеко от этого сотрудника!')
 				return
 			end
-			addBankMessage('РСЃРїРѕР»СЊР·СѓР№: /giverank [id] [Р Р°РЅРі]')
+			addBankMessage('Используй: /giverank [id] [Ранг]')
 			return
 		end
-		addBankMessage('РљРѕРјР°РЅРґР° РґРѕСЃС‚СѓРїРЅР° С‚РѕР»СЊРєРѕ СЃ 9-РѕРіРѕ СЂР°РЅРіР°')
+		addBankMessage('Команда доступна только с 9-ого ранга')
 		return
 	end)
 
@@ -551,20 +551,20 @@ function main()
 				id = tonumber(id)
 				if sampIsPlayerConnected(id) then
 					play_message(MsgDelay.v, true, {
-						{ "/me {sex:РґРѕСЃС‚Р°Р»|РґРѕСЃС‚Р°Р»Р°} РїР»Р°РЅС€РµС‚ Рё {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} Р±Р°Р·Сѓ РґР°РЅРЅС‹С…" },
-						{ "/me {sex:РїРµСЂРµС€С‘Р»|РїРµСЂРµС€Р»Р°} РІ СЂР°Р·РґРµР» В«РЎРѕС‚СЂСѓРґРЅРёРєРёВ» Рё {sex:РЅР°С€С‘Р»|РЅР°С€Р»Р°} С‚Р°Рј %s", rpNick(id) },
-						{ "/me {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} СЃРѕС‚СЂСѓРґРЅРёРєР° Рё {sex:РЅР°Р¶Р°Р»|РЅР°Р¶Р°Р»Р°} В«РЈРІРѕР»РёС‚СЊВ»" },
+						{ "/me {sex:достал|достала} планшет и {sex:открыл|открыла} базу данных" },
+						{ "/me {sex:перешёл|перешла} в раздел «Сотрудники» и {sex:нашёл|нашла} там %s", rpNick(id) },
+						{ "/me {sex:выбрал|выбрала} сотрудника и {sex:нажал|нажала} «Уволить»" },
 						{ "/uninvite %s %s", id, reason }
 					})
 					return
 				end
-				addBankMessage('РўР°РєРѕРіРѕ РёРіСЂРѕРєР° РЅРµС‚ РІ СЃРµС‚Рё!')
+				addBankMessage('Такого игрока нет в сети!')
 				return
 			end
-			addBankMessage('РСЃРїРѕР»СЊР·СѓР№: /uninvite [id] [РїСЂРёС‡РёРЅР°]')
+			addBankMessage('Используй: /uninvite [id] [причина]')
 			return
 		end
-		addBankMessage('РљРѕРјР°РЅРґР° РґРѕСЃС‚СѓРїРЅР° С‚РѕР»СЊРєРѕ СЃ 9-РѕРіРѕ СЂР°РЅРіР°')
+		addBankMessage('Команда доступна только с 9-ого ранга')
 		return
 	end)
 
@@ -575,20 +575,20 @@ function main()
 				id = tonumber(id)
 				if sampIsPlayerConnected(id) then
 					play_message(MsgDelay.v, true, {
-						{ "/me {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} РЅР° РїР»Р°РЅС€РµС‚Рµ СЂР°Р·РґРµР» В«Р§С‘СЂРЅС‹Р№ СЃРїРёСЃРѕРєВ»" },
-						{ "/me РІ РјРµРЅСЋ {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} РїСѓРЅРєС‚ В«Р”РѕР±Р°РІРёС‚СЊВ»" },
-						{ "/me {sex:РІРЅС‘СЃ|РІРЅРµСЃР»Р°} СЃРѕС‚СЂСѓРґРЅРёРєР° %s РІ С‡С‘СЂРЅС‹Р№ СЃРїРёСЃРѕРє Р±Р°РЅРєР°", rpNick(id) },
+						{ "/me {sex:открыл|открыла} на планшете раздел «Чёрный список»" },
+						{ "/me в меню {sex:выбрал|выбрала} пункт «Добавить»" },
+						{ "/me {sex:внёс|внесла} сотрудника %s в чёрный список банка", rpNick(id) },
 						{ "/blacklist %s %s", id, reason }
 					})
 					return
 				end
-				addBankMessage('РўР°РєРѕРіРѕ РёРіСЂРѕРєР° РЅРµС‚ РІ СЃРµС‚Рё!')
+				addBankMessage('Такого игрока нет в сети!')
 				return
 			end
-			addBankMessage('РСЃРїРѕР»СЊР·СѓР№: /blacklist [id] [РїСЂРёС‡РёРЅР°]')
+			addBankMessage('Используй: /blacklist [id] [причина]')
 			return
 		end
-		addBankMessage('РљРѕРјР°РЅРґР° РґРѕСЃС‚СѓРїРЅР° С‚РѕР»СЊРєРѕ СЃ 9-РѕРіРѕ СЂР°РЅРіР°')
+		addBankMessage('Команда доступна только с 9-ого ранга')
 		return
 	end)
 
@@ -598,20 +598,20 @@ function main()
 			if id ~= nil then
 				if sampIsPlayerConnected(id) then
 					play_message(MsgDelay.v, true, {
-						{ "/me {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} РЅР° РїР»Р°РЅС€РµС‚Рµ СЂР°Р·РґРµР» В«Р§С‘СЂРЅС‹Р№ СЃРїРёСЃРѕРєВ»" },
-						{ "/me РІ РјРµРЅСЋ {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} РїСѓРЅРєС‚ В«РСЃРєР»СЋС‡РёС‚СЊВ»" },
-						{ "/me {sex:РёСЃРєР»СЋС‡РёР»|РёСЃРєР»СЋС‡РёР»Р°} СЃРѕС‚СЂСѓРґРЅРёРєР° %s РёР· С‡С‘СЂРЅРѕРіРѕ СЃРїРёСЃРєР° Р±Р°РЅРєР°", rpNick(id) },
+						{ "/me {sex:открыл|открыла} на планшете раздел «Чёрный список»" },
+						{ "/me в меню {sex:выбрал|выбрала} пункт «Исключить»" },
+						{ "/me {sex:исключил|исключила} сотрудника %s из чёрного списка банка", rpNick(id) },
 						{ "/unblacklist %s", id }
 					})
 					return
 				end
-				addBankMessage('РўР°РєРѕРіРѕ РёРіСЂРѕРєР° РЅРµС‚ РІ СЃРµС‚Рё!')
+				addBankMessage('Такого игрока нет в сети!')
 				return
 			end
-			addBankMessage('РСЃРїРѕР»СЊР·СѓР№: /unblacklist [id]')
+			addBankMessage('Используй: /unblacklist [id]')
 			return
 		end
-		addBankMessage('РљРѕРјР°РЅРґР° РґРѕСЃС‚СѓРїРЅР° С‚РѕР»СЊРєРѕ СЃ 9-РѕРіРѕ СЂР°РЅРіР°')
+		addBankMessage('Команда доступна только с 9-ого ранга')
 		return
 	end)
 
@@ -621,20 +621,20 @@ function main()
 			if id ~= nil then
 				if sampIsPlayerConnected(id) then
 					play_message(MsgDelay.v, true, {
-						{ "/me {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} РЅР° РїР»Р°РЅС€РµС‚Рµ СЂР°Р·РґРµР» В«РЎРѕС‚СЂСѓРґРЅРёРєРёВ»" },
-						{ "/me {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} СЃРѕС‚СЂСѓРґРЅРёРєР° %s", rpNick(id) },
-						{ "/me РІ РјРµРЅСЋ {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} РїСѓРЅРєС‚ В«РЎРЅСЏС‚СЊ РІС‹РіРѕРІРѕСЂВ»" },
+						{ "/me {sex:открыл|открыла} на планшете раздел «Сотрудники»" },
+						{ "/me {sex:выбрал|выбрала} сотрудника %s", rpNick(id) },
+						{ "/me в меню {sex:выбрал|выбрала} пункт «Снять выговор»" },
 						{ "/unfwarn %s", id }
 					})
 					return
 				end
-				addBankMessage('РўР°РєРѕРіРѕ РёРіСЂРѕРєР° РЅРµС‚ РІ СЃРµС‚Рё!')
+				addBankMessage('Такого игрока нет в сети!')
 				return
 			end
-			addBankMessage('РСЃРїРѕР»СЊР·СѓР№: /unfwarn [id]')
+			addBankMessage('Используй: /unfwarn [id]')
 			return
 		end
-		addBankMessage('РљРѕРјР°РЅРґР° РґРѕСЃС‚СѓРїРЅР° С‚РѕР»СЊРєРѕ СЃ 9-РѕРіРѕ СЂР°РЅРіР°')
+		addBankMessage('Команда доступна только с 9-ого ранга')
 		return  
 	end)
 
@@ -670,7 +670,7 @@ function main()
 		local result, id = sampGetPlayerIdOnTargetKey(VK_Q)
 		if result then
 			if getCharActiveInterior(PLAYER_PED) ~= 0 or devmode then
-				addBankMessage('РСЃРїРѕР»СЊР·СѓР№ {M}Esc{W} С‡С‚Рѕ Р±С‹ Р·Р°РєСЂС‹С‚СЊ РјРµРЅСЋ')
+				addBankMessage('Используй {M}Esc{W} что бы закрыть меню')
 				actionId = id
 
 				if not int_bank.state then
@@ -682,7 +682,7 @@ function main()
 					end
 				end
 			else
-				addBankMessage('Р Р°Р±РѕС‚Р°РµС‚ С‚РѕР»СЊРєРѕ РІ РёРЅС‚РµСЂСЊРµСЂРµ!')
+				addBankMessage('Работает только в интерьере!')
 			end
 		end
 
@@ -694,14 +694,14 @@ function main()
 		local result, id = sampGetPlayerIdOnTargetKey(VK_R)
 		if result then
 			actionId = id
-			addBankMessage(string.format('РРіСЂРѕРє {M}%s{W} РІС‹Р±СЂР°РЅ РІ РєР°С‡РµСЃС‚РІРµ Р·РЅР°С‡РµРЅРёСЏ {M}{select_id/name}', rpNick(actionId)))
+			addBankMessage(string.format('Игрок {M}%s{W} выбран в качестве значения {M}{select_id/name}', rpNick(actionId)))
 		end
 
 		if GOV_BUTTON then 
 			if tonumber(os.date("%S", os.time())) == 00 and antiflud then
 				if tonumber(os.date("%H", os.time())) == hGov.v and tonumber(os.date("%M", os.time())) == mGov.v - 1 then
 					antiflud = false
-					addNotify("Р§РµСЂРµР· {90A5FF}РјРёРЅСѓС‚Сѓ{SSSSSS} GOV РІРѕР»РЅР°\n{5060FF}РћСЃС‚Р°РІР°Р№С‚РµСЃСЊ РІ РёРіСЂРµ!", 10)
+					addNotify("Через {90A5FF}минуту{SSSSSS} GOV волна\n{5060FF}Оставайтесь в игре!", 10)
 				end
 			end
 			if tonumber(os.date("%H", os.time())) == hGov.v and tonumber(os.date("%M", os.time())) == mGov.v then 
@@ -715,11 +715,11 @@ function main()
 			if isCalled and string.find(input, "[0-9]+") and string.find(input, "[%+%-%*%/%^]+") then 
 				local result, answer = pcall(load('return ' .. input))
 				if result then
-					local output = string.format('Р РµР·СѓР»СЊС‚Р°С‚: {50AAFF}%s', answer)
+					local output = string.format('Результат: {50AAFF}%s', answer)
 					if tonumber(answer) then
 						local result = { string.match(answer, "^([^%d]*%d)(%d*)(.-)$") }
 						result[2] = string.reverse(string.gsub(string.reverse(result[2]), "(%d%d%d)", "%1 "))
-						output = string.format('Р РµР·СѓР»СЊС‚Р°С‚: {50AAFF}%s', table.concat(result))
+						output = string.format('Результат: {50AAFF}%s', table.concat(result))
 					end
 					
 					local element = getStructElement(sampGetInputInfoPtr(), 0x8, 4)
@@ -738,12 +738,12 @@ function main()
 
 		if not sampIsCursorActive() and isKeyJustPressed(VK_BACK) then
 			if SPEAKING and not SPEAKING.dead then
-				addBankMessage('РћС‚С‹РіСЂРѕРІРєР° РїСЂРµСЂРІР°РЅР°!')
+				addBankMessage('Отыгровка прервана!')
 				SPEAKING:terminate()
 			end
 		elseif SPEAKING and not SPEAKING.dead then
 			local sx, sy = getScreenResolution()
-			local text = "РќР°Р¶РјРёС‚Рµ " .. sc .. "BACKSPACE{FFFFFF}, РµСЃР»Рё С…РѕС‚РёС‚Рµ РїСЂРµСЂРІР°С‚СЊ РѕС‚С‹РіСЂРѕРІРєСѓ"
+			local text = "Нажмите " .. sc .. "BACKSPACE{FFFFFF}, если хотите прервать отыгровку"
 			local len = renderGetFontDrawTextLength(calc_font, text)
 			local hei = renderGetFontDrawHeight(calc_font)
 			local X, Y = 10, sy - hei - 5
@@ -784,8 +784,8 @@ end
 
 function play_message(delay, screen, text_array)
 	if SPEAKING ~= nil and not SPEAKING.dead then
-		addBankMessage('РЈ РІР°СЃ СѓР¶Рµ РІРѕСЃРїСЂРѕРёР·РІРѕРґРёС‚СЃСЏ РєР°РєР°СЏ-С‚Рѕ РѕС‚С‹РіСЂРѕРІРєР°, РґРѕР¶РґРёС‚РµСЃСЊ РµС‘ РѕРєРѕРЅС‡Р°РЅРёСЏ!')
-		addBankMessage('РџСЂРµСЂРІР°С‚СЊ С‚РµРєСѓС‰СѓСЋ РѕС‚С‹РіСЂРѕРІРєСѓ: {M}Ctrl {W}+{M} Backspace!')
+		addBankMessage('У вас уже воспроизводится какая-то отыгровка, дождитесь её окончания!')
+		addBankMessage('Прервать текущую отыгровку: {M}Ctrl {W}+{M} Backspace!')
 		return false
 	end
 	SPEAKING = lua_thread.create(function()
@@ -842,7 +842,7 @@ Interior.pool = {}
 Interior.count_textures = {}
 Interior.presets = {
 	{
-		name = "РћСЂРёРіРёРЅР°Р»СЊРЅС‹Р№",
+		name = "Оригинальный",
 		[TEXTURE_WALL1] = { n = 0, id = 14674, txd = "civic02cj", name = "ab_hosWallUpr" },
 		[TEXTURE_WALL2] = { n = 0, id = 18029, txd = "genintintsmallrest", name = "GB_restaursmll11" },
 		[TEXTURE_FLOR1] = { n = 0, id = 14387, txd = "dr_gsnew", name = "la_flair1", color = -1 },
@@ -862,7 +862,7 @@ Interior.presets = {
 		[TEXTURE_GLASS] = { n = 0, id = 10023, txd = "bigwhitesfe", name = "sfe_arch8", color = -1 },
 	},
 	{
-		name = "Р§С‘СЂРЅРѕ-Р±РµР»С‹Р№",
+		name = "Чёрно-белый",
 		[TEXTURE_WALL1] = { n = 0, id = 10938, txd = "skyscrap_sfse", name = "ws_skyscraperwin1" },
 		[TEXTURE_WALL2] = { n = 0, id = 8399, txd = "vgs_shops", name = "vgsclubwall05_128" },
 		[TEXTURE_FLOR1] = { n = 0, id = 3975, txd = "lanbloke", name = "p_floor3" },
@@ -882,7 +882,7 @@ Interior.presets = {
 		[TEXTURE_GLASS] = { n = 0, id = 10023, txd = "bigwhitesfe", name = "sfe_arch8", color = 0xFFFFFFFF },
 	},
 	{
-		name = "РљСЂР°СЃРЅС‹Р№",
+		name = "Красный",
 		[TEXTURE_WALL1] = { n = 0, id = 8620, txd = "excalibursign", name = "vgsclubwall05_128", color = 0xFF3030FF },
 		[TEXTURE_WALL2] = { n = 0, id = 3922, txd = "bistro", name = "DinerFloor" },
 		[TEXTURE_FLOR1] = { n = 0, id = 8394, txd = "ballysign01", name = "ballywall02_128" },
@@ -902,7 +902,7 @@ Interior.presets = {
 		[TEXTURE_GLASS] = { n = 0, id = 10023, txd = "bigwhitesfe", name = "sfe_arch8", color = 0xAA202020 },
 	},
 	{
-		name = "Р—РµР»С‘РЅС‹Р№", 
+		name = "Зелёный", 
 		[TEXTURE_WALL1] = { n = 0, id = 17944, txd = "lngblok_lae2", name = "white64bumpy" },
 		[TEXTURE_WALL2] = { n = 0, id = 6038, txd = "lawwhitebuilds", name = "Grass_128HV" },
 		[TEXTURE_FLOR1] = { n = 0, id = 10932, txd = "station_sfse", name = "ws_stationfloor" },
@@ -1051,17 +1051,17 @@ end
 
 function se.onCreate3DText(id, color, position, distance, testLOS, attachedPlayerId, attachedVehicleId, text)
 	if ki_stat.v then
-		if text:find('РљР°СЃСЃР°') and text:find(sampGetPlayerNickname(select(2, sampGetPlayerIdByCharHandle(PLAYER_PED)))) then
+		if text:find('Касса') and text:find(sampGetPlayerNickname(select(2, sampGetPlayerIdByCharHandle(PLAYER_PED)))) then
 			kassa.pos = { 
 				x = position.x, 
 				y = position.y, 
 				z = position.z
 			}
 			kassa.state.v = true
-			kassa.name.v = text:match('Р Р°Р±РѕС‡РµРµ РјРµСЃС‚Рѕ: (.+)\n\nР—Р°РєСЂРµРїР»РµРЅ')
-			kassa.time.v = tostring(text:match('РќР° РїРѕСЃС‚Сѓ: {FFA441}(%d+){FFFFFF} РјРёРЅСѓС‚'))
+			kassa.name.v = text:match('Рабочее место: (.+)\n\nЗакреплен')
+			kassa.time.v = tostring(text:match('На посту: {FFA441}(%d+){FFFFFF} минут'))
 			if kassa.time.v:match('^0') then 
-				addBankMessage('Р’С‹ РІСЃС‚Р°Р»Рё Р·Р° РєР°СЃСЃСѓ! РР·РјРµРЅРёС‚СЊ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ РІРёРґР¶РµС‚Р°: {W}/kip')
+				addBankMessage('Вы встали за кассу! Изменить местоположение виджета: {W}/kip')
 				
 				kassa.money = 0
 				kassa.info = { 
@@ -1075,7 +1075,7 @@ function se.onCreate3DText(id, color, position, distance, testLOS, attachedPlaye
 			end
 			return false
 		end
-		if kassa.name.v ~= '' and text:find(kassa.name.v) and text:find('РЎРІРѕР±РѕРґРЅРѕ') then
+		if kassa.name.v ~= '' and text:find(kassa.name.v) and text:find('Свободно') then
 			kassa.state.v = false
 			kassa.name.v = ''
 		end
@@ -1109,13 +1109,13 @@ function se.onServerMessage(clr, msg)
 		end)
 	end
 
-	if msg:match('^%* [a-zA-Z_]+ РѕРіР»СѓС€РёР» [a-zA-Z_]+ РїСЂРё РїРѕРјРѕС‰Рё Р”СѓР±РёРЅРєР°') then
-		local player1, player2 = msg:match('^%* ([a-zA-Z_]+) РѕРіР»СѓС€РёР» ([a-zA-Z_]+) РїСЂРё РїРѕРјРѕС‰Рё Р”СѓР±РёРЅРєР°')
+	if msg:match('^%* [a-zA-Z_]+ оглушил [a-zA-Z_]+ при помощи Дубинка') then
+		local player1, player2 = msg:match('^%* ([a-zA-Z_]+) оглушил ([a-zA-Z_]+) при помощи Дубинка')
 		local id1, id2 = getPlayerIdByNickname(player1), getPlayerIdByNickname(player2)
 		if id1 and id2 then 
 			local color1, color2 = sampGetPlayerColor(id1), sampGetPlayerColor(id2)
 			if color1 == color2 and color1 == cfg.main.bank_color then 
-				sampAddChatMessage('[Warning] Р—Р°РјРµС‡РµРЅРѕ РўРљ РѕС‚ СЃРѕС‚СЂСѓРґРЅРёРєР° '..player1..'('..id1..')', 0xAA3333)
+				sampAddChatMessage('[Warning] Замечено ТК от сотрудника '..player1..'('..id1..')', 0xAA3333)
 			end
 			local msg = msg:gsub(player1, player1..'('..id1..')')
 			local msg = msg:gsub(player2, player2..'('..id2..')')
@@ -1123,27 +1123,27 @@ function se.onServerMessage(clr, msg)
 		end
 	end
 
-	if msg:find('РСЃРїРѕР»СЊР·СѓР№С‚Рµ: /jobprogress %[ ID РёРіСЂРѕРєР° %]') then
+	if msg:find('Используйте: /jobprogress %[ ID игрока %]') then
 		return false
 	end
 
-	local rank = string.match(msg, "^Р›РёРґРµСЂ [A-z0-9_]+ РїРѕРІС‹СЃРёР» РґРѕ (%d+) СЂР°РЅРіР°")
+	local rank = string.match(msg, "^Лидер [A-z0-9_]+ повысил до (%d+) ранга")
 	if rank ~= nil then
 		rank = tonumber(rank)
 		cfg.main.dateuprank = os.time()
 		cfg.main.rank = rank
 
-		msg = string.format("Р СѓРєРѕРІРѕРґРёС‚РµР»СЊ РЅР°Р·РЅР°С‡РёР» Р’Р°Рј РЅРѕРІСѓСЋ РґРѕР»Р¶РЅРѕСЃС‚СЊ: {EEEEEE}%s(%d)", cfg.nameRank[rank], rank)
+		msg = string.format("Руководитель назначил Вам новую должность: {EEEEEE}%s(%d)", cfg.nameRank[rank], rank)
 		return { clr, msg }
 	end
 
-	if msg:find(sampGetPlayerNickname(self_id)..' РїРµСЂРµРѕРґРµРІР°РµС‚СЃСЏ РІ РіСЂР°Р¶РґР°РЅСЃРєСѓСЋ РѕРґРµР¶РґСѓ') then
-		addNotify('Р’С‹ СЃРЅСЏР»Рё С„РѕСЂРјСѓ Рё Р·Р°РєРѕРЅС‡РёР»Рё\nСЃРІРѕР№ СЂР°Р±РѕС‡РёР№ РґРµРЅСЊ!', 5)
+	if msg:find(sampGetPlayerNickname(self_id)..' переодевается в гражданскую одежду') then
+		addNotify('Вы сняли форму и закончили\nсвой рабочий день!', 5)
 		return false
 	end
 
-	if msg:find(sampGetPlayerNickname(self_id) .. ' РїРµСЂРµРѕРґРµРІР°РµС‚СЃСЏ РІ СЂР°Р±РѕС‡СѓСЋ РѕРґРµР¶РґСѓ') then
-		addNotify('Р”Р»СЏ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ\nРёСЃРїРѕР»СЊР·СѓР№С‚Рµ: {AAEEFF}РџРљРњ + Q!', 5)
+	if msg:find(sampGetPlayerNickname(self_id) .. ' переодевается в рабочую одежду') then
+		addNotify('Для взаимодействия\nиспользуйте: {AAEEFF}ПКМ + Q!', 5)
 		
 		lua_thread.create(function ()
 			wait(100)
@@ -1154,68 +1154,68 @@ function se.onServerMessage(clr, msg)
 		return false
 	end
 
-	local member, client, reason = msg:match('%[i%] (.+){FFFFFF} РІС‹РіРЅР°Р» (.+) РёР· Р±Р°РЅРєР°! РџСЂРёС‡РёРЅР°: (.+)')
+	local member, client, reason = msg:match('%[i%] (.+){FFFFFF} выгнал (.+) из банка! Причина: (.+)')
 	if member and client and reason then 
 		if chat['expel'].v then
-			msg = string.format(tag .. 'РЎРѕС‚СЂСѓРґРЅРёРє %s РІС‹РіРЅР°Р» РёР· Р±Р°РЅРєР° %s{FFFFFF}. РџСЂРёС‡РёРЅР°: %s', member, sc .. client, reason)
+			msg = string.format(tag .. 'Сотрудник %s выгнал из банка %s{FFFFFF}. Причина: %s', member, sc .. client, reason)
 			return { 0x3F68D1FF, msg }
 		end
 		return false
 	end
 
-	local sum, nick = msg:match('%[Р‘РђРќРљ%] {%x+}РћСЂРіР°РЅРёР·Р°С†РёСЏ РїРѕР»СѓС‡РёР»Р° %$([%p%d]+) %(%d+ РїСЂРѕС†РµРЅС‚РѕРІ%) Р·Р° РѕРїР»Р°С‚Сѓ С€С‚СЂР°С„Р° РёРіСЂРѕРєРѕРј ([A-z0-9_]+)')
+	local sum, nick = msg:match('%[БАНК%] {%x+}Организация получила %$([%p%d]+) %(%d+ процентов%) за оплату штрафа игроком ([A-z0-9_]+)')
 	if sum and nick then
 		sum = sum:gsub("%p", "")
 		if chat['shtrafs'].v then
-			msg = string.format(tag .. 'РљР°Р·РЅР° Р±Р°РЅРєР° РїРѕРїРѕР»РЅРµРЅР° РЅР° $%s{FFFFFF}. Р–РёС‚РµР»СЊ %s{FFFFFF} РІРЅС‘СЃ РѕРїР»Р°С‚Сѓ Р·Р° С€С‚СЂР°С„', sc .. sum, sc .. nick:gsub('_', ' '))
+			msg = string.format(tag .. 'Казна банка пополнена на $%s{FFFFFF}. Житель %s{FFFFFF} внёс оплату за штраф', sc .. sum, sc .. nick:gsub('_', ' '))
 			return { 0x3F68D1FF, msg }
 		end
 		return false
-	elseif msg:find('^РћСЃС‚Р°Р»СЊРЅС‹Рµ РґРµРЅСЊРіРё Р±С‹Р»Рё СЂР°СЃРїСЂРµРґРµР»РµРЅС‹ РјРµР¶РґСѓ РїРѕР»РёС†РёРµР№ С€С‚Р°С‚Р°') and chat['shtrafs'].v then
+	elseif msg:find('^Остальные деньги были распределены между полицией штата') and chat['shtrafs'].v then
 		return false
 	end
 
-	local nick, sum = msg:match('^{%x+}([A-z0-9_]+) {%x+}РїРѕРїРѕР»РЅРёР» СЃС‡РµС‚ РѕСЂРіР°РЅРёР·Р°С†РёРё РЅР° {%x+}(%d+%$)')
+	local nick, sum = msg:match('^{%x+}([A-z0-9_]+) {%x+}пополнил счет организации на {%x+}(%d+%$)')
 	if nick and sum then 
 		if chat['incazna'].v then
-			msg = string.format(tag .. 'РЎРѕС‚СЂСѓРґРЅРёРє %s{FFFFFF} РїРѕРїРѕР»РЅРёР» РєР°Р·РЅСѓ Р±Р°РЅРєР° РЅР° %s', sc .. nick:gsub('_', ' '), sc .. sum)
+			msg = string.format(tag .. 'Сотрудник %s{FFFFFF} пополнил казну банка на %s', sc .. nick:gsub('_', ' '), sc .. sum)
 			return { 0x3F68D1FF, msg }
 		end
 		return false
 	end
 
-	local member, leader = msg:match('^РџСЂРёРІРµС‚СЃС‚РІСѓРµРј РЅРѕРІРѕРіРѕ С‡Р»РµРЅР° РЅР°С€РµР№ РѕСЂРіР°РЅРёР·Р°С†РёРё ([A-z0-9_]+), РєРѕС‚РѕСЂРѕРіРѕ РїСЂРёРіР»Р°СЃРёР»: ([A-z0-9_]+)')
+	local member, leader = msg:match('^Приветствуем нового члена нашей организации ([A-z0-9_]+), которого пригласил: ([A-z0-9_]+)')
 	if member and leader then 
 		if chat['invite'].v then
-			msg = string.format(tag .. 'РќРѕРІС‹Р№ С‡Р»РµРЅ РЅР°С€РµР№ РѕСЂРіР°РЅРёР·Р°С†РёРё - %s{FFFFFF}, РєРѕС‚РѕСЂРѕРіРѕ РїСЂРёРЅСЏР»(Р°) %s', sc .. member:gsub('_', ' '), sc .. leader:gsub('_', ' '))
+			msg = string.format(tag .. 'Новый член нашей организации - %s{FFFFFF}, которого принял(а) %s', sc .. member:gsub('_', ' '), sc .. leader:gsub('_', ' '))
 			return { 0x3F68D1FF, msg }
 		end
 		return false
 	end
 
-	local leader, member, reason = string.match(msg, '{FFFFFF}(.+) РІС‹РіРЅР°Р» (.+) РёР· РѕСЂРіР°РЅРёР·Р°С†РёРё. РџСЂРёС‡РёРЅР°: (.+)')
+	local leader, member, reason = string.match(msg, '{FFFFFF}(.+) выгнал (.+) из организации. Причина: (.+)')
 	if leader and member and reason then 
 		if chat['uval'].v then
-			msg = string.format(tag .. 'Р СѓРєРѕРІРѕРґРёС‚РµР»СЊ %s{FFFFFF} СѓРІРѕР»РёР» СЃРѕС‚СЂСѓРґРЅРёРєР° %s{FFFFFF} РїРѕ РїСЂРёС‡РёРЅРµ: %s', sc .. leader:gsub('_', ' '), sc .. member:gsub('_', ' '), sc .. reason)
+			msg = string.format(tag .. 'Руководитель %s{FFFFFF} уволил сотрудника %s{FFFFFF} по причине: %s', sc .. leader:gsub('_', ' '), sc .. member:gsub('_', ' '), sc .. reason)
 			return { 0x3F68D1FF, msg }
 		end
 		return false
 	end
 
-	local accepted = string.match(msg, '%[РРЅС„РѕСЂРјР°С†РёСЏ%] {FFFFFF}Р’С‹ СѓСЃРїРµС€РЅРѕ РІС‹РґР°Р»Рё РєСЂРµРґРёС‚ РёРіСЂРѕРєСѓ {73B461}(.+)')
+	local accepted = string.match(msg, '%[Информация%] {FFFFFF}Вы успешно выдали кредит игроку {73B461}(.+)')
 	if accepted then
-		addNotify("{5060FF}РћРґРѕР±СЂРµРЅРѕ!\nРљСЂРµРґРёС‚ РѕС„РѕСЂРјР»РµРЅ!", 8)
+		addNotify("{5060FF}Одобрено!\nКредит оформлен!", 8)
 		return false
 	end
 
 	if msg:find('^%[R%]') and clr == 0x2DB043FF then
-		if msg:find('%[РћР±СЉСЏРІР»РµРЅРёРµ%]') then
-			msg = msg:gsub('%[РћР±СЉСЏРІР»РµРЅРёРµ%] ', '', 1)
-			msg = msg:gsub('^%[R%]', '[РћР±СЉСЏРІР»РµРЅРёРµ]', 1)
+		if msg:find('%[Объявление%]') then
+			msg = msg:gsub('%[Объявление%] ', '', 1)
+			msg = msg:gsub('^%[R%]', '[Объявление]', 1)
 			clr = 0xFFAE00FF
 		else
-			if msg:find('%(%( РџСЂРµРјРёСЏ РґР»СЏ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅР° РґРѕР»Р¶РЅРѕСЃС‚Рё .+ %)%)$') then
-				rank_prem = msg:match('%(%( РџСЂРµРјРёСЏ РґР»СЏ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅР° РґРѕР»Р¶РЅРѕСЃС‚Рё (.+) %)%)$')
+			if msg:find('%(%( Премия для сотрудников на должности .+ %)%)$') then
+				rank_prem = msg:match('%(%( Премия для сотрудников на должности (.+) %)%)$')
 				return false
 			end
 
@@ -1242,62 +1242,62 @@ function se.onServerMessage(clr, msg)
 		return { join_argb(r, g, b, a), msg }
 	end
 
-	if msg:find('%[РћС€РёР±РєР°%] {FFFFFF}Р’Р°С€ РєР»РёРµРЅС‚ РѕС‚РєР°Р·Р°Р»СЃСЏ РѕС‚ РїРѕР»СѓС‡РµРЅРёСЏ РєСЂРµРґРёС‚Р°!') then
-		addNotify("{5060FF}РћС‚РјРµРЅР° РѕРїРµСЂР°С†РёРё!\nРљР»РёРµРЅС‚ РѕС‚РєР°Р·Р°Р»СЃСЏ", 8)
+	if msg:find('%[Ошибка%] {FFFFFF}Ваш клиент отказался от получения кредита!') then
+		addNotify("{5060FF}Отмена операции!\nКлиент отказался", 8)
 		await['credit_send'] = nil
 		return false
 	end
-	if msg:find('%[РћС€РёР±РєР°%] {FFFFFF}РЈ СЌС‚РѕРіРѕ С‡РµР»РѕРІРµРєР° СѓР¶Рµ РµСЃС‚СЊ Р·Р°РґРѕР»Р¶РµРЅРЅРѕСЃС‚СЊ РІ Р±Р°РЅРєРµ!') and await['credit_send'] then
-		addNotify("РЈ С‡РµР»РѕРІРµРєР° СѓР¶Рµ РµСЃС‚СЊ\nРѕС„РѕСЂРјР»РµРЅРЅС‹Р№ РєСЂРµРґРёС‚!", 8)
-		sampSendChat('Рљ СЃРѕР¶Р°Р»РµРЅРёСЋ, РІС‹СЏСЃРЅРёР»РѕСЃСЊ, С‡С‚Рѕ РЅР° РІР°СЃ СѓР¶Рµ РѕС„РѕСЂРјР»РµРЅ РѕРґРёРЅ РєСЂРµРґРёС‚, РїРѕРіР°СЃРёС‚Рµ СЃРЅР°С‡Р°Р»Р° РµРіРѕ')
+	if msg:find('%[Ошибка%] {FFFFFF}У этого человека уже есть задолженность в банке!') and await['credit_send'] then
+		addNotify("У человека уже есть\nоформленный кредит!", 8)
+		sampSendChat('К сожалению, выяснилось, что на вас уже оформлен один кредит, погасите сначала его')
 		await['credit_send'] = nil
 		return false
 	end
 
-	if msg:find('%[РћС€РёР±РєР°%] {FFFFFF}Р’С‹ РґР°Р»РµРєРѕ РѕС‚ РёРіСЂРѕРєР°!') or msg:find('^РћС‚РєР°Р·Р°РЅРѕ РІ РґРѕСЃС‚СѓРїРµ') then 
+	if msg:find('%[Ошибка%] {FFFFFF}Вы далеко от игрока!') or msg:find('^Отказано в доступе') then 
 		await = {}
 	end
 
-	if msg:find('%[РћС€РёР±РєР°%] {FFFFFF}РЈ СЌС‚РѕРіРѕ С‡РµР»РѕРІРµРєР° СѓР¶Рµ РµСЃС‚СЊ Р±Р°РЅРєРѕРІСЃРєР°СЏ РєР°СЂС‚Р°!') then 
+	if msg:find('%[Ошибка%] {FFFFFF}У этого человека уже есть банковская карта!') then 
 		await['card_create'] = nil
-		addNotify("{5060FF}РћРїРµСЂР°С†РёСЏ РѕС‚РјРµРЅРµРЅР°!\nРљР°СЂС‚Р° СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚", 5)
+		addNotify("{5060FF}Операция отменена!\nКарта уже существует", 5)
 		return false
 	end
 	
-	if msg:find('%[РћС€РёР±РєР°%] {FFFFFF}РЈ СЌС‚РѕРіРѕ С‡РµР»РѕРІРµРєР° РЅРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃСЂРµРґСЃС‚РІ!') and await['card_create'] then
-		addNotify("{5060FF}РћРїРµСЂР°С†РёСЏ РѕС‚РјРµРЅРµРЅР°!\nРќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃСЂРµРґСЃС‚РІ", 8)
-		sampSendChat('Р”Р°РЅРЅР°СЏ СѓСЃР»СѓРіР° СЃС‚РѕРёС‚ 3.000$, РЈ РІР°СЃ, РєР°Рє СЏ РІРёР¶Сѓ С‚Р°РєРёС… РґРµРЅРµРі РЅРµС‚, РїСЂРёС…РѕРґРёС‚Рµ РІ РґСЂСѓРіРѕР№ СЂР°Р·')
+	if msg:find('%[Ошибка%] {FFFFFF}У этого человека недостаточно средств!') and await['card_create'] then
+		addNotify("{5060FF}Операция отменена!\nНедостаточно средств", 8)
+		sampSendChat('Данная услуга стоит 3.000$, У вас, как я вижу таких денег нет, приходите в другой раз')
 		await['card_create'] = nil
 		return false
 	end
 
-	if msg:find('%[РРЅС„РѕСЂРјР°С†РёСЏ%] {FFFFFF}Р’С‹ РїРѕРєРёРЅСѓР»Рё РїРѕСЃС‚!') then 
+	if msg:find('%[Информация%] {FFFFFF}Вы покинули пост!') then 
 		kassa.state.v = false
-		addNotify('Р’С‹ РїРѕРєРёРЅСѓР»Рё СЃРІРѕР№ РїРѕСЃС‚!', 5)
+		addNotify('Вы покинули свой пост!', 5)
 		return false
 	end
 
-	if msg:find("^Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ РЅР° Arizona Role Play!$") then
+	if msg:find("^Добро пожаловать на Arizona Role Play!$") then
 		CONNECTED_TO_ARIZONA = true
 	end
 
-	if msg:find('РІС‹РґР°Р» РїСЂРµРјРёСЋ %(%d+%) РІСЃРµРј С‡Р»РµРЅР°Рј РѕСЂРіР°РЅРёР·Р°С†РёРё') and clr == -218038273 then
-		local leader, sum = msg:match('([A-z0-9_]+)%[%d+%] РІС‹РґР°Р» РїСЂРµРјРёСЋ %((%d+)%) РІСЃРµРј С‡Р»РµРЅР°Рј РѕСЂРіР°РЅРёР·Р°С†РёРё')
+	if msg:find('выдал премию %(%d+%) всем членам организации') and clr == -218038273 then
+		local leader, sum = msg:match('([A-z0-9_]+)%[%d+%] выдал премию %((%d+)%) всем членам организации')
 		if leader and sum then
 			leader = leader:gsub('_', ' ')
 			sum = sumFormat(sum)
 			if rank_prem ~= nil then
-				msg = string.format('Р СѓРєРѕРІРѕРґРёС‚РµР»СЊ %s РІС‹РґР°Р» РїСЂРµРјРёСЋ РІ СЂР°Р·РјРµСЂРµ %s$ СЃРѕС‚СЂСѓРґРЅРёРєР°Рј РЅР° РґРѕР»Р¶РЅРѕСЃС‚Рё %s', leader, sum, rank_prem)
+				msg = string.format('Руководитель %s выдал премию в размере %s$ сотрудникам на должности %s', leader, sum, rank_prem)
 				rank_prem = nil
 			else
-				msg = string.format('Р СѓРєРѕРІРѕРґРёС‚РµР»СЊ %s РІС‹РґР°Р» РїСЂРµРјРёСЋ РІ СЂР°Р·РјРµСЂРµ %s$ СЃРѕС‚СЂСѓРґРЅРёРєР°Рј РЅР° РѕРїСЂРµРґРµР»С‘РЅРЅРѕР№ РґРѕР»Р¶РЅРѕСЃС‚Рё', leader, sum)
+				msg = string.format('Руководитель %s выдал премию в размере %s$ сотрудникам на определённой должности', leader, sum)
 			end
 			return { clr, msg }
 		end
 	end
 end
 
-function se.onShowDialog(dialogId, style, title, button1, button2, text) -- С…СѓРє РґРёР°Р»РѕРіРѕРІ
+function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук диалогов
 	local isAnyAwaitExist = false
 	for k, v in pairs(await) do
 		if os.clock() - v > 60.0 then
@@ -1322,12 +1322,12 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- С…Сѓ
 		return cooldown
 	end
 
-	if string.find(title, "РўСЂСѓРґРѕРІР°СЏ РєРЅРёР¶РєР°", 1, true) and await["wbook"] then
-		local nick = (actionId == nil) and "РіСЂР°Р¶РґР°РЅРёРЅР°" or rpNick(actionId)
+	if string.find(title, "Трудовая книжка", 1, true) and await["wbook"] then
+		local nick = (actionId == nil) and "гражданина" or rpNick(actionId)
 		lua_thread.create(function(); wait(300)
-			sampSendChat("/me {sex:РІР·СЏР»|РІР·СЏР»Р°} С‚СЂСѓРґРѕРІСѓСЋ РєРЅРёР¶РєСѓ Сѓ " .. nick)
+			sampSendChat("/me {sex:взял|взяла} трудовую книжку у " .. nick)
 			wait(MsgDelay.v * 1000)
-			sampSendChat("/todo Р”Р°РІР°Р№С‚Рµ РІР·РіР»СЏРЅРµРј..*РѕС‚РєСЂС‹РІР°СЏ РґРѕРєСѓРјРµРЅС‚")
+			sampSendChat("/todo Давайте взглянем..*открывая документ")
 		end)
 		if sobes_check["wbook"] == nil then
 			sobes_check["wbook"] = true
@@ -1335,32 +1335,32 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- С…Сѓ
 		await["wbook"] = nil
 	end
 
-	if string.find(title, "РџР°СЃРїРѕСЂС‚", 1, true) and await["passport"] then
-		local nick = (actionId == nil) and "РіСЂР°Р¶РґР°РЅРёРЅР°" or rpNick(actionId)
+	if string.find(title, "Паспорт", 1, true) and await["passport"] then
+		local nick = (actionId == nil) and "гражданина" or rpNick(actionId)
 		lua_thread.create(function(); wait(300)
-			sampSendChat("/me {sex:РІР·СЏР»|РІР·СЏР»Р°} РїР°СЃРїРѕСЂС‚ Сѓ " .. nick)
+			sampSendChat("/me {sex:взял|взяла} паспорт у " .. nick)
 			wait(MsgDelay.v * 1000)
-			sampSendChat("/todo РЎРїР°СЃРёР±Рѕ, РѕРґРЅСѓ СЃРµРєСѓРЅРґРѕС‡РєСѓ..*СЂР°СЃСЃРјР°С‚СЂРёРІР°СЏ РґРѕРєСѓРјРµРЅС‚")
+			sampSendChat("/todo Спасибо, одну секундочку..*рассматривая документ")
 		end)
 
-		local law = string.match(text, "Р—Р°РєРѕРЅРѕРїРѕСЃР»СѓС€РЅРѕСЃС‚СЊ: {%x+}(%d+)/%d+")
+		local law = string.match(text, "Законопослушность: {%x+}(%d+)/%d+")
 		if law and sobes_check["law"] == nil then
 			sobes_check["law"] = tonumber(law) >= 35
 		end
 		await["passport"] = nil
 	end
 
-	if string.find(title, "РњРµРґ. РєР°СЂС‚Р°", 1, true) and await["medcard"] then
-		local nick = (actionId == nil) and "РіСЂР°Р¶РґР°РЅРёРЅР°" or rpNick(actionId)
+	if string.find(title, "Мед. карта", 1, true) and await["medcard"] then
+		local nick = (actionId == nil) and "гражданина" or rpNick(actionId)
 		lua_thread.create(function(); wait(300)
-			sampSendChat("/me {sex:РІР·СЏР»|РІР·СЏР»Р°} РјРµРґРёС†РёРЅСЃРєСѓСЋ РєР°СЂС‚РѕС‡РєСѓ Сѓ " .. nick)
+			sampSendChat("/me {sex:взял|взяла} медицинскую карточку у " .. nick)
 			wait(MsgDelay.v * 1000)
-			sampSendChat("/todo РўР°Рє-СЃ, РїРѕСЃРјРѕС‚СЂРёРј..*РёР·СѓС‡Р°СЏ РёСЃС‚РѕСЂРёСЋ Р±РѕР»РµР·РЅРµР№")
+			sampSendChat("/todo Так-с, посмотрим..*изучая историю болезней")
 		end)
 
 		local drugs = nil
 		for line in string.gmatch(text, "[^\n]+") do
-			if string.find(line, "РќР°СЂРєРѕР·Р°РІРёСЃРёРјРѕСЃС‚СЊ:") then
+			if string.find(line, "Наркозависимость:") then
 				drugs = string.match(line, "[%d%.]+")
 			end
 		end	
@@ -1371,22 +1371,22 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- С…Сѓ
 				sobes_check["drugs"] = tonumber(drugs) <= 5 and "!" or false
 			end
 		end
-		sobes_check["health"] = string.find(text, "РџРѕР»РЅРѕСЃС‚СЊСЋ Р·РґРѕСЂРѕРІС‹Р№") ~= nil
+		sobes_check["health"] = string.find(text, "Полностью здоровый") ~= nil
 
 		await["medcard"] = nil
 	end
 
-	if string.find(title, "Р›РёС†РµРЅР·РёРё", 1, true) and await["licenses"] then
-		local nick = (actionId == nil) and "РіСЂР°Р¶РґР°РЅРёРЅР°" or rpNick(actionId)
+	if string.find(title, "Лицензии", 1, true) and await["licenses"] then
+		local nick = (actionId == nil) and "гражданина" or rpNick(actionId)
 		lua_thread.create(function(); wait(300)
-			sampSendChat("/me {sex:РІР·СЏР»|РІР·СЏР»Р°} РїРµСЂРµС‡РµРЅСЊ Р»РёР·РµС†РЅР·РёР№ Сѓ " .. nick)
+			sampSendChat("/me {sex:взял|взяла} перечень лизецнзий у " .. nick)
 			wait(MsgDelay.v * 1000)
-			sampSendChat("/me СЃРјРѕС‚СЂРёС‚ РґР°С‚С‹ РёСЃС‚РµС‡РµРЅРёСЏ Р»РёС†РµРЅР·РёР№..")
+			sampSendChat("/me смотрит даты истечения лицензий..")
 		end)
 		await["licenses"] = nil
 	end
 
-	if await["uniform"] and text:find("РџРµСЂРµРѕРґРµС‚СЊСЃСЏ") then
+	if await["uniform"] and text:find("Переодеться") then
 		sync(table.unpack(unform_pickup_pos))
 		sampSendDialogResponse(dialogId, 1, 0, nil)
 		return false
@@ -1394,17 +1394,17 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- С…Сѓ
 
 	-- /bankmenu
 	if dialogId == 713 and isAnyAwaitExist then
-		if await['credit_send'] then 		send(1, 0); await['credit_send'] = os.clock() 	-- Р’С‹РґР°С‚СЊ РєСЂРµРґРёС‚
-		elseif await['debt'] then 			send(1, 1); await['debt'] = nil 				-- РЈР·РЅР°С‚СЊ РґРѕР»Рі Р±Р°РЅРєСѓ
-		elseif await['get_money'] then 		send(1, 2); await['get_money'] = nil 			-- РЈР·РЅР°С‚СЊ РєРѕР»-РІРѕ РґРµРЅРµРі РІ Р±Р°РЅРєРµ
-		elseif await['card_create'] then 	send(1, 3); await['card_create'] = nil 			-- Р’С‹РґР°С‚СЊ Р±Р°РЅРєРѕРІСЃРєСѓСЋ РєР°СЂС‚Сѓ
-		elseif await['card_recreate'] then 	send(1, 4); await['card_recreate'] = nil 		-- Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ Р±Р°РЅРєРѕРІСЃРєСѓСЋ РєР°СЂС‚Сѓ
-		elseif await['dep_minus'] then 		send(1, 5); await['dep_minus'] = nil 			-- РЎРЅСЏС‚СЊ РґРµРЅСЊРіРё СЃ РґРµРїРѕР·РёС‚Р°
-		elseif await['dep_plus'] then 		send(1, 6); await['dep_plus'] = nil 			-- РџРѕРїРѕР»РЅРёС‚СЊ РґРµРїРѕР·РёС‚
-		--elseif await['dep_plus_10'] then 	send(1, 7); await['dep_plus_10'] = nil 			-- Р’С‹РґР°С‚СЊ СЂР°СЃС€РёСЂРµРЅРЅС‹Р№ РґРµРїРѕР·РёС‚
-		elseif await['dep_check'] then 		send(1, 7); await['dep_check'] = nil 			-- РџСЂРѕРІРµСЂРёС‚СЊ РѕСЃС‚Р°С‚РѕРє С‡Р°СЃРѕРІ РґРµРїРѕР·РёС‚Р°
-		elseif await['vip_create'] then 	send(1, 8); await['vip_create'] = nil 			-- Р’С‹РґР°С‚СЊ Р±Р°РЅРєРѕРІСЃРєСѓСЋ РєР°СЂС‚Сѓ VIP РєР»РёРµРЅС‚Р°
-		elseif await['addcard'] then 		send(1, 9); await['addcard'] = nil 				-- РћС‚РєСЂС‹С‚СЊ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ СЃС‡С‘С‚
+		if await['credit_send'] then 		send(1, 0); await['credit_send'] = os.clock() 	-- Выдать кредит
+		elseif await['debt'] then 			send(1, 1); await['debt'] = nil 				-- Узнать долг банку
+		elseif await['get_money'] then 		send(1, 2); await['get_money'] = nil 			-- Узнать кол-во денег в банке
+		elseif await['card_create'] then 	send(1, 3); await['card_create'] = nil 			-- Выдать банковскую карту
+		elseif await['card_recreate'] then 	send(1, 4); await['card_recreate'] = nil 		-- Восстановить банковскую карту
+		elseif await['dep_minus'] then 		send(1, 5); await['dep_minus'] = nil 			-- Снять деньги с депозита
+		elseif await['dep_plus'] then 		send(1, 6); await['dep_plus'] = nil 			-- Пополнить депозит
+		--elseif await['dep_plus_10'] then 	send(1, 7); await['dep_plus_10'] = nil 			-- Выдать расширенный депозит
+		elseif await['dep_check'] then 		send(1, 7); await['dep_check'] = nil 			-- Проверить остаток часов депозита
+		elseif await['vip_create'] then 	send(1, 8); await['vip_create'] = nil 			-- Выдать банковскую карту VIP клиента
+		elseif await['addcard'] then 		send(1, 9); await['addcard'] = nil 				-- Открыть дополнительный счёт
 		end
 		return false
 	end
@@ -1412,53 +1412,53 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- С…Сѓ
 	-- Information dialogs
 	if dialogId == 0 then
 
-		local kd = text:match('С‡РµСЂРµР· {%x}(%d+){%x} С‡Р°СЃ.+')
+		local kd = text:match('через {%x}(%d+){%x} час.+')
 		if kd then
 			kd = tonumber(kd)
 			if await['dep_minus'] and schet_dep[kd] ~= nil then
-				send(string.format('РР·РІРёРЅРёС‚Рµ, РЅРѕ СЃРЅСЏС‚СЊ СЃ РґРµРїРѕР·РёС‚Р° РІС‹ СЃРјРѕР¶РµС‚Рµ С‚РѕР»СЊРєРѕ С‡РµСЂРµР· %s %s', kd, plural(kd, {'С‡Р°СЃ', 'С‡Р°СЃР°', 'С‡Р°СЃРѕРІ'})))
+				send(string.format('Извините, но снять с депозита вы сможете только через %s %s', kd, plural(kd, {'час', 'часа', 'часов'})))
 			elseif await['dep_check'] then
-				send(string.format('Р’С‹РІРµСЃС‚Рё РґРµРЅСЊРіРё СЃ РґРµРїРѕР·РёС‚Р° РІС‹ СЃРјРѕР¶РµС‚Рµ С‡РµСЂРµР· %s', kd, plural(kd, {'С‡Р°СЃ', 'С‡Р°СЃР°', 'С‡Р°СЃРѕРІ'})))
+				send(string.format('Вывести деньги с депозита вы сможете через %s', kd, plural(kd, {'час', 'часа', 'часов'})))
 			end
 		end
 
-		if text:find('Р’С‹ СѓСЃРїРµС€РЅРѕ РѕС‚РїСЂР°РІРёР»Рё РїСЂРµРґР»РѕР¶РµРЅРёРµ РЅР° СЃРјРµРЅСѓ РїР°СЂРѕР»СЏ') then
+		if text:find('Вы успешно отправили предложение на смену пароля') then
 			kassa.info.recard = kassa.info.recard + 1
 			text = text:gsub("{%x+}", "")
 			addBankMessage(text)
 			send(0); return false
 		end
 
-		if text:find('Р’С‹ СѓСЃРїРµС€РЅРѕ РґР°Р»Рё {73B461}РёРіСЂРѕРєСѓ{FFFFFF} Р±Р»Р°РЅРє, РґР»СЏ РїРѕРїРѕР»РЅРµРЅРёСЏ РґРµРїРѕР·РёС‚Р°') then
+		if text:find('Вы успешно дали {73B461}игроку{FFFFFF} бланк, для пополнения депозита') then
 			kassa.info.dep = kassa.info.dep + 1
 			text = text:gsub("{%x+}", "")
 			addBankMessage(text)
 			send(0); return false
 		end
 
-		if text:find('Р’С‹ СѓСЃРїРµС€РЅРѕ РґР°Р»Рё РёРіСЂРѕРєСѓ {73B461}Р±Р»Р°РЅРє{FFFFFF}, РґР»СЏ РїРѕРїРѕР»РЅРµРЅРёСЏ СЃРІРѕРµРіРѕ РґРµРїРѕР·РёС‚Р°') then
+		if text:find('Вы успешно дали игроку {73B461}бланк{FFFFFF}, для пополнения своего депозита') then
 			kassa.info.dep = kassa.info.dep + 1
 			text = text:gsub("{%x+}", "")
 			addBankMessage(text)
 			send(0); return false
 		end
 
-		if text:find('Р’С‹ СѓСЃРїРµС€РЅРѕ РґР°Р»Рё РёРіСЂРѕРєСѓ {73B461}Р±Р»Р°РЅРє{FFFFFF}, РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СЃРІРѕРµРіРѕ РґРµРїРѕР·РёС‚Р°') then
+		if text:find('Вы успешно дали игроку {73B461}бланк{FFFFFF}, для получения своего депозита') then
 			kassa.info.dep = kassa.info.dep + 1
 			text = text:gsub("{%x+}", "")
 			addBankMessage(text)
 			send(0); return false
 		end
 
-		if text:find('С„РѕСЂРјСѓ РѕС‚РєСЂС‹С‚РёСЏ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕРіРѕ Р»РёС‡РЅРѕРіРѕ СЃС‡С‘С‚Р°') then
+		if text:find('форму открытия дополнительного личного счёта') then
 			kassa.info.addcard = kassa.info.addcard + 1
 			text = text:gsub("{%x+}", "")
 			addBankMessage(text)
 			send(0); return false
 		end
 
-		if text:find('С„РѕСЂРјСѓ РѕС„РѕСЂРјР»РµРЅРёСЏ Р±Р°РЅРєРѕРІСЃРєРѕР№ РєР°СЂС‚С‹') then
-			if text:find('VIP-РєР»РёРµРЅС‚Р°', 1, true) then
+		if text:find('форму оформления банковской карты') then
+			if text:find('VIP-клиента', 1, true) then
 				kassa.info.vip = kassa.info.vip + 1
 			else
 				kassa.info.card = kassa.info.card + 1
@@ -1469,7 +1469,7 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- С…Сѓ
 		end
 	end
 
-	if string.find(title, "РРЅС„РѕСЂРјР°С†РёСЏ") and string.find(text, "Р‘Р°Р»Р°РЅСЃ Р¤СЂР°РєС†РёР№") then
+	if string.find(title, "Информация") and string.find(text, "Баланс Фракций") then
 		local info = { fractions = {}, price = 0, farm = 0, buy_ls = 0, buy_lv = 0 }
 
 		for line in string.gmatch(text, "[^\n]+") do
@@ -1478,16 +1478,16 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- С…Сѓ
 				table.insert(info.fractions, { org, tonumber(balance) or 0 })
 			end
 
-			local price = string.match(line, "Р¦РµРЅР° РІС‹РєСѓРїР°: {%x+}(%d+)")
+			local price = string.match(line, "Цена выкупа: {%x+}(%d+)")
 			if price then info.price = tonumber(price) end
 
-			local farm = string.match(line, "Р—Р°РєСѓРїРєР° РїСЂРѕРґСѓРєС‚РѕРІ РЅР° С„РµСЂРјРµ: {%x+}(%d+)")
+			local farm = string.match(line, "Закупка продуктов на ферме: {%x+}(%d+)")
 			if farm then info.farm = tonumber(farm) end
 
-			local buy_ls = string.match(line, "РџСЂРѕРґР°Р¶Р° РїСЂРѕРґСѓРєС‚РѕРІ РІ Los Santos: {%x+}(%d+)")
+			local buy_ls = string.match(line, "Продажа продуктов в Los Santos: {%x+}(%d+)")
 			if buy_ls then info.buy_ls = tonumber(buy_ls) end
 
-			local buy_lv = string.match(line, "РџСЂРѕРґР°Р¶Р° РїСЂРѕРґСѓРєС‚РѕРІ РІ Las Venturas: {%x+}(%d+)")
+			local buy_lv = string.match(line, "Продажа продуктов в Las Venturas: {%x+}(%d+)")
 			if buy_lv then info.buy_lv = tonumber(buy_lv) end
 		end
 
@@ -1496,26 +1496,26 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- С…Сѓ
 		end)
 
 		local result = "{AAAAAA}"
-		result = result .. "РљР°Р¶РґРѕР№ РѕСЂРіР°РЅРёР·Р°С†РёРё РЅРµРѕР±С…РѕРґРёРјРѕ РёРјРµС‚СЊ РґРµРЅСЊРіРё РЅР° СЃС‡РµС‚Сѓ Р±Р°РЅРєР° С‡С‚РѕР±С‹ РІС‹РїР»Р°С‡РёРІР°С‚СЊ\n"
-		result = result .. "РїСЂРµРјРёРё СЃРІРѕРёРј СЂР°Р±РѕС‚РЅРёРєР°Рј, Р° С‚Р°РєР¶Рµ Р·Р°РєСѓРїР°С‚СЊ РїР°С‚СЂРѕРЅС‹ Рё РїСЂРѕРґСѓРєС‚С‹ Сѓ РґСЂСѓРіРёС… РїСЂРµРґРїСЂРёСЏС‚РёР№ Рё С„СЂР°РєС†РёР№.\n"
+		result = result .. "Каждой организации необходимо иметь деньги на счету банка чтобы выплачивать\n"
+		result = result .. "премии своим работникам, а также закупать патроны и продукты у других предприятий и фракций.\n"
 
 		result = result .. "\n"
-		result = result .. "{FFFFFF}Р‘Р°Р»Р°РЅСЃС‹ РІСЃРµС… РіРѕСЃ-РѕСЂРіР°РЅРёР·Р°С†РёР№ РїРѕ СѓР±С‹РІР°РЅРёСЋ:\n\n"
+		result = result .. "{FFFFFF}Балансы всех гос-организаций по убыванию:\n\n"
 
 		for _, org in ipairs(info.fractions) do
 			result = result .. string.format("{FFFFFF} - %s: {73B461}$%s\n", org[1], sumFormat(org[2]))
 		end
 
 		result = result .. "\n"
-		result = result .. "{FFFFFF}РџРѕР»СѓС‡Р°С‚РµР»СЊ РЅР°Р»РѕРіРѕРІ: {73B461}Р¦РµРЅС‚СЂР°Р»СЊРЅС‹Р№ Р‘Р°РЅРє\n"
+		result = result .. "{FFFFFF}Получатель налогов: {73B461}Центральный Банк\n"
 
 		result = result .. "\n"
-		result = result .. ("{FFFFFF}Р¦РµРЅР° РІС‹РєСѓРїР°: {73B461}%s\n"):format(sumFormat(info.price))
+		result = result .. ("{FFFFFF}Цена выкупа: {73B461}%s\n"):format(sumFormat(info.price))
 
 		result = result .. "\n"
-		result = result .. ("{FFFFFF}Р—Р°РєСѓРїРєР° РїСЂРѕРґСѓРєС‚РѕРІ РЅР° С„РµСЂРјРµ: {73B461}%s\n"):format(sumFormat(info.farm))
-		result = result .. ("{FFFFFF}РџСЂРѕРґР°Р¶Р° РїСЂРѕРґСѓРєС‚РѕРІ РІ Los Santos: {73B461}%s\n"):format(sumFormat(info.buy_ls))
-		result = result .. ("{FFFFFF}РџСЂРѕРґР°Р¶Р° РїСЂРѕРґСѓРєС‚РѕРІ РІ Las Venturas: {73B461}%s"):format(sumFormat(info.buy_lv))
+		result = result .. ("{FFFFFF}Закупка продуктов на ферме: {73B461}%s\n"):format(sumFormat(info.farm))
+		result = result .. ("{FFFFFF}Продажа продуктов в Los Santos: {73B461}%s\n"):format(sumFormat(info.buy_ls))
+		result = result .. ("{FFFFFF}Продажа продуктов в Las Venturas: {73B461}%s"):format(sumFormat(info.buy_lv))
 
 		return { dialogId, style, title, button1, button2, result }
 	end
@@ -1534,26 +1534,26 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- С…Сѓ
 	
 	-- Report
 	if dialogId == 32 and await['report'] then
-		addNotify("{5060FF}Р РµРїРѕСЂС‚ РѕС‚РїСЂР°РІР»РµРЅ!\nРћР¶РёРґР°Р№С‚Рµ РѕС‚РІРµС‚Р°", 5)
+		addNotify("{5060FF}Репорт отправлен!\nОжидайте ответа", 5)
 		send(0); await['report'] = nil 
 		return false
 	end
 
 	if dialogId == 235 and await['get_rank'] then
-		if not text:find('Р¦РµРЅС‚СЂР°Р»СЊРЅС‹Р№ Р‘Р°РЅРє') and not devmode then
+		if not text:find('Центральный Банк') and not devmode then
 			lua_thread.create(function()
 				wait(2000)
-				addBankMessage('Р’С‹ РЅРµ РІ РѕСЂРіР°РЅРёР·Р°С†РёРё {M}В«Р¦РµРЅС‚СЂР°Р»СЊРЅС‹Р№ Р‘Р°РЅРєВ»')
-				addBankMessage('РЎРєСЂРёРїС‚ СЂР°Р±РѕС‚Р°РµС‚ С‚РѕР»СЊРєРѕ РІ СЌС‚РѕР№ РѕСЂРіР°РЅРёР·Р°С†РёРё')
-				addBankMessage('Р•СЃР»Рё РІС‹ СЃС‡РёС‚Р°РµС‚Рµ, С‡С‚Рѕ СЌС‚Рѕ РѕС€РёР±РєР° - РЅР°РїРёС€РёС‚Рµ СЂР°Р·СЂР°Р±РѕС‚С‡РёРєСѓ {M}vk.com/cosui')
-				addBankMessage('РЎРєСЂРёРїС‚ РѕС‚РєР»СЋС‡РµРЅ..')
-				log('РЎРєСЂРёРїС‚ РѕС‚РєР»СЋС‡РµРЅ. Р’С‹ РЅРµ РІ РѕСЂРіР°РЅРёР·Р°С†РёРё "Р¦РµРЅС‚СЂР°Р»СЊРЅС‹Р№ Р‘Р°РЅРє"')
+				addBankMessage('Вы не в организации {M}«Центральный Банк»')
+				addBankMessage('Скрипт работает только в этой организации')
+				addBankMessage('Если вы считаете, что это ошибка - напишите разработчику {M}vk.com/cosui')
+				addBankMessage('Скрипт отключен..')
+				log('Скрипт отключен. Вы не в организации "Центральный Банк"')
 				thisScript():unload()
 			end)
 			return false
 		end
 
-		local stat_info = string.match(text, 'Р”РѕР»Р¶РЅРѕСЃС‚СЊ: {%x+}([^\n]+)')
+		local stat_info = string.match(text, 'Должность: {%x+}([^\n]+)')
 		if stat_info ~= nil then
 			local name, rank = string.match(stat_info, '^(.+)%(([0-9]+)%)$')
 			rank = tonumber(rank)
@@ -1562,7 +1562,7 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- С…Сѓ
 				if rank ~= cfg.main.rank then
 					cfg.main.rank = rank
 				elseif await['rank_update'] then
-					addBankMessage('Р’Р°С€ СЂР°РЅРі СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ СЂР°РЅРіСѓ РІ /stats')
+					addBankMessage('Ваш ранг соответствует рангу в /stats')
 				end
 				await['rank_update'] = nil
 			end
@@ -1578,7 +1578,7 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- С…Сѓ
 			if name and rank then
 				name, rank = tostring(name), tonumber(rank)
 				if cfg.nameRank[rank] ~= nil and cfg.nameRank[rank] ~= name then
-					addBankMessage(string.format('РћР±РЅРѕРІР»РµРЅРѕ РЅР°Р·РІР°РЅРёРµ СЂР°РЅРіР°: {M}%s{W} -> {M}%s{W} | {S}%s СЂР°РЅРі', cfg.nameRank[rank], name, rank))
+					addBankMessage(string.format('Обновлено название ранга: {M}%s{W} -> {M}%s{W} | {S}%s ранг', cfg.nameRank[rank], name, rank))
 					cfg.nameRank[rank] = name
 				end
 			end
@@ -1586,42 +1586,42 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- С…Сѓ
 		send(0)
 	end
 
-	if string.find(title, "РЈСЃРїРµРІР°РµРјРѕСЃС‚СЊ") then
+	if string.find(title, "Успеваемость") then
 		if await['uprankdate'] then
-			local d, m, Y, H, M, S = string.match(text, "РџРѕСЃР»РµРґРЅРµРµ РїРѕРІС‹С€РµРЅРёРµ:\n {%x+}(%d+)%.(%d+)%.(%d+) (%d+):(%d+):(%d+)")
+			local d, m, Y, H, M, S = string.match(text, "Последнее повышение:\n {%x+}(%d+)%.(%d+)%.(%d+) (%d+):(%d+):(%d+)")
 			if d ~= nil then
 				local datetime = { year = Y, month = m, day = d, hour = H, min = M, sec = S}
-				addBankMessage(string.format('Р”Р°С‚Р° РїРѕСЃР»РµРґРЅРµРіРѕ РїРѕРІС‹С€РµРЅРёСЏ РїРѕ /jobprogress: {M}%s', os.date('%d.%m.%Y', os.time(datetime))))
+				addBankMessage(string.format('Дата последнего повышения по /jobprogress: {M}%s', os.date('%d.%m.%Y', os.time(datetime))))
 				cfg.main.dateuprank = os.time(datetime)
 			else
-				addBankMessage('РќРµ СѓРґР°Р»РѕСЃСЊ РїСЂРѕРІРµСЂРёС‚СЊ РґР°С‚Сѓ РїРѕРІС‹С€РµРЅРёСЏ РїРѕ /jobprogress!')
+				addBankMessage('Не удалось проверить дату повышения по /jobprogress!')
 			end
 
 			await['uprankdate'] = nil
 			send(0)
 			return false
 		elseif not mMenu.status and mMenu.timer and os.clock() - mMenu.timer < 5.00 then
-			local time = string.match(text, "Р’СЂРµРјРµРЅРё РЅР° РїРѕСЃС‚Р°С…: {FFB323}(%d+)")
+			local time = string.match(text, "Времени на постах: {FFB323}(%d+)")
 			if time then mMenu.time.all = tonumber(time) end
-			local time = string.match(text, "Р’СЂРµРјРµРЅРё РЅР° РїРѕСЃС‚Р°С…: {F9FF23}(%d+)")
+			local time = string.match(text, "Времени на постах: {F9FF23}(%d+)")
 			if time then mMenu.time.today = tonumber(time) end
 
-			local cards = string.match(text, "Р’С‹РґР°РЅРѕ Р±Р°РЅРєРѕРІСЃРєРёС… РєР°СЂС‚: {FFB323}(%d+)")
+			local cards = string.match(text, "Выдано банковских карт: {FFB323}(%d+)")
 			if cards then mMenu.cards.all = tonumber(cards) end
-			local cards = string.match(text, "Р’С‹РґР°РЅРѕ Р±Р°РЅРєРѕРІСЃРєРёС… РєР°СЂС‚: {F9FF23}(%d+)")
+			local cards = string.match(text, "Выдано банковских карт: {F9FF23}(%d+)")
 			if cards then mMenu.cards.today = tonumber(cards) end
 
-			local dep = string.match(text, "РћРїРµСЂР°С†РёРё СЃ РґРµРїРѕР·РёС‚РѕРј: {FFB323}(%d+)")
+			local dep = string.match(text, "Операции с депозитом: {FFB323}(%d+)")
 			if dep then mMenu.dep.all = tonumber(dep) end
-			local dep = string.match(text, "РћРїРµСЂР°С†РёРё СЃ РґРµРїРѕР·РёС‚РѕРј: {F9FF23}(%d+)")
+			local dep = string.match(text, "Операции с депозитом: {F9FF23}(%d+)")
 			if dep then mMenu.dep.today = tonumber(dep) end
 
-			local vip = string.match(text, "Р’С‹РґР°РЅРѕ VIP%-РєР°СЂС‚: {FFB323}(%d+)")
+			local vip = string.match(text, "Выдано VIP%-карт: {FFB323}(%d+)")
 			if vip then mMenu.vip.all = tonumber(vip) end
-			local vip = string.match(text, "Р’С‹РґР°РЅРѕ VIP%-РєР°СЂС‚: {F9FF23}(%d+)")
+			local vip = string.match(text, "Выдано VIP%-карт: {F9FF23}(%d+)")
 			if vip then mMenu.vip.today = tonumber(vip) end
 			
-			local d, m, Y, H, M, S = string.match(text, "РџРѕСЃР»РµРґРЅРµРµ РїРѕРІС‹С€РµРЅРёРµ:\n {%x+}(%d+)%.(%d+)%.(%d+) (%d+):(%d+):(%d+)")
+			local d, m, Y, H, M, S = string.match(text, "Последнее повышение:\n {%x+}(%d+)%.(%d+)%.(%d+) (%d+):(%d+):(%d+)")
 			if d ~= nil then
 				mMenu.last_up = os.time({ year = Y, month = m, day = d, hour = H, min = M, sec = S})
 			end
@@ -1633,19 +1633,19 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- С…Сѓ
 	end
 
 	if #pincode.v > 0 then
-		if string.find(text, "Р’С‹ РґРѕР»Р¶РЅС‹ РїРѕРґС‚РІРµСЂРґРёС‚СЊ СЃРІРѕР№ PIN-РєРѕРґ Рє РєР°СЂС‚РѕС‡РєРµ", 1, true) then
+		if string.find(text, "Вы должны подтвердить свой PIN-код к карточке", 1, true) then
 			sampSendDialogResponse(dialogId, 1, nil, pincode.v)
 			return false
 		end
 
-		if string.find(text, "PIN-РєРѕРґ РїСЂРёРЅСЏС‚!", 1, true) then
-			text = "{FFFFFF}PIN-РєРѕРґ РІРІРµРґРµРЅ {33AA33}Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё!"
+		if string.find(text, "PIN-код принят!", 1, true) then
+			text = "{FFFFFF}PIN-код введен {33AA33}автоматически!"
 			return { dialogId, style, title, button1, button2, text }
 		end
 
-		if string.find(text, "Р’С‹ РЅРµ РїСЂР°РІРёР»СЊРЅРѕ РІРІРµР»Рё PIN-РєРѕРґ!", 1, true) then
-			text = "{FFFFFF}PIN-РєРѕРґ РґР»СЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРіРѕ РІРІРѕРґР° {AA3333}РЅРµРІРµСЂРЅС‹Р№!\n{FFFFFF}Р’Р°Рј РЅСѓР¶РЅРѕ РІРІРµСЃС‚Рё РµРіРѕ РІСЂСѓС‡РЅСѓСЋ"
-			button1 = "РџРѕРЅСЏС‚РЅРѕ"
+		if string.find(text, "Вы не правильно ввели PIN-код!", 1, true) then
+			text = "{FFFFFF}PIN-код для автоматического ввода {AA3333}неверный!\n{FFFFFF}Вам нужно ввести его вручную"
+			button1 = "Понятно"
 
 			cfg.main.pincode = ""
 			pincode.v = cfg.main.pincode
@@ -1654,28 +1654,28 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- С…Сѓ
 		end
 	end
 
-	if await["quest"] and string.find(text, "Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ РїСЂРёРЅСЏС‚СЊ РєРІРµСЃС‚?") then
+	if await["quest"] and string.find(text, "Вы действительно хотите принять квест?") then
 		await["quest"] = nil; send(1)
 		return false
 	end
 
 	QUESTS_DIALOG = nil
-	if string.find(title, "РљРІРµСЃС‚С‹") and string.find(text, "Р’С‹РґР°РµРј РґРµРїРѕР·РёС‚") then
+	if string.find(title, "Квесты") and string.find(text, "Выдаем депозит") then
 		QUESTS_DIALOG = dialogId
 
 		local tags = {
-			["Р”РѕСЃС‚СѓРїРµРЅ"] = {"Р”РѕСЃС‚СѓРїРµРЅ", "{00FF00}", "{AAFFAA}"},
-			["Р’ РїСЂРѕС†РµСЃСЃРµ"] = {"Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ", "{FFDD00}", "{FFDDAA}"},
-			["РњРѕР¶РЅРѕ Р·Р°РІРµСЂС€РёС‚СЊ"] = {"Р’С‹РїРѕР»РЅРµРЅ", "{30AAFF}", "{AADDFF}"},
-			["Р’С‹РїРѕР»РЅРµРЅ"] = {"Р—Р°РІРµСЂС€С‘РЅ", "{666666}", "{AAAAAA}"}
+			["Доступен"] = {"Доступен", "{00FF00}", "{AAFFAA}"},
+			["В процессе"] = {"Выполняется", "{FFDD00}", "{FFDDAA}"},
+			["Можно завершить"] = {"Выполнен", "{30AAFF}", "{AADDFF}"},
+			["Выполнен"] = {"Завершён", "{666666}", "{AAAAAA}"}
 		}
 
 		local quests = {
-			["Р’С‹РґР°РµРј РґРµРїРѕР·РёС‚"] = "РџРѕРїРѕР»РЅРёС‚СЊ РґРµРїРѕР·РёС‚ 10 РєР»РёРµРЅС‚Р°Рј",
-			["РЎРЅРёРјР°РµРј РґРµРЅСЊРіРё"] = "Р’С‹РІРµСЃС‚Рё РґРµРїРѕР·РёС‚ 10 РєР»РёРµРЅС‚Р°Рј",
-			["Р РµРіРёСЃС‚СЂРёСЂСѓРµРј СЃС‡РµС‚Р°"] = "РЎРѕР·РґР°С‚СЊ 3 Р±Р°РЅРєРѕРІСЃРєРёС… РєР°СЂС‚С‹",
-			["Р’РѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЃС‡РµС‚Р°"] = "Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ 3 РєР°СЂС‚С‹",
-			["РќРµР»РµРіРєР°СЏ СЂР°Р±РѕС‚Р°"] = "РћС‚СЃС‚РѕСЏС‚СЊ 20 РјРёРЅСѓС‚ РЅР° РїРѕСЃС‚Сѓ",
+			["Выдаем депозит"] = "Пополнить депозит 10 клиентам",
+			["Снимаем деньги"] = "Вывести депозит 10 клиентам",
+			["Регистрируем счета"] = "Создать 3 банковских карты",
+			["Восстанавливаем счета"] = "Восстановить 3 карты",
+			["Нелегкая работа"] = "Отстоять 20 минут на посту",
 		}
 
 		local new_text = ""
@@ -1751,43 +1751,43 @@ function imgui.OnDrawFrame()
 			imgui.BeginChild("##ActionIdInfo", imgui.ImVec2(150, 180), true, imgui.WindowFlags.NoScrollbar)
 			imgui.SetCursorPosY(18)
 
-			imgui.CenterTextColoredRGB(mc..'РќРёРє РёРіСЂРѕРєР°')
+			imgui.CenterTextColoredRGB(mc..'Ник игрока')
 			if sampIsPlayerConnected(actionId) then
 				imgui.CenterTextColoredRGB(rpNick(actionId)..'['..actionId..']')
 				if imgui.IsItemClicked() then
 					if setClipboardText(u8:decode((sampGetPlayerNickname(actionId)))) then
-						addBankMessage(string.format('РќРёРє {M}%s{W} СЃРєРѕРїРёСЂРѕРІР°РЅ РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°!', rpNick(actionId)))
+						addBankMessage(string.format('Ник {M}%s{W} скопирован в буфер обмена!', rpNick(actionId)))
 					end
-				else imgui.Hint('copytargetnick', u8'РќР°Р¶РјРё, С‡С‚Рѕ-Р±С‹ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ') end
+				else imgui.Hint('copytargetnick', u8'Нажми, что-бы скопировать') end
 				if TypeAction.v == 2 then
 					if isPlayerOnBlacklist(sampGetPlayerNickname(actionId)) then
-						imgui.CenterTextColoredRGB('{FF0000}Р§С‘СЂРЅС‹Р№ СЃРїРёСЃРѕРє!')
+						imgui.CenterTextColoredRGB('{FF0000}Чёрный список!')
 					else
 						imgui.NewLine()
 					end
 				else
 					imgui.NewLine()
 				end
-				imgui.CenterTextColoredRGB(mc..'РРіСЂРѕРІРѕР№ СѓСЂРѕРІРµРЅСЊ')
+				imgui.CenterTextColoredRGB(mc..'Игровой уровень')
 				local yearold = sampGetPlayerScore(actionId)
 				if TypeAction.v == 2 and yearold < 3 then 
-					imgui.CenterTextColoredRGB('{FF0000}' .. yearold .. ' СѓСЂРѕРІРµРЅСЊ')
+					imgui.CenterTextColoredRGB('{FF0000}' .. yearold .. ' уровень')
 				else
-					imgui.CenterTextColoredRGB(yearold .. ' СѓСЂРѕРІРµРЅСЊ')
+					imgui.CenterTextColoredRGB(yearold .. ' уровень')
 				end
 			else
 				int_bank:switch()
-				addBankMessage('РРіСЂРѕРє РІС‹С€РµР» РёР· РёРіСЂС‹!')
+				addBankMessage('Игрок вышел из игры!')
 			end
 			imgui.NewLine()
-			imgui.CenterTextColoredRGB(mc..'РљР°Рє РѕРґРµС‚')
+			imgui.CenterTextColoredRGB(mc..'Как одет')
 
 			local bPed, handle = sampGetCharHandleBySampPlayerId(actionId)
 			if bPed then
 				local bas_skin = isSkinBad(getCharModel(handle))
-				imgui.CenterTextColoredRGB(bas_skin and 'РќРµ РїСЂРёР»РёС‡РЅРѕ' or 'РџСЂРёР»РёС‡РЅРѕ')
+				imgui.CenterTextColoredRGB(bas_skin and 'Не прилично' or 'Прилично')
 			else
-				imgui.CenterTextColoredRGB('РќРµРёР·РІРµСЃС‚РЅРѕ')
+				imgui.CenterTextColoredRGB('Неизвестно')
 			end
 
 			imgui.EndChild()
@@ -1799,11 +1799,11 @@ function imgui.OnDrawFrame()
 					if CREDIT_AWAIT == nil then
 						imgui.SetCursorPos(imgui.ImVec2(165, 10))
 						
-						if imgui.Button(u8('РџСЂРёРІРµС‚СЃС‚РІРёРµ ')..fa.ICON_FA_CHILD, imgui.ImVec2(250, 30)) then
+						if imgui.Button(u8('Приветствие ')..fa.ICON_FA_CHILD, imgui.ImVec2(250, 30)) then
 							int_bank:switch()
 							play_message(MsgDelay.v, false, {
-								{ "{hello}, СЏ {rank} - {my_name}" },
-								{ "/todo Р§РµРј РјРѕРіСѓ Р’Р°Рј РїРѕРјРѕС‡СЊ?*РїРѕРїСЂР°РІР»СЏСЏ СЃРІРѕР№ Р±РµР№РґР¶РёРє" }
+								{ "{hello}, я {rank} - {my_name}" },
+								{ "/todo Чем могу Вам помочь?*поправляя свой бейджик" }
 							})
 						end
 
@@ -1812,21 +1812,21 @@ function imgui.OnDrawFrame()
 							if imgui.Button(fa.ICON_FA_GAVEL, imgui.ImVec2(-1, 30)) then
 								imgui.OpenPopup("##edit_expel")
 							end
-							imgui.Hint('expelbut', u8'Р’С‹РіРЅР°С‚СЊ РёР· Р±Р°РЅРєР°')
+							imgui.Hint('expelbut', u8'Выгнать из банка')
 						else
 							imgui.DisableButton(fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
-							imgui.Hint('expel2rank', u8'Р”РѕСЃС‚СѓРїРЅРѕ СЃРѕ 2 СЂР°РЅРіР°')
+							imgui.Hint('expel2rank', u8'Доступно со 2 ранга')
 						end
 
 						if imgui.BeginPopupContextWindow("##edit_expel", 1, false) then
 							imgui.PushItemWidth(100)
-							imgui.Text(u8'Р’С‹РіРЅР°С‚СЊ РёРіСЂРѕРєР° СЃ РїСЂРёС‡РёРЅРѕР№:')
+							imgui.Text(u8'Выгнать игрока с причиной:')
 							if imgui.InputText(u8'##ExpelReason', expelReason) then
 								cfg.main.expelReason = u8:decode(expelReason.v)
 							end
 							imgui.PopItemWidth()
 							imgui.SameLine()
-							if imgui.MainButton(u8'Р’С‹РіРЅР°С‚СЊ') then
+							if imgui.MainButton(u8'Выгнать') then
 								int_bank:switch()
 								go_expel(tonumber(actionId))
 							end
@@ -1839,13 +1839,13 @@ function imgui.OnDrawFrame()
 
 						imgui.SetCursorPos(imgui.ImVec2(165, 45))
 						if cfg.main.rank >= 3 then
-							if imgui.Button(u8('РЎРЅСЏС‚СЊ РґРµРїРѕР·РёС‚ ')..fa.ICON_FA_MINUS_CIRCLE, imgui.ImVec2(250, 30)) then
+							if imgui.Button(u8('Снять депозит ')..fa.ICON_FA_MINUS_CIRCLE, imgui.ImVec2(250, 30)) then
 								int_bank:switch()
 								await['dep_minus'] = os.clock()
 								play_message(MsgDelay.v, false, {
-									{ "/me {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} РЅР° РїР»Р°РЅС€РµС‚Рµ СЂР°Р·РґРµР» В«Р”РµРїРѕР·РёС‚С‹В»" },
-									{ "/me {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} РїСѓРЅРєС‚ В«РЎРЅСЏС‚СЊВ» Рё {sex:РЅР°Р¶Р°Р»|РЅР°Р¶Р°Р»Р°} В«Р Р°СЃРїРµС‡Р°С‚Р°С‚СЊВ»" },
-									{ "/me {sex:РІР·СЏР»|РІР·СЏР»Р°} СЂР°СЃРїРµС‡Р°С‚Р°РЅРЅС‹Р№ Р±Р»Р°РЅРє Рё {sex:РїРµСЂРµРґР°Р»|РїРµСЂРµРґР°Р»Р°} РµРіРѕ %s", rpNick(actionId) },
+									{ "/me {sex:открыл|открыла} на планшете раздел «Депозиты»" },
+									{ "/me {sex:выбрал|выбрала} пункт «Снять» и {sex:нажал|нажала} «Распечатать»" },
+									{ "/me {sex:взял|взяла} распечатанный бланк и {sex:передал|передала} его %s", rpNick(actionId) },
 									{ "/bankmenu %s", actionId }
 								})
 							end
@@ -1855,19 +1855,19 @@ function imgui.OnDrawFrame()
 								int_bank:switch()
 							end
 						else
-							imgui.DisableButton(u8('РЎРЅСЏС‚СЊ РґРµРїРѕР·РёС‚ ')..fa.ICON_FA_LOCK, imgui.ImVec2(250, 30))
-							imgui.Hint('depositdown5rank', u8'Р”РѕСЃС‚СѓРїРЅРѕ СЃ 3 СЂР°РЅРіР°')
+							imgui.DisableButton(u8('Снять депозит ')..fa.ICON_FA_LOCK, imgui.ImVec2(250, 30))
+							imgui.Hint('depositdown5rank', u8'Доступно с 3 ранга')
 						end
 
 						imgui.SetCursorPos(imgui.ImVec2(165, 80))
 						if cfg.main.rank >= 3 then
-							if imgui.Button(u8('РџРѕРїРѕР»РЅРёС‚СЊ РґРµРїРѕР·РёС‚ ')..fa.ICON_FA_PLUS_CIRCLE, imgui.ImVec2(--[[cfg.main.rank > 3 and 250 or --]]-1, 30)) then
+							if imgui.Button(u8('Пополнить депозит ')..fa.ICON_FA_PLUS_CIRCLE, imgui.ImVec2(--[[cfg.main.rank > 3 and 250 or --]]-1, 30)) then
 								int_bank:switch()
 								await[--[[cfg.main.rank >= 4 and 'dep_plus_10' or --]]'dep_plus'] = os.clock()
 								play_message(MsgDelay.v, false, {
-									{ "/me {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} РЅР° РїР»Р°РЅС€РµС‚Рµ СЂР°Р·РґРµР» В«Р”РµРїРѕР·РёС‚С‹В»" },
-									{ "/me {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} РїСѓРЅРєС‚ В«РџРѕРїРѕР»РЅРёС‚СЊВ» Рё {sex:РЅР°Р¶Р°Р»|РЅР°Р¶Р°Р»Р°} В«Р Р°СЃРїРµС‡Р°С‚Р°С‚СЊВ»" },
-									{ "/me {sex:РІР·СЏР»|РІР·СЏР»Р°} СЂР°СЃРїРµС‡Р°С‚Р°РЅРЅС‹Р№ Р±Р»Р°РЅРє Рё {sex:РїРµСЂРµРґР°Р»|РїРµСЂРµРґР°Р»Р°} РµРіРѕ %s", rpNick(actionId) },
+									{ "/me {sex:открыл|открыла} на планшете раздел «Депозиты»" },
+									{ "/me {sex:выбрал|выбрала} пункт «Пополнить» и {sex:нажал|нажала} «Распечатать»" },
+									{ "/me {sex:взял|взяла} распечатанный бланк и {sex:передал|передала} его %s", rpNick(actionId) },
 									{ "/bankmenu %s", actionId }
 								})
 							end
@@ -1877,8 +1877,8 @@ function imgui.OnDrawFrame()
 								int_bank:switch()
 							end
 						else
-							imgui.DisableButton(u8('РџРѕРїРѕР»РЅРёС‚СЊ РґРµРїРѕР·РёС‚ ')..fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
-							imgui.Hint('depositeup3rank', u8'Р”РѕСЃС‚СѓРїРЅРѕ СЃ 3 СЂР°РЅРіР°')
+							imgui.DisableButton(u8('Пополнить депозит ')..fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
+							imgui.Hint('depositeup3rank', u8'Доступно с 3 ранга')
 						end
 
 						--[[if cfg.main.rank >= 4 then
@@ -1888,13 +1888,13 @@ function imgui.OnDrawFrame()
 								int_bank:switch()
 								await['dep_plus'] = os.clock()
 								play_message(MsgDelay.v, false, {
-									{ "/me {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} РЅР° РїР»Р°РЅС€РµС‚Рµ СЂР°Р·РґРµР» В«Р”РµРїРѕР·РёС‚С‹В»" },
-									{ "/me {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} РїСѓРЅРєС‚ В«РџРѕРїРѕР»РЅРёС‚СЊВ» Рё {sex:РЅР°Р¶Р°Р»|РЅР°Р¶Р°Р»Р°} В«Р Р°СЃРїРµС‡Р°С‚Р°С‚СЊВ»" },
-									{ "/me {sex:РІР·СЏР»|РІР·СЏР»Р°} СЂР°СЃРїРµС‡Р°С‚Р°РЅРЅС‹Р№ Р±Р»Р°РЅРє Рё {sex:РїРµСЂРµРґР°Р»|РїРµСЂРµРґР°Р»Р°} РµРіРѕ %s", rpNick(actionId) },
+									{ "/me {sex:открыл|открыла} на планшете раздел «Депозиты»" },
+									{ "/me {sex:выбрал|выбрала} пункт «Пополнить» и {sex:нажал|нажала} «Распечатать»" },
+									{ "/me {sex:взял|взяла} распечатанный бланк и {sex:передал|передала} его %s", rpNick(actionId) },
 									{ "/bankmenu %s", actionId }
 								})
 							end
-							imgui.Hint('depositold', u8'Р’С‹РґР°С‚СЊ С„РѕСЂРјСѓ РїРѕРїРѕР»РЅРµРЅРёСЏ РґРµРїРѕР·РёС‚Р°\nРґРѕ 5 РјРёР»Р»РёРѕРЅРѕРІ (Р±РµР· РєРѕРјРёСЃСЃРёРё)')
+							imgui.Hint('depositold', u8'Выдать форму пополнения депозита\nдо 5 миллионов (без комиссии)')
 							if imgui.IsItemClicked(1) then
 								await['dep_plus'] = os.clock()
 								sampSendChat(("/bankmenu %s"):format(actionId))
@@ -1904,31 +1904,31 @@ function imgui.OnDrawFrame()
 
 						imgui.SetCursorPos(imgui.ImVec2(165, 115))
 						if cfg.main.rank >= 6 then
-							if imgui.Button(u8('РћС„РѕСЂРјРёС‚СЊ РєСЂРµРґРёС‚ ')..fa.ICON_FA_CALCULATOR, imgui.ImVec2(-1, 30)) then
+							if imgui.Button(u8('Оформить кредит ')..fa.ICON_FA_CALCULATOR, imgui.ImVec2(-1, 30)) then
 								CREDIT_AWAIT = true
 								play_message(MsgDelay.v, false, {
-									{ "/me {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} РЅР° РїР»Р°РЅС€РµС‚Рµ СЂР°Р·РґРµР» В«РљСЂРµРґРёС‚РѕРІР°РЅРёРµВ»" },
-									{ "/me {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} РїСѓРЅРєС‚ В«РћС„РѕСЂРјР»РµРЅРёРµ РєСЂРµРґРёС‚Р°В» Рё {sex:РЅР°Р¶Р°Р»|РЅР°Р¶Р°Р»Р°} В«Р Р°СЃРїРµС‡Р°С‚Р°С‚СЊВ»" },
-									{ "/me {sex:РІР·СЏР»|РІР·СЏР»Р°} СЂР°СЃРїРµС‡Р°С‚Р°РЅРЅС‹Р№ Р±Р»Р°РЅРє Рё {sex:РЅР°С‡Р°Р»|РЅР°С‡Р°Р»Р°} Р·Р°РїРѕР»РЅСЏС‚СЊ РµРіРѕ" },
-									{ "РњРѕР¶РЅРѕ РІР°С€ РїР°СЃРїРѕСЂС‚, РїРѕР¶Р°Р»СѓР№СЃС‚Р°?" }
+									{ "/me {sex:открыл|открыла} на планшете раздел «Кредитование»" },
+									{ "/me {sex:выбрал|выбрала} пункт «Оформление кредита» и {sex:нажал|нажала} «Распечатать»" },
+									{ "/me {sex:взял|взяла} распечатанный бланк и {sex:начал|начала} заполнять его" },
+									{ "Можно ваш паспорт, пожалуйста?" }
 								})
 							end
 							if imgui.IsItemClicked(1) then
 								CREDIT_AWAIT = true
 							end
 						else
-							imgui.DisableButton(u8('РћС„РѕСЂРјРёС‚СЊ РєСЂРµРґРёС‚ ')..fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
-							imgui.Hint('credit6rank', u8'Р”РѕСЃС‚СѓРїРЅРѕ СЃ 6 СЂР°РЅРіР°')
+							imgui.DisableButton(u8('Оформить кредит ')..fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
+							imgui.Hint('credit6rank', u8'Доступно с 6 ранга')
 						end
 
 						imgui.SetCursorPos(imgui.ImVec2(165, 150))
 						if cfg.main.rank >= 3 then
-							if imgui.Button(u8('Р—Р°РґРѕР»Р¶РµРЅРЅРѕСЃС‚Рё ')..fa.ICON_FA_MONEY_CHECK, imgui.ImVec2(291 / 2 - 2.5, 30)) then
+							if imgui.Button(u8('Задолженности ')..fa.ICON_FA_MONEY_CHECK, imgui.ImVec2(291 / 2 - 2.5, 30)) then
 								int_bank:switch()
 								await['debt'] = os.clock()
 								play_message(MsgDelay.v, false, {
-									{ "/me {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} РЅР° РїР»Р°РЅС€РµС‚Рµ Р±Р°Р·Сѓ РґР°РЅРЅС‹С…" },
-									{ "/me РіР»СЏРґСЏ РЅР° %s С‡С‚Рѕ-С‚Рѕ СЃРјРѕС‚СЂРёС‚ РІ Р±Р°Р·Рµ", rpNick(actionId) },
+									{ "/me {sex:открыл|открыла} на планшете базу данных" },
+									{ "/me глядя на %s что-то смотрит в базе", rpNick(actionId) },
 									{ "/bankmenu %s", actionId }
 								})
 							end
@@ -1938,19 +1938,19 @@ function imgui.OnDrawFrame()
 								int_bank:switch()
 							end
 						else
-							imgui.DisableButton(u8('Р—Р°РґРѕР»Р¶РµРЅРЅРѕСЃС‚Рё ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
-							imgui.Hint('debt3rank', u8'Р”РѕСЃС‚СѓРїРЅРѕ СЃ 3 СЂР°РЅРіР°')
+							imgui.DisableButton(u8('Задолженности ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
+							imgui.Hint('debt3rank', u8'Доступно с 3 ранга')
 						end
 
 						imgui.SameLine(nil, 5)
 
 						if cfg.main.rank >= 3 then
-							if imgui.Button(u8('Р’С‹РїРёСЃРєР° РїРѕ СЃС‡С‘С‚Сѓ ')..fa.ICON_FA_PIGGY_BANK, imgui.ImVec2(291 / 2 - 2.5, 30)) then
+							if imgui.Button(u8('Выписка по счёту ')..fa.ICON_FA_PIGGY_BANK, imgui.ImVec2(291 / 2 - 2.5, 30)) then
 								int_bank:switch()
 								await['get_money'] = os.clock()
 								play_message(MsgDelay.v, false, {
-									{ "/me {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} РЅР° РїР»Р°РЅС€РµС‚Рµ Р±Р°Р·Сѓ РґР°РЅРЅС‹С…" },
-									{ "/me РіР»СЏРґСЏ РЅР° %s С‡С‚Рѕ-С‚Рѕ СЃРјРѕС‚СЂРёС‚ РІ Р±Р°Р·Рµ", rpNick(actionId) },
+									{ "/me {sex:открыл|открыла} на планшете базу данных" },
+									{ "/me глядя на %s что-то смотрит в базе", rpNick(actionId) },
 									{ "/bankmenu %s", actionId }
 								})
 							end
@@ -1960,20 +1960,20 @@ function imgui.OnDrawFrame()
 								int_bank:switch()
 							end
 						else
-							imgui.DisableButton(u8('Р’С‹РїРёСЃРєР° РїРѕ СЃС‡С‘С‚Сѓ ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
-							imgui.Hint('howmuchmoney3rank', u8'Р”РѕСЃС‚СѓРїРЅРѕ СЃ 3 СЂР°РЅРіР°')
+							imgui.DisableButton(u8('Выписка по счёту ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
+							imgui.Hint('howmuchmoney3rank', u8'Доступно с 3 ранга')
 						end
 
 						imgui.SetCursorPos(imgui.ImVec2(165, 185))
 						if cfg.main.rank >= 3 then
-							if imgui.Button(u8('РћС„РѕСЂРјРёС‚СЊ РєР°СЂС‚Сѓ ')..fa.ICON_FA_CREDIT_CARD, imgui.ImVec2(291 / 2 - 2.5, 30)) then
+							if imgui.Button(u8('Оформить карту ')..fa.ICON_FA_CREDIT_CARD, imgui.ImVec2(291 / 2 - 2.5, 30)) then
 								int_bank:switch()
 								await['card_create'] = os.clock()
 								play_message(MsgDelay.v, false, {
-									{ "/me {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} РЅР° РїР»Р°РЅС€РµС‚Рµ СЂР°Р·РґРµР» В«Р‘Р°РЅРєРѕРІСЃРєРёРµ РљР°СЂС‚С‹В»" },
-									{ "/me {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} РїСѓРЅРєС‚ В«РћС„РѕСЂРјР»РµРЅРёРµ СЃС‡С‘С‚Р°В» Рё {sex:РЅР°Р¶Р°Р»|РЅР°Р¶Р°Р»Р°} В«РћС„РѕСЂРјРёС‚СЊВ»" },
-									{ "/me {sex:СЂР°СЃРїРµС‡Р°С‚Р°Р»|СЂР°СЃРїРµС‡Р°С‚Р°Р»Р°} С‡РёСЃС‚С‹Р№ Р±Р»Р°РЅРє Рё {sex:РґРѕСЃС‚Р°Р»|РґРѕСЃС‚Р°Р»Р°} РЅРѕРІСѓСЋ РєР°СЂС‚Сѓ" },
-									{ "/todo Р—Р°РїРѕР»РЅРёС‚Рµ СЌС‚РѕС‚ Р±Р»Р°РЅРє Рё РєР°СЂС‚Р° РІР°С€Р°!*РїРµСЂРµРґР°РІР°СЏ РµРіРѕ %s", rpNick(actionId) },
+									{ "/me {sex:открыл|открыла} на планшете раздел «Банковские Карты»" },
+									{ "/me {sex:выбрал|выбрала} пункт «Оформление счёта» и {sex:нажал|нажала} «Оформить»" },
+									{ "/me {sex:распечатал|распечатала} чистый бланк и {sex:достал|достала} новую карту" },
+									{ "/todo Заполните этот бланк и карта ваша!*передавая его %s", rpNick(actionId) },
 									{ "/bankmenu %s", actionId }
 								})
 							end
@@ -1983,22 +1983,22 @@ function imgui.OnDrawFrame()
 								int_bank:switch()
 							end
 						else
-							imgui.DisableButton(u8('РћС„РѕСЂРјРёС‚СЊ РєР°СЂС‚Сѓ ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
-							imgui.Hint('givecard3rank', u8'Р”РѕСЃС‚СѓРїРЅРѕ СЃ 3 СЂР°РЅРіР°')
+							imgui.DisableButton(u8('Оформить карту ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
+							imgui.Hint('givecard3rank', u8'Доступно с 3 ранга')
 						end
 
 						imgui.SameLine(nil, 5)
 
 						if cfg.main.rank >= 3 then
-							if imgui.Button(u8('VIP-РљР°СЂС‚Р° ')..fa.ICON_FA_TICKET_ALT, imgui.ImVec2(291 / 2 - 2.5, 30)) then
+							if imgui.Button(u8('VIP-Карта ')..fa.ICON_FA_TICKET_ALT, imgui.ImVec2(291 / 2 - 2.5, 30)) then
 								int_bank:switch()
 								await['vip_create'] = os.clock()
 								play_message(MsgDelay.v, false, {
-									{ "/me {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} РЅР° РїР»Р°РЅС€РµС‚Рµ СЂР°Р·РґРµР» В«Р‘Р°РЅРєРѕРІСЃРєРёРµ РљР°СЂС‚С‹В»" },
-									{ "/me {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} РїСѓРЅРєС‚ В«VIP-РљР»РёРµРЅС‚С‹В» Рё {sex:РЅР°Р¶Р°Р»|РЅР°Р¶Р°Р»Р°} В«Р”РѕР±Р°РІРёС‚СЊВ»" },
-									{ "/me {sex:РІРЅС‘СЃ|РІРЅРµСЃР»Р°} РєР»РёРµРЅС‚Р° РІ Р±Р°Р·Сѓ Рё {sex:РґРѕСЃС‚Р°Р»|РґРѕСЃС‚Р°Р»Р°} РёР· РїР°С‡РєРё РЅРѕРІСѓСЋ РєР°СЂС‚Сѓ" },
-									{ "/me {sex:РґРѕР±Р°РІРёР»|РґРѕР±Р°РІРёР»Р°} СѓРЅРёРєР°Р»СЊРЅС‹Р№ РЅРѕРјРµСЂ СЃ РєР°СЂС‚С‹ РІ Р±Р°Р·Сѓ РґР°РЅРЅС‹С…" },
-									{ "/todo Р’РѕС‚ РІР°С€Р° VIP-РєР°СЂС‚Р°!*РїРµСЂРµРґР°РІР°СЏ РµС‘ %s", rpNick(actionId) },
+									{ "/me {sex:открыл|открыла} на планшете раздел «Банковские Карты»" },
+									{ "/me {sex:выбрал|выбрала} пункт «VIP-Клиенты» и {sex:нажал|нажала} «Добавить»" },
+									{ "/me {sex:внёс|внесла} клиента в базу и {sex:достал|достала} из пачки новую карту" },
+									{ "/me {sex:добавил|добавила} уникальный номер с карты в базу данных" },
+									{ "/todo Вот ваша VIP-карта!*передавая её %s", rpNick(actionId) },
 									{ "/bankmenu %s", actionId }
 								})
 							end
@@ -2008,20 +2008,20 @@ function imgui.OnDrawFrame()
 								int_bank:switch()
 							end
 						else
-							imgui.DisableButton(u8('VIP-РљР°СЂС‚Р° ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
-							imgui.Hint('givevip3rank', u8'Р”РѕСЃС‚СѓРїРЅРѕ СЃ 3 СЂР°РЅРіР°')
+							imgui.DisableButton(u8('VIP-Карта ')..fa.ICON_FA_LOCK, imgui.ImVec2(291 / 2 - 2.5, 30))
+							imgui.Hint('givevip3rank', u8'Доступно с 3 ранга')
 						end
 
 						imgui.SetCursorPos(imgui.ImVec2(165, 220))
 						if cfg.main.rank >= 3 then
-							if imgui.Button(u8('Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ СЃС‡С‘С‚ ')..fa.ICON_FA_PLUS_CIRCLE, imgui.ImVec2(-1, 30)) then
+							if imgui.Button(u8('Дополнительный счёт ')..fa.ICON_FA_PLUS_CIRCLE, imgui.ImVec2(-1, 30)) then
 								int_bank:switch()
 								await['addcard'] = os.clock()
 								play_message(MsgDelay.v, false, {
-									{ "/me {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} РЅР° РїР»Р°РЅС€РµС‚Рµ СЂР°Р·РґРµР» В«Р‘Р°РЅРєРѕРІСЃРєРёРµ СЃС‡РµС‚Р°В»" },
-									{ "/me {sex:РЅР°С€С‘Р»|РЅР°С€Р»Р°} РєР»РёРµРЅС‚Р° РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С… Рё {sex:РЅР°Р¶Р°Р»|РЅР°Р¶Р°Р»Р°} В«Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ СЃС‡С‘С‚В»" },
-									{ "/me {sex:РІРЅС‘СЃ|РІРЅРµСЃР»Р°} РєР°РєРёРµ-С‚Рѕ РґР°РЅРЅС‹Рµ Рё {sex:СЂР°СЃРїРµС‡Р°С‚Р°Р»|СЂР°СЃРїРµС‡Р°С‚Р°Р»Р°} РЅРѕРІС‹Р№ Р±Р»Р°РЅРє" },
-									{ "/todo Р—Р°РїРѕР»РЅРёС‚Рµ РґР°РЅРЅС‹Рµ РІ СЌС‚РѕРј Р±Р»Р°РЅРєРµ, С‡С‚РѕР±С‹ СЏ {sex:СЃРјРѕРі|СЃРјРѕРіР»Р°} Р°РєС‚РёРІРёСЂРѕРІР°С‚СЊ РІР°Рј СЌС‚РѕС‚ СЃС‡С‘С‚!*РїРµСЂРµРґР°РІР°СЏ РµРіРѕ %s", rpNick(actionId) },
+									{ "/me {sex:открыл|открыла} на планшете раздел «Банковские счета»" },
+									{ "/me {sex:нашёл|нашла} клиента в базе данных и {sex:нажал|нажала} «Дополнительный счёт»" },
+									{ "/me {sex:внёс|внесла} какие-то данные и {sex:распечатал|распечатала} новый бланк" },
+									{ "/todo Заполните данные в этом бланке, чтобы я {sex:смог|смогла} активировать вам этот счёт!*передавая его %s", rpNick(actionId) },
 									{ "/bankmenu %s", actionId }
 								})
 							end
@@ -2031,38 +2031,38 @@ function imgui.OnDrawFrame()
 								int_bank:switch()
 							end
 						else
-							imgui.DisableButton(u8('Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ СЃС‡С‘С‚ ')..fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
-							imgui.Hint('addcard3rank', u8'Р”РѕСЃС‚СѓРїРЅРѕ СЃ 3 СЂР°РЅРіР°')
+							imgui.DisableButton(u8('Дополнительный счёт ')..fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
+							imgui.Hint('addcard3rank', u8'Доступно с 3 ранга')
 						end
 
 						imgui.SetCursorPos(imgui.ImVec2(165, 255))
 						if cfg.main.rank >= 3 then
-							if imgui.Button(u8('Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ PIN-РљРѕРґ ')..fa.ICON_FA_RECYCLE, imgui.ImVec2(-1, 30)) then
-								imgui.OpenPopup(u8("Р’С‹Р±РѕСЂ РґРµР№СЃС‚РІРёСЏ##Card"))
+							if imgui.Button(u8('Восстановить PIN-Код ')..fa.ICON_FA_RECYCLE, imgui.ImVec2(-1, 30)) then
+								imgui.OpenPopup(u8("Выбор действия##Card"))
 							end
 						else
-							imgui.DisableButton(u8('Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ PIN-РљРѕРґ ')..fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
-							imgui.Hint('restorecard3rank', u8'Р”РѕСЃС‚СѓРїРЅРѕ СЃ 3 СЂР°РЅРіР°')
+							imgui.DisableButton(u8('Восстановить PIN-Код ')..fa.ICON_FA_LOCK, imgui.ImVec2(-1, 30))
+							imgui.Hint('restorecard3rank', u8'Доступно с 3 ранга')
 						end
-						if imgui.BeginPopupModal(u8("Р’С‹Р±РѕСЂ РґРµР№СЃС‚РІРёСЏ##Card"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
-							imgui.CenterTextColoredRGB(mc..'РћР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ!\nР­С‚РѕС‚ РёРіСЂРѕРє РІРѕР·РјРѕР¶РЅРѕ РІР·Р»РѕРјР°РЅ, С…РѕС‚РёС‚Рµ\nСЃРїСЂРѕСЃРёС‚СЊ РѕР± СЌС‚РѕРј РІ /report?')
+						if imgui.BeginPopupModal(u8("Выбор действия##Card"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
+							imgui.CenterTextColoredRGB(mc..'Обратите внимание!\nЭтот игрок возможно взломан, хотите\nспросить об этом в /report?')
 							imgui.NewLine()
-							if imgui.Button(u8('РЎРѕРѕР±С‰РёС‚СЊ РІ /report'), imgui.ImVec2(150, 30)) then
+							if imgui.Button(u8('Сообщить в /report'), imgui.ImVec2(150, 30)) then
 								imgui.CloseCurrentPopup()
 								await['report'] = os.clock()
 								sampSendChat('/report')
-								sampSendDialogResponse(32, 1, -1, 'РџСЂРѕРІРµСЂСЊС‚Рµ '..rpNick(actionId)..'['..actionId..'] РЅР° РІР·Р»РѕРј (Р‘Р°РЅРє)')
+								sampSendDialogResponse(32, 1, -1, 'Проверьте '..rpNick(actionId)..'['..actionId..'] на взлом (Банк)')
 							end
 							imgui.SameLine()
-							if imgui.Button(u8('Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ'), imgui.ImVec2(150, 30)) then
+							if imgui.Button(u8('Восстановить'), imgui.ImVec2(150, 30)) then
 								imgui.CloseCurrentPopup()
 								int_bank:switch()
 								await['card_recreate'] = os.clock()
 								play_message(MsgDelay.v, false, {
-									{ "/me {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} РЅР° РїР»Р°РЅС€РµС‚Рµ СЂР°Р·РґРµР» В«Р‘Р°РЅРєРѕРІСЃРєРёРµ РљР°СЂС‚С‹В» Рё {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} РїСѓРЅРєС‚ В«Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊВ»"  },
-									{ "/me {sex:РїСЂРёСЃР»РѕРЅРёР»|РїСЂРёСЃР»РѕРЅРёР»Р°} Р±Р°РЅРєРѕРІСЃРєСѓСЋ РєР°СЂС‚Сѓ Рє С‚РµСЂРјРёРЅР°Р»Сѓ Рё {sex:СЃР±СЂРѕСЃРёР»|СЃР±СЂРѕСЃРёР»Р°} PIN-РљРѕРґ" },
-									{ "/me {sex:РґРѕСЃС‚Р°Р»|РґРѕСЃС‚Р°Р»Р°} С‡РёСЃС‚С‹Р№ Р±Р»Р°РЅРє Рё {sex:Р·Р°РїРѕР»РЅРёР»|Р·Р°РїРѕР»РЅРёР»Р°} РЅРѕРІС‹Рµ РґР°РЅРЅС‹Рµ Рѕ РєР°СЂС‚Рµ" },
-									{ "/todo РћРїР»Р°С‚РёС‚Рµ РїРѕС€Р»РёРЅСѓ Рё РјРѕР¶РµС‚Рµ СЃРЅРѕРІР° РїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ СЃС‡С‘С‚РѕРј*РїРµСЂРµРґР°РІР°СЏ Р±Р»Р°РЅРє %s", rpNick(actionId) },
+									{ "/me {sex:открыл|открыла} на планшете раздел «Банковские Карты» и {sex:выбрал|выбрала} пункт «Восстановить»"  },
+									{ "/me {sex:прислонил|прислонила} банковскую карту к терминалу и {sex:сбросил|сбросила} PIN-Код" },
+									{ "/me {sex:достал|достала} чистый бланк и {sex:заполнил|заполнила} новые данные о карте" },
+									{ "/todo Оплатите пошлину и можете снова пользоваться счётом*передавая бланк %s", rpNick(actionId) },
 									{ "/bankmenu %s", actionId }
 								})
 							end
@@ -2072,7 +2072,7 @@ function imgui.OnDrawFrame()
 								sampSendChat(("/bankmenu %s"):format(actionId))
 								int_bank:switch()
 							end
-							if imgui.MainButton(u8('РћС‚РјРµРЅРёС‚СЊ##GoMenu'), imgui.ImVec2(-1, 30)) then
+							if imgui.MainButton(u8('Отменить##GoMenu'), imgui.ImVec2(-1, 30)) then
 								imgui.CloseCurrentPopup()
 							end
 							imgui.EndPopup()
@@ -2083,12 +2083,12 @@ function imgui.OnDrawFrame()
 								int_bank:switch()
 								await['dep_check'] = os.clock()
 								play_message(MsgDelay.v, false, {
-									{ "/me {sex:РѕС‚РєСЂС‹Р»|РѕС‚РєСЂС‹Р»Р°} РЅР° РїР»Р°РЅС€РµС‚Рµ Р±Р°Р·Сѓ РґР°РЅРЅС‹С…" },
-									{ "/me РіР»СЏРґСЏ РЅР° %s С‡С‚Рѕ-С‚Рѕ СЃРјРѕС‚СЂРёС‚ РІ Р±Р°Р·Рµ", rpNick(actionId) },
+									{ "/me {sex:открыл|открыла} на планшете базу данных" },
+									{ "/me глядя на %s что-то смотрит в базе", rpNick(actionId) },
 									{ "/bankmenu %s", actionId }
 								})
 							end
-							imgui.Hint('getdeptime', u8'РЈР·РЅР°С‚СЊ, С‡РµСЂРµР· СЃРєРѕР»СЊРєРѕ РјРѕР¶РЅРѕ\nСЃРЅСЏС‚СЊ СЃ РґРµРїРѕР·РёС‚Р°')
+							imgui.Hint('getdeptime', u8'Узнать, через сколько можно\nснять с депозита')
 							if imgui.IsItemClicked(1) then
 								await['dep_check'] = os.clock()
 								sampSendChat(("/bankmenu %s"):format(actionId))
@@ -2096,35 +2096,35 @@ function imgui.OnDrawFrame()
 							end
 						else
 							imgui.DisableButton(fa.ICON_FA_LOCK, imgui.ImVec2(35, 30))
-							imgui.Hint('depositecheck3rank', u8'Р”РѕСЃС‚СѓРїРЅРѕ СЃ 3 СЂР°РЅРіР°')
+							imgui.Hint('depositecheck3rank', u8'Доступно с 3 ранга')
 						end
 					else
 						imgui.BeginChild("##CreditWindow", imgui.ImVec2(-1, 275), true, imgui.WindowFlags.NoScrollbar)
-							imgui.CenterTextColoredRGB(mc..'РћС„РѕСЂРјР»РµРЅРёРµ РєСЂРµРґРёС‚Р° РЅР°\n'..mc..'Р¶РёС‚РµР»СЏ '..sc..rpNick(actionId))
+							imgui.CenterTextColoredRGB(mc..'Оформление кредита на\n'..mc..'жителя '..sc..rpNick(actionId))
 							imgui.NewLine()
 							imgui.PushItemWidth(170)
-							if imgui.InputInt(u8'РЎСѓРјРјР° РєСЂРµРґРёС‚Р°', credit_sum, 0, 0) then
+							if imgui.InputInt(u8'Сумма кредита', credit_sum, 0, 0) then
 								if credit_sum.v < 5000 then credit_sum.v = 5000 end
 								if credit_sum.v > 300000 then credit_sum.v = 300000 end
 							end
 							imgui.PopItemWidth()
 							imgui.NewLine()
-							imgui.CenterTextColoredRGB(mc..'РћС„РѕСЂРјР»РµРЅРёРµ РєСЂРµРґРёС‚Р° РїСЂРѕРёР·РІРѕРґРёС‚СЃСЏ\n'..mc..'РїРѕ СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅРѕР№ СЃРёСЃС‚РµРјРµ РєСЂРµРґРёС‚РѕРІР°РЅРёСЏ\n'..sc..'РћР·РЅР°РєРѕРјРёС‚СЊСЃСЏ СЃ РЅРµР№ РІС‹ РјРѕР¶РµС‚Рµ С‚СѓС‚:')
+							imgui.CenterTextColoredRGB(mc..'Оформление кредита производится\n'..mc..'по установленной системе кредитования\n'..sc..'Ознакомиться с ней вы можете тут:')
 							imgui.SetCursorPosX((imgui.GetWindowWidth() - 150) / 2)
-							if imgui.Button(u8('РЎРёСЃС‚РµРјР° РєСЂРµРґРёС‚РѕРІР°РЅРёСЏ##credit'), imgui.ImVec2(150, 20)) then
-								imgui.OpenPopup(u8("РЎРёСЃС‚РµРјР° РєСЂРµРґРёС‚РѕРІР°РЅРёСЏ"))
+							if imgui.Button(u8('Система кредитования##credit'), imgui.ImVec2(150, 20)) then
+								imgui.OpenPopup(u8("Система кредитования"))
 							end
 							system_credit()
 							imgui.NewLine()
-							if imgui.MainButton(u8('Р’С‹РґР°С‚СЊ РєСЂРµРґРёС‚ РЅР° '..credit_sum.v..'$'), imgui.ImVec2(-1, 30)) then
+							if imgui.MainButton(u8('Выдать кредит на '..credit_sum.v..'$'), imgui.ImVec2(-1, 30)) then
 								CREDIT_AWAIT = nil
 								int_bank:switch()
 								await['credit_send'] = os.clock()
 								play_message(MsgDelay.v, false, {
-									{ "/me {sex:Р·Р°РєРѕРЅС‡РёР»|Р·Р°РєРѕРЅС‡РёР»Р°} Р·Р°РїРѕР»РЅСЏС‚СЊ Р±Р»Р°РЅРє" },
-									{ "/me СЃС‚Р°РІРёС‚ РЅСѓР¶РЅС‹Рµ РїРµС‡Р°С‚Рё РЅР° Р·Р°РїРѕР»РЅРµРЅРЅРѕРј Р±Р»Р°РЅРєРµ" },
-									{ "/me РїРµСЂРµРґР°С‘С‚ РіРѕС‚РѕРІС‹Р№ Р±Р»Р°РЅРє %s", rpNick(actionId) },
-									{ "РџРѕСЃС‚Р°РІСЊС‚Рµ РїРѕРґРїРёСЃРё РІ РЅСѓР¶РЅС‹С… РјРµСЃС‚Р°С… Рё РєСЂРµРґРёС‚ СЃСѓРјРјРѕР№ %s$ Р±СѓРґРµС‚ РѕС„РѕСЂРјР»РµРЅ!", credit_sum.v },
+									{ "/me {sex:закончил|закончила} заполнять бланк" },
+									{ "/me ставит нужные печати на заполненном бланке" },
+									{ "/me передаёт готовый бланк %s", rpNick(actionId) },
+									{ "Поставьте подписи в нужных местах и кредит суммой %s$ будет оформлен!", credit_sum.v },
 									{ "/bankmenu %s", actionId }
 								})
 							end
@@ -2135,9 +2135,9 @@ function imgui.OnDrawFrame()
 								int_bank:switch()
 							end
 
-							if imgui.Button(u8('РћС‚РјРµРЅРёС‚СЊ РѕРїРµСЂР°С†РёСЋ'), imgui.ImVec2(-1, 30)) then
+							if imgui.Button(u8('Отменить операцию'), imgui.ImVec2(-1, 30)) then
 								CREDIT_AWAIT = nil
-								sampSendChat("/me {sex:РІС‹РєРёРЅСѓР»|РІС‹РєРёРЅСѓР»Р°} Р±Р»Р°РЅРє РІ РјСѓСЃРѕСЂРЅРѕРµ РІРµРґСЂРѕ")
+								sampSendChat("/me {sex:выкинул|выкинула} бланк в мусорное ведро")
 							end
 						imgui.EndChild()
 					end
@@ -2146,42 +2146,42 @@ function imgui.OnDrawFrame()
 				if TypeAction.v == 2 then
 					local check_offset = 5
 
-					imgui.TextColoredRGB(mc..'РљСЂРёС‚РµСЂРёРё РґР»СЏ РІСЃС‚СѓРїР»РµРЅРёСЏ:')
-					imgui.Text(u8'РћС‚ 3 Р»РµС‚ РІ С€С‚Р°С‚Рµ ( 3+ СѓСЂРѕРІРµРЅСЊ )')
+					imgui.TextColoredRGB(mc..'Критерии для вступления:')
+					imgui.Text(u8'От 3 лет в штате ( 3+ уровень )')
 					imgui.SameLine(275 - check_offset)
 					imgui.CheckMarker(sampGetPlayerScore(actionId) >= 3)
 
-					imgui.Text(u8'РћС‚ 35 РµРґ. Р·Р°РєРѕРЅРѕРїРѕСЃР»СѓС€РЅРѕСЃС‚Рё')
+					imgui.Text(u8'От 35 ед. законопослушности')
 					imgui.SameLine(275 - check_offset)
 					imgui.CheckMarker(sobes_check.law)
 
-					imgui.Text(u8'Р‘С‹С‚СЊ Р·РґРѕСЂРѕРІС‹Рј (Р±РµР· РґРµРјРѕСЂРіР°РЅРѕРІ)')
+					imgui.Text(u8'Быть здоровым (без деморганов)')
 					imgui.SameLine(275 - check_offset)
 					imgui.CheckMarker(sobes_check.health)
 
-					imgui.Text(u8'РћС‚СЃСѓС‚СЃС‚РІРёРµ РЅР°СЂРєРѕР·Р°РІРёСЃРёРјРѕСЃС‚Рё')
+					imgui.Text(u8'Отсутствие наркозависимости')
 					imgui.SameLine(275 - check_offset)
 					imgui.CheckMarker(sobes_check.drugs)
 
-					if imgui.Link(u8'РќР°Р»РёС‡РёРµ С‚СЂСѓРґРѕРІРѕР№ РєРЅРёР¶РєРё') then
+					if imgui.Link(u8'Наличие трудовой книжки') then
 						await["wbook"] = os.clock()
 						play_message(MsgDelay.v, false, {
-							{ "РњРѕРіСѓ СЏ СѓР·РЅР°С‚СЊ, РіРґРµ Р’С‹ СЂР°Р±РѕС‚Р°Р»Рё СЂР°РЅРµРµ? РРјРµРµС‚СЃСЏ Р»Рё Сѓ Р’Р°СЃ С‚СЂСѓРґРѕРІР°СЏ РєРЅРёР¶РєР°?" },
-							{ "Р•СЃР»Рё РёРјРµРµС‚СЃСЏ, С‚Рѕ Р±СѓРґСЊС‚Рµ РґРѕР±СЂС‹ РїРѕРєР°Р·Р°С‚СЊ РµС‘ РјРЅРµ" },
-							{ "/b /wbook {my_id} + 1-2 РѕС‚С‹РіСЂРѕРІРєРё" },
+							{ "Могу я узнать, где Вы работали ранее? Имеется ли у Вас трудовая книжка?" },
+							{ "Если имеется, то будьте добры показать её мне" },
+							{ "/b /wbook {my_id} + 1-2 отыгровки" },
 						})
 					end
 					imgui.SameLine(nil, 4)
-					imgui.TextColored(imgui.ImVec4(1, 1, 1, 0.3), u8'(РќРµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ)')
+					imgui.TextColored(imgui.ImVec4(1, 1, 1, 0.3), u8'(Не обязательно)')
 					imgui.SameLine(275 - check_offset)
 					imgui.CheckMarker(sobes_check.wbook)
 
 					local spacing = imgui.GetStyle().ItemSpacing.y
 					imgui.SetCursorPosY(135)
-					if imgui.Button(u8('РџСЂРёРІРµС‚СЃС‚РІРёРµ'), imgui.ImVec2(-1, 30)) then
+					if imgui.Button(u8('Приветствие'), imgui.ImVec2(-1, 30)) then
 						play_message(MsgDelay.v, false, {
-							{ "{hello}, СЏ {rank} - {my_name}" },
-							{ "Р’С‹ РЅР° СЃРѕР±РµСЃРµРґРѕРІР°РЅРёРµ?" }
+							{ "{hello}, я {rank} - {my_name}" },
+							{ "Вы на собеседование?" }
 						})
 					end
 					local len = imgui.GetItemRectSize().x
@@ -2189,27 +2189,27 @@ function imgui.OnDrawFrame()
 					do
 						local count = 3
 						local norm_len = len - (spacing * (count - 1))
-						if imgui.Button(u8('РџР°СЃРїРѕСЂС‚'), imgui.ImVec2(norm_len / count, 30)) then
+						if imgui.Button(u8('Паспорт'), imgui.ImVec2(norm_len / count, 30)) then
 							await["passport"] = os.clock()
 							play_message(MsgDelay.v, false, {
-								{ "Р‘СѓРґСЊС‚Рµ РґРѕР±СЂС‹, РїРѕРєР°Р¶РёС‚Рµ РІР°С€ РїР°СЃРїРѕСЂС‚" },
-								{ "/b /showpass {my_id} + 1-2 РѕС‚С‹РіСЂРѕРІРєРё" }
+								{ "Будьте добры, покажите ваш паспорт" },
+								{ "/b /showpass {my_id} + 1-2 отыгровки" }
 							})
 						end
 						imgui.SameLine(nil, spacing)
-						if imgui.Button(u8('РњРµРґ. РєР°СЂС‚Р°'), imgui.ImVec2(norm_len / count, 30)) then
+						if imgui.Button(u8('Мед. карта'), imgui.ImVec2(norm_len / count, 30)) then
 							await["medcard"] = os.clock()
 							play_message(MsgDelay.v, false, {
-								{ "РџР°СЃРїРѕСЂС‚ РІ РїРѕСЂСЏРґРєРµ, С‚РµРїРµСЂСЊ РјРѕР¶РЅРѕ РІР°С€Сѓ РјРµРґ-РєР°СЂС‚Сѓ?" },
-								{ "/b /showmc {my_id} + 1-2 РѕС‚С‹РіСЂРѕРІРєРё" }
+								{ "Паспорт в порядке, теперь можно вашу мед-карту?" },
+								{ "/b /showmc {my_id} + 1-2 отыгровки" }
 							})
 						end
 						imgui.SameLine(nil, spacing)
-						if imgui.Button(u8('Р›РёС†РµРЅР·РёРё'), imgui.ImVec2(norm_len / count, 30)) then
+						if imgui.Button(u8('Лицензии'), imgui.ImVec2(norm_len / count, 30)) then
 							await["licenses"] = os.clock()
 							play_message(MsgDelay.v, false, {
-								{ "РћС‚Р»РёС‡РЅРѕ, РѕСЃС‚Р°Р»РѕСЃСЊ СѓРІРёРґРµС‚СЊ РІР°С€Рё Р»РёС†РµРЅР·РёРё. РџРµСЂРµРґР°Р№С‚Рµ РјРЅРµ РёС…" },
-								{ "/b /showlic {my_id} + 1-2 РѕС‚С‹РіСЂРѕРІРєРё" }
+								{ "Отлично, осталось увидеть ваши лицензии. Передайте мне их" },
+								{ "/b /showlic {my_id} + 1-2 отыгровки" }
 							})
 						end
 					end
@@ -2217,21 +2217,21 @@ function imgui.OnDrawFrame()
 					do
 						local count = 3
 						local norm_len = len - (spacing * (count - 1))
-						if imgui.Button(u8('Р’РѕРїСЂРѕСЃ 1'), imgui.ImVec2(norm_len / count, 30)) then
+						if imgui.Button(u8('Вопрос 1'), imgui.ImVec2(norm_len / count, 30)) then
 							play_message(MsgDelay.v, false, {
-								{ "Р Р°Р±РѕС‚Р°Р»Рё Р»Рё РІС‹ СЂР°РЅРµРµ РІ РЅР°С€РµР№ РѕСЂРіР°РЅРёР·Р°С†РёРё? Р•СЃР»Рё РґР°, С‚Рѕ РїРѕС‡РµРјСѓ СѓС€Р»Рё?" }
+								{ "Работали ли вы ранее в нашей организации? Если да, то почему ушли?" }
 							})
 						end
 						imgui.SameLine(nil, spacing)
-						if imgui.Button(u8('Р’РѕРїСЂРѕСЃ 2'), imgui.ImVec2(norm_len / count, 30)) then
+						if imgui.Button(u8('Вопрос 2'), imgui.ImVec2(norm_len / count, 30)) then
 							play_message(MsgDelay.v, false, {
-								{ "РћР±СЏР·СѓРµС‚РµСЃСЊ Р»Рё РІС‹ СЃРѕР±Р»СЋРґР°С‚СЊ СѓСЃС‚Р°РІ РЅР°С€РµР№ РѕСЂРіР°РЅРёР·Р°С†РёРё?" }
+								{ "Обязуетесь ли вы соблюдать устав нашей организации?" }
 							})
 						end
 						imgui.SameLine(nil, spacing)
-						if imgui.Button(u8('Р’РѕРїСЂРѕСЃ 3'), imgui.ImVec2(norm_len / count, 30)) then
+						if imgui.Button(u8('Вопрос 3'), imgui.ImVec2(norm_len / count, 30)) then
 							play_message(MsgDelay.v, false, {
-								{ "РЎС‚Р°РІРёС‚Рµ Р»Рё РїРµСЂРµРґ СЃРѕР±РѕР№ С†РµР»СЊ Р·Р°РЅСЏС‚СЊ РІС‹СЃРѕРєСѓСЋ РґРѕР»Р¶РЅРѕСЃС‚СЊ Сѓ РЅР°СЃ?" }
+								{ "Ставите ли перед собой цель занять высокую должность у нас?" }
 							})
 						end
 					end
@@ -2240,33 +2240,33 @@ function imgui.OnDrawFrame()
 						local norm_len = len - (spacing * 1)
 						imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.00, 0.40, 0.00, 1.00))
 						imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.00, 0.30, 0.00, 1.00))
-						if imgui.Button(u8('РџСЂРёРЅСЏС‚СЊ ')..fa.ICON_FA_USER_PLUS, imgui.ImVec2(norm_len / 2, 30)) then
+						if imgui.Button(u8('Принять ')..fa.ICON_FA_USER_PLUS, imgui.ImVec2(norm_len / 2, 30)) then
 							if not isPlayerOnBlacklist(sampGetPlayerNickname(actionId)) then 
 								int_bank:switch()
 								if cfg.main.rank >= 9 then
 									play_message(MsgDelay.v, true, {
-										{ "РџРѕР·РґСЂР°РІР»СЏСЋ! Р’С‹ РЅР°Рј РїРѕРґС…РѕРґРёС‚Рµ!" },
-										{ "/me {sex:РїРµСЂРµРґР°Р»|РїРµСЂРµРґР°Р»Р°} РЅРѕРІС‹Р№ Р±РµР№РґР¶РёРє РґР»СЏ %s", rpNick(actionId) },
+										{ "Поздравляю! Вы нам подходите!" },
+										{ "/me {sex:передал|передала} новый бейджик для %s", rpNick(actionId) },
 										{ "/invite %s", actionId },
-										{ "РњРѕР¶РµС‚Рµ РїРµСЂРµРѕРґРµРІР°С‚СЊСЃСЏ Рё РЅР°С‡РёРЅР°С‚СЊ СЂР°Р±РѕС‚Р°С‚СЊ!" }
+										{ "Можете переодеваться и начинать работать!" }
 									})
 								else
 									local result, kassa = getNumberOfKassa()
 									play_message(MsgDelay.v, true, {
-										{ "РџРѕР·РґСЂР°РІР»СЏСЋ! Р’С‹ РЅР°Рј РїРѕРґС…РѕРґРёС‚Рµ!" },
-										{ "РЎРµР№С‡Р°СЃ СЏ РїРѕР·РѕРІСѓ РґРёСЂРµРєС‚РѕСЂР°, С‡С‚Рѕ Р±С‹ РѕРЅ РІР°СЃ РїСЂРёРЅСЏР»! РћРґРЅСѓ СЃРµРєСѓРЅРґРѕС‡РєСѓ.." },
+										{ "Поздравляю! Вы нам подходите!" },
+										{ "Сейчас я позову директора, что бы он вас принял! Одну секундочку.." },
 										{ 	(result 
 											and 
-											"/r РџСЂРѕС€Сѓ РїРѕРґРѕР№С‚Рё РЅР° РєР°СЃСЃСѓ в„–%s, РЅСѓР¶РЅРѕ РїСЂРёРЅСЏС‚СЊ С‡РµР»РѕРІРµРєР° РїСЂРѕС€РµРґС€РµРіРѕ СЃРѕР±РµСЃРµРґРѕРІР°РЅРёРµ" 
+											"/r Прошу подойти на кассу №%s, нужно принять человека прошедшего собеседование" 
 											or
-											"/r РџСЂРѕС€Сѓ РїРѕРґРѕР№С‚Рё РєРѕ РјРЅРµ, С‡С‚Рѕ-Р±С‹ РїСЂРёРЅСЏС‚СЊ С‡РµР»РѕРІРµРєР° РїСЂРѕС€РµРґС€РµРіРѕ СЃРѕР±РµСЃРµРґРѕРІР°РЅРёРµ"), kassa 
+											"/r Прошу подойти ко мне, что-бы принять человека прошедшего собеседование"), kassa 
 										},
-										{ "/rb РџСЂРѕС€РµР» СЃРѕР±РµСЃРµРґРѕРІР°РЅРёРµ: %s[%s]", rpNick(actionId), actionId }
+										{ "/rb Прошел собеседование: %s[%s]", rpNick(actionId), actionId }
 									})
 								end
 							else
-								addBankMessage('Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РїСЂРёРЅСЏС‚СЊ СЌС‚РѕРіРѕ РёРіСЂРѕРєР° РІРѕ С„СЂР°РєС†РёСЋ!')
-								addBankMessage(string.format('РРіСЂРѕРє {M}%s{W} РЅР°С…РѕРґРёС‚СЃСЏ РІ {FF0000}С‡С‘СЂРЅРѕРј СЃРїРёСЃРєРµ{W}!', rpNick(actionId)))
+								addBankMessage('Вы не можете принять этого игрока во фракцию!')
+								addBankMessage(string.format('Игрок {M}%s{W} находится в {FF0000}чёрном списке{W}!', rpNick(actionId)))
 							end
 						end
 						if imgui.IsItemClicked(1) and cfg.main.rank >= 9 then
@@ -2274,8 +2274,8 @@ function imgui.OnDrawFrame()
 								sampSendChat(("/invite %s"):format(actionId))
 								int_bank:switch()
 							else
-								addBankMessage('Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ РїСЂРёРЅСЏС‚СЊ СЌС‚РѕРіРѕ РёРіСЂРѕРєР° РІРѕ С„СЂР°РєС†РёСЋ!')
-								addBankMessage(string.format('РРіСЂРѕРє {M}%s{W} РЅР°С…РѕРґРёС‚СЃСЏ РІ {FF0000}С‡С‘СЂРЅРѕРј СЃРїРёСЃРєРµ{W}!', rpNick(actionId)))
+								addBankMessage('Вы не можете принять этого игрока во фракцию!')
+								addBankMessage(string.format('Игрок {M}%s{W} находится в {FF0000}чёрном списке{W}!', rpNick(actionId)))
 							end
 						end
 						imgui.PopStyleColor(2)
@@ -2284,92 +2284,92 @@ function imgui.OnDrawFrame()
 
 						imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.40, 0.00, 0.00, 1.00))
 						imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.30, 0.00, 0.00, 1.00))
-						if imgui.Button(u8('РћС‚РєР»РѕРЅРёС‚СЊ ')..fa.ICON_FA_USER_TIMES, imgui.ImVec2(norm_len / 2, 30), { 0.3, 0.1 }) then
-							imgui.OpenPopup(u8("РџСЂРёС‡РёРЅР° РѕС‚РєР»РѕРЅРµРЅРёСЏ"))
+						if imgui.Button(u8('Отклонить ')..fa.ICON_FA_USER_TIMES, imgui.ImVec2(norm_len / 2, 30), { 0.3, 0.1 }) then
+							imgui.OpenPopup(u8("Причина отклонения"))
 						end
 						imgui.PopStyleColor(2)
 					end
 
-					if imgui.BeginPopupModal(u8("РџСЂРёС‡РёРЅР° РѕС‚РєР»РѕРЅРµРЅРёСЏ"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
-						imgui.CenterTextColoredRGB(mc..'РЈРєР°Р¶РёС‚Рµ РїСЂРёС‡РёРЅСѓ РѕС‚РєР»РѕРЅРµРЅРёСЏ')
-						if imgui.Button(u8('РћРїРµС‡Р°С‚РєР° РІ РїР°СЃРїРѕСЂС‚Рµ (РќРѕРЅР Рџ РЅРёРє)'), imgui.ImVec2(250, 30)) then
+					if imgui.BeginPopupModal(u8("Причина отклонения"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
+						imgui.CenterTextColoredRGB(mc..'Укажите причину отклонения')
+						if imgui.Button(u8('Опечатка в паспорте (НонРП ник)'), imgui.ImVec2(250, 30)) then
 							imgui.CloseCurrentPopup()
 							int_bank:switch()
 							play_message(MsgDelay.v, false, {
-								{ "Рљ СЃРѕР¶Р°Р»РµРЅРёСЋ, РІС‹ РЅРµ РїРѕРґС…РѕРґРёС‚Рµ, Сѓ РІР°СЃ РѕРїРµС‡Р°С‚РєР° РІ РїР°СЃРїРѕСЂС‚Рµ" },
-								{ "/b РќРѕРЅР Рџ РќРёРєРќРµР№Рј" },
-								{ "РСЃРїСЂР°РІСЊС‚Рµ СЌС‚Рѕ РЅРµРґРѕСЂР°Р·СѓРјРµРЅРёРµ Рё РїСЂРёС…РѕРґРёС‚Рµ РµС‰С‘!" }
+								{ "К сожалению, вы не подходите, у вас опечатка в паспорте" },
+								{ "/b НонРП НикНейм" },
+								{ "Исправьте это недоразумение и приходите ещё!" }
 							})
 						end
-						if imgui.Button(u8('РњР°Р»Рѕ Р»РµС‚ РІ С€С‚Р°С‚Рµ'), imgui.ImVec2(250, 30)) then
+						if imgui.Button(u8('Мало лет в штате'), imgui.ImVec2(250, 30)) then
 							imgui.CloseCurrentPopup()
 							int_bank:switch()
 							play_message(MsgDelay.v, false, {
-								{ "Рљ СЃРѕР¶Р°Р»РµРЅРёСЋ, РІС‹ РЅРµ РїРѕРґС…РѕРґРёС‚Рµ, РІС‹ РїСЂРѕР¶РёРІР°РµС‚Рµ РјР°Р»Рѕ Р»РµС‚ РІ С€С‚Р°С‚Рµ" },
-								{ "/b РќСѓР¶РµРЅ 3+ СѓСЂРѕРІРµРЅСЊ РїРµСЂСЃРѕРЅР°Р¶Р°" },
-								{ "РџСЂРёС…РѕРґРёС‚Рµ РІ РґСЂСѓРіРѕР№ СЂР°Р·!" }
+								{ "К сожалению, вы не подходите, вы проживаете мало лет в штате" },
+								{ "/b Нужен 3+ уровень персонажа" },
+								{ "Приходите в другой раз!" }
 							})
 						end
-						if imgui.Button(u8('РўСЂСѓРґРѕСѓСЃС‚СЂРѕРµРЅ'), imgui.ImVec2(250, 30)) then
+						if imgui.Button(u8('Трудоустроен'), imgui.ImVec2(250, 30)) then
 							imgui.CloseCurrentPopup()
 							int_bank:switch()
 							play_message(MsgDelay.v, false, {
-								{ "Рљ СЃРѕР¶Р°Р»РµРЅРёСЋ, РІС‹ РЅРµ РїРѕРґС…РѕРґРёС‚Рµ, РІС‹ СѓР¶Рµ С‚СЂСѓРґРѕСѓСЃС‚СЂРѕРµРЅС‹" },
-								{ "РЈРІРѕР»СЊС‚РµСЃСЊ Рё РїСЂРёС…РѕРґРёС‚Рµ РµС‰С‘ СЂР°Р·!" }
+								{ "К сожалению, вы не подходите, вы уже трудоустроены" },
+								{ "Увольтесь и приходите ещё раз!" }
 							})
 						end
-						if imgui.Button(u8('РњР°Р»Р°СЏ Р·Р°РєРѕРЅРѕРїРѕСЃР»СѓС€РЅРѕСЃС‚СЊ'), imgui.ImVec2(250, 30)) then
+						if imgui.Button(u8('Малая законопослушность'), imgui.ImVec2(250, 30)) then
 							imgui.CloseCurrentPopup()
 							int_bank:switch()
 							play_message(MsgDelay.v, false, {
-								{ "Рљ СЃРѕР¶Р°Р»РµРЅРёСЋ, РІС‹ РЅРµ РїРѕРґС…РѕРґРёС‚Рµ, РІС‹ РЅРµ Р·Р°РєРѕРЅРѕРїРѕСЃР»СѓС€РЅС‹" },
-								{ "/b 35+ Р·Р°РєРѕРЅРѕРїРѕСЃР»СѓС€РЅРѕСЃС‚Рё - /showpass %s", actionId },
-								{ "РџСЂРёС…РѕРґРёС‚Рµ РІ РґСЂСѓРіРѕР№ СЂР°Р·!" }
+								{ "К сожалению, вы не подходите, вы не законопослушны" },
+								{ "/b 35+ законопослушности - /showpass %s", actionId },
+								{ "Приходите в другой раз!" }
 							})
 						end
-						if imgui.Button(u8('РќР°СЂРєРѕР·Р°РІРёСЃРёРјРѕСЃС‚СЊ'), imgui.ImVec2(250, 30)) then
+						if imgui.Button(u8('Наркозависимость'), imgui.ImVec2(250, 30)) then
 							imgui.CloseCurrentPopup()
 							int_bank:switch()
 							play_message(MsgDelay.v, false, {
-								{ "Рљ СЃРѕР¶Р°Р»РµРЅРёСЋ, РІС‹ РЅРµ РїРѕРґС…РѕРґРёС‚Рµ, РІС‹ РЅР°СЂРєРѕР·Р°РІРёСЃРёРј" },
-								{ "/b РњР°РєСЃРёРјСѓРј 3 РЅР°СЂРєРѕР·Р°РІРёСЃРёРјРѕСЃС‚Рё - /showmc %s", actionId },
-								{ "Р’С‹Р»РµС‡РёС‚РµСЃСЊ Рё РїСЂРёС…РѕРґРёС‚Рµ РµС‰С‘ СЂР°Р·!" }
+								{ "К сожалению, вы не подходите, вы наркозависим" },
+								{ "/b Максимум 3 наркозависимости - /showmc %s", actionId },
+								{ "Вылечитесь и приходите ещё раз!" }
 							})
 						end
-						if imgui.Button(u8('РќРµС‚ РїСЂРёРІРёРІРєРё РѕС‚ РєРѕСЂРѕРЅР°РІРёСЂСѓСЃР°'), imgui.ImVec2(250, 30)) then
+						if imgui.Button(u8('Нет прививки от коронавируса'), imgui.ImVec2(250, 30)) then
 							imgui.CloseCurrentPopup()
 							int_bank:switch()
 							play_message(MsgDelay.v, false, {
-								{ "Рљ СЃРѕР¶Р°Р»РµРЅРёСЋ, РІС‹ РЅРµ РїРѕРґС…РѕРґРёС‚Рµ. Р’С‹ РЅРµ РІР°РєС†РёРЅРёСЂРѕРІР°РЅС‹" },
-								{ "/b РќСѓР¶РЅРѕ СЃРґРµР»Р°С‚СЊ РїСЂРёРІРёРІРєСѓ РѕС‚ РєРѕСЂРѕРЅР°РІРёСЂСѓСЃР° РІ Р±РѕР»СЊРЅРёС†Рµ - /showmc %s", actionId },
-								{ "РџСЂРёС…РѕРґРёС‚Рµ РІ РґСЂСѓРіРѕР№ СЂР°Р·!" }
+								{ "К сожалению, вы не подходите. Вы не вакцинированы" },
+								{ "/b Нужно сделать прививку от коронавируса в больнице - /showmc %s", actionId },
+								{ "Приходите в другой раз!" }
 							})
 						end
-						if imgui.Button(u8('РџСЂРёСЃСѓС‚СЃС‚РІРёРµ РґРµРјРѕСЂРіР°РЅРѕРІ'), imgui.ImVec2(250, 30)) then
+						if imgui.Button(u8('Присутствие деморганов'), imgui.ImVec2(250, 30)) then
 							imgui.CloseCurrentPopup()
 							int_bank:switch()
 							play_message(MsgDelay.v, false, {
-								{ "Рљ СЃРѕР¶Р°Р»РµРЅРёСЋ, РІС‹ РЅРµ РїРѕРґС…РѕРґРёС‚Рµ, РІС‹ РїСЃРёС…РёС‡РµСЃРєРё РЅРµ Р·РґРѕСЂРѕРІ" },
-								{ "/b РќР°Р»РёС‡РёРµ РґРµРјРѕСЂРіР°РЅРѕРІ, РѕР±РЅРѕРІРёС‚Рµ РјРµРґ. РєР°СЂС‚Сѓ - /showpass %s", actionId },
-								{ "РЇРІРёС‚РµСЃСЊ РЅР° РјРµРґ. РѕСЃРјРѕС‚СЂ Рё РїСЂРёС…РѕРґРёС‚Рµ РµС‰С‘ СЂР°Р·!" }
+								{ "К сожалению, вы не подходите, вы психически не здоров" },
+								{ "/b Наличие деморганов, обновите мед. карту - /showpass %s", actionId },
+								{ "Явитесь на мед. осмотр и приходите ещё раз!" }
 							})
 						end
-						if imgui.Button(u8('Р‘СЂРµРґРёС‚'), imgui.ImVec2(250, 30)) then
+						if imgui.Button(u8('Бредит'), imgui.ImVec2(250, 30)) then
 							imgui.CloseCurrentPopup()
 							int_bank:switch()
 							play_message(MsgDelay.v, false, {
-								{ "Рљ СЃРѕР¶Р°Р»РµРЅРёСЋ, РІС‹ РЅРµ РїРѕРґС…РѕРґРёС‚Рµ, РІС‹ Р±СЂРµРґРёС‚Рµ" },
-								{ "/b РћРћРЎ РёРЅС„РѕСЂРјР°С†РёСЏ / Р‘СЂРµРґ РІ RP С‡Р°С‚" },
-								{ "Р’С‹СЃРїРёС‚РµСЃСЊ Рё РїСЂРёС…РѕРґРёС‚Рµ РµС‰С‘ СЂР°Р·!" }
+								{ "К сожалению, вы не подходите, вы бредите" },
+								{ "/b ООС информация / Бред в RP чат" },
+								{ "Выспитесь и приходите ещё раз!" }
 							})
 						end
-						if imgui.GreenButton(u8('РЎРєР°Р¶Сѓ РїСЂРёС‡РёРЅСѓ РІСЂСѓС‡РЅСѓСЋ'), imgui.ImVec2(250, 30)) then
-							sampSetChatInputText("Рљ СЃРѕР¶Р°Р»РµРЅРёСЋ, РІС‹ РЅР°Рј РЅРµ РїРѕРґС…РѕРґРёС‚Рµ")
+						if imgui.GreenButton(u8('Скажу причину вручную'), imgui.ImVec2(250, 30)) then
+							sampSetChatInputText("К сожалению, вы нам не подходите")
 							sampSetChatInputEnabled(true)
 							imgui.CloseCurrentPopup()
 							int_bank:switch()
 						end
-						if imgui.MainButton(u8('РќР°Р·Р°Рґ'), imgui.ImVec2(250, 30)) then
+						if imgui.MainButton(u8('Назад'), imgui.ImVec2(250, 30)) then
 							imgui.CloseCurrentPopup()
 						end
 						imgui.EndPopup()
@@ -2384,7 +2384,7 @@ function imgui.OnDrawFrame()
 							imgui.SetCursorPos(imgui.ImVec2((ws.x / 2) - radius, (ws.y / 2) - radius))
 							Spinner(radius, 3, 0xAAFF9020)
 
-							local text = u8("Р—Р°РіСЂСѓР·РєР°")
+							local text = u8("Загрузка")
 							local ts = imgui.CalcTextSize(text)
 							imgui.SetCursorPos(imgui.ImVec2((ws.x - ts.x) / 2, (ws.y - ts.y) / 2))
 							imgui.TextColored(imgui.ImVec4(0.13, 0.56, 1.00, 1.00), text)
@@ -2393,62 +2393,62 @@ function imgui.OnDrawFrame()
 							imgui.PushFont(font[45])
 							imgui.CenterText(" " .. fa.ICON_FA_USER_TIMES, imgui.ImVec4(0.5, 0.5, 0.5, 0.7))
 							imgui.PopFont()
-							imgui.CenterTextColoredRGB("{AAAAAA}РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ..\n{AAAAAA}РЈР±РµРґРёС‚РµСЃСЊ С‡С‚Рѕ СЌС‚Рѕ РІР°С€ СЃРѕС‚СЂСѓРґРЅРёРє!")
+							imgui.CenterTextColoredRGB("{AAAAAA}Не удалось получить информацию..\n{AAAAAA}Убедитесь что это ваш сотрудник!")
 							imgui.NewLine()
 							imgui.SetCursorPosX((ws.x - 150) / 2)
-							if imgui.Button(u8"РџРѕРІС‚РѕСЂРёС‚СЊ РїРѕРїС‹С‚РєСѓ", imgui.ImVec2(150, 30)) then
+							if imgui.Button(u8"Повторить попытку", imgui.ImVec2(150, 30)) then
 								member_menu(actionId)
 							end
 						end
 					else
-						imgui.CenterTextColoredRGB(mc.."РњРµРЅСЋ СѓРїСЂР°РІР»РµРЅРёСЏ СЃРѕС‚СЂСѓРґРЅРёРєРѕРј")
+						imgui.CenterTextColoredRGB(mc.."Меню управления сотрудником")
 						imgui.NewLine()
 
-						imgui.TextColoredRGB( ("Р’СЂРµРјРµРЅРё РЅР° РїРѕСЃС‚Р°С…: " .. mc .. "%d"):format(mMenu.time.all) )
+						imgui.TextColoredRGB( ("Времени на постах: " .. mc .. "%d"):format(mMenu.time.all) )
 						imgui.SameLine(180)
-						imgui.TextDisabled(u8("(РЎРµРіРѕРґРЅСЏ: %d)"):format(mMenu.time.today))
+						imgui.TextDisabled(u8("(Сегодня: %d)"):format(mMenu.time.today))
 
-						imgui.TextColoredRGB( ("Р’С‹РґР°РЅРѕ РєР°СЂС‚РѕС‡РµРє: " .. mc .. "%d"):format(mMenu.cards.all) )
+						imgui.TextColoredRGB( ("Выдано карточек: " .. mc .. "%d"):format(mMenu.cards.all) )
 						imgui.SameLine(180)
-						imgui.TextDisabled(u8("(РЎРµРіРѕРґРЅСЏ: %d)"):format(mMenu.cards.today))
+						imgui.TextDisabled(u8("(Сегодня: %d)"):format(mMenu.cards.today))
 
-						imgui.TextColoredRGB( ("РћРїРµСЂР°С†РёР№ СЃ РґРµРїРѕР·РёС‚РѕРј: " .. mc .. "%d"):format(mMenu.dep.all) )
+						imgui.TextColoredRGB( ("Операций с депозитом: " .. mc .. "%d"):format(mMenu.dep.all) )
 						imgui.SameLine(180)
-						imgui.TextDisabled(u8("(РЎРµРіРѕРґРЅСЏ: %d)"):format(mMenu.dep.today))
+						imgui.TextDisabled(u8("(Сегодня: %d)"):format(mMenu.dep.today))
 
-						imgui.TextColoredRGB( ("Р’С‹РґР°РЅРѕ VIP-РєР°СЂС‚: " .. mc .. "%d"):format(mMenu.vip.all) )
+						imgui.TextColoredRGB( ("Выдано VIP-карт: " .. mc .. "%d"):format(mMenu.vip.all) )
 						imgui.SameLine(180)
-						imgui.TextDisabled(u8("(РЎРµРіРѕРґРЅСЏ: %d)"):format(mMenu.vip.today))
+						imgui.TextDisabled(u8("(Сегодня: %d)"):format(mMenu.vip.today))
 
-						imgui.TextColoredRGB( ("{60FF70}Р‘С‹Р»(Р°) РїРѕРІС‹С€РµРЅ(Р°) %s"):format(mMenu.last_up and stringToLower(getTimeAfter(mMenu.last_up)) or "РЅРµРёР·РІРµСЃС‚РЅРѕ РєРѕРіРґР°") )
+						imgui.TextColoredRGB( ("{60FF70}Был(а) повышен(а) %s"):format(mMenu.last_up and stringToLower(getTimeAfter(mMenu.last_up)) or "неизвестно когда") )
 						if mMenu.last_up then
-							imgui.Hint("rankupdate", u8(os.date("%d.%m.%Y РІ %H:%M", mMenu.last_up)))
+							imgui.Hint("rankupdate", u8(os.date("%d.%m.%Y в %H:%M", mMenu.last_up)))
 						end
 						imgui.NewLine()
 
 						local norm_len = ws.x - (5 * 2) - (imgui.GetStyle().WindowPadding.x * 2)
-						if imgui.MainButton(u8"Р’С‹РґР°С‚СЊ РІР°СЂРЅ", imgui.ImVec2(norm_len / 3, 20)) then
+						if imgui.MainButton(u8"Выдать варн", imgui.ImVec2(norm_len / 3, 20)) then
 							sampSetChatInputText(("/fwarn %s "):format(actionId))
 							sampSetChatInputEnabled(true)
 						end
 						imgui.SameLine(nil, 5)
-						if imgui.MainButton(u8"Р’С‹РґР°С‚СЊ РјСѓС‚", imgui.ImVec2(norm_len / 3, 20)) then
+						if imgui.MainButton(u8"Выдать мут", imgui.ImVec2(norm_len / 3, 20)) then
 							sampSetChatInputText(("/fmute %s "):format(actionId))
 							sampSetChatInputEnabled(true)
 						end
 						imgui.SameLine(nil, 5)
-						if imgui.MainButton(u8"РЈРІРѕР»РёС‚СЊ", imgui.ImVec2(norm_len / 3, 20)) then
+						if imgui.MainButton(u8"Уволить", imgui.ImVec2(norm_len / 3, 20)) then
 							sampSetChatInputText(("/uninvite %s "):format(actionId))
 							sampSetChatInputEnabled(true)
 						end
 
-						if imgui.MainButton(u8"РџРѕСЃРјРѕС‚СЂРµС‚СЊ СѓСЃРїРµРІР°РµРјРѕСЃС‚СЊ", imgui.ImVec2(-1, 20)) then
+						if imgui.MainButton(u8"Посмотреть успеваемость", imgui.ImVec2(-1, 20)) then
 							sampSendChat(("/checkjobprogress %s"):format(actionId))
 						end
 
 						imgui.SetCursorPosY(195)
 
-						imgui.TextColoredRGB("{AAAAAA}Р”РѕР»Р¶РЅРѕСЃС‚СЊ РІ РѕСЂРіР°РЅРёР·Р°С†РёРё:")
+						imgui.TextColoredRGB("{AAAAAA}Должность в организации:")
 						imgui.PushStyleVar(imgui.StyleVar.ItemSpacing, imgui.ImVec2(5, 7))
 						imgui.BeginGroup()
 							for i = 1, 9 do
@@ -2466,14 +2466,14 @@ function imgui.OnDrawFrame()
 							end
 						imgui.EndGroup()
 
-						local rank_name = u8(cfg.nameRank[giverank.v] or "РќРµРёР·РІРµСЃС‚РЅРѕ")
-						if imgui.MainButton(u8("РџРѕРІС‹СЃРёС‚СЊ РґРѕ [ %s ]"):format(rank_name), imgui.ImVec2(-1, 25)) then
+						local rank_name = u8(cfg.nameRank[giverank.v] or "Неизвестно")
+						if imgui.MainButton(u8("Повысить до [ %s ]"):format(rank_name), imgui.ImVec2(-1, 25)) then
 							int_bank:switch()
 							play_message(MsgDelay.v, true, {
-								{ "/me {sex:РґРѕСЃС‚Р°Р»|РґРѕСЃС‚Р°Р»Р°} РёР· РєР°СЂРјР°РЅР° РљРџРљ" },
-								{ "/me {sex:РІРєР»СЋС‡РёР»|РІРєР»СЋС‡РёР»Р°} РљРџРљ Рё {sex:Р·Р°С€С‘Р»|Р·Р°С€Р»Р°} РІ СЂР°Р·РґРµР» В«РЎРѕС‚СЂСѓРґРЅРёРєРёВ»" },
-								{ "/me {sex:РІС‹Р±СЂР°Р»|РІС‹Р±СЂР°Р»Р°} СЃРѕС‚СЂСѓРґРЅРёРєР° %s", rpNick(actionId) },
-								{ "/me {sex:РёР·РјРµРЅРёР»|РёР·РјРµРЅРёР»Р°} РґРѕР»Р¶РЅРѕСЃС‚СЊ СЃРѕС‚СЂСѓРґРЅРёРєСѓ РЅР° %s", cfg.nameRank[giverank.v] },
+								{ "/me {sex:достал|достала} из кармана КПК" },
+								{ "/me {sex:включил|включила} КПК и {sex:зашёл|зашла} в раздел «Сотрудники»" },
+								{ "/me {sex:выбрал|выбрала} сотрудника %s", rpNick(actionId) },
+								{ "/me {sex:изменил|изменила} должность сотруднику на %s", cfg.nameRank[giverank.v] },
 								{ "/giverank %s %s", actionId, giverank.v }
 							})
 						end
@@ -2490,10 +2490,10 @@ function imgui.OnDrawFrame()
 
 			imgui.PushStyleColor(imgui.Col.FrameBg, imgui.ImVec4(0.00, 0.40, 0.60, 0.30))
 			imgui.SetCursorPos(imgui.ImVec2(10, 200))
-			imgui.RadioButton(u8("Р‘Р°РЅРєРѕРІСЃРєРёРµ РЈСЃР»СѓРіРё"), TypeAction, 1)
+			imgui.RadioButton(u8("Банковские Услуги"), TypeAction, 1)
 			imgui.SetCursorPos(imgui.ImVec2(10, 230))
 			if cfg.main.rank > 4 then
-				if imgui.RadioButton(u8("РЎРѕР±РµСЃРµРґРѕРІР°РЅРёРµ"), TypeAction, 2) then
+				if imgui.RadioButton(u8("Собеседование"), TypeAction, 2) then
 					if sobes_check.id ~= actionId then
 						sobes_check = { id = actionId }
 					end
@@ -2503,13 +2503,13 @@ function imgui.OnDrawFrame()
 				imgui.PushStyleColor(imgui.Col.FrameBgHovered, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
 				imgui.PushStyleColor(imgui.Col.FrameBgActive, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
 				imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(0.5, 0.5, 0.5, 0.5))
-				imgui.RadioButton(u8("РЎРѕР±РµСЃРµРґРѕРІР°РЅРёРµ ")..fa.ICON_FA_LOCK, false)
-				imgui.Hint('sobesmenu5rank', u8'Р”РѕСЃС‚СѓРїРЅРѕ СЃ 5 СЂР°РЅРіР°')
+				imgui.RadioButton(u8("Собеседование ")..fa.ICON_FA_LOCK, false)
+				imgui.Hint('sobesmenu5rank', u8'Доступно с 5 ранга')
 				imgui.PopStyleColor(4)
 			end
 			imgui.SetCursorPos(imgui.ImVec2(10, 260))
 			if cfg.main.rank >= 9 then
-				if imgui.RadioButton(u8("РњРµРЅСЋ СЃРѕС‚СЂСѓРґРЅРёРєР°"), TypeAction, 3) then
+				if imgui.RadioButton(u8("Меню сотрудника"), TypeAction, 3) then
 					if mMenu.timer == nil or os.clock() - mMenu.timer >= 10 then
 						member_menu(actionId)
 					end
@@ -2519,8 +2519,8 @@ function imgui.OnDrawFrame()
 				imgui.PushStyleColor(imgui.Col.FrameBgHovered, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
 				imgui.PushStyleColor(imgui.Col.FrameBgActive, imgui.ImVec4(0.5, 0.5, 0.5, 0.2))
 				imgui.PushStyleColor(imgui.Col.Text, imgui.ImVec4(0.5, 0.5, 0.5, 0.5))
-				imgui.RadioButton(u8("РњРµРЅСЋ СЃРѕС‚СЂСѓРґРЅРёРєР° ") .. fa.ICON_FA_LOCK, false)
-				imgui.Hint('uprankmenu9+', u8'Р”РѕСЃС‚СѓРїРЅРѕ СЃ 9 СЂР°РЅРіР°')
+				imgui.RadioButton(u8("Меню сотрудника ") .. fa.ICON_FA_LOCK, false)
+				imgui.Hint('uprankmenu9+', u8'Доступно с 9 ранга')
 				imgui.PopStyleColor(4)
 			end
 			imgui.PopStyleColor(1)
@@ -2544,7 +2544,7 @@ function imgui.OnDrawFrame()
 			imgui.TextColored(imgui.ImVec4(0.5, 0.5, 0.5, 1.0), 'v'..thisScript().version .. (devmode and ' (Dev)' or ''))
 			imgui.PopFont()
 			if devmode and imgui.IsItemClicked(0) then
-				addNotify("{5060FF}РўРµСЃС‚РѕРІРѕРµ СѓРІРµРґРѕРјР»РµРЅРёРµ!", 5)
+				addNotify("{5060FF}Тестовое уведомление!", 5)
 			end
 
 			imgui.SetCursorPos(imgui.ImVec2(imgui.GetWindowWidth() - 30, 25))
@@ -2555,7 +2555,7 @@ function imgui.OnDrawFrame()
 			imgui.TextDisabled(fa.ICON_FA_QUESTION_CIRCLE)
 			imgui.PopFont()
 			if imgui.IsItemClicked() then
-				imgui.OpenPopup(u8("Р’СЃРµ РєРѕРјР°РЅРґС‹ СЃРєСЂРёРїС‚Р°"))
+				imgui.OpenPopup(u8("Все команды скрипта"))
 			end
 			helpCommands()
 		imgui.EndGroup()
@@ -2581,11 +2581,11 @@ function imgui.OnDrawFrame()
 					await['rank_update'] = os.clock()
 					sampSendChat('/stats')
 				else
-					imgui.Hint('updaterank', u8'РќР°Р¶РјРёС‚Рµ, С‡С‚Рѕ-Р±С‹ РѕР±РЅРѕРІРёС‚СЊ')
+					imgui.Hint('updaterank', u8'Нажмите, что-бы обновить')
 				end
 				imgui.PushFont(font[11])
 				if type(cfg.main.dateuprank) == 'string' then
-					imgui.CenterText(u8(string.format('РЎ %s', cfg.main.dateuprank)))
+					imgui.CenterText(u8(string.format('С %s', cfg.main.dateuprank)))
 				else
 					imgui.CenterText(u8(os.date('C %d.%m.%Y', cfg.main.dateuprank)))
 				end
@@ -2594,35 +2594,35 @@ function imgui.OnDrawFrame()
 					await['uprankdate'] = os.clock()
 					sampSendChat('/jobprogress')
 				else
-					imgui.Hint('updateprogress', u8'РќР°Р¶РјРёС‚Рµ, С‡С‚Рѕ-Р±С‹ РїРµСЂРµРїСЂРѕРІРµСЂРёС‚СЊ')
+					imgui.Hint('updateprogress', u8'Нажмите, что-бы перепроверить')
 				end
 			imgui.EndChild()
 
-			if imgui.Button(u8('Р‘РёРЅРґРµСЂ ')..fa.ICON_FA_COMMENTS, imgui.ImVec2(180, 30)) then
+			if imgui.Button(u8('Биндер ')..fa.ICON_FA_COMMENTS, imgui.ImVec2(180, 30)) then
 				type_window.v = 1
 			end
-			if imgui.Button(u8('Р›РµРєС†РёРё ')..fa.ICON_FA_UNIVERSITY, imgui.ImVec2(180, 30)) then
+			if imgui.Button(u8('Лекции ')..fa.ICON_FA_UNIVERSITY, imgui.ImVec2(180, 30)) then
 				type_window.v = 2
 			end
-			if imgui.Button(u8('РџСЂР°РІРёР»Р° ')..fa.ICON_FA_INFO_CIRCLE, imgui.ImVec2(180, 30)) then
+			if imgui.Button(u8('Правила ')..fa.ICON_FA_INFO_CIRCLE, imgui.ImVec2(180, 30)) then
 				type_window.v = 3
 			end
 			if cfg.main.rank > 4 then
-				if imgui.Button(u8('РЎС‚. РЎРѕСЃС‚Р°РІ ')..fa.ICON_FA_USERS, imgui.ImVec2(180, 30)) then
+				if imgui.Button(u8('Ст. Состав ')..fa.ICON_FA_USERS, imgui.ImVec2(180, 30)) then
 					type_window.v = 4
 				end
 			end
-			if imgui.Button(u8('РќР°СЃС‚СЂРѕР№РєРё ')..fa.ICON_FA_COG, imgui.ImVec2(180, 30)) then
+			if imgui.Button(u8('Настройки ')..fa.ICON_FA_COG, imgui.ImVec2(180, 30)) then
 				type_window.v = 5
 			end
 		imgui.EndGroup()
 		imgui.SameLine()
 		imgui.BeginChild("##MenuActive", imgui.ImVec2(350, -1), true, imgui.WindowFlags.NoScrollbar)
 
-		if type_window.v == 1 then -- Р‘РёРЅРґС‹
+		if type_window.v == 1 then -- Бинды
 			if #cfg.Binds_Name > 0 then
-				imgui.CenterTextColoredRGB(mc..'РњРµРЅСЋ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёС… Р±РёРЅРґРѕРІ {868686}(?)')
-				imgui.Hint('binderCtrlB', u8'РСЃРїРѕР»СЊР·СѓР№С‚Рµ Ctrl + B РґР»СЏ\nР±С‹СЃС‚СЂРѕРіРѕ РѕС‚РєСЂС‹С‚РёСЏ СЌС‚РѕРіРѕ РјРµРЅСЋ')
+				imgui.CenterTextColoredRGB(mc..'Меню пользовательских биндов {868686}(?)')
+				imgui.Hint('binderCtrlB', u8'Используйте Ctrl + B для\nбыстрого открытия этого меню')
 				imgui.Separator()
 				for key_bind, name_bind in pairs(cfg.Binds_Name) do
 					imgui.PushStyleVar(imgui.StyleVar.ItemSpacing, imgui.ImVec2(2, 2))
@@ -2638,12 +2638,12 @@ function imgui.OnDrawFrame()
 						local returnwrapped = tostring(cfg.Binds_Action[key_bind]):gsub('~', '\n')
 						text_binder.v = returnwrapped
 						binder_name.v = tostring(cfg.Binds_Name[key_bind])
-						imgui.OpenPopup(u8("Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ/РЎРѕР·РґР°РЅРёРµ Р±РёРЅРґР°"))
+						imgui.OpenPopup(u8("Редактирование/Создание бинда"))
 						binder_open = true
 					end
 					imgui.SameLine()
 					if imgui.Button(fa.ICON_FA_TRASH..'##'..key_bind, imgui.ImVec2(30, 30)) then
-						addBankMessage(string.format('Р‘РёРЅРґ {M}В«%sВ»{W} СѓРґР°Р»С‘РЅ РёР· РІР°С€РµРіРѕ СЃРїРёСЃРєР°!', u8:decode(cfg.Binds_Name[key_bind])))
+						addBankMessage(string.format('Бинд {M}«%s»{W} удалён из вашего списка!', u8:decode(cfg.Binds_Name[key_bind])))
 						table.remove(cfg.Binds_Name, key_bind)
 						table.remove(cfg.Binds_Action, key_bind)
 						table.remove(cfg.Binds_Deleay, key_bind)
@@ -2651,8 +2651,8 @@ function imgui.OnDrawFrame()
 					end
 					imgui.PopStyleVar()
 				end
-				if imgui.MainButton(u8('РЎРѕР·РґР°С‚СЊ РЅРѕРІС‹Р№ Р±РёРЅРґ'), imgui.ImVec2(-1, 30)) then
-					imgui.OpenPopup(u8("Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ/РЎРѕР·РґР°РЅРёРµ Р±РёРЅРґР°"))
+				if imgui.MainButton(u8('Создать новый бинд'), imgui.ImVec2(-1, 30)) then
+					imgui.OpenPopup(u8("Редактирование/Создание бинда"))
 					binder_delay.v = 2.5
 				end
 			else
@@ -2661,37 +2661,37 @@ function imgui.OnDrawFrame()
 				imgui.CenterText(fa.ICON_FA_QUOTE_RIGHT, imgui.GetStyle().Colors[imgui.Col.Border])
 				imgui.PopFont()
 				imgui.NewLine()
-				imgui.CenterTextColoredRGB('Р‘РёРЅРґС‹ РґР»СЏ РѕРєР°Р·Р°РЅРёСЏ Р±Р°РЅРєРѕРІСЃРєРёС… СѓСЃР»СѓРі СѓР¶Рµ\nРµСЃС‚СЊ РІ СЃРєСЂРёРїС‚Рµ! Р”Р»СЏ РёС… РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РЅР°Р¶РјРёС‚Рµ:\n' .. mc .. 'РџРљРњ + Q (РЅР°РІРµРґСЏСЃСЊ РЅР° РёРіСЂРѕРєР°)')
+				imgui.CenterTextColoredRGB('Бинды для оказания банковских услуг уже\nесть в скрипте! Для их использования нажмите:\n' .. mc .. 'ПКМ + Q (наведясь на игрока)')
 				imgui.NewLine()
 				imgui.SetCursorPosX((imgui.GetWindowWidth() - 150) / 2)
-				if imgui.Button(u8('РҐРѕС‡Сѓ СЃРѕР·РґР°С‚СЊ СЃРІРѕР№ Р±РёРЅРґ!'), imgui.ImVec2(150, 30)) then
-					imgui.OpenPopup(u8("Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ/РЎРѕР·РґР°РЅРёРµ Р±РёРЅРґР°"))
+				if imgui.Button(u8('Хочу создать свой бинд!'), imgui.ImVec2(150, 30)) then
+					imgui.OpenPopup(u8("Редактирование/Создание бинда"))
 					binder_open = true
 				end
 			end
 			binder()
 		end
-		if type_window.v == 2 then -- Р›РµРєС†РёРё
-			imgui.CenterTextColoredRGB(mc..'РџСЂРѕРІРµРґРµРЅРёРµ Р»РµРєС†РёР№ РґР»СЏ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ')
-			if imgui.MainButton(fa.ICON_FA_PLUS_CIRCLE .. u8' Р”РѕР±Р°РІРёС‚СЊ', imgui.ImVec2(100, 20)) then
+		if type_window.v == 2 then -- Лекции
+			imgui.CenterTextColoredRGB(mc..'Проведение лекций для сотрудников')
+			if imgui.MainButton(fa.ICON_FA_PLUS_CIRCLE .. u8' Добавить', imgui.ImVec2(100, 20)) then
 				lection_number = nil
 				lect_edit_name.v = u8("")
 				lect_edit_text.v = u8("")
-				imgui.OpenPopup(u8("Р РµРґР°РєС‚РѕСЂ Р»РµРєС†РёР№"))
+				imgui.OpenPopup(u8("Редактор лекций"))
 			end
 			imgui.SameLine()
 			imgui.PushItemWidth(80)
-			if imgui.DragInt('##LectDelay', LectDelay, 1, 1, 30, u8('%0.0f СЃ.')) then
+			if imgui.DragInt('##LectDelay', LectDelay, 1, 1, 30, u8('%0.0f с.')) then
 				if LectDelay.v < 1 then LectDelay.v = 1 end
 				if LectDelay.v > 30 then LectDelay.v = 30 end
 
 				cfg.main.LectDelay = LectDelay.v
 				inicfg.save(cfg, 'Bank_Config.ini')
 			end
-			imgui.Hint('delaylection', u8'Р—Р°РґРµСЂР¶РєР° РјРµР¶РґСѓ СЃРѕРѕР±С‰РµРЅРёСЏРјРё')
+			imgui.Hint('delaylection', u8'Задержка между сообщениями')
 			imgui.PopItemWidth()
 			imgui.SameLine()
-			imgui.RadioButton(u8("Р§Р°С‚"), typeLect, 1)
+			imgui.RadioButton(u8("Чат"), typeLect, 1)
 			imgui.SameLine()
 			imgui.RadioButton(u8("/r"), typeLect, 2)
 			imgui.SameLine()
@@ -2699,9 +2699,9 @@ function imgui.OnDrawFrame()
 			imgui.Separator()
 			if #lections.data == 0 then
 				imgui.SetCursorPosY(120)
-				imgui.CenterTextColoredRGB(mc..'РЈ РІР°СЃ РЅРµС‚ РЅРё РѕРґРЅРѕР№ Р»РµРєС†РёРё :(')
+				imgui.CenterTextColoredRGB(mc..'У вас нет ни одной лекции :(')
 				imgui.SetCursorPosX((imgui.GetWindowWidth() - 250) / 2)
-				if imgui.MainButton(u8'Р’РѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ СЃС‚Р°РЅРґР°СЂС‚РЅС‹Рµ Р»РµРєС†РёРё?', imgui.ImVec2(250, 25)) then
+				if imgui.MainButton(u8'Восстановить стандартные лекции?', imgui.ImVec2(250, 25)) then
 					lections = lections_default
 					local file = io.open(lect_path, "w")
 					file:write(encodeJson(lections))
@@ -2752,92 +2752,92 @@ function imgui.OnDrawFrame()
 							lection_number = i
 							lect_edit_name.v = u8(tostring(name))
 							lect_edit_text.v = u8(tostring(table.concat(data, '\n')))
-							imgui.OpenPopup(u8"Р РµРґР°РєС‚РѕСЂ Р»РµРєС†РёР№")
+							imgui.OpenPopup(u8"Редактор лекций")
 						end
 					end
 				end
 			end
 			lection_editor()
 		end
-		if type_window.v == 3 then -- РџСЂР°РІРёР»Р°
-			imgui.CenterTextColoredRGB(mc..'РРЅС„РѕСЂРјР°С†РёСЏ РґР»СЏ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ')
+		if type_window.v == 3 then -- Правила
+			imgui.CenterTextColoredRGB(mc..'Информация для сотрудников')
 			imgui.NewLine()
 
-			if imgui.Button(u8('РЈСЃС‚Р°РІ Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р±Р°РЅРєР° ')..fa.ICON_FA_BOOK_OPEN, imgui.ImVec2(-1, 35)) then
+			if imgui.Button(u8('Устав Центрального банка ')..fa.ICON_FA_BOOK_OPEN, imgui.ImVec2(-1, 35)) then
 				if not ustav_window.state then ustav_window:switch() end
 			end
-			if imgui.Button(u8('Р•РґРёРЅР°СЏ СЃРёСЃС‚РµРјР° РїРѕРІС‹С€РµРЅРёСЏ ')..fa.ICON_FA_SORT_AMOUNT_UP, imgui.ImVec2(-1, 35)) then
-				imgui.OpenPopup(u8("Р•РґРёРЅР°СЏ СЃРёСЃС‚РµРјР° РїРѕРІС‹С€РµРЅРёСЏ"))
+			if imgui.Button(u8('Единая система повышения ')..fa.ICON_FA_SORT_AMOUNT_UP, imgui.ImVec2(-1, 35)) then
+				imgui.OpenPopup(u8("Единая система повышения"))
 			end
 			system_uprank()
-			if imgui.Button(u8('РљР°РґСЂРѕРІР°СЏ СЃРёСЃС‚РµРјР° ')..fa.ICON_FA_CLOCK, imgui.ImVec2(-1, 35)) then
-				imgui.OpenPopup(u8("РљР°РґСЂРѕРІР°СЏ СЃРёСЃС‚РµРјР°"))
+			if imgui.Button(u8('Кадровая система ')..fa.ICON_FA_CLOCK, imgui.ImVec2(-1, 35)) then
+				imgui.OpenPopup(u8("Кадровая система"))
 			end
 			system_cadr()
-			if imgui.Button(u8('РЎРёСЃС‚РµРјР° РєСЂРµРґРёС‚РѕРІР°РЅРёСЏ ')..fa.ICON_FA_CALENDAR_CHECK, imgui.ImVec2(-1, 35)) then
-				imgui.OpenPopup(u8("РЎРёСЃС‚РµРјР° РєСЂРµРґРёС‚РѕРІР°РЅРёСЏ"))
+			if imgui.Button(u8('Система кредитования ')..fa.ICON_FA_CALENDAR_CHECK, imgui.ImVec2(-1, 35)) then
+				imgui.OpenPopup(u8("Система кредитования"))
 			end
 			system_credit()
-			if imgui.Button(u8('Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ РїРѕСЃС‚РѕРІ ')..fa.ICON_FA_FLAG, imgui.ImVec2(-1, 35)) then
-				imgui.OpenPopup(u8("Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ РїРѕСЃС‚РѕРІ"))
+			if imgui.Button(u8('Расположение постов ')..fa.ICON_FA_FLAG, imgui.ImVec2(-1, 35)) then
+				imgui.OpenPopup(u8("Расположение постов"))
 			end
 			post()
 		end
-		if type_window.v == 4 then -- РЎС‚. РЎРѕСЃС‚Р°РІ
-			if imgui.Button(u8('Р§С‘СЂРЅС‹Р№ СЃРїРёСЃРѕРє РїСЂР°РІРёС‚РµР»СЊСЃС‚РІР° ')..fa.ICON_FA_BAN, imgui.ImVec2(-1, 35)) then
-				imgui.OpenPopup(u8("Р§С‘СЂРЅС‹Р№ СЃРїРёСЃРѕРє РїСЂР°РІРёС‚РµР»СЊСЃС‚РІР°"))
+		if type_window.v == 4 then -- Ст. Состав
+			if imgui.Button(u8('Чёрный список правительства ')..fa.ICON_FA_BAN, imgui.ImVec2(-1, 35)) then
+				imgui.OpenPopup(u8("Чёрный список правительства"))
 			end
 			BlackListGui()
 			if cfg.main.rank >= 9 then
-				if imgui.Button(u8('Р“РѕСЃСѓРґР°СЂСЃС‚РІРµРЅРЅР°СЏ РІРѕР»РЅР° ')..fa.ICON_FA_GLOBE, imgui.ImVec2(-1, 35)) then
-					imgui.OpenPopup(u8("РџР»Р°РЅРёСЂРѕРІР°РЅРёРµ РіРѕСЃСѓРґР°СЂСЃС‚РІРµРЅРЅРѕР№ РІРѕР»РЅС‹"))
+				if imgui.Button(u8('Государственная волна ')..fa.ICON_FA_GLOBE, imgui.ImVec2(-1, 35)) then
+					imgui.OpenPopup(u8("Планирование государственной волны"))
 				end
 			else
-				imgui.DisableButton(u8('Р“РѕСЃСѓРґР°СЂСЃС‚РІРµРЅРЅР°СЏ РІРѕР»РЅР° ')..fa.ICON_FA_LOCK, imgui.ImVec2(-1, 35))
-				imgui.Hint('goswave8+', u8'Р”РѕСЃС‚СѓРїРЅРѕ СЃ 9 СЂР°РЅРіР°')
+				imgui.DisableButton(u8('Государственная волна ')..fa.ICON_FA_LOCK, imgui.ImVec2(-1, 35))
+				imgui.Hint('goswave8+', u8'Доступно с 9 ранга')
 			end
 			gov()
 		end
 
-		if type_window.v == 5 then -- РќР°СЃС‚СЂРѕР№РєРё
-			imgui.CenterTextColoredRGB(mc..'РќР°СЃС‚СЂРѕР№РєРё СЃРєСЂРёРїС‚Р°')
+		if type_window.v == 5 then -- Настройки
+			imgui.CenterTextColoredRGB(mc..'Настройки скрипта')
 			
 			imgui.NewLine()
-			imgui.TextDisabled(u8"Р¤СѓРЅРєС†РёРё:")
+			imgui.TextDisabled(u8"Функции:")
 			imgui.PushItemWidth(80)
-			if imgui.Checkbox(u8'РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРёРµ РѕР±РЅРѕРІР»РµРЅРёСЏ', loginupdate) then
+			if imgui.Checkbox(u8'Автоматические обновления', loginupdate) then
 				cfg.main.loginupdate = loginupdate.v 
 				if inicfg.save(cfg, 'Bank_Config.ini') then
-					addBankMessage(string.format('РђРІС‚Рѕ-РїСЂРѕРІРµСЂРєР° РѕР±РЅРѕРІР»РµРЅРёР№ РїСЂРё РІС…РѕРґРµ РІ РёРіСЂСѓ {M}%s', (cfg.main.loginupdate and 'РІРєР»СЋС‡РµРЅР°' or 'РІС‹РєР»СЋС‡РµРЅР°')))
+					addBankMessage(string.format('Авто-проверка обновлений при входе в игру {M}%s', (cfg.main.loginupdate and 'включена' or 'выключена')))
 				end
 			end
 
-			if imgui.Checkbox(u8'Р§Р°С‚-РєР°Р»СЊРєСѓР»СЏС‚РѕСЂ', chat_calc) then
+			if imgui.Checkbox(u8'Чат-калькулятор', chat_calc) then
 				cfg.main.chat_calc = chat_calc.v 
 				inicfg.save(cfg, 'Bank_Config.ini')
 			end
 			imgui.SameLine()
 			imgui.TextDisabled('(?)')
-			imgui.Hint('chatcalc', u8'Р•СЃР»Рё РІ С‡Р°С‚Рµ РЅР°РїРёСЃР°С‚СЊ РјР°С‚РµРјР°С‚РёС‡РµСЃРєРёР№ РїСЂРёРјРµСЂ, С‚Рѕ РїРѕРґ РЅРёРј РїРѕСЏРІРёС‚СЃСЏ РѕС‚РІРµС‚')
+			imgui.Hint('chatcalc', u8'Если в чате написать математический пример, то под ним появится ответ')
 
-			if imgui.Checkbox(u8'РђРІС‚Рѕ-С„РѕСЂРјР°', auto_uniform) then
+			if imgui.Checkbox(u8'Авто-форма', auto_uniform) then
 				cfg.main.auto_uniform = auto_uniform.v 
 				inicfg.save(cfg, 'Bank_Config.ini')
 			end
 			imgui.SameLine()
 			imgui.TextDisabled('(?)')
-			imgui.Hint('autouniform', u8'Р’С‹ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РЅРµР°РґРµРЅРёС‚Рµ С„РѕСЂРјСѓ, РєР°Рє С‚РѕР»СЊРєРѕ Р·Р°Р№РґС‘С‚Рµ РЅР° СЃРµСЂРІРµСЂ\nРўРµРєСѓС‰РёРј РјРµСЃС‚РѕРј СЃРїР°РІРЅР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РІС‹Р±СЂР°РЅР° РѕСЂРіР°РЅРёР·Р°С†РёСЏ (/setspawn)')
+			imgui.Hint('autouniform', u8'Вы автоматически неадените форму, как только зайдёте на сервер\nТекущим местом спавна должна быть выбрана организация (/setspawn)')
 
-			if imgui.Checkbox(u8'РђРІС‚Рѕ-РґСѓР±РёРЅРєР°', auto_stick) then
+			if imgui.Checkbox(u8'Авто-дубинка', auto_stick) then
 				cfg.main.auto_stick = auto_stick.v 
 				inicfg.save(cfg, 'Bank_Config.ini')
 			end
 			imgui.SameLine()
 			imgui.TextDisabled('(?)')
-			imgui.Hint('autostick', u8'Р’С‹ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РІРѕР·СЊРјС‘С‚Рµ РґСѓР±РёРЅРєСѓ, РєР°Рє С‚РѕР»СЊРєРѕ Р·Р°Р№РґС‘С‚Рµ РЅР° СЃРµСЂРІРµСЂ\nРўРµРєСѓС‰РёРј РјРµСЃС‚РѕРј СЃРїР°РІРЅР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РІС‹Р±СЂР°РЅР° РѕСЂРіР°РЅРёР·Р°С†РёСЏ (/setspawn)')
+			imgui.Hint('autostick', u8'Вы автоматически возьмёте дубинку, как только зайдёте на сервер\nТекущим местом спавна должна быть выбрана организация (/setspawn)')
 
 			imgui.PopItemWidth()
-			if imgui.Checkbox(u8'РЎС‚Р°С‚РёСЃС‚РёРєР° РЅР° РєР°СЃСЃРµ', ki_stat) then
+			if imgui.Checkbox(u8'Статистика на кассе', ki_stat) then
 				cfg.main.ki_stat = ki_stat.v
 				inicfg.save(cfg, 'Bank_Config.ini')
 				if kassa.state.v and ki_stat.v == false then 
@@ -2846,13 +2846,13 @@ function imgui.OnDrawFrame()
 			end
 			imgui.SameLine()
 			imgui.TextDisabled('(?)')
-			imgui.Hint('kippos', u8'РџР°РЅРµР»СЊ РјРѕР¶РЅРѕ РїРµСЂРµРјРµСЃС‚РёС‚СЊ РєРѕРјР°РЅРґРѕР№ /kip')
+			imgui.Hint('kippos', u8'Панель можно переместить командой /kip')
 
-			if imgui.Checkbox(u8"Р‘РѕС‚С‹ Р·Р° РєР°СЃСЃР°РјРё", actors.spawn) then
+			if imgui.Checkbox(u8"Боты за кассами", actors.spawn) then
 				cfg.main.spawn_actors = actors.spawn.v
 
 				if next(actors.pool) == nil then
-					addBankMessage("РР·РјРµРЅРµРЅРёСЏ РїСЂРёРјРµРЅСЏС‚СЃСЏ РїСЂРё СЃР»РµРґСѓСЋС‰РµРј РІС…РѕРґРµ РІ РёРЅС‚РµСЂСЊРµСЂ Р±Р°РЅРєР°!")
+					addBankMessage("Изменения применятся при следующем входе в интерьер банка!")
 				else
 					for i, actor in ipairs(actors.pool) do
 						if actors.spawn.v then
@@ -2861,18 +2861,18 @@ function imgui.OnDrawFrame()
 							destroyActor(actor[1])
 						end
 					end
-					addBankMessage("Р‘РѕС‚С‹ Р·Р° РєР°СЃСЃР°РјРё {W}" .. (actors.spawn.v and "СѓРґР°Р»РµРЅС‹" or "РґРѕР±Р°РІР»РµРЅС‹"))
+					addBankMessage("Боты за кассами {W}" .. (actors.spawn.v and "удалены" or "добавлены"))
 				end
 			end
 			imgui.SameLine()
 			imgui.TextDisabled('(?)')
-			imgui.Hint('actors_spawn', u8'Р’РѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕС‚РєР»СЋС‡РёС‚СЊ Р±РѕС‚РѕРІ СЃС‚РѕСЏС‰РёС… Р·Р° РєР°СЃСЃРѕР№, РµСЃР»Рё РѕРЅРё РІР°Рј С‡РµРј-Р»РёР±Рѕ РјРµС€Р°СЋС‚')
+			imgui.Hint('actors_spawn', u8'Возможность отключить ботов стоящих за кассой, если они вам чем-либо мешают')
 
 			imgui.PushItemWidth(150)
 			if imgui.InputText("##PINCODE", pincode, imgui.InputTextFlags.CharsDecimal + (hide_pincode and 0 or imgui.InputTextFlags.Password)) then
 				cfg.main.pincode = #pincode.v > 0 and ("PIN%s"):format(pincode.v) or ""
 			end
-			imgui.Hint('pinhint', u8'PIN-РљРѕРґ РѕС‚ РІР°С€РµР№ Р±Р°РЅРєРѕРІСЃРєРѕР№ РєР°СЂС‚С‹\nРЈРєР°Р¶РёС‚Рµ РµРіРѕ, С‡С‚РѕР±С‹ РѕРЅ РІРІРѕРґРёР»СЃСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РёР»Рё\nРѕСЃС‚Р°РІСЊС‚Рµ РїСѓСЃС‚С‹Рј, РµСЃР»Рё Р¶РµР»Р°РµС‚Рµ РІРІРѕРґРёС‚СЊ РІСЂСѓС‡РЅСѓСЋ')
+			imgui.Hint('pinhint', u8'PIN-Код от вашей банковской карты\nУкажите его, чтобы он вводился автоматически или\nоставьте пустым, если желаете вводить вручную')
 			imgui.SameLine()
 			imgui.TextDisabled(hide_pincode and fa.ICON_FA_EYE or fa.ICON_FA_EYE_SLASH)
 			if imgui.IsItemClicked(0) then
@@ -2880,14 +2880,14 @@ function imgui.OnDrawFrame()
 			end
 			if string.find(cfg.main.pincode, "%S") == nil then
 				imgui.SameLine(10)
-				imgui.TextDisabled(u8"PIN-РєРѕРґ РЅРµ Р·Р°РґР°РЅ")
+				imgui.TextDisabled(u8"PIN-код не задан")
 			end
 			
-			if imgui.Combo(u8"РЎС‚РёР»СЊ РёРЅС‚РµСЂСЊРµСЂР°", Interior.style, Interior.presets.names, #Interior.presets.names) then
+			if imgui.Combo(u8"Стиль интерьера", Interior.style, Interior.presets.names, #Interior.presets.names) then
 				local preset = Interior.presets[Interior.style.v + 1]
 				if preset ~= nil then
 					if next(Interior.pool) == nil then
-						addBankMessage("РРЅС‚РµСЂСЊРµСЂ Р±Р°РЅРєР° РѕР±РЅРѕРІРёС‚СЃСЏ РїСЂРё СЃР»РµРґСѓСЋС‰РµРј РІС…РѕРґРµ РІ РЅРµРіРѕ")
+						addBankMessage("Интерьер банка обновится при следующем входе в него")
 					else
 						Interior.count_textures = {}
 						for objectId, textures in pairs(Interior.pool) do
@@ -2906,19 +2906,19 @@ function imgui.OnDrawFrame()
 								end
 							end
 						end
-						addBankMessage("РЎС‚РёР»СЊ РёРЅС‚РµСЂСЊРµСЂР° Р±Р°РЅРєР° РёР·РјРµРЅС‘РЅ РЅР° {M}В«" .. preset.name .. "В»")
+						addBankMessage("Стиль интерьера банка изменён на {M}«" .. preset.name .. "»")
 					end
 				end
 				cfg.main.interior_style = (Interior.style.v + 1)
 			end
-			imgui.Hint('InteriorStyle', u8'Р•СЃР»Рё Р±РµР»С‹Рµ С‚РµРєСЃС‚СѓСЂС‹ РїРѕСЃР»Рµ Р·Р°РјРµРЅС‹ СЃС‚РёР»СЏ РІС‹РіР»СЏРґСЏС‚\nСЃР»РёС€РєРѕРј СЏСЂРєРѕ, С‚Рѕ РїРµСЂРµР·Р°Р№РґРёС‚Рµ РІ РёРЅС‚РµСЂСЊРµСЂ (Р‘Р°Рі SA:MP)')
+			imgui.Hint('InteriorStyle', u8'Если белые текстуры после замены стиля выглядят\nслишком ярко, то перезайдите в интерьер (Баг SA:MP)')
 			
-			if imgui.InputText(u8"РРјСЏ РїРµСЂСЃРѕРЅР°Р¶Р°##USERNAME", username) then
+			if imgui.InputText(u8"Имя персонажа##USERNAME", username) then
 				cfg.main.username = u8:decode(tostring(username.v))
 			end
 			imgui.SameLine()
 			imgui.TextDisabled('(?)')
-			imgui.Hint('usernamehint', u8'РРјСЏ РїРµСЂСЃРѕРЅР°Р¶Р° РёСЃРїРѕР»СЊР·СѓРµРјРѕРµ РІ РѕС‚С‹РіСЂРѕРІРєР°С….\nРќР°РїСЂРёРјРµСЂ РІС‹ РјРѕР¶РµС‚Рµ РІРІРµСЃС‚Рё СЃРІРѕР№ РЅРёРє РЅР° СЂСѓСЃСЃРєРѕРј\n\nРџРѕ-СѓРјРѕР»Р°С‡РЅРёСЋ СЃС‚РѕРёС‚ РІР°С€ РѕР±С‹С‡РЅС‹Р№ РЅРёРє')
+			imgui.Hint('usernamehint', u8'Имя персонажа используемое в отыгровках.\nНапример вы можете ввести свой ник на русском\n\nПо-умолачнию стоит ваш обычный ник')
 			if (cfg.main.username):find("%S") == nil then
 				imgui.SameLine(10)
 				local self_id = select(2, sampGetPlayerIdByCharHandle(PLAYER_PED))
@@ -2928,33 +2928,33 @@ function imgui.OnDrawFrame()
 			imgui.PopItemWidth()
 
 			imgui.NewLine()
-			imgui.TextDisabled(u8"РЎРѕРѕР±С‰РµРЅРёСЏ РІ С‡Р°С‚Рµ:")
-			if imgui.Checkbox(u8'РЎРѕРѕР±С‰РµРЅРёСЏ Рѕ /expel', chat['expel']) then
+			imgui.TextDisabled(u8"Сообщения в чате:")
+			if imgui.Checkbox(u8'Сообщения о /expel', chat['expel']) then
 				cfg.Chat.expel = chat['expel'].v
 				inicfg.save(cfg, 'Bank_Config.ini')
 			end
-			if imgui.Checkbox(u8'РћРїР»Р°С‚Р° С€С‚СЂР°С„РѕРІ', chat['shtrafs']) then
+			if imgui.Checkbox(u8'Оплата штрафов', chat['shtrafs']) then
 				cfg.Chat.shtrafs = chat['shtrafs'].v
 				inicfg.save(cfg, 'Bank_Config.ini')
 			end
-			if imgui.Checkbox(u8'РџРѕРїРѕР»РЅРµРЅРёСЏ РєР°Р·РЅС‹ СЃРѕС‚СЂСѓРґРЅРёРєР°РјРё', chat['incazna']) then
+			if imgui.Checkbox(u8'Пополнения казны сотрудниками', chat['incazna']) then
 				cfg.Chat.incazna = chat['incazna'].v
 				inicfg.save(cfg, 'Bank_Config.ini')
 			end
-			if imgui.Checkbox(u8'РџСЂРёРЅСЏС‚РёРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ', chat['invite']) then
+			if imgui.Checkbox(u8'Принятие сотрудников', chat['invite']) then
 				cfg.Chat.invite = chat['invite'].v
 				inicfg.save(cfg, 'Bank_Config.ini')
 			end
-			if imgui.Checkbox(u8'РЈРІРѕР»СЊРЅРµРЅРёСЏ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ', chat['uval']) then
+			if imgui.Checkbox(u8'Увольнения сотрудников', chat['uval']) then
 				cfg.Chat.uval = chat['uval'].v
 				inicfg.save(cfg, 'Bank_Config.ini')
 			end
 
 			imgui.NewLine()
-			imgui.TextDisabled(u8"RP РѕС‚С‹РіСЂРѕРІРєРё:")
-			imgui.TextColoredRGB(mc..'Р—Р°РґРµСЂР¶РєР° РјРµР¶РґСѓ СЃРѕРѕР±С‰РµРЅРёСЏРјРё РІ РѕС‚С‹РіСЂРѕРІРєР°С…:')
+			imgui.TextDisabled(u8"RP отыгровки:")
+			imgui.TextColoredRGB(mc..'Задержка между сообщениями в отыгровках:')
 			imgui.PushItemWidth(100)
-			if imgui.SliderFloat('##MsgDelay', MsgDelay, 0.5, 10.0, u8'%0.2f СЃ.') then
+			if imgui.SliderFloat('##MsgDelay', MsgDelay, 0.5, 10.0, u8'%0.2f с.') then
 				if MsgDelay.v < 0.5 then MsgDelay.v = 0.5 end
 				if MsgDelay.v > 10.0 then MsgDelay.v = 10.0 end
 
@@ -2965,49 +2965,49 @@ function imgui.OnDrawFrame()
 
 			imgui.SameLine()
 			imgui.TextDisabled("(?)")
-			imgui.Hint("handwritehelp", u8"Р—Р°Р¶РјРёС‚Рµ CTRL + Р›РљРњ, С‡С‚РѕР±С‹ РІРІРµСЃС‚Рё РІСЂСѓС‡РЅСѓСЋ")
+			imgui.Hint("handwritehelp", u8"Зажмите CTRL + ЛКМ, чтобы ввести вручную")
 
-			imgui.TextColoredRGB(mc..'Р’Р°С€ РїРѕР»:')
-			if imgui.RadioButton(u8("РњСѓР¶СЃРєРѕР№"), sex, 1) then
+			imgui.TextColoredRGB(mc..'Ваш пол:')
+			if imgui.RadioButton(u8("Мужской"), sex, 1) then
 				cfg.main.sex = sex.v
 				if inicfg.save(cfg, 'Bank_Config.ini') then 
-					addBankMessage('РџРѕР» РёР·РјРµРЅС‘РЅ РЅР° {M}РњСѓР¶СЃРєРѕР№')
+					addBankMessage('Пол изменён на {M}Мужской')
 				end
 			end
-			if imgui.RadioButton(u8("Р–РµРЅСЃРєРёР№"), sex, 2) then 
+			if imgui.RadioButton(u8("Женский"), sex, 2) then 
 				cfg.main.sex = sex.v
 				if inicfg.save(cfg, 'Bank_Config.ini') then 
-					addBankMessage('РџРѕР» РёР·РјРµРЅС‘РЅ РЅР° {M}Р–РµРЅСЃРєРёР№')
+					addBankMessage('Пол изменён на {M}Женский')
 				end
 			end
 
-			imgui.TextColoredRGB(mc..'РђРІС‚Рѕ-РЎРєСЂРёРЅ + /time')
+			imgui.TextColoredRGB(mc..'Авто-Скрин + /time')
 			imgui.SameLine()
 			imgui.TextDisabled("(?)")
-			imgui.Hint('autoscreen', u8'Р’СЃРµ РІР°С€Рё РїРѕРІС‹С€РµРЅРёСЏ, СѓРІРѕР»СЊРЅРµРЅРёСЏ, РІС‹РґР°С‡Рё СЂР°РЅРіРѕРІ Рё С‚.Рї.\nР±СѓРґСѓС‚ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё СЃРєСЂРёРЅРёС‚СЊСЃСЏ СЃ /time')
+			imgui.Hint('autoscreen', u8'Все ваши повышения, увольнения, выдачи рангов и т.п.\nбудут автоматически скриниться с /time')
 
-			if imgui.Checkbox(u8(autoF8.v and 'Р’РєР»СЋС‡РµРЅРѕ' or 'Р’С‹РєР»СЋС‡РµРЅРѕ')..'##autoF8', autoF8) then 
+			if imgui.Checkbox(u8(autoF8.v and 'Включено' or 'Выключено')..'##autoF8', autoF8) then 
 				cfg.main.autoF8 = autoF8.v
 				inicfg.save(cfg, 'Bank_Config.ini')
 			end
 			if autoF8.v then
 				if not doesFileExist(getGameDirectory()..'/Screenshot.asi') then
-					if imgui.Button(u8'РЎРєР°С‡Р°С‚СЊ Screenshot.asi', imgui.ImVec2(150, 20)) then 
+					if imgui.Button(u8'Скачать Screenshot.asi', imgui.ImVec2(150, 20)) then 
 						downloadUrlToFile('https://gitlab.com/Cosmo-ctrl/arizona-bank/-/raw/main/plugins/Screenshot.asi', getGameDirectory()..'/Screenshot.asi', function (id, status, p1, p2)
 							if status == STATUSEX_ENDDOWNLOAD then
 								runSampfuncsConsoleCommand('pload Screenshot.asi')
-								addBankMessage('РџР»Р°РіРёРЅ {M}Screenshot.asi{W} Р·Р°РіСЂСѓР¶РµРЅ! Р РµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РїРµСЂРµР·Р°Р№С‚Рё РІ РёРіСЂСѓ!')
+								addBankMessage('Плагин {M}Screenshot.asi{W} загружен! Рекомендуется перезайти в игру!')
 							end
 						end)
 					end
-					imgui.Hint('screenplugin', u8('РџРѕР·РІРѕР»СЏРµС‚ РґРµР»Р°С‚СЊ РјРѕРјРµРЅС‚Р°Р»СЊРЅС‹Рµ СЃРєСЂРёРЅС€РѕС‚С‹ Р±РµР· Р·Р°РІРёСЃР°РЅРёСЏ РёРіСЂС‹\nРџРѕСЃР»Рµ СЃРєР°С‡РёРІР°РЅРёСЏ РЅСѓР¶РЅРѕ РїРµСЂРµР·Р°Р№С‚Рё РІ РёРіСЂСѓ\nРђРІС‚РѕСЂ: MISTER_GONWIK'), 0, u8'РќР°Р¶РјРёС‚Рµ, С‡С‚Рѕ-Р±С‹ СЃРєР°С‡Р°С‚СЊ')
+					imgui.Hint('screenplugin', u8('Позволяет делать моментальные скриншоты без зависания игры\nПосле скачивания нужно перезайти в игру\nАвтор: MISTER_GONWIK'), 0, u8'Нажмите, что-бы скачать')
 				else
-					imgui.TextColoredRGB('{30FF30}РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ Screenshot.asi')
+					imgui.TextColoredRGB('{30FF30}Используется Screenshot.asi')
 				end
 			end
 
-			imgui.TextColoredRGB(mc..'РђРєС†РµРЅС‚')
-			if imgui.Checkbox(u8(accent_status.v and 'Р’РєР»СЋС‡РµРЅРѕ' or 'Р’С‹РєР»СЋС‡РµРЅРѕ')..'##accent_status', accent_status) then 
+			imgui.TextColoredRGB(mc..'Акцент')
+			if imgui.Checkbox(u8(accent_status.v and 'Включено' or 'Выключено')..'##accent_status', accent_status) then 
 				cfg.main.accent_status = accent_status.v
 				inicfg.save(cfg, 'Bank_Config.ini')
 			end
@@ -3018,42 +3018,42 @@ function imgui.OnDrawFrame()
 				if imgui.Button('Save##accent', imgui.ImVec2(-1, 20)) then 
 					cfg.main.accent = u8:decode(accent.v)
 					if inicfg.save(cfg, 'Bank_Config.ini') then 
-						addBankMessage('РђРєС†РµРЅС‚ СЃРѕС…СЂР°РЅС‘РЅ!')
+						addBankMessage('Акцент сохранён!')
 					end
 				end
 			end
-			imgui.TextColoredRGB(mc..'РђРІС‚Рѕ-РћС‚С‹РіСЂРѕРІРєР° РґСѓР±РёРЅРєРё')
-			if imgui.Checkbox(u8(rpbat.v and 'Р’РєР»СЋС‡РµРЅРѕ' or 'Р’С‹РєР»СЋС‡РµРЅРѕ')..'##rpbat', rpbat) then 
+			imgui.TextColoredRGB(mc..'Авто-Отыгровка дубинки')
+			if imgui.Checkbox(u8(rpbat.v and 'Включено' or 'Выключено')..'##rpbat', rpbat) then 
 				cfg.main.rpbat = rpbat.v
 				inicfg.save(cfg, 'Bank_Config.ini')
 			end
 			if rpbat.v then
-				imgui.TextColoredRGB(mc..'Р’Р·СЏС‚СЊ РґСѓР±РёРЅРєСѓ')
+				imgui.TextColoredRGB(mc..'Взять дубинку')
 				imgui.PushItemWidth(280)
 				imgui.InputText(u8"##rpbat_true", rpbat_true); imgui.SameLine()
 				imgui.PopItemWidth()
 				if imgui.Button('Save##1', imgui.ImVec2(-1, 20)) then 
 					cfg.main.rpbat_true = u8:decode(rpbat_true.v)
 					if inicfg.save(cfg, 'Bank_Config.ini') then 
-						addBankMessage('РћС‚С‹РіСЂРѕРІРєР° СЃРѕС…СЂР°РЅРµРЅР°!')
+						addBankMessage('Отыгровка сохранена!')
 					end
 				end
 
-				imgui.TextColoredRGB(mc..'РЈР±СЂР°С‚СЊ РґСѓР±РёРЅРєСѓ')
+				imgui.TextColoredRGB(mc..'Убрать дубинку')
 				imgui.PushItemWidth(280)
 				imgui.InputText(u8"##rpbat_false", rpbat_false); imgui.SameLine()
 				imgui.PopItemWidth()
 				if imgui.Button('Save##2', imgui.ImVec2(-1, 20)) then 
 					cfg.main.rpbat_false = u8:decode(rpbat_false.v)
 					if inicfg.save(cfg, 'Bank_Config.ini') then 
-						addBankMessage('РћС‚С‹РіСЂРѕРІРєР° СЃРѕС…СЂР°РЅРµРЅР°!')
+						addBankMessage('Отыгровка сохранена!')
 					end
 				end
 			end
 
 			imgui.NewLine()
-			imgui.TextDisabled(u8"Р’РЅРµС€РЅРёР№ РІРёРґ:")
-			if imgui.ToggleButton(u8'РўС‘РјРЅР°СЏ С‚РµРјР°', black_theme) then
+			imgui.TextDisabled(u8"Внешний вид:")
+			if imgui.ToggleButton(u8'Тёмная тема', black_theme) then
 				SCRIPT_STYLE.clock = os.clock()
 				cfg.main.black_theme = black_theme.v
 				inicfg.save(cfg, 'Bank_Config.ini')
@@ -3072,48 +3072,48 @@ function imgui.OnDrawFrame()
 				end
 			end
 		
-			if imgui.ColorEdit4(u8'Р¦РІРµС‚ С‡Р°С‚Р° РѕСЂРіР°РЅРёР·Р°С†РёРё', colorRchat, imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.NoAlpha) then
+			if imgui.ColorEdit4(u8'Цвет чата организации', colorRchat, imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.NoAlpha) then
 				local clr = imgui.ImColor.FromFloat4(colorRchat.v[1], colorRchat.v[2], colorRchat.v[3], colorRchat.v[4]):GetU32()
 				cfg.main.colorRchat = clr
 				inicfg.save(cfg, 'Bank_Config.ini')
 			end
 			imgui.SameLine(imgui.GetWindowWidth() - 150)
-			if imgui.Button(u8("РўРµСЃС‚##RCol"), imgui.ImVec2(50, 20)) then
+			if imgui.Button(u8("Тест##RCol"), imgui.ImVec2(50, 20)) then
 				local _, selfid = sampGetPlayerIdByCharHandle(PLAYER_PED) 
 				local r, g, b, a = imgui.ImColor(cfg.main.colorRchat):GetRGBA()
-				sampAddChatMessage('[R] '..cfg.nameRank[cfg.main.rank]..' '..sampGetPlayerNickname(tonumber(selfid))..'['..selfid..']: (( Р­С‚Рѕ СЃРѕРѕР±С‰РµРЅРёРµ РІРёРґРёС‚Рµ С‚РѕР»СЊРєРѕ РІС‹! ))', join_rgb(r, g, b))
+				sampAddChatMessage('[R] '..cfg.nameRank[cfg.main.rank]..' '..sampGetPlayerNickname(tonumber(selfid))..'['..selfid..']: (( Это сообщение видите только вы! ))', join_rgb(r, g, b))
 			end
 			imgui.SameLine(imgui.GetWindowWidth() - 95)
-			if imgui.Button(u8("РЎС‚Р°РЅРґР°СЂС‚РЅС‹Р№##Rcol"), imgui.ImVec2(90, 20)) then
+			if imgui.Button(u8("Стандартный##Rcol"), imgui.ImVec2(90, 20)) then
 				cfg.main.colorRchat = 4282626093
 				if inicfg.save(cfg, 'Bank_Config.ini') then 
-					addBankMessage('РЎС‚Р°РЅРґР°СЂС‚РЅС‹Р№ С†РІРµС‚ С‡Р°С‚Р° РѕСЂРіР°РЅРёР·Р°С†РёРё РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅ!')
+					addBankMessage('Стандартный цвет чата организации восстановлен!')
 					colorRchat = imgui.ImFloat4(imgui.ImColor(cfg.main.colorRchat):GetFloat4())
 				end
 			end
 
-			if imgui.ColorEdit4(u8'Р¦РІРµС‚ С‡Р°С‚Р° РґРµРїР°СЂС‚Р°РјРµРЅС‚Р°', colorDchat, imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.NoAlpha) then
+			if imgui.ColorEdit4(u8'Цвет чата департамента', colorDchat, imgui.ColorEditFlags.NoInputs + imgui.ColorEditFlags.NoAlpha) then
 				local clr = imgui.ImColor.FromFloat4(colorDchat.v[1], colorDchat.v[2], colorDchat.v[3], colorDchat.v[4]):GetU32()
 				cfg.main.colorDchat = clr
 				inicfg.save(cfg, 'Bank_Config.ini')
 			end
 			imgui.SameLine(imgui.GetWindowWidth() - 150)
-			if imgui.Button(u8("РўРµСЃС‚##DCol"), imgui.ImVec2(50, 20)) then
+			if imgui.Button(u8("Тест##DCol"), imgui.ImVec2(50, 20)) then
 				local _, selfid = sampGetPlayerIdByCharHandle(PLAYER_PED) 
 				local r, g, b, a = imgui.ImColor(cfg.main.colorDchat):GetRGBA()
-				sampAddChatMessage('[D] '..cfg.nameRank[cfg.main.rank]..' '..sampGetPlayerNickname(tonumber(selfid))..'['..selfid..']: Р­С‚Рѕ СЃРѕРѕР±С‰РµРЅРёРµ РІРёРґРёС‚Рµ С‚РѕР»СЊРєРѕ РІС‹!', join_rgb(r, g, b))
+				sampAddChatMessage('[D] '..cfg.nameRank[cfg.main.rank]..' '..sampGetPlayerNickname(tonumber(selfid))..'['..selfid..']: Это сообщение видите только вы!', join_rgb(r, g, b))
 			end
 			imgui.SameLine(imgui.GetWindowWidth() - 95)
-			if imgui.Button(u8("РЎС‚Р°РЅРґР°СЂС‚РЅС‹Р№##DCol"), imgui.ImVec2(90, 20)) then
+			if imgui.Button(u8("Стандартный##DCol"), imgui.ImVec2(90, 20)) then
 				cfg.main.colorDchat = 4294940723
 				if inicfg.save(cfg, 'Bank_Config.ini') then 
-					addBankMessage('РЎС‚Р°РЅРґР°СЂС‚РЅС‹Р№ С†РІРµС‚ С‡Р°С‚Р° РґРµРїР°СЂС‚Р°РјРµРЅС‚Р° РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅ!')
+					addBankMessage('Стандартный цвет чата департамента восстановлен!')
 					colorDchat = imgui.ImFloat4(imgui.ImColor(cfg.main.colorDchat):GetFloat4())
 				end
 			end
 
 			imgui.NewLine()
-			imgui.CenterTextColoredRGB(sc .. "РЎСЃС‹Р»РєРё РЅР° СЂР°Р·СЂР°Р±РѕС‚С‡РёРєР°:")
+			imgui.CenterTextColoredRGB(sc .. "Ссылки на разработчика:")
 			imgui.Spacing()
 			imgui.SetCursorPosX((imgui.GetWindowWidth() - 32*4 - 10*3) / 2)
 			imgui.BeginGroup()
@@ -3140,14 +3140,14 @@ function imgui.OnDrawFrame()
 
 			imgui.NewLine()
 
-			if imgui.Button(u8('РџРѕР»РµР·РЅС‹Рµ СЃРєСЂРёРїС‚С‹ ')..fa.ICON_FA_PUZZLE_PIECE, imgui.ImVec2(150, 64)) then
+			if imgui.Button(u8('Полезные скрипты ')..fa.ICON_FA_PUZZLE_PIECE, imgui.ImVec2(150, 64)) then
 				type_window.v = 6
 			end
 
 			imgui.SameLine(nil, 5)
 
 			imgui.BeginGroup()
-				if imgui.RedButton(u8'РЈРґР°Р»РёС‚СЊ Bank-Helper', imgui.ImVec2(-1, 30)) then
+				if imgui.RedButton(u8'Удалить Bank-Helper', imgui.ImVec2(-1, 30)) then
 					imgui.OpenPopup('##deleteBankHelper')
 				end
 				imgui.SetNextWindowSize(imgui.ImVec2(400, -1), imgui.Cond.FirstUseEver)
@@ -3156,23 +3156,23 @@ function imgui.OnDrawFrame()
 
 					imgui.PushFont(font[20])
 					imgui.CenterText(fa.ICON_FA_TRASH, imgui.ImVec4(0.8, 0.3, 0.3, 1.0))
-					imgui.CenterText(u8'РЈР”РђР›Р•РќРР• BANK HELPER', imgui.ImVec4(0.8, 0.3, 0.3, 1.0))
+					imgui.CenterText(u8'УДАЛЕНИЕ BANK HELPER', imgui.ImVec4(0.8, 0.3, 0.3, 1.0))
 					imgui.PopFont()
 					imgui.Spacing()
-					imgui.CenterText(u8'Р’С‹ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅРѕ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ Bank-Helper?')
-					imgui.CenterText(u8'РћС‚РјРµРЅРёС‚СЊ СЌС‚Рѕ РґРµР№СЃС‚РІРёРµ Р±СѓРґРµС‚ РЅРµРІРѕР·РјРѕР¶РЅРѕ!', imgui.ImVec4(0.8, 0.3, 0.3, 1.0))
+					imgui.CenterText(u8'Вы действительно хотите удалить Bank-Helper?')
+					imgui.CenterText(u8'Отменить это действие будет невозможно!', imgui.ImVec4(0.8, 0.3, 0.3, 1.0))
 					imgui.Spacing()
 
 					imgui.SetCursorPosX((imgui.GetWindowWidth() - 300 - imgui.GetStyle().ItemSpacing.x) / 2)
-					if imgui.RedButton(u8'РЈРґР°Р»РёС‚СЊ', imgui.ImVec2(150, 30)) then
-						addBankMessage('РџСЂРѕС‰Р°Р№ :(')
+					if imgui.RedButton(u8'Удалить', imgui.ImVec2(150, 30)) then
+						addBankMessage('Прощай :(')
 						os.remove(thisScript().path)
 						os.remove(getWorkingDirectory() .. '\\config\\Bank_Config.ini')
 						thisScript():unload()
 					end
 					imgui.SameLine()
 					imgui.PushStyleColor(imgui.Col.Button, imgui.ImVec4(0.20, 0.20, 0.20, 1.00))
-					if imgui.Button(u8'Р’РµСЂРЅСѓС‚СЊСЃСЏ', imgui.ImVec2(150, 30)) then
+					if imgui.Button(u8'Вернуться', imgui.ImVec2(150, 30)) then
 						imgui.CloseCurrentPopup()
 					end
 					imgui.PopStyleColor()
@@ -3181,12 +3181,12 @@ function imgui.OnDrawFrame()
 				end
 				imgui.PopStyleColor()
 
-				if imgui.Button(u8('РџСЂРѕРІРµСЂРёС‚СЊ РѕР±РЅРѕРІР»РµРЅРёСЏ ')..fa.ICON_FA_DOWNLOAD, imgui.ImVec2(-1, 30)) then
+				if imgui.Button(u8('Проверить обновления ')..fa.ICON_FA_DOWNLOAD, imgui.ImVec2(-1, 30)) then
 					lua_thread.create(autoupdate, jsn_upd); checkData()
 				end
 			imgui.EndGroup()
 
-			if imgui.GreenButton(u8'РЎРїРёСЃРѕРє РёР·РјРµРЅРµРЅРёР№', imgui.ImVec2(-1, 20)) then
+			if imgui.GreenButton(u8'Список изменений', imgui.ImVec2(-1, 20)) then
 				if not infoupdate.state then infoupdate:switch() end
 			end
 
@@ -3196,15 +3196,15 @@ function imgui.OnDrawFrame()
 		end
 
 		if type_window.v == 6 then 
-			imgui.CenterTextColoredRGB('Р Р°Р·РґРµР» РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… РїРѕР»РµР·РЅС‹С… СЃРєСЂРёРїС‚РѕРІ\nРѕС‚ СЂР°Р·СЂР°Р±РѕС‚С‡РёРєР° Bank-Helper\'Р°')
+			imgui.CenterTextColoredRGB('Раздел дополнительных полезных скриптов\nот разработчика Bank-Helper\'а')
 			imgui.Separator()
 
 			local width = imgui.GetWindowWidth()
 			for i, info in ipairs(Repository) do
 				if imgui.CollapsingHeader(u8(info.name)) then
-					imgui.TextColoredRGB(mc .. "РРјСЏ С„Р°Р№Р»Р°: {SSSSSS}" .. info.file)
+					imgui.TextColoredRGB(mc .. "Имя файла: {SSSSSS}" .. info.file)
 					if info.source ~= nil then
-						imgui.TextColoredRGB(mc .. "РЎСЃС‹Р»РєР°:")
+						imgui.TextColoredRGB(mc .. "Ссылка:")
 						imgui.SameLine(nil, 4)
 						if imgui.Link(u8(info.source .. "##" .. i)) then
 							os.execute(("explorer.exe \"%s\""):format(info.source))
@@ -3212,13 +3212,13 @@ function imgui.OnDrawFrame()
 					end
 
 					if #info.cmds > 1 then
-						imgui.TextColoredRGB(mc .. "РљРѕРјР°РЅРґС‹ СЃРєСЂРёРїС‚Р°: {SSSSSS}" .. table.concat(info.cmds, ", "))
+						imgui.TextColoredRGB(mc .. "Команды скрипта: {SSSSSS}" .. table.concat(info.cmds, ", "))
 					elseif #info.cmds == 1 then
-						imgui.TextColoredRGB(mc .. "РљРѕРјР°РЅРґР° СЃРєСЂРёРїС‚Р°: {SSSSSS}" .. info.cmds[1])
+						imgui.TextColoredRGB(mc .. "Команда скрипта: {SSSSSS}" .. info.cmds[1])
 					else
-						imgui.TextColoredRGB(mc .. "РђРєС‚РёРІР°С†РёСЏ: {SSSSSS}Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєР°СЏ")
+						imgui.TextColoredRGB(mc .. "Активация: {SSSSSS}автоматическая")
 					end
-					imgui.TextColoredRGB(mc .. "РћРїРёСЃР°РЅРёРµ:")
+					imgui.TextColoredRGB(mc .. "Описание:")
 					imgui.TextWrapped(u8(info.desc))
 
 					imgui.NewLine()
@@ -3230,10 +3230,10 @@ function imgui.OnDrawFrame()
 
 					local path = getWorkingDirectory() .. "\\" .. info.file
 					if #missing > 0 then
-						imgui.DisableButton(u8("РЈСЃС‚Р°РЅРѕРІРёС‚СЊ ") .. fa.ICON_FA_DOWNLOAD .. "##Repo" .. i, imgui.ImVec2(150, 20))
-						imgui.Hint("notlibwarn" .. i, u8"Р”Р»СЏ РЅР°С‡Р°Р»Р° СѓСЃС‚Р°РЅРѕРІРёС‚Рµ РІР°Р¶РЅС‹Рµ РєРѕРјРїРѕРЅРµРЅС‚С‹ РЅРёР¶Рµ!")
+						imgui.DisableButton(u8("Установить ") .. fa.ICON_FA_DOWNLOAD .. "##Repo" .. i, imgui.ImVec2(150, 20))
+						imgui.Hint("notlibwarn" .. i, u8"Для начала установите важные компоненты ниже!")
 
-						imgui.TextColoredRGB("{FF0000}РќРµРѕР±С…РѕРґРёРјРѕ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ:")
+						imgui.TextColoredRGB("{FF0000}Необходимо установить:")
 						for i, name in pairs(missing) do
 							imgui.SameLine(nil, 4)
 							if imgui.Link(u8(name)) then
@@ -3241,25 +3241,25 @@ function imgui.OnDrawFrame()
 							end
 						end
 					elseif not doesFileExist(path) then
-						if imgui.GreenButton(u8("РЈСЃС‚Р°РЅРѕРІРёС‚СЊ ") .. fa.ICON_FA_DOWNLOAD .. "##Repo" .. i, imgui.ImVec2(150, 20)) then
+						if imgui.GreenButton(u8("Установить ") .. fa.ICON_FA_DOWNLOAD .. "##Repo" .. i, imgui.ImVec2(150, 20)) then
 							downloadUrlToFile(info.url, path, function (id, status, p1, p2)
 								if status == STATUSEX_ENDDOWNLOAD then
-									addBankMessage(string.format("РЎРєСЂРёРїС‚ В«{M}%s{W}В» СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅ!", info.name))
+									addBankMessage(string.format("Скрипт «{M}%s{W}» успешно загружен!", info.name))
 									script.load(path)
 								end
 							end)
 						end
 					else
-						imgui.DisableButton(u8("РЈСЃС‚Р°РЅРѕРІР»РµРЅРѕ ") .. fa.ICON_FA_CHECK_CIRCLE .. "##Repo" .. i, imgui.ImVec2(150, 20))
+						imgui.DisableButton(u8("Установлено ") .. fa.ICON_FA_CHECK_CIRCLE .. "##Repo" .. i, imgui.ImVec2(150, 20))
 						imgui.SameLine()
-						if imgui.RedButton(u8("РЈРґР°Р»РёС‚СЊ ") .. fa.ICON_FA_TRASH .. "##RepoDel" .. i, imgui.ImVec2(90, 20)) then
+						if imgui.RedButton(u8("Удалить ") .. fa.ICON_FA_TRASH .. "##RepoDel" .. i, imgui.ImVec2(90, 20)) then
 							for _, s in ipairs(script.list()) do
 								if s.path == path then
 							  		s:unload()
 								end
 							end
 							os.remove(path)
-							addBankMessage(string.format("РЎРєСЂРёРїС‚ В«{M}%s{W}В» СѓСЃРїРµС€РЅРѕ СѓРґР°Р»С‘РЅ!", info.name))
+							addBankMessage(string.format("Скрипт «{M}%s{W}» успешно удалён!", info.name))
 						end
 					end
 				else
@@ -3284,7 +3284,7 @@ function imgui.OnDrawFrame()
 		imgui.SetNextWindowPos(imgui.ImVec2(xx / 2, yy / 2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
 		imgui.PushStyleVar(imgui.StyleVar.Alpha, ustav_window.alpha)
 		imgui.PushStyleVar(imgui.StyleVar.WindowMinSize, imgui.ImVec2(500, 300))
-		imgui.Begin(u8'РЈСЃС‚Р°РІ Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР°', _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar)
+		imgui.Begin(u8'Устав Центрального Банка', _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar)
 			
 			imgui.SetCursorPosX((imgui.GetWindowWidth() - 200) / 2)
 			imgui.PushItemWidth(200)
@@ -3293,14 +3293,14 @@ function imgui.OnDrawFrame()
 			imgui.PopAllowKeyboardFocus()
 			imgui.PopItemWidth()
 			if not imgui.IsItemActive() and #search_ustav.v == 0 then
-				imgui.SameLine((imgui.GetWindowWidth() - imgui.CalcTextSize(fa.ICON_FA_SEARCH..u8(' РџРѕРёСЃРє РїРѕ СѓСЃС‚Р°РІСѓ')).x) / 2)
-				imgui.TextColored(imgui.ImVec4(0.5, 0.5, 0.5, 1), fa.ICON_FA_SEARCH..u8(' РџРѕРёСЃРє РїРѕ СѓСЃС‚Р°РІСѓ'))
+				imgui.SameLine((imgui.GetWindowWidth() - imgui.CalcTextSize(fa.ICON_FA_SEARCH..u8(' Поиск по уставу')).x) / 2)
+				imgui.TextColored(imgui.ImVec4(0.5, 0.5, 0.5, 1), fa.ICON_FA_SEARCH..u8(' Поиск по уставу'))
 			end
-			imgui.CenterTextColoredRGB('{868686}Р”РІРѕР№РЅРѕР№ РєР»РёРє РїРѕ СЃС‚СЂРѕРєРµ, РІС‹РІРµРґРµС‚ РµС‘ РІ РїРѕР»Рµ РІРІРѕРґР° РІ С‡Р°С‚Рµ')
+			imgui.CenterTextColoredRGB('{868686}Двойной клик по строке, выведет её в поле ввода в чате')
 			imgui.Separator()
 
 			local results = 0
-			for line in io.lines(getWorkingDirectory() .. "\\BHelper\\РЈСЃС‚Р°РІ Р¦Р‘.txt") do
+			for line in io.lines(getWorkingDirectory() .. "\\BHelper\\Устав ЦБ.txt") do
 				if #line == 0 then line = "\n" end
 
 				if #search_ustav.v <= 0 then
@@ -3322,13 +3322,13 @@ function imgui.OnDrawFrame()
 
 			if #search_ustav.v > 0 and results == 0 then
 				imgui.SetCursorPosY((imgui.GetWindowHeight() + 50) / 2)
-				imgui.CenterTextColoredRGB('{666666}РџРѕС…РѕР¶Рµ, РЅРёС‡РµРіРѕ РЅРµ РЅР°Р№РґРµРЅРѕ :(')
+				imgui.CenterTextColoredRGB('{666666}Похоже, ничего не найдено :(')
 			end
 
 			local wsize = imgui.GetWindowSize()
 			imgui.SetCursorPos(imgui.ImVec2(wsize.x - 10 - 20 - 5 - 20, 26))
 			if imgui.Button(fa.ICON_FA_PEN .. '##ustavedit', imgui.ImVec2(20, 20)) then
-				os.execute('explorer '..getWorkingDirectory()..'\\BHelper\\РЈСЃС‚Р°РІ Р¦Р‘.txt')
+				os.execute('explorer '..getWorkingDirectory()..'\\BHelper\\Устав ЦБ.txt')
 			end
 			imgui.SameLine(nil, 5)
 			if imgui.Button(fa.ICON_FA_TIMES .. "##ustavexit", imgui.ImVec2(20, 20)) then
@@ -3426,7 +3426,7 @@ function GetKassaInfo()
 		imgui.SetNextWindowSize(imgui.ImVec2(210, 180), imgui.Cond.FirstUseEver)
 		imgui.PushStyleVar(imgui.StyleVar.WindowPadding, imgui.ImVec2(0, 0))
 		imgui.PushStyleVar(imgui.StyleVar.WindowRounding, 5)
-		imgui.Begin(u8("РЎС‚Р°С‚РёСЃС‚РёРєР°"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoBringToFrontOnFocus + imgui.WindowFlags.NoSavedSettings + imgui.WindowFlags.NoTitleBar)
+		imgui.Begin(u8("Статистика"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoMove + imgui.WindowFlags.NoBringToFrontOnFocus + imgui.WindowFlags.NoSavedSettings + imgui.WindowFlags.NoTitleBar)
 
 			local DL = imgui.GetWindowDrawList()
 			local p = imgui.GetCursorScreenPos()
@@ -3444,7 +3444,7 @@ function GetKassaInfo()
 				local distBetweenKassa = getDistanceBetweenCoords3d(kassa.pos.x, kassa.pos.y, kassa.pos.z, myX, myY, myZ)
 				if distBetweenKassa < 10 then
 
-					local title = u8('Р Р°Р±РѕС‚Р° Р·Р° РєР°СЃСЃРѕР№')
+					local title = u8('Работа за кассой')
 					local len = imgui.CalcTextSize(title).x
 					DL:AddRectFilled(
 						imgui.ImVec2(p.x, p.y + 5), 
@@ -3460,21 +3460,21 @@ function GetKassaInfo()
 					imgui.PopFont()
 
 					imgui.SetCursorPosY(35)
-					imgui.Text(fa.ICON_FA_CLOCK);           imgui.SameLine(30); imgui.TextColoredRGB(mc..'Р’СЂРµРјСЏ РЅР° РїРѕСЃС‚Сѓ: {SSSSSS}'         ..kassa.time.v..' РјРёРЅ.')
-					imgui.Text(fa.ICON_FA_CHECK_CIRCLE);    imgui.SameLine(30); imgui.TextColoredRGB(mc..'РћС„РѕСЂРјР»РµРЅРѕ РґРµРїРѕР·РёС‚РѕРІ: {SSSSSS}'    ..tostring(kassa.info.dep))
-					imgui.Text(fa.ICON_FA_HANDSHAKE);       imgui.SameLine(30); imgui.TextColoredRGB(mc..'РћС„РѕСЂРјР»РµРЅРѕ РєСЂРµРґРёС‚РѕРІ: {SSSSSS}'     ..tostring(kassa.info.credit))
-					imgui.Text(fa.ICON_FA_CREDIT_CARD);     imgui.SameLine(30); imgui.TextColoredRGB(mc..'Р’С‹РґР°РЅРѕ РєР°СЂС‚: {SSSSSS}'            ..tostring(kassa.info.card))
-					imgui.Text(fa.ICON_FA_TICKET_ALT);     	imgui.SameLine(30); imgui.TextColoredRGB(mc..'Р’С‹РґР°РЅРѕ VIP-РєР°СЂС‚: {SSSSSS}'        ..tostring(kassa.info.vip))
-					imgui.Text(fa.ICON_FA_RECYCLE);         imgui.SameLine(30); imgui.TextColoredRGB(mc..'Р’РѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРѕ РєР°СЂС‚: {SSSSSS}'     ..tostring(kassa.info.recard))
-					imgui.Text(fa.ICON_FA_PLUS_CIRCLE);     imgui.SameLine(30); imgui.TextColoredRGB(mc..'РЎРѕР·РґР°РЅРѕ РґРѕРї. СЃС‡РµС‚РѕРІ: {SSSSSS}'    ..tostring(kassa.info.addcard))
-					imgui.Text(fa.ICON_FA_PIGGY_BANK);      imgui.SameLine(30); imgui.TextColoredRGB(mc..'Р—Р°СЂР°Р±РѕС‚Р°РЅРѕ: {SSSSSS}$'            ..sumFormat(kassa.money))
+					imgui.Text(fa.ICON_FA_CLOCK);           imgui.SameLine(30); imgui.TextColoredRGB(mc..'Время на посту: {SSSSSS}'         ..kassa.time.v..' мин.')
+					imgui.Text(fa.ICON_FA_CHECK_CIRCLE);    imgui.SameLine(30); imgui.TextColoredRGB(mc..'Оформлено депозитов: {SSSSSS}'    ..tostring(kassa.info.dep))
+					imgui.Text(fa.ICON_FA_HANDSHAKE);       imgui.SameLine(30); imgui.TextColoredRGB(mc..'Оформлено кредитов: {SSSSSS}'     ..tostring(kassa.info.credit))
+					imgui.Text(fa.ICON_FA_CREDIT_CARD);     imgui.SameLine(30); imgui.TextColoredRGB(mc..'Выдано карт: {SSSSSS}'            ..tostring(kassa.info.card))
+					imgui.Text(fa.ICON_FA_TICKET_ALT);     	imgui.SameLine(30); imgui.TextColoredRGB(mc..'Выдано VIP-карт: {SSSSSS}'        ..tostring(kassa.info.vip))
+					imgui.Text(fa.ICON_FA_RECYCLE);         imgui.SameLine(30); imgui.TextColoredRGB(mc..'Восстановлено карт: {SSSSSS}'     ..tostring(kassa.info.recard))
+					imgui.Text(fa.ICON_FA_PLUS_CIRCLE);     imgui.SameLine(30); imgui.TextColoredRGB(mc..'Создано доп. счетов: {SSSSSS}'    ..tostring(kassa.info.addcard))
+					imgui.Text(fa.ICON_FA_PIGGY_BANK);      imgui.SameLine(30); imgui.TextColoredRGB(mc..'Заработано: {SSSSSS}$'            ..sumFormat(kassa.money))
 				else
-					imgui.CenterTextColoredRGB(sc..'РџРѕСЃС‚: '..kassa.name.v:gsub('\n', ''))
+					imgui.CenterTextColoredRGB(sc..'Пост: '..kassa.name.v:gsub('\n', ''))
 					imgui.SetCursorPosY(60)
 					if getActiveInterior() ~= 0 then
-						imgui.CenterTextColoredRGB(mc..'Р’С‹ РґР°Р»РµРєРѕ РѕС‚РѕС€Р»Рё!\nРџРѕРґРѕР№РґРёС‚Рµ Р±Р»РёР¶Рµ Рє РєР°СЃСЃРµ!\n{SSSSSS}'..math.floor(distBetweenKassa)..'Рј. РѕС‚ РєР°СЃСЃС‹')
+						imgui.CenterTextColoredRGB(mc..'Вы далеко отошли!\nПодойдите ближе к кассе!\n{SSSSSS}'..math.floor(distBetweenKassa)..'м. от кассы')
 					else
-						imgui.CenterTextColoredRGB(mc..'Р’С‹ СѓС€Р»Рё РѕС‚ РєР°СЃСЃС‹!\n{SSSSSS}РџРѕСЃС‚ Р·Р°РІРµСЂС€РёС‚СЃСЏ РµСЃР»Рё\nРІС‹ РЅРµ РІРµСЂРЅС‘С‚РµСЃСЊ РІ Р±Р°РЅРє!')
+						imgui.CenterTextColoredRGB(mc..'Вы ушли от кассы!\n{SSSSSS}Пост завершится если\nвы не вернётесь в банк!')
 					end
 				end
 			imgui.EndGroup()
@@ -3489,14 +3489,14 @@ function GetKassaInfo()
 end
 
 function lection_editor(lection)
-	if imgui.BeginPopupModal(u8"Р РµРґР°РєС‚РѕСЂ Р»РµРєС†РёР№", _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
+	if imgui.BeginPopupModal(u8"Редактор лекций", _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
 
-		imgui.InputText(u8"РќР°Р·РІР°РЅРёРµ Р»РµРєС†РёРё##lecteditor", lect_edit_name)
+		imgui.InputText(u8"Название лекции##lecteditor", lect_edit_name)
 		if lection_number ~= nil then
 			imgui.SameLine(600)
 			imgui.PushStyleColor(imgui.Col.ButtonHovered, imgui.ImVec4(0.40, 0.00, 0.00, 1.00))
 			imgui.PushStyleColor(imgui.Col.ButtonActive, imgui.ImVec4(0.30, 0.00, 0.00, 1.00))
-			if imgui.Button(u8('РЈРґР°Р»РёС‚СЊ ')..fa.ICON_FA_TRASH, imgui.ImVec2(-1, 20)) then
+			if imgui.Button(u8('Удалить ')..fa.ICON_FA_TRASH, imgui.ImVec2(-1, 20)) then
 				imgui.CloseCurrentPopup()
 				table.remove(lections.data, lection_number)
 				local file = io.open(lect_path, "w")
@@ -3509,7 +3509,7 @@ function lection_editor(lection)
 
 		imgui.SetCursorPosX( (imgui.GetWindowWidth() - 300 - imgui.GetStyle().ItemSpacing.x) / 2 )
 		if #lect_edit_name.v > 0 and #lect_edit_text.v > 0 then
-			if imgui.MainButton(u8"РЎРѕС…СЂР°РЅРёС‚СЊ##lecteditor", imgui.ImVec2(150, 20)) then
+			if imgui.MainButton(u8"Сохранить##lecteditor", imgui.ImVec2(150, 20)) then
 				local pack = function(text, match)
 					local array = {}
 					for line in text:gmatch('[^' .. match .. ']+') do
@@ -3533,11 +3533,11 @@ function lection_editor(lection)
 				imgui.CloseCurrentPopup()
 			end
 		else
-			imgui.DisableButton(u8"РЎРѕС…СЂР°РЅРёС‚СЊ##lecteditor", imgui.ImVec2(150, 20))
-			imgui.Hint('errgraflection', u8'Р—Р°РїРѕР»РЅРµРЅС‹ РЅРµ РІСЃРµ РїРѕР»СЏ!')
+			imgui.DisableButton(u8"Сохранить##lecteditor", imgui.ImVec2(150, 20))
+			imgui.Hint('errgraflection', u8'Заполнены не все поля!')
 		end
 		imgui.SameLine()
-		if imgui.Button(u8"РћС‚РјРµРЅРёС‚СЊ##lecteditor", imgui.ImVec2(150, 20)) then
+		if imgui.Button(u8"Отменить##lecteditor", imgui.ImVec2(150, 20)) then
 			imgui.CloseCurrentPopup()
 		end
 		imgui.EndPopup()
@@ -3553,29 +3553,29 @@ function go_expel(playerId, withoutRP)
 			if withoutRP then return sampSendChat(cmd_expel) end
 
 			play_message(MsgDelay.v, true, {
-				{ "/do Р Р°С†РёСЏ РІРёСЃРёС‚ РЅР° РїРѕСЏСЃРµ." },
-				{ "/me {sex:СЃРЅСЏР»|СЃРЅСЏР»Р°} СЂР°С†РёСЋ СЃ РїРѕСЏСЃР° Рё {sex:РїРѕР·РІР°Р»|РїРѕР·РІР°Р»Р°} Рє СЃРµР±Рµ РѕС…СЂР°РЅСѓ" },
-				{ "/do РЎРѕС‚СЂСѓРґРЅРёРє РѕС…СЂР°РЅС‹ РїРѕРґРѕС€С‘Р» Рё СЃС…РІР°С‚РёР» Р·Р° СЂСѓРєРё %s.", rpNick(playerId) },
-				{ "/do РЎРѕС‚СЂСѓРґРЅРёРє РІС‹РІРµР» %s РёР· Р±Р°РЅРєР° Рё Р·Р°РєСЂС‹Р» Р·Р° СЃРѕР±РѕР№ РґРІРµСЂСЊ.", rpNick(playerId) },
+				{ "/do Рация висит на поясе." },
+				{ "/me {sex:снял|сняла} рацию с пояса и {sex:позвал|позвала} к себе охрану" },
+				{ "/do Сотрудник охраны подошёл и схватил за руки %s.", rpNick(playerId) },
+				{ "/do Сотрудник вывел %s из банка и закрыл за собой дверь.", rpNick(playerId) },
 				{ cmd_expel }
 			})
 		else
-			addBankMessage('РќРµР»СЊР·СЏ РІС‹РіРЅР°С‚СЊ РёРіСЂРѕРєР° РєРѕС‚РѕСЂС‹Р№ РІ РђР¤Рљ!')
+			addBankMessage('Нельзя выгнать игрока который в АФК!')
 		end
 	else
-		addBankMessage('РџРѕС…РѕР¶Рµ, РІС‹ РїС‹С‚Р°РµС‚РµСЃСЊ РІС‹РіРЅР°С‚СЊ СЃРѕС‚СЂСѓРґРЅРёРєР° Р±Р°РЅРєР°...')
+		addBankMessage('Похоже, вы пытаетесь выгнать сотрудника банка...')
 	end
 end
 
 function onWindowMessage(msg, wparam, lparam)
 	if process_position then
 		if msg == 0x0201 then -- LButton
-			addBankMessage("РњРµСЃС‚РѕСЂР°СЃРїРѕР»РѕР¶РµРЅРёРµ СЃРѕС…СЂР°РЅРµРЅРѕ!")
+			addBankMessage("Месторасположение сохранено!")
 			process_position = nil; consumeWindowMessage(true, true)
 		elseif msg == 0x0100 and wparam == 0x1B then -- Esc
 			cfg.main.KipX = process_position[2]
 			cfg.main.KipY = process_position[3]
-			addBankMessage('Р’С‹ РѕС‚РјРµРЅРёР»Рё РёР·РјРµРЅРµРЅРёРµ РјРµСЃС‚РѕСЂР°СЃРїРѕР»РѕР¶РµРЅРёСЏ')
+			addBankMessage('Вы отменили изменение месторасположения')
 			process_position = nil; consumeWindowMessage(true, true)
 		end
 	end
@@ -3669,7 +3669,7 @@ function onScriptTerminate(script, quitGame)
 			showCursor(false, false)
 		end
 		if inicfg.save(cfg, 'Bank_Config.ini') then 
-			log('Р’СЃРµ РЅР°СЃС‚СЂРѕР№РєРё СЃРѕС…СЂР°РЅРµРЅС‹!')
+			log('Все настройки сохранены!')
 		end
 	end
 end
@@ -3693,9 +3693,9 @@ function isUniformWearing()
 end
 
 function system_credit()
-	if imgui.BeginPopupModal(u8("РЎРёСЃС‚РµРјР° РєСЂРµРґРёС‚РѕРІР°РЅРёСЏ"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
+	if imgui.BeginPopupModal(u8("Система кредитования"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
 		imgui.InvisibleButton('##widewindowSC', imgui.ImVec2(400, 1))
-		local credits = io.open("moonloader/BHelper/РљСЂРµРґРёС‚РѕРІР°РЅРёРµ.txt", "r+")
+		local credits = io.open("moonloader/BHelper/Кредитование.txt", "r+")
 		for line in credits:lines() do
 			if #line == 0 then
 				imgui.NewLine()
@@ -3705,14 +3705,14 @@ function system_credit()
 		end
 		credits:close()
 		imgui.Separator()
-		imgui.CenterTextColoredRGB('{464646}> Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ С„Р°Р№Р» <')
-		imgui.Hint('openpathkredit', u8('РќР°Р¶РјРёС‚Рµ С‡С‚Рѕ Р±С‹ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»:\n' .. getWorkingDirectory() .. '\\BHelper\\РљСЂРµРґРёС‚РѕРІР°РЅРёРµ.txt'))
+		imgui.CenterTextColoredRGB('{464646}> Редактировать файл <')
+		imgui.Hint('openpathkredit', u8('Нажмите что бы открыть файл:\n' .. getWorkingDirectory() .. '\\BHelper\\Кредитование.txt'))
 		if imgui.IsItemClicked() then
-			os.execute('explorer '..getWorkingDirectory()..'\\BHelper\\РљСЂРµРґРёС‚РѕРІР°РЅРёРµ.txt')
+			os.execute('explorer '..getWorkingDirectory()..'\\BHelper\\Кредитование.txt')
 		end
 		imgui.Spacing()
 		imgui.SetCursorPosX((imgui.GetWindowWidth() - 80) / 2)
-		if imgui.Button(u8("РџРѕРЅСЏС‚РЅРѕ##РљСЂРµРґРёС‚РѕРІР°РЅРёРµ"), imgui.ImVec2(80, 20)) then
+		if imgui.Button(u8("Понятно##Кредитование"), imgui.ImVec2(80, 20)) then
 			imgui.CloseCurrentPopup()
 		end
 
@@ -3721,9 +3721,9 @@ function system_credit()
 end 
 
 function system_cadr()
-	if imgui.BeginPopupModal(u8("РљР°РґСЂРѕРІР°СЏ СЃРёСЃС‚РµРјР°"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
+	if imgui.BeginPopupModal(u8("Кадровая система"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
 
-		local cadrsys = io.open("moonloader/BHelper/РљР°РґСЂРѕРІР°СЏ СЃРёСЃС‚РµРјР°.txt", "r+")
+		local cadrsys = io.open("moonloader/BHelper/Кадровая система.txt", "r+")
 		for line in cadrsys:lines() do
 			if #line == 0 then
 				imgui.NewLine()
@@ -3733,14 +3733,14 @@ function system_cadr()
 		end
 		cadrsys:close()
 		imgui.Separator()
-		imgui.CenterTextColoredRGB('{464646}> Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ С„Р°Р№Р» <')
-		imgui.Hint('cardsystempath', u8('РќР°Р¶РјРёС‚Рµ С‡С‚Рѕ Р±С‹ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»:\n' .. getWorkingDirectory() .. '\\BHelper\\РљР°РґСЂРѕРІР°СЏ СЃРёСЃС‚РµРјР°.txt'))
+		imgui.CenterTextColoredRGB('{464646}> Редактировать файл <')
+		imgui.Hint('cardsystempath', u8('Нажмите что бы открыть файл:\n' .. getWorkingDirectory() .. '\\BHelper\\Кадровая система.txt'))
 		if imgui.IsItemClicked() then
-			os.execute('explorer '..getWorkingDirectory()..'\\BHelper\\РљР°РґСЂРѕРІР°СЏ СЃРёСЃС‚РµРјР°.txt')
+			os.execute('explorer '..getWorkingDirectory()..'\\BHelper\\Кадровая система.txt')
 		end
 		imgui.Spacing()
 		imgui.SetCursorPosX((imgui.GetWindowWidth() - 80) / 2)
-		if imgui.Button(u8("РџРѕРЅСЏС‚РЅРѕ##РљР°РґСЂРѕРІР°СЏ"), imgui.ImVec2(80, 20)) then
+		if imgui.Button(u8("Понятно##Кадровая"), imgui.ImVec2(80, 20)) then
 			imgui.CloseCurrentPopup()
 		end
 
@@ -3749,9 +3749,9 @@ function system_cadr()
 end 
 
 function system_uprank()
-	if imgui.BeginPopupModal(u8("Р•РґРёРЅР°СЏ СЃРёСЃС‚РµРјР° РїРѕРІС‹С€РµРЅРёСЏ"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
+	if imgui.BeginPopupModal(u8("Единая система повышения"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
 		
-		local file = io.open("moonloader/BHelper/РЎРёСЃС‚РµРјР° РїРѕРІС‹С€РµРЅРёСЏ.txt", "r+")
+		local file = io.open("moonloader/BHelper/Система повышения.txt", "r+")
 		for line in file:lines() do
 			if #line == 0 then
 				imgui.NewLine()
@@ -3761,14 +3761,14 @@ function system_uprank()
 		end
 		file:close()
 		imgui.Separator()
-		imgui.CenterTextColoredRGB('{464646}> Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ С„Р°Р№Р» <')
-		imgui.Hint('prosystematization', u8('РќР°Р¶РјРёС‚Рµ С‡С‚Рѕ Р±С‹ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»:\n' .. getWorkingDirectory() .. '\\BHelper\\РЎРёСЃС‚РµРјР° РїРѕРІС‹С€РµРЅРёСЏ.txt'))
+		imgui.CenterTextColoredRGB('{464646}> Редактировать файл <')
+		imgui.Hint('prosystematization', u8('Нажмите что бы открыть файл:\n' .. getWorkingDirectory() .. '\\BHelper\\Система повышения.txt'))
 		if imgui.IsItemClicked() then
-			os.execute('explorer '..getWorkingDirectory()..'\\BHelper\\РЎРёСЃС‚РµРјР° РїРѕРІС‹С€РµРЅРёСЏ.txt')
+			os.execute('explorer '..getWorkingDirectory()..'\\BHelper\\Система повышения.txt')
 		end
 		imgui.Spacing()
 		imgui.SetCursorPosX((imgui.GetWindowWidth() - 80) / 2)
-		if imgui.Button(u8("РџРѕРЅСЏС‚РЅРѕ##Promotion"), imgui.ImVec2(80, 20)) then
+		if imgui.Button(u8("Понятно##Promotion"), imgui.ImVec2(80, 20)) then
 			imgui.CloseCurrentPopup()
 		end
 
@@ -3777,41 +3777,41 @@ function system_uprank()
 end
 
 local posts = {
-	["РљРћР›Р¬Рў - 2"]   = {x = -2693.7869, y = 797.9387, z = 1500},
-	["Р’РђР“Рђ - 2"]    = {x = -2693.7881, y = 794.1193, z = 1500},
-	["РЎРўРЈРџ - 4"]    = {x = -2687.8120, y = 806.7342, z = 1500},
-	["РљРћР  - 5"]     = {x = -2667.4160, y = 789.8926, z = 1500},
-	["РљРђР—РќРђ"]       = {x = -2694.0479, y = 809.4982, z = 1500},
+	["КОЛЬТ - 2"]   = {x = -2693.7869, y = 797.9387, z = 1500},
+	["ВАГА - 2"]    = {x = -2693.7881, y = 794.1193, z = 1500},
+	["СТУП - 4"]    = {x = -2687.8120, y = 806.7342, z = 1500},
+	["КОР - 5"]     = {x = -2667.4160, y = 789.8926, z = 1500},
+	["КАЗНА"]       = {x = -2694.0479, y = 809.4982, z = 1500},
 }
 
 function post()
-	if imgui.BeginPopupModal(u8("Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ РїРѕСЃС‚РѕРІ"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
+	if imgui.BeginPopupModal(u8("Расположение постов"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
 		for post, coord in pairs(posts) do
 			if imgui.Button(u8(post), imgui.ImVec2(250, 30)) then
 				if getCharActiveInterior(PLAYER_PED) ~= 0 or devmode then
 					setMarker(1, coord.x, coord.y, coord.z, 1, 0xFFFF0000)
-					addBankMessage('РќР°РїСЂР°РІР»СЏР№С‚РµСЃСЊ РЅР° СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅС‹Р№ РјР°СЂРєРµСЂ')
+					addBankMessage('Направляйтесь на установленный маркер')
 					imgui.CloseCurrentPopup()
 					bank:switch()
 				else
-					addBankMessage('Р Р°Р±РѕС‚Р°РµС‚ С‚РѕР»СЊРєРѕ РІ РёРЅС‚РµСЂСЊРµСЂРµ!')
+					addBankMessage('Работает только в интерьере!')
 				end
 			end
 		end
 		
-		if imgui.MainButton(u8("Р¤РѕСЂРјР° РґРѕРєР»Р°РґР°"), imgui.ImVec2(250, 30)) then
+		if imgui.MainButton(u8("Форма доклада"), imgui.ImVec2(250, 30)) then
 			sampSetChatInputEnabled(true)
-			sampSetChatInputText("/r Р”РѕРєР»Р°РґС‹РІР°РµС‚: {my_name} | РџРѕСЃС‚:  | РЎРѕСЃС‚РѕСЏРЅРёРµ: РЎС‚Р°Р±РёР»СЊРЅРѕРµ")
+			sampSetChatInputText("/r Докладывает: {my_name} | Пост:  | Состояние: Стабильное")
 			sampSetChatInputCursor(34, 34)
-			addBankMessage('Р¤РѕСЂРјР° СЃРєРѕРїРёСЂРѕРІР°РЅР° РІ Р±СѓС„РµСЂ РѕР±РјРµРЅР°, Р° С‚Р°Рє Р¶Рµ РІС‹РІРµРґРµРЅР° РІ РїРѕР»Рµ С‡Р°С‚Р°')
-			addBankMessage('РўРµРі {M}{my_name}{W} Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё Р·Р°РјРµРЅРёС‚СЊСЃСЏ РЅР° РІР°С€ РЅРёРє РїСЂРё РѕС‚РїСЂР°РІРєРµ')
-			addBankMessage('Р”Р»СЏ Р±С‹СЃС‚СЂРѕРіРѕ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РјРѕР¶РµС‚Рµ РїСЂРѕСЃС‚Рѕ РІРІРµСЃС‚Рё РІ С‡Р°С‚ !РїРѕСЃС‚ (РЅРµ РѕС‚РїСЂР°РІР»СЏСЏ)')
-			setClipboardText(u8:decode("/r Р”РѕРєР»Р°РґС‹РІР°РµС‚ {my_name} | РџРѕСЃС‚: [Р’РђРЁ РџРћРЎРў] | РЎРѕСЃС‚РѕСЏРЅРёРµ: РЎС‚Р°Р±РёР»СЊРЅРѕРµ"))
+			addBankMessage('Форма скопирована в буфер обмена, а так же выведена в поле чата')
+			addBankMessage('Тег {M}{my_name}{W} автоматически замениться на ваш ник при отправке')
+			addBankMessage('Для быстрого использования можете просто ввести в чат !пост (не отправляя)')
+			setClipboardText(u8:decode("/r Докладывает {my_name} | Пост: [ВАШ ПОСТ] | Состояние: Стабильное"))
 			imgui.CloseCurrentPopup()
 			bank:switch()
 		end
 		imgui.SetCursorPosX((imgui.GetWindowWidth() - 80) / 2)
-		if imgui.MainButton(u8("Р—Р°РєСЂС‹С‚СЊ##Docs"), imgui.ImVec2(80, 20)) then
+		if imgui.MainButton(u8("Закрыть##Docs"), imgui.ImVec2(80, 20)) then
 			imgui.CloseCurrentPopup()
 		end
 		imgui.EndPopup()
@@ -3819,7 +3819,7 @@ function post()
 end
 
 function gov()
-	if imgui.BeginPopupModal(u8("РџР»Р°РЅРёСЂРѕРІР°РЅРёРµ РіРѕСЃСѓРґР°СЂСЃС‚РІРµРЅРЅРѕР№ РІРѕР»РЅС‹"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.AlwaysAutoResize) then
+	if imgui.BeginPopupModal(u8("Планирование государственной волны"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.AlwaysAutoResize) then
 
 		if hGov.v > 23 then hGov.v = 0 end
 		if mGov.v > 59 then mGov.v = 0 end
@@ -3859,7 +3859,7 @@ function gov()
 		imgui.PopStyleVar()
 		imgui.PopButtonRepeat()
 
-		imgui.CenterTextColoredRGB(mc..'РўРµРєСЃС‚ РіРѕСЃСѓРґР°СЂСЃС‚РІРµРЅРЅРѕР№ РІРѕР»РЅС‹:')
+		imgui.CenterTextColoredRGB(mc..'Текст государственной волны:')
 		imgui.PushItemWidth(600)
 		if gosDep.v then
 			imgui.TextDisabled('/d'); imgui.SameLine(40)
@@ -3874,7 +3874,7 @@ function gov()
 		end
 		imgui.PopItemWidth()
 		imgui.SetCursorPosX((imgui.GetWindowWidth() - 160) / 2)
-		if imgui.Button(u8'РЎРѕС…СЂР°РЅРёС‚СЊ', imgui.ImVec2(160, 20)) then
+		if imgui.Button(u8'Сохранить', imgui.ImVec2(160, 20)) then
 			cfg.govstr[1] = u8:decode(govstr[1].v)
 			cfg.govstr[2] = u8:decode(govstr[2].v)
 			cfg.govstr[3] = u8:decode(govstr[3].v)
@@ -3888,9 +3888,9 @@ function gov()
 		imgui.SetCursorPos(imgui.ImVec2(150, 30))
 		imgui.BeginChild("##SettingsGov", imgui.ImVec2(-1, 75), true)
 		imgui.ToggleButton('##gosScreen', gosScreen); imgui.SameLine()
-		imgui.TextColoredRGB('РђРІС‚Рѕ-РЎРєСЂРёРЅ РїРѕСЃР»Рµ РїРѕРґР°С‡Рё')
+		imgui.TextColoredRGB('Авто-Скрин после подачи')
 		imgui.ToggleButton('##gosDep', gosDep); imgui.SameLine()
-		imgui.TextColoredRGB('Р—Р°РЅРёРјР°С‚СЊ РІРѕР»РЅСѓ РІ /d')
+		imgui.TextColoredRGB('Занимать волну в /d')
 		imgui.PushItemWidth(100)
 		if imgui.InputInt('##delayGov', delayGov) then 
 			if delayGov.v < 0 then delayGov.v = 0 end
@@ -3898,20 +3898,20 @@ function gov()
 		end
 		imgui.PopItemWidth()
 		imgui.SameLine()
-		imgui.TextColoredRGB('Р—Р°РґРµСЂР¶РєР° {565656}(?)')
-		imgui.Hint('infodelaygov', u8('Р—Р°РґРµСЂР¶РєР° РјРµР¶РґСѓ СЃРѕРѕР±С‰РµРЅРёСЏРјРё РІ GOV-РІРѕР»РЅРµ\nРЈРєР°Р·С‹РІР°РµС‚СЃСЏ РІ РјРёР»Р»РёСЃРµРєСѓРЅРґР°С… (1000 РјСЃ = 1 СЃРµРє)'))
+		imgui.TextColoredRGB('Задержка {565656}(?)')
+		imgui.Hint('infodelaygov', u8('Задержка между сообщениями в GOV-волне\nУказывается в миллисекундах (1000 мс = 1 сек)'))
 		imgui.SetCursorPos(imgui.ImVec2(300, 10))
 		if GOV_BUTTON == nil then 
 			if tonumber(os.date("%H", os.time())) == hGov.v and tonumber(os.date("%M", os.time())) == mGov.v then
-				imgui.DisableButton(u8'Р’РєР»СЋС‡РёС‚СЊ##gov', imgui.ImVec2(-1, -1))
+				imgui.DisableButton(u8'Включить##gov', imgui.ImVec2(-1, -1))
 			else
-				if imgui.GreenButton(u8'Р’РєР»СЋС‡РёС‚СЊ##gov', imgui.ImVec2(-1, -1)) then 
+				if imgui.GreenButton(u8'Включить##gov', imgui.ImVec2(-1, -1)) then 
 					GOV_BUTTON = true
 					antiflud = true
 				end
 			end
 		else
-			if imgui.RedButton(u8'Р”Рѕ РїРѕРґР°С‡Рё: ' .. getOstTime(), imgui.ImVec2(-1, -1)) then 
+			if imgui.RedButton(u8'До подачи: ' .. getOstTime(), imgui.ImVec2(-1, -1)) then 
 				GOV_BUTTON = nil
 			end
 		end
@@ -3938,21 +3938,21 @@ function getOstTime()
 end
 
 function BlackListGui()
-	if imgui.BeginPopupModal(u8("Р§С‘СЂРЅС‹Р№ СЃРїРёСЃРѕРє РїСЂР°РІРёС‚РµР»СЊСЃС‚РІР°"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.AlwaysAutoResize) then
-		imgui.CenterText(u8('Р’С‹ РЅРµ СЃРјРѕР¶РµС‚Рµ РїСЂРёРЅСЏС‚СЊ РІ РѕСЂРіР°РЅРёР·Р°С†РёСЋ РёРіСЂРѕРєРѕРІ,\nРєРѕС‚РѕСЂС‹Рµ РµСЃС‚СЊ РІ СЌС‚РѕРј СЃРїРёСЃРєРµ'))
+	if imgui.BeginPopupModal(u8("Чёрный список правительства"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.AlwaysAutoResize) then
+		imgui.CenterText(u8('Вы не сможете принять в организацию игроков,\nкоторые есть в этом списке'))
 		if #cfg.blacklist > 0 then
-			imgui.CenterText(u8('Р§С‚Рѕ-Р±С‹ СѓРґР°Р»РёС‚СЊ РєР»РёРєРЅРёС‚Рµ РїРѕ РЅРёРєСѓ РґРІР°Р¶РґС‹'), imgui.ImVec4(1.0, 0.5, 0.5, 0.7))
+			imgui.CenterText(u8('Что-бы удалить кликните по нику дважды'), imgui.ImVec4(1.0, 0.5, 0.5, 0.7))
 		end
 		imgui.BeginChild("##BlakList", imgui.ImVec2(300, 250), true, imgui.WindowFlags.NoScrollbar)
 		imgui.PushFont(font[15])
 		if #cfg.blacklist == 0 then
 			imgui.SetCursorPosY(110)
-			imgui.CenterTextColoredRGB(sc .. 'РЎРїРёСЃРѕРє РїСѓСЃС‚')
+			imgui.CenterTextColoredRGB(sc .. 'Список пуст')
 		end
 		for i, nick in ipairs(cfg.blacklist) do
 			imgui.CenterText(u8(nick))
 			if imgui.IsItemHovered() and imgui.IsMouseDoubleClicked(0) then
-				addBankMessage(string.format('РРіСЂРѕРє {M}%s{W} СѓРґР°Р»С‘РЅ РёР· С‡С‘СЂРЅРѕРіРѕ СЃРїРёСЃРєР°!', nick))
+				addBankMessage(string.format('Игрок {M}%s{W} удалён из чёрного списка!', nick))
 				table.remove(cfg.blacklist, i)
 			end
 		end
@@ -3965,24 +3965,24 @@ function BlackListGui()
 			imgui.PopItemWidth()
 			if #blacklist.v <= 0 then
 				imgui.SameLine(5)
-				imgui.TextColored(imgui.ImVec4(1, 1, 1, 0.2), u8"Р’РІРµРґРёС‚Рµ РЅРёРєРЅРµР№Рј")
+				imgui.TextColored(imgui.ImVec4(1, 1, 1, 0.2), u8"Введите никнейм")
 			end
 		imgui.EndGroup()
 		
 		imgui.SameLine(nil, 5)
 
 		if #blacklist.v > 0 then
-			if imgui.Button(u8'Р”РѕР±Р°РІРёС‚СЊ', imgui.ImVec2(-1, 20)) then
+			if imgui.Button(u8'Добавить', imgui.ImVec2(-1, 20)) then
 				table.insert(cfg.blacklist, u8:decode(tostring(blacklist.v)))
 				blacklist.v = ''
 			end
 		else
-			imgui.DisableButton(u8'Р”РѕР±Р°РІРёС‚СЊ', imgui.ImVec2(-1, 20))
+			imgui.DisableButton(u8'Добавить', imgui.ImVec2(-1, 20))
 		end
 
-		if imgui.Button(u8("Р—Р°РєСЂС‹С‚СЊ##BlackList"), imgui.ImVec2(-1, 25)) then
+		if imgui.Button(u8("Закрыть##BlackList"), imgui.ImVec2(-1, 25)) then
 			inicfg.save(cfg, 'Bank_Config.ini')
-			addBankMessage('РЎРїРёСЃРѕРє СЃРѕС…СЂР°РЅС‘РЅ!')
+			addBankMessage('Список сохранён!')
 			imgui.CloseCurrentPopup()
 		end
 		imgui.EndPopup()
@@ -3990,11 +3990,11 @@ function BlackListGui()
 end
 
 function binder()
-	if imgui.BeginPopupModal(u8("Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ/РЎРѕР·РґР°РЅРёРµ Р±РёРЅРґР°"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
+	if imgui.BeginPopupModal(u8("Редактирование/Создание бинда"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
 		imgui.BeginChild("##EditBinder", imgui.ImVec2(500, 355), true)
 			imgui.PushItemWidth(150)
-			imgui.InputFloat(u8("Р—Р°РґРµСЂР¶РєР° РІ СЃРµРєСѓРЅРґР°С…"), binder_delay, 0.1, 1.0, 2); imgui.SameLine(); imgui.TextDisabled('(?)')
-			imgui.Hint('maxdelaybinder', u8('РќРµ Р±РѕР»СЊС€Рµ 60 СЃРµРєСѓРЅРґ!'))
+			imgui.InputFloat(u8("Задержка в секундах"), binder_delay, 0.1, 1.0, 2); imgui.SameLine(); imgui.TextDisabled('(?)')
+			imgui.Hint('maxdelaybinder', u8('Не больше 60 секунд!'))
 			imgui.PopItemWidth()
 			if binder_delay.v < 1 then
 				binder_delay.v = 1
@@ -4002,27 +4002,27 @@ function binder()
 				binder_delay.v = 60
 			end
 
-			imgui.TextWrapped(u8("Р’С‹ РјРѕР¶РµС‚Рµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р»РѕРєР°Р»СЊРЅС‹Рµ С‚РµРіРё РґР»СЏ СЃРІРѕРёС… Р±РёРЅРґРѕРІ!"))
-			imgui.SameLine(); imgui.TextDisabled(u8'(РџРѕРґСЂРѕР±РЅРµРµ)')
+			imgui.TextWrapped(u8("Вы можете использовать локальные теги для своих биндов!"))
+			imgui.SameLine(); imgui.TextDisabled(u8'(Подробнее)')
 			if imgui.IsItemClicked() then
-				imgui.OpenPopup(u8("Р›РѕРєР°Р»СЊРЅС‹Рµ РўРµРіРё"))
+				imgui.OpenPopup(u8("Локальные Теги"))
 			end
 			taginfo()
 			imgui.InputTextMultiline("##EditMultiline", text_binder, imgui.ImVec2(-1, 250))
-			imgui.Text(u8'РќР°Р·РІР°РЅРёРµ Р±РёРЅРґР° (РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ):'); imgui.SameLine()
+			imgui.Text(u8'Название бинда (обязательно):'); imgui.SameLine()
 			imgui.PushItemWidth(150)
 			imgui.InputText("##binder_name", binder_name)
 			imgui.PopItemWidth()
 			if #binder_name.v > 0 and #text_binder.v > 0 then
 				imgui.SameLine()
-				if imgui.MainButton(u8("РЎРѕС…СЂР°РЅРёС‚СЊ"), imgui.ImVec2(-1, 20)) then
+				if imgui.MainButton(u8("Сохранить"), imgui.ImVec2(-1, 20)) then
 					if not EditOldBind then
 						refresh_text = text_binder.v:gsub("\n", "~")
 						table.insert(cfg.Binds_Name, binder_name.v)
 						table.insert(cfg.Binds_Action, refresh_text)
 						table.insert(cfg.Binds_Deleay, binder_delay.v * 1000)
 						if inicfg.save(cfg, 'Bank_Config.ini') then
-							addBankMessage(string.format('Р‘РёРЅРґ {M}В«%sВ»{W} СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІР»РµРЅ!', u8:decode(binder_name.v)))
+							addBankMessage(string.format('Бинд {M}«%s»{W} успешно добавлен!', u8:decode(binder_name.v)))
 							binder_name.v, text_binder.v = '', ''
 						end
 						binder_open = false
@@ -4036,7 +4036,7 @@ function binder()
 						table.remove(cfg.Binds_Action, getpos + 1)
 						table.remove(cfg.Binds_Deleay, getpos + 1)
 						if inicfg.save(cfg, 'Bank_Config.ini') then
-							addBankMessage(string.format('Р‘РёРЅРґ {M}В«%sВ»{W} СѓСЃРїРµС€РЅРѕ РѕС‚СЂРµРґР°РєС‚РёСЂРѕРІР°РЅ!', u8:decode(binder_name.v)))
+							addBankMessage(string.format('Бинд {M}«%s»{W} успешно отредактирован!', u8:decode(binder_name.v)))
 							binder_name.v, text_binder.v = '', ''
 						end
 						EditOldBind = false
@@ -4046,17 +4046,17 @@ function binder()
 				end
 			else
 				imgui.SameLine()
-				imgui.DisableButton(u8("РЎРѕС…СЂР°РЅРёС‚СЊ"), imgui.ImVec2(-1, 20))
-				imgui.Hint('errgrafsbinder', u8'Р—Р°РїРѕР»РЅРµРЅС‹ РЅРµ РІСЃРµ РїСѓРЅРєС‚С‹!')
+				imgui.DisableButton(u8("Сохранить"), imgui.ImVec2(-1, 20))
+				imgui.Hint('errgrafsbinder', u8'Заполнены не все пункты!')
 			end
-			if imgui.Button(u8("Р—Р°РєСЂС‹С‚СЊ"), imgui.ImVec2(-1, 0)) then
+			if imgui.Button(u8("Закрыть"), imgui.ImVec2(-1, 0)) then
 				if not EditOldBind then
 					if #text_binder.v == 0 then
 						binder_open = false
 						imgui.CloseCurrentPopup()
 						binder_name.v, text_binder.v = '', ''
 					else
-						imgui.OpenPopup(u8("РџРѕРґС‚РІРµСЂРґРёС‚Рµ##AcceptCloseBinderEdit"))
+						imgui.OpenPopup(u8("Подтвердите##AcceptCloseBinderEdit"))
 					end
 				else
 					EditOldBind = false
@@ -4065,19 +4065,19 @@ function binder()
 					binder_name.v, text_binder.v = '', ''
 				end
 			end
-			if imgui.BeginPopupModal(u8("РџРѕРґС‚РІРµСЂРґРёС‚Рµ##AcceptCloseBinderEdit"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
+			if imgui.BeginPopupModal(u8("Подтвердите##AcceptCloseBinderEdit"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
 				imgui.BeginChild("##AcceptCloseBinderEdit", imgui.ImVec2(300, 80), false)
-				imgui.CenterTextColoredRGB('Р’С‹ СѓР¶Рµ РЅР°С‡Р°Р»Рё С‡С‚Рѕ-С‚Рѕ РїРёСЃР°С‚СЊ РІ Р±РёРЅРґРµ\nРЎРѕС…СЂР°РЅРёС‚СЊ РєР°Рє С‡РµСЂРЅРѕРІРёРє?')
-				if imgui.MainButton(u8'РЎРѕС…СЂР°РЅРёС‚СЊ##accept', imgui.ImVec2(145, 20)) then
+				imgui.CenterTextColoredRGB('Вы уже начали что-то писать в бинде\nСохранить как черновик?')
+				if imgui.MainButton(u8'Сохранить##accept', imgui.ImVec2(145, 20)) then
 					imgui.CloseCurrentPopup()
 					savedatamlt = true
 				end
 				imgui.SameLine()
-				if imgui.MainButton(u8'РќРµ СЃРѕС…СЂР°РЅСЏС‚СЊ##accept', imgui.ImVec2(145, 20)) then
+				if imgui.MainButton(u8'Не сохранять##accept', imgui.ImVec2(145, 20)) then
 					imgui.CloseCurrentPopup()
 					nonsavedatamlt = true
 				end
-				if imgui.Button(u8'Р’РµСЂРЅСѓС‚СЊСЃСЏ РЅР°Р·Р°Рґ##accept', imgui.ImVec2(-1, 20)) then
+				if imgui.Button(u8'Вернуться назад##accept', imgui.ImVec2(-1, 20)) then
 					imgui.CloseCurrentPopup()
 				end
 				imgui.EndChild()
@@ -4147,52 +4147,52 @@ end
 set_style(SCRIPT_STYLE.colors)
 
 function taginfo()
-	if imgui.BeginPopupModal(u8("Р›РѕРєР°Р»СЊРЅС‹Рµ РўРµРіРё"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
-		imgui.CenterTextColoredRGB(sc..'РќР°Р¶РјРё РЅР° РЅСѓР¶РЅС‹Р№ С‚РµРі, С‡С‚Рѕ Р±С‹ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ РµРіРѕ')
+	if imgui.BeginPopupModal(u8("Локальные Теги"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize) then
+		imgui.CenterTextColoredRGB(sc..'Нажми на нужный тег, что бы скопировать его')
 		imgui.Separator()
-		if imgui.Button('{select_id}', imgui.ImVec2(120, 25)) then setClipboardText('{select_id}'); addBankMessage('РўРµРі СЃРєРѕРїРёСЂРѕРІР°РЅ!') end
-		imgui.SameLine(); imgui.TextColoredRGB(mc..'РџРѕР»СѓС‡Р°РµС‚ ID РёРіСЂРѕРєР° СЃ РєРѕС‚РѕСЂС‹Рј РІР·Р°РёРјРѕРґРµР№СЃС‚РІСѓРµС‚Рµ')
-		if imgui.Button('{select_name}', imgui.ImVec2(120, 25)) then setClipboardText('{select_name}'); addBankMessage('РўРµРі СЃРєРѕРїРёСЂРѕРІР°РЅ!') end
-		imgui.SameLine(); imgui.TextColoredRGB(mc..'РџРѕР»СѓС‡Р°РµС‚ NickName РёРіСЂРѕРєР° СЃ РєРѕС‚РѕСЂС‹Рј РІР·Р°РёРјРѕРґРµР№СЃС‚РІСѓРµС‚Рµ')
-		if imgui.Button('{my_id}', imgui.ImVec2(120, 25)) then setClipboardText('{my_id}'); addBankMessage('РўРµРі СЃРєРѕРїРёСЂРѕРІР°РЅ!') end
+		if imgui.Button('{select_id}', imgui.ImVec2(120, 25)) then setClipboardText('{select_id}'); addBankMessage('Тег скопирован!') end
+		imgui.SameLine(); imgui.TextColoredRGB(mc..'Получает ID игрока с которым взаимодействуете')
+		if imgui.Button('{select_name}', imgui.ImVec2(120, 25)) then setClipboardText('{select_name}'); addBankMessage('Тег скопирован!') end
+		imgui.SameLine(); imgui.TextColoredRGB(mc..'Получает NickName игрока с которым взаимодействуете')
+		if imgui.Button('{my_id}', imgui.ImVec2(120, 25)) then setClipboardText('{my_id}'); addBankMessage('Тег скопирован!') end
 		imgui.Hint('tagmyid', u8'{my_id}\n - '..select(2, sampGetPlayerIdByCharHandle(PLAYER_PED)))
-		imgui.SameLine(); imgui.TextColoredRGB(mc..'РџРѕР»СѓС‡Р°РµС‚ РІР°С€ ID')
-		if imgui.Button('{my_name}', imgui.ImVec2(120, 25)) then setClipboardText('{my_name}'); addBankMessage('РўРµРі СЃРєРѕРїРёСЂРѕРІР°РЅ!') end
+		imgui.SameLine(); imgui.TextColoredRGB(mc..'Получает ваш ID')
+		if imgui.Button('{my_name}', imgui.ImVec2(120, 25)) then setClipboardText('{my_name}'); addBankMessage('Тег скопирован!') end
 		if string.find(cfg.main.username, "%S") then
 			imgui.Hint('tagmyname', u8('{my_name}\n - '..cfg.main.username))
 		else
 			imgui.Hint('tagmyname', u8('{my_name}\n - '..rpNick(select(2, sampGetPlayerIdByCharHandle(PLAYER_PED)))))
 		end
-		imgui.SameLine(); imgui.TextColoredRGB(mc..'РџРѕР»СѓС‡Р°РµС‚ РІР°С€ NickName')
-		if imgui.Button('{closest_id}', imgui.ImVec2(120, 25)) then setClipboardText('{closest_id}'); addBankMessage('РўРµРі СЃРєРѕРїРёСЂРѕРІР°РЅ!') end
-		imgui.Hint('taglosestid', u8'Р СЏРґРѕРј СЃРѕ РјРЅРѕР№ СЃС‚РѕРёС‚ С‡РµР»РѕРІРµРє СЃ Р±РµР№РґР¶РёРєРѕРј "{closest_id}"\n - Р СЏРґРѕРј СЃРѕ РјРЅРѕР№ СЃС‚РѕРёС‚ С‡РµР»РѕРІРµРє СЃ Р±РµР№РґР¶РёРєРѕРј "228"')
-		imgui.SameLine(); imgui.TextColoredRGB(mc..'РџРѕР»СѓС‡Р°РµС‚ ID Р±Р»РёР¶Р°Р№С€РµРіРѕ Рє РІР°Рј РёРіСЂРѕРєР°')
-		if imgui.Button('{closest_name}', imgui.ImVec2(120, 25)) then setClipboardText('{closest_name}'); addBankMessage('РўРµРі СЃРєРѕРїРёСЂРѕРІР°РЅ!') end
-		imgui.Hint('tagclosestname', u8'Р СЏРґРѕРј СЃРѕ РјРЅРѕР№ СЃС‚РѕРёС‚ {closest_name}\n - Р СЏРґРѕРј СЃРѕ РјРЅРѕР№ СЃС‚РѕРёС‚ Jeffy_Cosmo')
-		imgui.SameLine(); imgui.TextColoredRGB(mc..'РџРѕР»СѓС‡Р°РµС‚ NickName Р±Р»РёР¶Р°Р№С€РµРіРѕ Рє РІР°Рј РёРіСЂРѕРєР°')
-		if imgui.Button('{time}', imgui.ImVec2(120, 25)) then setClipboardText('{time}'); addBankMessage('РўРµРі СЃРєРѕРїРёСЂРѕРІР°РЅ!') end
-		imgui.Hint('tagtime', u8'/do РќР° С‡Р°СЃР°С… {time_s}\n - /do РќР° С‡Р°СЃР°С… '..os.date("%H:%M", os.time()))
-		imgui.SameLine(); imgui.TextColoredRGB(mc..'РўРµРєСѓС‰РµРµ РІСЂРµРјСЏ ( С‡С‡:РјРј )')
-		if imgui.Button('{time_s}', imgui.ImVec2(120, 25)) then setClipboardText('{time_s}'); addBankMessage('РўРµРі СЃРєРѕРїРёСЂРѕРІР°РЅ!') end
-		imgui.Hint('tagtimes', u8'/do РќР° С‡Р°СЃР°С… {time_s}\n - /do РќР° С‡Р°СЃР°С… '..os.date("%H:%M:%S", os.time()))
-		imgui.SameLine(); imgui.TextColoredRGB(mc..'РўРµРєСѓС‰РµРµ РІСЂРµРјСЏ ( С‡С‡:РјРј:СЃСЃ )')
-		if imgui.Button('{rank}', imgui.ImVec2(120, 25)) then setClipboardText('{rank}'); addBankMessage('РўРµРі СЃРєРѕРїРёСЂРѕРІР°РЅ!') end
-		imgui.Hint('tagrank', u8('РњРѕСЏ РґРѕР»Р¶РЅРѕСЃС‚СЊ - {rank}\n - РњРѕСЏ РґРѕР»Р¶РЅРѕСЃС‚СЊ - '..cfg.nameRank[cfg.main.rank]))
-		imgui.SameLine(); imgui.TextColoredRGB(mc..'РќР°Р·РІР°РЅРёРµ РІР°С€РµРіРѕ С‚РµРєСѓС‰РµРіРѕ СЂР°РЅРіР°')
-		if imgui.Button('{score}', imgui.ImVec2(120, 25)) then setClipboardText('{rank}'); addBankMessage('РўРµРі СЃРєРѕРїРёСЂРѕРІР°РЅ!') end
-		imgui.Hint('tagscore', u8('РЇ РїСЂРѕР¶РёРІР°СЋ РІ С€С‚Р°С‚Рµ СѓР¶Рµ {score} Р»РµС‚\n - РЇ РїСЂРѕР¶РёРІР°СЋ РІ С€С‚Р°С‚Рµ СѓР¶Рµ '..sampGetPlayerScore(select(2, sampGetPlayerIdByCharHandle(PLAYER_PED)))..' Р»РµС‚'))
-		imgui.SameLine(); imgui.TextColoredRGB(mc..'Р’Р°С€ РёРіСЂРѕРІРѕР№ СѓСЂРѕРІРµРЅСЊ')
-		if imgui.Button('{screen}', imgui.ImVec2(120, 25)) then setClipboardText('{screen}'); addBankMessage('РўРµРі СЃРєРѕРїРёСЂРѕРІР°РЅ!') end
-		imgui.Hint('tagscreen', u8('/giverank 123 5 {screen}\n - РћС‚РїСЂР°РІРёС‚ РєРѕРјР°РЅРґСѓ: /giverank 123 5, Р° Р·Р°С‚РµРј СЃРґРµР»Р°РµС‚ СЃРєСЂРёРЅС€РѕС‚'))
-		imgui.SameLine(); imgui.TextColoredRGB(mc..'Р”РµР»Р°РµС‚ СЃРєСЂРёРЅС€РѕС‚')
-		if imgui.Button('{sex:text1|text2}', imgui.ImVec2(120, 25)) then setClipboardText('{sex:text1|text2}'); addBankMessage('РўРµРі СЃРєРѕРїРёСЂРѕРІР°РЅ!') end
-		imgui.Hint('tagsex', u8'/me {sex:РІР·СЏР»|РІР·СЏР»Р°} СЂСѓС‡РєСѓ СЃРѕ СЃС‚РѕР»Р°\n - Р•СЃР»Рё РјСѓР¶СЃРєРѕР№ РїРѕР»: /me РІР·СЏР»..\n - Р•СЃР»Рё Р¶РµРЅСЃРєРёР№ РїРѕР»: /me РІР·СЏР»Р°')
-		imgui.SameLine(); imgui.TextColoredRGB(mc..'Р’РµСЂРЅС‘С‚ С‚РµРєСЃС‚ РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РІР°С€РµРіРѕ РїРѕР»Р°')
-		if imgui.Button(u8'@[ID РёРіСЂРѕРєР°]', imgui.ImVec2(120, 25)) then setClipboardText('@[ID]'); addBankMessage('РўРµРі СЃРєРѕРїРёСЂРѕРІР°РЅ!') end
-		imgui.Hint('tagmention', u8'/fam @228 РїСЂРѕРґР°РµС€СЊ РјР°С€РёРЅСѓ?\n - /fam Jeffy Cosmo, РїСЂРѕРґР°РµС€СЊ РјР°С€РёРЅСѓ?')
-		imgui.SameLine(); imgui.TextColoredRGB(mc..'РџРѕР»СѓС‡Р°РµС‚ NickName РёРіСЂРѕРєР° СѓРєР°Р·Р°РЅРЅРѕРіРѕ ID РЅР° СЃРµСЂРІРµСЂРµ')
+		imgui.SameLine(); imgui.TextColoredRGB(mc..'Получает ваш NickName')
+		if imgui.Button('{closest_id}', imgui.ImVec2(120, 25)) then setClipboardText('{closest_id}'); addBankMessage('Тег скопирован!') end
+		imgui.Hint('taglosestid', u8'Рядом со мной стоит человек с бейджиком "{closest_id}"\n - Рядом со мной стоит человек с бейджиком "228"')
+		imgui.SameLine(); imgui.TextColoredRGB(mc..'Получает ID ближайшего к вам игрока')
+		if imgui.Button('{closest_name}', imgui.ImVec2(120, 25)) then setClipboardText('{closest_name}'); addBankMessage('Тег скопирован!') end
+		imgui.Hint('tagclosestname', u8'Рядом со мной стоит {closest_name}\n - Рядом со мной стоит Jeffy_Cosmo')
+		imgui.SameLine(); imgui.TextColoredRGB(mc..'Получает NickName ближайшего к вам игрока')
+		if imgui.Button('{time}', imgui.ImVec2(120, 25)) then setClipboardText('{time}'); addBankMessage('Тег скопирован!') end
+		imgui.Hint('tagtime', u8'/do На часах {time_s}\n - /do На часах '..os.date("%H:%M", os.time()))
+		imgui.SameLine(); imgui.TextColoredRGB(mc..'Текущее время ( чч:мм )')
+		if imgui.Button('{time_s}', imgui.ImVec2(120, 25)) then setClipboardText('{time_s}'); addBankMessage('Тег скопирован!') end
+		imgui.Hint('tagtimes', u8'/do На часах {time_s}\n - /do На часах '..os.date("%H:%M:%S", os.time()))
+		imgui.SameLine(); imgui.TextColoredRGB(mc..'Текущее время ( чч:мм:сс )')
+		if imgui.Button('{rank}', imgui.ImVec2(120, 25)) then setClipboardText('{rank}'); addBankMessage('Тег скопирован!') end
+		imgui.Hint('tagrank', u8('Моя должность - {rank}\n - Моя должность - '..cfg.nameRank[cfg.main.rank]))
+		imgui.SameLine(); imgui.TextColoredRGB(mc..'Название вашего текущего ранга')
+		if imgui.Button('{score}', imgui.ImVec2(120, 25)) then setClipboardText('{rank}'); addBankMessage('Тег скопирован!') end
+		imgui.Hint('tagscore', u8('Я проживаю в штате уже {score} лет\n - Я проживаю в штате уже '..sampGetPlayerScore(select(2, sampGetPlayerIdByCharHandle(PLAYER_PED)))..' лет'))
+		imgui.SameLine(); imgui.TextColoredRGB(mc..'Ваш игровой уровень')
+		if imgui.Button('{screen}', imgui.ImVec2(120, 25)) then setClipboardText('{screen}'); addBankMessage('Тег скопирован!') end
+		imgui.Hint('tagscreen', u8('/giverank 123 5 {screen}\n - Отправит команду: /giverank 123 5, а затем сделает скриншот'))
+		imgui.SameLine(); imgui.TextColoredRGB(mc..'Делает скриншот')
+		if imgui.Button('{sex:text1|text2}', imgui.ImVec2(120, 25)) then setClipboardText('{sex:text1|text2}'); addBankMessage('Тег скопирован!') end
+		imgui.Hint('tagsex', u8'/me {sex:взял|взяла} ручку со стола\n - Если мужской пол: /me взял..\n - Если женский пол: /me взяла')
+		imgui.SameLine(); imgui.TextColoredRGB(mc..'Вернёт текст в зависимости от вашего пола')
+		if imgui.Button(u8'@[ID игрока]', imgui.ImVec2(120, 25)) then setClipboardText('@[ID]'); addBankMessage('Тег скопирован!') end
+		imgui.Hint('tagmention', u8'/fam @228 продаешь машину?\n - /fam Jeffy Cosmo, продаешь машину?')
+		imgui.SameLine(); imgui.TextColoredRGB(mc..'Получает NickName игрока указанного ID на сервере')
 		imgui.Separator()
-		if imgui.Button(u8'Р’РµСЂРЅСѓС‚СЊСЃСЏ РЅР°Р·Р°Рґ##tag', imgui.ImVec2(-1, 30)) then
+		if imgui.Button(u8'Вернуться назад##tag', imgui.ImVec2(-1, 30)) then
 			imgui.CloseCurrentPopup()
 		end
 		imgui.EndPopup()
@@ -4283,7 +4283,7 @@ function se.onSendChat(msg)
 		if actionId ~= nil then
 			msg = msg:gsub('{select_id}', actionId)
 		else
-			addBankMessage('Р’С‹ РµС‰С‘ РЅРµ РѕС‚РјРµС‚РёР»Рё РёРіСЂРѕРєР° РґР»СЏ С‚РµРіР° {M}{select_id}')
+			addBankMessage('Вы ещё не отметили игрока для тега {M}{select_id}')
 			return false
 		end
 	end
@@ -4293,7 +4293,7 @@ function se.onSendChat(msg)
 			msg = msg:gsub('{select_name}', rpNick(actionId))
 			return { msg }
 		else
-			addBankMessage('Р’С‹ РµС‰С‘ РЅРµ РѕС‚РјРµС‚РёР»Рё РёРіСЂРѕРєР° РґР»СЏ С‚РµРіР° {M}{select_name}')
+			addBankMessage('Вы ещё не отметили игрока для тега {M}{select_name}')
 			return false
 		end
 	end
@@ -4313,17 +4313,17 @@ function se.onSendChat(msg)
 	end
 
 	if msg:find('{hello}') then
-		local result = "Р—РґСЂР°РІСЃС‚РІСѓР№С‚Рµ"
+		local result = "Здравствуйте"
 		local H = tonumber(os.date("%H", os.time())) + cfg.main.time_offset
 
 		if H >= 4 and H <= 11 then
-			result = "Р”РѕР±СЂРѕРµ СѓС‚СЂРѕ"
+			result = "Доброе утро"
 		elseif H >= 12 and H <= 16 then
-			result = "Р”РѕР±СЂС‹Р№ РґРµРЅСЊ"
+			result = "Добрый день"
 		elseif H >= 17 and H <= 20 then
-			result = "Р”РѕР±СЂС‹Р№ РІРµС‡РµСЂ"
+			result = "Добрый вечер"
 		elseif H >= 21 or H <= 3 then
-			result = "Р”РѕР±СЂРѕР№ РЅРѕС‡Рё"
+			result = "Доброй ночи"
 		end
 
 		msg = msg:gsub('{hello}', result)
@@ -4334,7 +4334,7 @@ function se.onSendChat(msg)
 		if result then
 			msg = msg:gsub('{closest_id}', tostring(id))
 		else
-			addBankMessage('Р’ РІР°С€РµРј СЂР°РґРёСѓСЃРµ РЅРµС‚ РёРіСЂРѕРєРѕРІ РґР»СЏ РїСЂРёРјРµРЅРµРЅРёСЏ С‚РµРіР° {M}{closest_id}')
+			addBankMessage('В вашем радиусе нет игроков для применения тега {M}{closest_id}')
 			return false
 		end
 	end
@@ -4344,7 +4344,7 @@ function se.onSendChat(msg)
 		if result then
 			msg = msg:gsub('{closest_name}', rpNick(id))
 		else
-			addBankMessage('Р’ РІР°С€РµРј СЂР°РґРёСѓСЃРµ РЅРµС‚ РёРіСЂРѕРєРѕРІ РґР»СЏ РїСЂРёРјРµРЅРµРЅРёСЏ С‚РµРіР° {M}{closest_name}')
+			addBankMessage('В вашем радиусе нет игроков для применения тега {M}{closest_name}')
 			return false
 		end
 	end
@@ -4355,7 +4355,7 @@ function se.onSendChat(msg)
 			local nickname = rpNick(id)
 			msg = msg:gsub('@%d+', nickname)
 		else
-			addBankMessage('РРіСЂРѕРєР° СЃ С‚Р°РєРёРј ID РЅР° СЃРµСЂРІРµСЂРµ РЅРµС‚!')
+			addBankMessage('Игрока с таким ID на сервере нет!')
 			return false
 		end
 	end
@@ -4422,7 +4422,7 @@ function se.onSendCommand(cmd)
 		if actionId ~= nil then
 			cmd = cmd:gsub('{select_id}', actionId)
 		else
-			addBankMessage('Р’С‹ РµС‰С‘ РЅРµ РѕС‚РјРµС‚РёР»Рё РёРіСЂРѕРєР° РґР»СЏ С‚РµРіР° {M}{select_id}')
+			addBankMessage('Вы ещё не отметили игрока для тега {M}{select_id}')
 			return false
 		end
 	end
@@ -4431,7 +4431,7 @@ function se.onSendCommand(cmd)
 		if actionId ~= nil then
 			cmd = cmd:gsub('{select_name}', rpNick(actionId))
 		else
-			addBankMessage('Р’С‹ РµС‰С‘ РЅРµ РѕС‚РјРµС‚РёР»Рё РёРіСЂРѕРєР° РґР»СЏ С‚РµРіР° {M}{select_name}')
+			addBankMessage('Вы ещё не отметили игрока для тега {M}{select_name}')
 			return false
 		end
 	end
@@ -4451,17 +4451,17 @@ function se.onSendCommand(cmd)
 	end
 
 	if cmd:find('{hello}') then
-		local result = "Р—РґСЂР°РІСЃС‚РІСѓР№С‚Рµ"
+		local result = "Здравствуйте"
 		local H = tonumber(os.date("%H", os.time()))
 
 		if H >= 4 and H <= 11 then
-			result = "Р”РѕР±СЂРѕРµ СѓС‚СЂРѕ"
+			result = "Доброе утро"
 		elseif H >= 12 and H <= 16 then
-			result = "Р”РѕР±СЂС‹Р№ РґРµРЅСЊ"
+			result = "Добрый день"
 		elseif H >= 17 and H <= 20 then
-			result = "Р”РѕР±СЂС‹Р№ РІРµС‡РµСЂ"
+			result = "Добрый вечер"
 		elseif H >= 21 or H <= 3 then
-			result = "Р”РѕР±СЂРѕР№ РЅРѕС‡Рё"
+			result = "Доброй ночи"
 		end
 
 		cmd = cmd:gsub('{hello}', result)
@@ -4472,7 +4472,7 @@ function se.onSendCommand(cmd)
 		if result then
 			cmd = cmd:gsub('{closest_id}', tostring(id))
 		else
-			addBankMessage('Р’ РІР°С€РµРј СЂР°РґРёСѓСЃРµ РЅРµС‚ РёРіСЂРѕРєРѕРІ РґР»СЏ РїСЂРёРјРµРЅРµРЅРёСЏ С‚РµРіР° {M}{closest_id}')
+			addBankMessage('В вашем радиусе нет игроков для применения тега {M}{closest_id}')
 			return false
 		end
 	end
@@ -4482,7 +4482,7 @@ function se.onSendCommand(cmd)
 		if result then
 			cmd = cmd:gsub('{closest_name}', rpNick(id))
 		else
-			addBankMessage('Р’ РІР°С€РµРј СЂР°РґРёСѓСЃРµ РЅРµС‚ РёРіСЂРѕРєРѕРІ РґР»СЏ РїСЂРёРјРµРЅРµРЅРёСЏ С‚РµРіР° {M}{closest_name}')
+			addBankMessage('В вашем радиусе нет игроков для применения тега {M}{closest_name}')
 			return false
 		end
 	end
@@ -4493,7 +4493,7 @@ function se.onSendCommand(cmd)
 			local nickname = rpNick(id)
 			cmd = cmd:gsub('@%d+', nickname)
 		else
-			addBankMessage('РРіСЂРѕРєР° СЃ С‚Р°РєРёРј ID РЅР° СЃРµСЂРІРµСЂРµ РЅРµС‚!')
+			addBankMessage('Игрока с таким ID на сервере нет!')
 			return false
 		end
 	end
@@ -4539,7 +4539,7 @@ function se.onSendCommand(cmd)
 		local id = cmd:match('/jobprogress (%d+)$')
 		local result, dist = getDistBetweenPlayers(id)
 		if result and dist < 5 then
-			sampAddChatMessage('[РРЅС„РѕСЂРјР°С†РёСЏ] {FFFFFF}Р’С‹ РїРѕРєР°Р·Р°Р»Рё СЃРІРѕСЋ {4EB857}С‚СЂСѓРґРѕРІСѓСЋ СѓСЃРїРµРІР°РµРјРѕСЃС‚СЊ{FFFFFF} РёРіСЂРѕРєСѓ '..rpNick(id)..'!', 0x4EB857)
+			sampAddChatMessage('[Информация] {FFFFFF}Вы показали свою {4EB857}трудовую успеваемость{FFFFFF} игроку '..rpNick(id)..'!', 0x4EB857)
 		end
 	end
 
@@ -4549,7 +4549,7 @@ function se.onSendCommand(cmd)
 			rank = tonumber(rank)
 			if cfg.nameRank[rank] ~= nil and LAST_RANK_PREMIUM ~= cfg.nameRank[rank] then
 				LAST_RANK_PREMIUM = cfg.nameRank[rank]
-				sampSendChat('/rb РџСЂРµРјРёСЏ РґР»СЏ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РЅР° РґРѕР»Р¶РЅРѕСЃС‚Рё ' .. LAST_RANK_PREMIUM)
+				sampSendChat('/rb Премия для сотрудников на должности ' .. LAST_RANK_PREMIUM)
 				sampSendChat(cmd)
 				return false
 			end
@@ -4631,7 +4631,7 @@ function se.onSetSpawnInfo(team, skin, _, pos, rot, weapons, ammo)
 				lua_thread.create(function ()	
 					repeat 
 						if os.clock() - timer >= 5.00 then
-							log("РќРµ СѓРґР°Р»РѕСЃСЊ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РЅР°РґРµС‚СЊ С„РѕСЂРјСѓ, РІС‹С€Р»Рѕ РІСЂРµРјСЏ РѕР¶РёРґР°РЅРёСЏ")
+							log("Не удалось автоматически надеть форму, вышло время ожидания")
 							return
 						end
 						wait(0)
@@ -4658,7 +4658,7 @@ function se.onSetSpawnInfo(team, skin, _, pos, rot, weapons, ammo)
 				lua_thread.create(function ()	
 					repeat 
 						if os.clock() - timer >= 5.00 then
-							log("РќРµ СѓРґР°Р»РѕСЃСЊ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РІР·СЏС‚СЊ РґСѓР±РёРЅРєСѓ, РІС‹С€Р»Рѕ РІСЂРµРјСЏ РѕР¶РёРґР°РЅРёСЏ")
+							log("Не удалось автоматически взять дубинку, вышло время ожидания")
 							return
 						end
 						wait(0)
@@ -4833,8 +4833,8 @@ end
 Button_ORIGINAL = imgui.Button
 function imgui.Button(label, size, duration)
 	duration = duration or {
-		1.0, -- Р”Р»РёС‚РµР»СЊРЅРѕСЃС‚СЊ РїРµСЂРµС…РѕРґРѕРІ РјРµР¶РґСѓ hovered / idle
-		0.3  -- Р”Р»РёС‚РµР»СЊРЅРѕСЃС‚СЊ Р°РЅРёРјР°С†РёРё РїРѕСЃР»Рµ РЅР°Р¶Р°С‚РёСЏ
+		1.0, -- Длительность переходов между hovered / idle
+		0.3  -- Длительность анимации после нажатия
 	}
 
 	local cols = {
@@ -5069,11 +5069,11 @@ function checkServer(address)
 
 	for name, ip in pairs(servers) do
 		if address == ip then
-			log("РџСЂРѕРІРµСЂРєР° РЅР° СЃРµСЂРІРµСЂ: {33AA33}РЈСЃРїРµС€РЅРѕ [ ".. name .. " ]", "РџРѕРґРіРѕС‚РѕРІРєР°")
+			log("Проверка на сервер: {33AA33}Успешно [ ".. name .. " ]", "Подготовка")
 			return true
 		end
 	end
-	log("РџСЂРѕРІРµСЂРєР° РЅР° СЃРµСЂРІРµСЂ: {FF1010}РќРµСѓРґР°С‡РЅРѕ [ " .. address .. " ]", "РџРѕРґРіРѕС‚РѕРІРєР°")
+	log("Проверка на сервер: {FF1010}Неудачно [ " .. address .. " ]", "Подготовка")
 	return false
 end
 
@@ -5102,7 +5102,7 @@ end
 function autoupdate(json_url)
 	local json = getWorkingDirectory() .. '\\'..thisScript().name..'-version.json'
 	if doesFileExist(json) then os.remove(json) end
-	log('РќР°С‡Р°Р»Рѕ РїСЂРѕРІРµСЂРєРё РѕР±РЅРѕРІР»РµРЅРёСЏ', "РџРѕРґРіРѕС‚РѕРІРєР°")
+	log('Начало проверки обновления', "Подготовка")
 	downloadUrlToFile(json_url, json,
 		function(id, status, p1, p2)
 			if status == STATUSEX_ENDDOWNLOAD then
@@ -5117,12 +5117,12 @@ function autoupdate(json_url)
 					if updateversion ~= thisScript().version then
 						lua_thread.create(function()
 							local color = -1
-							log('РќР°Р№РґРµРЅРѕ РѕР±РЅРѕРІР»РµРЅРёРµ: '..thisScript().version..' -> '..updateversion..'! Р—Р°РіСЂСѓР·РєР°..', "РћР±РЅРѕРІР»РµРЅРёРµ")
+							log('Найдено обновление: '..thisScript().version..' -> '..updateversion..'! Загрузка..', "Обновление")
 							wait(250)
 							downloadUrlToFile(updatelink, thisScript().path,
 								function(id3, status1, p13, p23)
 									if status1 == STATUS_ENDDOWNLOADDATA then
-										log('Р—Р°РіСЂСѓР·РєР° РѕРєРѕРЅС‡РµРЅР°. РЎРєСЂРёРїС‚ РѕР±РЅРѕРІР»РµРЅ РЅР° РІРµСЂСЃРёСЋ '..mc..updateversion, "РћР±РЅРѕРІР»РµРЅРёРµ")
+										log('Загрузка окончена. Скрипт обновлен на версию '..mc..updateversion, "Обновление")
 										goupdatestatus = true
 
 										local v1 = updateversion:match('^(%d+)')
@@ -5144,7 +5144,7 @@ function autoupdate(json_url)
 									end
 									if status1 == STATUSEX_ENDDOWNLOAD then
 										if goupdatestatus == nil then
-											log('РЎРєСЂРёРїС‚ РЅРµ СЃРјРѕРі РѕР±РЅРѕРІРёС‚СЃСЏ РЅР° РІРµСЂСЃРёСЋ '..updateversion, "РћС€РёР±РєР°")
+											log('Скрипт не смог обновится на версию '..updateversion, "Ошибка")
 											update = false
 										end
 									end
@@ -5153,13 +5153,13 @@ function autoupdate(json_url)
 						end)
 					else
 						update = false
-						log('Р’РµСЂСЃРёРё СЃРѕРІРїР°РґР°СЋС‚. РћР±РЅРѕРІР»РµРЅРёР№ РЅРµС‚', "РџРѕРґРіРѕС‚РѕРІРєР°")
-						addBankMessage('РћР±РЅРѕРІР»РµРЅРёР№ РЅРµ РЅР°Р№РґРµРЅРѕ')
+						log('Версии совпадают. Обновлений нет', "Подготовка")
+						addBankMessage('Обновлений не найдено')
 					end
 				end
 			else
-				log('РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ JSON С‚Р°Р±Р»РёС†Сѓ', "РћС€РёР±РєР°")
-				addBankMessage('РћР±РЅРѕРІР»РµРЅРёРµ РЅРµ СѓРґР°Р»РѕСЃСЊ')
+				log('Не удалось получить JSON таблицу', "Ошибка")
+				addBankMessage('Обновление не удалось')
 				update = false
 			end
 		end
@@ -5235,7 +5235,7 @@ function Window_Info_Update()
 		imgui.SetCursorPos(imgui.ImVec2(10, 10))
 		imgui.BeginGroup()
 		imgui.PushFont(font[35])
-		imgui.TextColored(imgui.GetStyle().Colors[imgui.Col.ButtonHovered], fa.ICON_FA_NEWSPAPER .. u8' РЎРїРёСЃРѕРє РёР·РјРµРЅРµРЅРёР№')
+		imgui.TextColored(imgui.GetStyle().Colors[imgui.Col.ButtonHovered], fa.ICON_FA_NEWSPAPER .. u8' Список изменений')
 		imgui.PopFont()
 		imgui.SetCursorPos(imgui.ImVec2( imgui.GetWindowWidth() - 30, 26 ))
 		if imgui.CloseButton(7) then
@@ -5274,14 +5274,14 @@ function Window_Info_Update()
 					DL:AddCircleFilled(imgui.ImVec2(p.x + offset + 1, p2.y + 10), radius, col_bg_line, 32)
 					DL:AddCircleFilled(imgui.ImVec2(p.x + offset + 1, p2.y + 10), radius - 3, circle_color, 32)
 					if cl.date ~= nil then
-						imgui.TextColoredRGB('{0070FF}Р’РµСЂСЃРёСЏ ' .. cl.version)
+						imgui.TextColoredRGB('{0070FF}Версия ' .. cl.version)
 						imgui.SameLine()
 						imgui.TextColoredRGB('|  {5F99C2}' .. getTimeAfter(cl.date))
 						imgui.PushFont(font[11])
-						imgui.Hint('dateupdate'..i, u8(os.date('РћС‚ %d.%m.%Y', cl.date)))
+						imgui.Hint('dateupdate'..i, u8(os.date('От %d.%m.%Y', cl.date)))
 						imgui.PopFont()
 					else
-						imgui.TextColoredRGB('{FF9000}Р’РµСЂСЃРёСЏ ' .. cl.version .. '-Beta')
+						imgui.TextColoredRGB('{FF9000}Версия ' .. cl.version .. '-Beta')
 					end
 					imgui.PopFont()
 					if cl.comment ~= "" then
@@ -5312,7 +5312,7 @@ function Window_Info_Update()
 						end
 					end
 					if #cl.patches.info > 0 then
-						imgui.TextColored(imgui.ImVec4(0.5, 0.6, 0.8, 1.0), u8(' >> РџР°С‚С‡Рё ').. (cl.patches.show and fa.ICON_FA_MINUS_CIRCLE or fa.ICON_FA_PLUS_CIRCLE))
+						imgui.TextColored(imgui.ImVec4(0.5, 0.6, 0.8, 1.0), u8(' >> Патчи ').. (cl.patches.show and fa.ICON_FA_MINUS_CIRCLE or fa.ICON_FA_PLUS_CIRCLE))
 						if imgui.IsItemClicked() then 
 							changelog[i].patches.show = not changelog[i].patches.show
 						end
@@ -5379,23 +5379,23 @@ end
 function getTimeAfter(unix)
 	local interval = os.time() - unix
 	if interval < 86400 then -- 1 day
-		return "РњРµРЅРµРµ СЃСѓС‚РѕРє РЅР°Р·Р°Рґ"
+		return "Менее суток назад"
 	elseif interval < 604800 then -- 1 week
 		local days = math.floor(interval / 86400)
-		local text = plural(days, {'РґРµРЅСЊ', 'РґРЅСЏ', 'РґРЅРµР№'})
-		return ('%s %s РЅР°Р·Р°Рґ'):format(days, text)
+		local text = plural(days, {'день', 'дня', 'дней'})
+		return ('%s %s назад'):format(days, text)
 	elseif interval < 2592000 then -- 1 month
 		local weeks = math.floor(interval / 604800)
-		local text = plural(weeks, {'РЅРµРґРµР»СЏ', 'РЅРµРґРµР»Рё', 'РЅРµРґРµР»СЊ'})
-		return ('%s %s РЅР°Р·Р°Рґ'):format(weeks, text)
+		local text = plural(weeks, {'неделя', 'недели', 'недель'})
+		return ('%s %s назад'):format(weeks, text)
 	elseif interval < 31536000 then -- 1 year
 		local months = math.floor(interval / 2592000)
-		local text = plural(months, {'РјРµСЃСЏС†', 'РјРµСЃСЏС†Р°', 'РјРµСЃСЏС†РµРІ'})
-		return ('%s %s РЅР°Р·Р°Рґ'):format(months, text)
+		local text = plural(months, {'месяц', 'месяца', 'месяцев'})
+		return ('%s %s назад'):format(months, text)
 	else -- 1+ years
 		local years = math.floor(interval / 31536000)
-		local text = plural(years, {'РіРѕРґ', 'РіРѕРґР°', 'Р»РµС‚'})
-		return ('%s %s РЅР°Р·Р°Рґ'):format(years, text)
+		local text = plural(years, {'год', 'года', 'лет'})
+		return ('%s %s назад'):format(years, text)
 	end
 end
 
@@ -5406,39 +5406,39 @@ function log(text, tag)
 end
 
 function helpCommands()
-	if imgui.BeginPopupModal(u8("Р’СЃРµ РєРѕРјР°РЅРґС‹ СЃРєСЂРёРїС‚Р°"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize + imgui.WindowFlags.NoTitleBar) then
+	if imgui.BeginPopupModal(u8("Все команды скрипта"), _, imgui.WindowFlags.NoCollapse + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.AlwaysAutoResize + imgui.WindowFlags.NoTitleBar) then
 		imgui.PushFont(font[20])
-		imgui.CenterTextColoredRGB(mc..'Р’СЃРµ РґРѕСЃС‚СѓРїРЅС‹Рµ РєРѕРјР°РЅРґС‹ Рё СЃРѕС‡РµС‚Р°РЅРёСЏ РєР»Р°РІРёС€')
+		imgui.CenterTextColoredRGB(mc..'Все доступные команды и сочетания клавиш')
 		imgui.PopFont()
 		imgui.Spacing()
-		imgui.TextColoredRGB(sc..'РљРѕРјР°РЅРґС‹ РІ С‡Р°С‚Рµ:')
+		imgui.TextColoredRGB(sc..'Команды в чате:')
 		imgui.SetCursorPosX(20)
 		imgui.BeginGroup()
-			imgui.TextColoredRGB(mc..'/bank{SSSSSS} - РћСЃРЅРѕРІРЅРѕРµ РјРµРЅСЋ СЃРєСЂРёРїС‚Р° (Р»РёР±Рѕ Ctrl + B)')
-			imgui.TextColoredRGB(mc..'/ustav{SSSSSS} - РЈСЃС‚Р°РІ Р¦Р‘ РІ РѕС‚РґРµР»СЊРЅРѕРј РѕРєРЅРµ')
-			imgui.TextColoredRGB(mc..'/ro [text]{SSSSSS} - Р Рџ С‡Р°С‚ РѕР±СЉСЏРІР»РµРЅРёР№')
-			imgui.TextColoredRGB(mc..'/rbo [text]{SSSSSS} - РќРѕРЅР Рџ С‡Р°С‚ РѕР±СЉСЏРІР»РµРЅРёР№')
-			imgui.TextColoredRGB(mc..'/uninvite [id] [РїСЂРёС‡РёРЅР°]{SSSSSS} - РЈРІРѕР»СЊРЅРµРЅРёРµ СЃРѕС‚СЂСѓРґРЅРёРєР° СЃ Р Рџ РѕС‚С‹РіСЂРѕРІРєР°РјРё (9+ СЂР°РЅРі)')
-			imgui.TextColoredRGB(mc..'/giverank [id] [СЂР°РЅРі]{SSSSSS} - Р’С‹РґР°С‡Р° СЂР°РЅРіР° СЃРѕС‚СЂСѓРґРЅРёРєСѓ СЃ Р Рџ РѕС‚С‹РіСЂРѕРІРєРѕР№ (9+ СЂР°РЅРі)')
-			imgui.TextColoredRGB(mc..'/fwarn [id] [РїСЂРёС‡РёРЅР°]{SSSSSS} - Р’С‹РґР°С‡Р° РІС‹РіРѕРІРѕСЂСѓ СЃРѕС‚СЂСѓРґРЅРёРєСѓ СЃ Р Рџ РѕС‚С‹РіСЂРѕРІРєРѕР№ (9+ СЂР°РЅРі)')
-			imgui.TextColoredRGB(mc..'/blacklist [id] [РїСЂРёС‡РёРЅР°]{SSSSSS} - Р—Р°РЅРµСЃРµРЅРёРµ РІ Р§РЎ Р‘Р°РЅРєР° СЃ Р Рџ РѕС‚С‹РіСЂРѕРІРєРѕР№ (9+ СЂР°РЅРі)')
-			imgui.TextColoredRGB(mc..'/unfwarn [id]{SSSSSS} - РЎРЅСЏС‚РёРµ РІС‹РіРѕРІРѕСЂР° СЃРѕС‚СЂСѓРґРЅРёРєСѓ СЃ Р Рџ РѕС‚С‹РіСЂРѕРІРєРѕР№ (9+ СЂР°РЅРі)')
-			imgui.TextColoredRGB(mc..'/kip{SSSSSS} - РЎРјРµРЅРёС‚СЊ РїРѕР·РёС†РёСЋ РїР°РЅРµР»Рё РёРЅС„РѕСЂРјР°С†РёРё РЅР° РєР°СЃСЃРµ')
-			imgui.TextColoredRGB(mc..'/getprize{SSSSSS} - РџСЂРѕРІРµСЂРёС‚СЊ РїРёРєР°Рї СЃ Р»Р°СЂС†Р°РјРё РѕСЂРі. РЅР° СЂР°СЃСЃС‚РѕСЏРЅРёРё')
-			imgui.TextColoredRGB(mc..'/jp{SSSSSS} - Р°Р»СЊС‚РµСЂРІРЅР°С‚РёРІР° /jobprogress')
-			imgui.TextColoredRGB(mc..'/cjp{SSSSSS} - Р°Р»СЊС‚РµСЂРІРЅР°С‚РёРІР° /checkjobprogress')
+			imgui.TextColoredRGB(mc..'/bank{SSSSSS} - Основное меню скрипта (либо Ctrl + B)')
+			imgui.TextColoredRGB(mc..'/ustav{SSSSSS} - Устав ЦБ в отдельном окне')
+			imgui.TextColoredRGB(mc..'/ro [text]{SSSSSS} - РП чат объявлений')
+			imgui.TextColoredRGB(mc..'/rbo [text]{SSSSSS} - НонРП чат объявлений')
+			imgui.TextColoredRGB(mc..'/uninvite [id] [причина]{SSSSSS} - Увольнение сотрудника с РП отыгровками (9+ ранг)')
+			imgui.TextColoredRGB(mc..'/giverank [id] [ранг]{SSSSSS} - Выдача ранга сотруднику с РП отыгровкой (9+ ранг)')
+			imgui.TextColoredRGB(mc..'/fwarn [id] [причина]{SSSSSS} - Выдача выговору сотруднику с РП отыгровкой (9+ ранг)')
+			imgui.TextColoredRGB(mc..'/blacklist [id] [причина]{SSSSSS} - Занесение в ЧС Банка с РП отыгровкой (9+ ранг)')
+			imgui.TextColoredRGB(mc..'/unfwarn [id]{SSSSSS} - Снятие выговора сотруднику с РП отыгровкой (9+ ранг)')
+			imgui.TextColoredRGB(mc..'/kip{SSSSSS} - Сменить позицию панели информации на кассе')
+			imgui.TextColoredRGB(mc..'/getprize{SSSSSS} - Проверить пикап с ларцами орг. на расстоянии')
+			imgui.TextColoredRGB(mc..'/jp{SSSSSS} - альтервнатива /jobprogress')
+			imgui.TextColoredRGB(mc..'/cjp{SSSSSS} - альтервнатива /checkjobprogress')
 		imgui.EndGroup()
 		imgui.Spacing()
-		imgui.TextColoredRGB(sc..'РЎРѕС‡РµС‚Р°РЅРёСЏ РєР»Р°РІРёС€:')
+		imgui.TextColoredRGB(sc..'Сочетания клавиш:')
 		imgui.SetCursorPosX(20)
 		imgui.BeginGroup()
-			imgui.TextColoredRGB(mc..'РџРљРњ + Q{SSSSSS} - РњРµРЅСЋ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ СЃ РєР»РёРµРЅС‚РѕРј')
-			imgui.TextColoredRGB(mc..'РџРљРњ + G{SSSSSS} - Р’С‹РіРЅР°С‚СЊ РёР· Р±Р°РЅРєР° СЃ РїСЂРёС‡РёРЅРѕР№ ' .. cfg.main.expelReason)
-			imgui.TextColoredRGB(mc..'РџРљРњ + R{SSSSSS} - РћР±СЉСЏРІРёС‚СЊ С†РµР»СЊ РґР»СЏ С‚РµРіР° {select_id}/{select_name}')
+			imgui.TextColoredRGB(mc..'ПКМ + Q{SSSSSS} - Меню взаимодействия с клиентом')
+			imgui.TextColoredRGB(mc..'ПКМ + G{SSSSSS} - Выгнать из банка с причиной ' .. cfg.main.expelReason)
+			imgui.TextColoredRGB(mc..'ПКМ + R{SSSSSS} - Объявить цель для тега {select_id}/{select_name}')
 		imgui.EndGroup()
 		imgui.Spacing()
 		imgui.SetCursorPosX((imgui.GetWindowWidth() - 150) / 2)
-		if imgui.Button(u8'Р—Р°РєСЂС‹С‚СЊ##РєРѕРјР°РЅРґС‹', imgui.ImVec2(150, 20)) then 
+		if imgui.Button(u8'Закрыть##команды', imgui.ImVec2(150, 20)) then 
 			imgui.CloseCurrentPopup()
 		end 
 		imgui.EndPopup()
@@ -5449,17 +5449,17 @@ function checkData()
 	local dir = getWorkingDirectory() .. '\\BHelper'
 	if not doesDirectoryExist(dir) then
 		if createDirectory(dir) then
-			log(string.format('РЎРѕР·РґР°РЅР° РґРёСЂРµРєС‚РѕСЂРёСЏ %s', dir), "РџРѕРґРіРѕС‚РѕРІРєР°")
+			log(string.format('Создана директория %s', dir), "Подготовка")
 		end
 	end
 
-	log('РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ Р»РµРєС†РёР№..', "РџРѕРґРіРѕС‚РѕРІРєР°")
+	log('Проверка наличия лекций..', "Подготовка")
 	if not doesFileExist(lect_path) then
 		lections = lections_default
 		local file = io.open(lect_path, "w")
 		file:write(encodeJson(lections))
 		file:close()
-		log('Р¤Р°Р№Р» Р»РµРєС†РёР№ РЅРµ РЅР°Р№РґРµРЅ, СЃРѕР·РґР°РЅ С„Р°Р№Р»', "РџРѕРґРіРѕС‚РѕРІРєР°")
+		log('Файл лекций не найден, создан файл', "Подготовка")
 	else
 		local file = io.open(lect_path, "r")
 		lections = decodeJson(file:read('*a'))
@@ -5467,14 +5467,14 @@ function checkData()
 	end
 
 	local files = {
-		['РЈСЃС‚Р°РІ Р¦Р‘.txt'] = charter_default,
-		['РљСЂРµРґРёС‚РѕРІР°РЅРёРµ.txt'] = lending_default,
-		['РљР°РґСЂРѕРІР°СЏ СЃРёСЃС‚РµРјР°.txt'] = HRsystem_default,
-		['РЎРёСЃС‚РµРјР° РїРѕРІС‹С€РµРЅРёСЏ.txt'] = Promotion_default
+		['Устав ЦБ.txt'] = charter_default,
+		['Кредитование.txt'] = lending_default,
+		['Кадровая система.txt'] = HRsystem_default,
+		['Система повышения.txt'] = Promotion_default
 	}
 	for name, text in pairs(files) do 
 		if not doesFileExist(dir .. '\\' .. name) then
-			log(string.format('РЎРѕР·РґР°РЅ С„Р°Р№Р» В«%sВ»', name), "РџРѕРґРіРѕС‚РѕРІРєР°")
+			log(string.format('Создан файл «%s»', name), "Подготовка")
 			local file = io.open(dir .. '\\' .. name, "w")
 			file:write(text)
 			file:close()
@@ -5562,9 +5562,9 @@ changelog = {
 		comment = '',
 		date = os.time({day = '1', month = '5', year = '2023'}),
 		log = {
-			"Р”РѕР±Р°РІР»РµРЅР° РїРѕРґРґРµСЂР¶РєР° СЃРµСЂРІРµСЂР° Yava (25)",
-			"Р‘С‹Р»Р° РёСЃРїСЂР°РІР»РµРЅР° РѕС€РёР±РєР° РЅРµРєРѕСЂСЂРµРєС‚РЅРѕРіРѕ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РІС‹РґР°РЅРЅС‹С… VIP-РєР°СЂС‚ Р·Р° РґРµРЅСЊ РІ РјРµРЅСЋ СѓРїСЂР°РІР»РµРЅРёСЏ СЃРѕС‚СЂСѓРґРЅРёРєРѕРј",
-			"РџСЂРѕС‡РёРµ РЅРµР·РЅР°С‡РёС‚РµР»СЊРЅС‹Рµ СѓР»СѓС‡С€РµРЅРёСЏ"
+			"Добавлена поддержка сервера Yava (25)",
+			"Была исправлена ошибка некорректного отображения выданных VIP-карт за день в меню управления сотрудником",
+			"Прочие незначительные улучшения"
 		},
 		patches = {
 			show = false,
@@ -5576,7 +5576,7 @@ changelog = {
 		comment = 'Happy Christmas!',
 		date = os.time({day = '7', month = '1', year = '2023'}),
 		log = {
-			"Р”РѕР±Р°РІР»РµРЅР° РїРѕРґРґРµСЂР¶РєР° СЃРµСЂРІРµСЂР° Wednesday (24)"
+			"Добавлена поддержка сервера Wednesday (24)"
 		},
 		patches = {
 			show = false,
@@ -5588,7 +5588,7 @@ changelog = {
 		comment = '',
 		date = os.time({day = '25', month = '11', year = '2022'}),
 		log = {
-			"РСЃРїСЂР°РІР»РµРЅРѕ РЅРµСЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ РґРµР№СЃС‚РІРёР№ РІ Р±Р°РЅРєРѕРІСЃРєРѕРј РјРµРЅСЋ"
+			"Исправлено несоответствие действий в банковском меню"
 		},
 		patches = {
 			show = false,
@@ -5600,11 +5600,11 @@ changelog = {
 		comment = '',
 		date = os.time({day = '6', month = '11', year = '2022'}),
 		log = {
-			"РџРѕ РјРЅРѕРіРѕС‡РёСЃР»РµРЅРЅС‹Рј РїСЂРѕСЃСЊР±Р°Рј РІ РЅР°СЃС‚СЂРѕР№РєР°С… РїРѕСЏРІРёР»СЃСЏ РЅРѕРІС‹Р№ РїСѓРЅРєС‚ В«РРјСЏ РїРµСЂСЃРѕРЅР°Р¶Р°В». РРјСЏ СѓРєР°Р·Р°РЅРЅРѕРµ РІ СЌС‚РѕРј РїСѓРЅРєС‚Рµ Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РІРѕ РІСЃРµС… РѕС‚С‹РіСЂРѕРІРєР°С…, Р° С‚Р°Рє Р¶Рµ РёСЃРїРѕР»СЊР·СѓСЏ С‚РµРі {my_name}. РќР°РїСЂРёРјРµСЂ, РІС‹ РјРѕР¶РµС‚Рµ РІРІРµСЃС‚Рё С‚СѓРґР° СЃРІРѕР№ РЅРёРє РЅР° СЂСѓСЃСЃРєРѕРј, С‚Р°Рє РєР°Рє РЅР° РЅРµРєРѕС‚РѕСЂС‹С… СЃРµСЂРІРµСЂР°С… СЌС‚Рѕ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ",
-			"РСЃРїСЂР°РІР»РµРЅРѕ РЅРµРєРѕСЂСЂРµРєС‚РЅРѕРµ Р·Р°РїРѕРјРёРЅР°РЅРёРµ РІР°С€РµРіРѕ РїРёРЅ-РєРѕРґР° РґР»СЏ Р°РІС‚РѕРІРІРѕРґР° РµСЃР»Рё РѕРЅ РЅР°С‡РёРЅР°Р»СЃСЏ СЃ РЅСѓР»СЏ(РµР№)",
-			"РР·РјРµРЅРµРЅС‘РЅ РІРЅРµС€РЅРёР№ РІРёРґ СЃСЃС‹Р»РѕРє РЅР° СЂР°Р·СЂР°Р±РѕС‚С‡РёРєР° РІ РЅР°СЃС‚СЂРѕР№РєР°С…",
-			"РўРµРїРµСЂСЊ РґРёР°Р»РѕРіРѕРІС‹Рµ РѕРєРЅР° РїРѕСЃР»Рµ РІС‹РїРѕР»РЅРµРЅРёСЏ Р±Р°РЅРєРѕРІСЃРєРёС… РѕРїРµСЂР°С†РёР№ Р±СѓРґСѓС‚ СЃРєСЂС‹РІР°С‚СЊСЃСЏ, Рё РІС‹РІРѕРґРёС‚СЊСЃСЏ РІ С‡Р°С‚",
-			"Р”РѕР±Р°РІР»РµРЅР° РїРѕРґРґРµСЂР¶РєР° СЃРµСЂРІРµСЂР° Holiday (23)"
+			"По многочисленным просьбам в настройках появился новый пункт «Имя персонажа». Имя указанное в этом пункте будет использоваться во всех отыгровках, а так же используя тег {my_name}. Например, вы можете ввести туда свой ник на русском, так как на некоторых серверах это обязательно",
+			"Исправлено некорректное запоминание вашего пин-кода для автоввода если он начинался с нуля(ей)",
+			"Измененён внешний вид ссылок на разработчика в настройках",
+			"Теперь диалоговые окна после выполнения банковских операций будут скрываться, и выводиться в чат",
+			"Добавлена поддержка сервера Holiday (23)"
 		},
 		patches = {
 			show = false,
@@ -5616,18 +5616,18 @@ changelog = {
 		comment = '',
 		date = os.time({day = '27', month = '8', year = '2022'}),
 		log = {
-			"Р”РѕР±Р°РІР»РµРЅР° С„СѓРЅРєС†РёСЏ РѕС‚РєР»СЋС‡РµРЅРёСЏ Р±РѕС‚РѕРІ РЅР° РєР°СЃСЃР°С…, РµСЃР»Рё РІРґСЂСѓРі РѕРЅРё РІР°Рј С‡РµРј-С‚Рѕ РјРµС€Р°СЋС‚",
-			"РР· РєСЂРёС‚РµСЂРёРµРІ РїСЂРёС‘РјР° РІ РѕСЂРіР°РЅРёР·Р°С†РёСЋ СѓР±СЂР°РЅ РїСѓРЅРєС‚ Рѕ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕР№ РїСЂРёРІРёРІРєРµ РѕС‚ РєРѕСЂРѕРЅРѕРІРёСЂСѓСЃР°. Р’РјРµСЃС‚Рѕ РЅРµС‘ С‚РµРїРµСЂСЊ РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Р№ РїСѓРЅРєС‚ В«РўСЂСѓРґРѕРІР°СЏ РєРЅРёР¶РєР°В», РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° РєРѕС‚РѕСЂС‹Р№ РѕС‚С‹РіСЂР°РµС‚СЃСЏ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ РѕС‚С‹РіСЂРѕРІРєР° СЃ РїСЂРѕСЃСЊР±РѕР№ РїРѕРєР°Р·Р°С‚СЊ СЌС‚РѕС‚ РґРѕРєСѓРјРµРЅС‚",
-			"Р СЏРґРѕРј СЃ РєР°Р¶РґС‹Рј РєСЂРёС‚РµСЂРёРµРј С‚РµРїРµСЂСЊ РїРѕСЏРІРёР»СЃСЏ РјР°СЂРєРµСЂ, СѓРІРµРґРѕРјР»СЏСЋС‰РёР№ РІР°СЃ Рѕ РµРіРѕ РІС‹РїРѕР»РЅРµРЅРёРё",
-			"РћРєРЅРѕ РёРЅС„РѕСЂРјР°С†РёРё Рѕ С‚РµРєСѓС‰РµРј РїРѕСЃС‚Рµ Р±СѓРґРµС‚ СЃРєСЂС‹РІР°С‚СЊСЃСЏ, РєРѕРіРґР° С…СѓРґР° РЅРµ РІРёРґРЅРѕ РЅР° СЌРєСЂР°РЅРµ",
-			"РР·РјРµРЅС‘РЅ С‚РµРєСЃС‚ РЅРµРєРѕС‚РѕСЂС‹С… РІСЃРїР»С‹РІР°СЋС‰РёС… СѓРІРµРґРѕРјР»РµРЅРёР№",
-			"РЎС‚Р°С‚РёСЃС‚РёРєР° РЅР° РєР°СЃСЃРµ Р±РѕР»СЊС€Рµ РЅРµ Р±СѓРґРµС‚ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ РЅР° СЌРєСЂР°РЅРµ РµСЃР»Рё РІР°СЃ РєРёРєРЅРµС‚ РёР»Рё РµСЃР»Рё РІС‹ РїРµСЂРµР·Р°Р№РґС‘С‚Рµ РЅР° СЃРµСЂРІРµСЂ",
-			"РџРёРєР°РїС‹ РїРѕСЃС‚РѕРІ Р±СѓРґСѓС‚ Р·Р°РјРµРЅСЏС‚СЊСЃСЏ С‚РµРїРµСЂСЊ С‚РѕР»СЊРєРѕ РІ РёРЅС‚РµСЂСЊРµСЂРµ Р±Р°РЅРєР°",
-			"РџСЂРё РѕС‚РєР»РѕРЅРµРЅРёРё РЅР° СЃРѕР±РµСЃРµРґРѕРІР°РЅРёРё, РµСЃР»Рё РЅР°Р¶Р°С‚СЊ РЅР° В«РЎРєР°Р¶Сѓ РїСЂРёС‡РёРЅСѓ РІСЂСѓС‡РЅСѓСЋВ», С‚Рѕ РІ СЃС‚СЂРѕРєРµ РІРІРѕРґР° РїРѕСЏРІРёС‚СЃСЏ Р·Р°РіРѕС‚РѕРІР»РµРЅРЅРѕРµ РЅР°С‡Р°Р»Рѕ РѕС‚РєР°Р·Р°",
-			"РўРµРїРµСЂСЊ РІ С‡Р°С‚ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕ РїРёС€РµС‚ РЅРёРє С‚РѕРіРѕ, РєС‚Рѕ РїСЂРѕС€С‘Р» СЃРѕР±РµСЃРµРґРѕРІР°РЅРёРµ (Р•СЃР»Рё РІС‹ РЅРµ 9+)",
-			"Р•СЃР»Рё РЅРµ СѓРєР°Р·Р°С‚СЊ ID РІ РєРѕРјР°РЅРґР°С… РґР»СЏ РїРѕРєР°Р·Р° РґРѕРєСѓРјРµРЅС‚Р° (" .. table.concat(self_docs, ", ") .. "), С‚Рѕ РІС‹ РїРѕРєР°Р¶РµС‚Рµ СЌС‚РѕС‚ РґРѕРєСѓРјРµРЅС‚ СЃРµР±Рµ",
-			"РР·РјРµРЅС‘РЅ РІРёРґ /rbo С‡Р°С‚Р° РґР»СЏ С‚РµС…, РєС‚Рѕ РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚ Bank-Helper",
-			"РСЃРїСЂР°РІР»РµРЅРѕ РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РєРІРµСЃС‚Р° В«Р РµРіРёСЃС‚СЂРёСЂСѓРµРј СЃС‡РµС‚Р°В» Сѓ Р±РѕС‚Р°"
+			"Добавлена функция отключения ботов на кассах, если вдруг они вам чем-то мешают",
+			"Из критериев приёма в организацию убран пункт о обязательной прививке от короновируса. Вместо неё теперь необязательный пункт «Трудовая книжка», при нажатии на который отыграется дополнительная отыгровка с просьбой показать этот документ",
+			"Рядом с каждым критерием теперь появился маркер, уведомляющий вас о его выполнении",
+			"Окно информации о текущем посте будет скрываться, когда худа не видно на экране",
+			"Изменён текст некоторых всплывающих уведомлений",
+			"Статистика на кассе больше не будет оставаться на экране если вас кикнет или если вы перезайдёте на сервер",
+			"Пикапы постов будут заменяться теперь только в интерьере банка",
+			"При отклонении на собеседовании, если нажать на «Скажу причину вручную», то в строке ввода появится заготовленное начало отказа",
+			"Теперь в чат дополнительно пишет ник того, кто прошёл собеседование (Если вы не 9+)",
+			"Если не указать ID в командах для показа документа (" .. table.concat(self_docs, ", ") .. "), то вы покажете этот документ себе",
+			"Изменён вид /rbo чата для тех, кто не использует Bank-Helper",
+			"Исправлено отображение квеста «Регистрируем счета» у бота"
 		},
 		patches = {
 			show = false,
@@ -5639,15 +5639,15 @@ changelog = {
 		comment = '',
 		date = os.time({day = '14', month = '8', year = '2022'}),
 		log = {
-			"Р’ РЅР°СЃС‚СЂРѕР№РєР°С… РґРѕР±Р°РІР»РµРЅР° С„СѓРЅРєС†РёСЏ РёР·РјРµРЅРµРЅРёСЏ СЃС‚РёР»СЏ РёРЅС‚РµСЂСЊРµСЂР° Р±Р°РЅРєР°. РџРѕРєР°-С‡С‚Рѕ РІ РЅРµР№ РґРѕСЃС‚СѓРїРЅРѕ С‚РѕР»СЊРєРѕ 3 РєР°СЃС‚РѕРјРЅС‹С… СЃС‚РёР»СЏ РЅР° РІС‹Р±РѕСЂ, РЅРѕ РЅРµ РёСЃРєР»СЋС‡РµРЅРѕ, С‡С‚Рѕ СЌС‚РѕС‚ СЃРїРёСЃРѕРє Р±СѓРґРµС‚ РїРѕРїРѕР»РЅСЏС‚СЊСЃСЏ",
-			"РќРµРјРЅРѕРіРѕ РѕРїС‚РёРјРёР·РёСЂРѕРІР°РЅР° СЂР°Р±РѕС‚Р° РЅР° СѓСЃС‚СЂРѕР№СЃС‚РІР°С… СЃ РјР°Р»С‹Рј РѕР±СЉС‘РјРѕРј РіСЂР°С„РёС‡РµСЃРєРѕР№ РїР°РјСЏС‚Рё (РІРѕР·РјРѕР¶РЅРѕРµ РёСЃРїСЂР°РІР»РµРЅРёРµ РїСЂРѕР±Р»РµРјС‹ СЃ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР°РјРё РІРјРµСЃС‚Рѕ С€СЂРёС„С‚Р°)",
-			"Р”РѕР±Р°РІР»РµРЅС‹ РєРѕРјР°РЅРґС‹ /jp Рё /cjp (Р‘РѕР»РµРµ РєРѕСЂРѕС‚РєРёe РІР°СЂРёР°РЅС‚С‹ РєРѕРјР°РЅРґ /jobprogress Рё /checkjobprogress)"
+			"В настройках добавлена функция изменения стиля интерьера банка. Пока-что в ней доступно только 3 кастомных стиля на выбор, но не исключено, что этот список будет пополняться",
+			"Немного оптимизирована работа на устройствах с малым объёмом графической памяти (возможное исправление проблемы с прямоугольниками вместо шрифта)",
+			"Добавлены команды /jp и /cjp (Более короткиe варианты команд /jobprogress и /checkjobprogress)"
 		},
 		patches = {
 			show = false,
 			info = {
-				"РћР±РЅРѕРІР»С‘РЅ СЂРµРїРѕР·РёС‚РѕСЂРёР№ СЃРєСЂРёРїС‚РѕРІ",
-				"РСЃРїСЂР°РІР»РµРЅРёСЏ Рё СѓР»СѓС‡С€РµРЅРёСЏ"
+				"Обновлён репозиторий скриптов",
+				"Исправления и улучшения"
 			}
 		}
 	},
@@ -5656,11 +5656,11 @@ changelog = {
 		comment = '',
 		date = os.time({day = '3', month = '7', year = '2022'}),
 		log = {
-			"Р¤СѓРЅРєС†РёСЏ В«Р’С‹РіРЅР°С‚СЊ РёР· Р±Р°РЅРєР°В» СЃРЅРѕРІР° РґРѕСЃС‚СѓРїРЅР° СЃРѕ 2 СЂР°РЅРіР°",
-			"РР·РјРµРЅС‘РЅ РІРЅРµС€РЅРёР№ РІРёРґ СѓРІРµРґРѕРјР»РµРЅРёР№ РІ СѓРіР»Сѓ СЌРєСЂР°РЅР°",
-			"РР·РјРµРЅС‘РЅ РјРµС‚РѕРґ Р±С‹СЃС‚СЂРѕРіРѕ РѕС‚РєСЂС‹С‚РёСЏ РјРµРЅСЋ СЃРєСЂРёРїС‚Р°: Ctrl + B (Р Р°РЅРµРµ Р±С‹Р»Рѕ В«BBВ»)",
-			"Р’ РјРµРЅСЋ СЃРѕС‚СЂСѓРґРЅРёРєР° (РџРљРњ + Q) РґРѕР±Р°РІР»РµРЅ РЅРѕРІС‹Р№ РїСѓРЅРєС‚ СЃ РєРѕР»РёС‡РµСЃС‚РІРѕРј РІС‹РґР°РЅРЅС‹С… VIP-РєР°СЂС‚",
-			"Р”РѕР±Р°РІР»РµРЅР° РїРѕРґРґРµСЂР¶РєР° СЃРµСЂРІРµСЂР° Sedona (22)"
+			"Функция «Выгнать из банка» снова доступна со 2 ранга",
+			"Изменён внешний вид уведомлений в углу экрана",
+			"Изменён метод быстрого открытия меню скрипта: Ctrl + B (Ранее было «BB»)",
+			"В меню сотрудника (ПКМ + Q) добавлен новый пункт с количеством выданных VIP-карт",
+			"Добавлена поддержка сервера Sedona (22)"
 		},
 		patches = {
 			show = false,
@@ -5669,25 +5669,25 @@ changelog = {
 	},
 	[26] = {
 		version = '26',
-		comment = 'РќРµР±РѕР»СЊС€РѕРµ С‚РµС…РЅРёС‡РµСЃРєРѕРµ РѕР±РЅРѕРІР»РµРЅРёРµ',
+		comment = 'Небольшое техническое обновление',
 		date = os.time({day = '24', month = '4', year = '2022'}),
 		log = {
 			{
-				title = "РћР±РЅРѕРІР»РµРЅРѕ РјРµРЅСЋ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ СЃ РєР»РёРµРЅС‚РѕРј",
+				title = "Обновлено меню взаимодействия с клиентом",
 				show = false,
 				more = {
-					"Р°) РџРѕС‡С‚Рё РІСЃРµ Р±Р°РЅРєРѕРІСЃРєРёРµ СѓСЃР»СѓРіРё РїРѕРЅРёР¶РµРЅС‹ РґРѕ 3 СЂР°РЅРіР°",
-					"Р±) РЎ 4 СЂР°РЅРіР° РґРѕСЃС‚СѓРїРЅР° РєРЅРѕРїРєР° РІС‹РґР°С‡Рё РґРµРїРѕР·РёС‚Р° РґРѕ 10 РјРёР»Р»РёРѕРЅРѕРІ (2 РїСЂРѕС†РµРЅС‚Р° РёРґС‘С‚ СЃРѕС‚СЂСѓРґРЅРёРєСѓ Р±Р°РЅРєР°)"
+					"а) Почти все банковские услуги понижены до 3 ранга",
+					"б) С 4 ранга доступна кнопка выдачи депозита до 10 миллионов (2 процента идёт сотруднику банка)"
 				}
 			},
-			"РЈР»СѓС‡С€РµРЅР° СЃС‚Р°Р±РёР»СЊРЅРѕСЃС‚СЊ Рё РёСЃРїСЂР°РІР»РµРЅС‹ РЅРµРєРѕС‚РѕСЂС‹Рµ РїСЂРѕР±Р»РµРјС‹",
-			"РЈР±СЂР°РЅР° Р·Р°РІРёСЃРёРјРѕСЃС‚СЊ РѕС‚ SAMP.lua РІРµСЂСЃРёРё 3.0 Рё РІС‹С€Рµ"
+			"Улучшена стабильность и исправлены некоторые проблемы",
+			"Убрана зависимость от SAMP.lua версии 3.0 и выше"
 		},
 		patches = {
 			show = false,
 			info = {
-				"Р”РѕР±Р°РІР»РµРЅР° РїРѕРґРґРµСЂР¶РєР° СЃРµСЂРІРµСЂР° Queen Creek (21)",
-				"РСЃРїСЂР°РІР»РµРЅ Р±Р°Рі СЃ РїСЂРѕРІРµСЂРєРѕР№ СЂР°РЅРіРѕРІ РІ /members РёР·-Р·Р° РЅРѕРІРѕРІРІРµРґРµРЅРёСЏ СЃ С‚РµРіР°РјРё РїРµСЂРµРґ РЅРёРєРѕРј"
+				"Добавлена поддержка сервера Queen Creek (21)",
+				"Исправлен баг с проверкой рангов в /members из-за нововведения с тегами перед ником"
 			}
 		}
 	},
@@ -5696,26 +5696,26 @@ changelog = {
 		comment = '',
 		date = os.time({day = '26', month = '3', year = '2022'}),
 		log = {
-			"Р’ РїСЂРёС‡РёРЅР°С… РѕС‚РєР°Р·Р° Рѕ РїСЂРёРµРјРµ РІ РѕСЂРіР°РЅРёР·Р°С†РёСЋ РґРѕР±Р°РІР»РµРЅР° РєРЅРѕРїРєР° В«РќРµС‚ РїСЂРёРІРёРІРєРё РѕС‚ РєРѕСЂРѕРЅР°РІРёСЂСѓСЃР°В»",
-			"РСЃРїСЂР°РІР»РµРЅРѕ Р»РѕР¶РЅРѕРµ СЃСЂР°Р±Р°С‚С‹РІР°РЅРёРµ Р°РІС‚Рѕ-С„РѕСЂРјС‹. РўРµРїРµСЂСЊ СЃСЂР°Р±Р°С‚С‹РІР°РµС‚ С‚РѕР»СЊРєРѕ РєРѕРіРґР° Р·Р°С€Р»Рё РЅР° СЃРµСЂРІРµСЂ",
-			"РўРµРїРµСЂСЊ С‡С‚Рѕ-Р±С‹ РѕСЃС‚Р°РЅРѕРІРёС‚СЊ РїСЂРѕРёРіСЂС‹РІР°СЋС‰СѓСЋСЃСЏ РѕС‚С‹РіСЂРѕРІРєСѓ РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РЅР°Р¶Р°С‚СЊ В«BackspaceВ»",
-			"Р•СЃР»Рё РЅР°Р¶Р°С‚СЊ РїСЂР°РІРѕР№ РєРЅРѕРїРєРѕР№ РјС‹С€Рё РїРѕ СѓСЃР»СѓРіРµ (/bankmenu), С‚Рѕ РѕРЅР° РІС‹РїРѕР»РЅРёС‚СЃСЏ Р±РµР· РѕС‚С‹РіСЂРѕРІРєРё",
-			"Р§РµСЂРµР· РѕРґРёРЅ/РґРІР° С‡Р°СЃР° (РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СЂР°РЅРіР°) РїРѕСЃР»Рµ РїРѕР»СѓС‡РµРЅРёСЏ Р»Р°СЂС†Р° РѕСЂРі. РІР°Рј РїСЂРёРґРµС‚ СѓРІРµРґРѕРјР»РµРЅРёРµ, С‡С‚Рѕ РїРѕСЂР° РїРѕР»СѓС‡Р°С‚СЊ РЅРѕРІС‹Р№",
-			"Р’ РЅР°СЃС‚СЂРѕР№РєРё РґРѕР±Р°РІР»РµРЅР° РєРЅРѕРїРєР° В«Р СѓС‡РЅРѕРµ РѕР±РЅРѕРІР»РµРЅРёРµВ», РґР»СЏ С‚РµС…, Сѓ РєРѕРіРѕ РїРѕ РєР°РєРёРј-С‚Рѕ РїСЂРёС‡РёРЅР°Рј РЅРµ СЂР°Р±РѕС‚Р°РµС‚ СЃРёСЃС‚РµРјР° Р°РІС‚РѕРѕР±РЅРѕРІР»РµРЅРёСЏ.",
-			"РћС‚С‹РіСЂРѕРІРєР° РїСЂРёРІРµС‚СЃС‚РІРёСЏ (Р§РµСЂРµР· РџРљРњ + Q) С‚РµРїРµСЂСЊ РїРёС€РµС‚СЃСЏ РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РІСЂРµРјРµРЅРё РЅР° СЃРµСЂРІРµСЂРµ, Р° РЅРµ РїРѕ РІР°С€РµРјСѓ РјРµСЃС‚РЅРѕРјСѓ РІСЂРµРјРµРЅРё. Р РµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РІРІРµСЃС‚Рё /time С‡С‚Рѕ-Р±С‹ РѕС‚РєР°Р»РёР±СЂРѕРІР°С‚СЊ РІСЂРµРјСЏ",
-			"Р Р°Р·РґРµР» В«РџРѕРІС‹С€РµРЅРёСЏВ» РїРµСЂРµРёРјРµРЅРѕРІР°РЅ РІ В«РњРµРЅСЋ СЃРѕС‚СЂСѓРґРЅРёРєР°В». РўРµРїРµСЂСЊ РІ РЅС‘Рј РјРѕР¶РЅРѕ РЅРµ С‚РѕР»СЊРєРѕ РїРѕРІС‹СЃРёС‚СЊ СЃРѕС‚СЂСѓРґРЅРёРєР°, РЅРѕ Рё РїРѕСЃРјРѕС‚СЂРµС‚СЊ РµРіРѕ СѓСЃРїРµРІР°РµРјРѕСЃС‚СЊ, РІС‹РґР°С‚СЊ РІС‹РіРѕРІРѕСЂ, СѓРІРѕР»РёС‚СЊ Рё С‚Р°Рє РґР°Р»РµРµ..",
-			"РќР°СЃС‚СЂРѕР№РєР° РІСЂРµРјРµРЅРё Р·Р°РґРµСЂР¶РєРё РѕС‚С‹РіСЂРѕРІРѕРє С‚РµРїРµСЂСЊ СЃРѕС…СЂР°РЅСЏРµС‚СЃСЏ РєР°Рє РїРѕР»РѕР¶РµРЅРѕ",
-			"РќРµРјРЅРѕРіРѕ РёР·РјРµРЅС‘РЅ РІРЅРµС€РЅРёР№ РІРёРґ СЂР°Р·РґРµР»Р° РЅР°СЃС‚СЂРѕРµРє",
-			"РР·РјРµРЅРµРЅС‹ РЅРµРєРѕС‚РѕСЂС‹Рµ С†РІРµС‚Р° РёРЅС‚РµСЂС„РµР№СЃР°",
-			"Р”РѕР±Р°РІР»РµРЅР° С„СѓРЅРєС†РёСЏ В«РђРІС‚Рѕ-РґСѓР±РёРЅРєР°В», Р°РЅР°Р»РѕРіРёС‡РЅР°СЏ Р°РІС‚Рѕ-С„РѕСЂРјРµ",
-			"РР·РјРµРЅРµРЅРѕ РјРµРЅСЋ РєРІРµСЃС‚РѕРІ Сѓ Р±РѕС‚Р°"
+			"В причинах отказа о приеме в организацию добавлена кнопка «Нет прививки от коронавируса»",
+			"Исправлено ложное срабатывание авто-формы. Теперь срабатывает только когда зашли на сервер",
+			"Теперь что-бы остановить проигрывающуюся отыгровку достаточно нажать «Backspace»",
+			"Если нажать правой кнопкой мыши по услуге (/bankmenu), то она выполнится без отыгровки",
+			"Через один/два часа (в зависимости от ранга) после получения ларца орг. вам придет уведомление, что пора получать новый",
+			"В настройки добавлена кнопка «Ручное обновление», для тех, у кого по каким-то причинам не работает система автообновления.",
+			"Отыгровка приветствия (Через ПКМ + Q) теперь пишется в зависимости от времени на сервере, а не по вашему местному времени. Рекомендуется ввести /time что-бы откалибровать время",
+			"Раздел «Повышения» переименован в «Меню сотрудника». Теперь в нём можно не только повысить сотрудника, но и посмотреть его успеваемость, выдать выговор, уволить и так далее..",
+			"Настройка времени задержки отыгровок теперь сохраняется как положено",
+			"Немного изменён внешний вид раздела настроек",
+			"Изменены некоторые цвета интерфейса",
+			"Добавлена функция «Авто-дубинка», аналогичная авто-форме",
+			"Изменено меню квестов у бота"
 		},
 		patches = {
 			show = false,
 			info = {
-				"Р’С‹СЂРµР·Р°РЅС‹ С„РѕСЂРјС‹ Р°РІС‚РѕР·Р°РїРѕР»РЅРµРЅРёСЏ (!РїРѕСЃС‚, !Р»РµРєС†РёСЏ, !С‚СЂРµРЅСЏ) РёР· Р·Р° РЅРµРЅР°РґРѕР±РЅРѕСЃС‚Рё, Р° С‚Р°Рє Р¶Рµ РѕРЅРё РїСЂРёРІРѕРґРёР»Рё РЅРµРєРѕС‚РѕСЂС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ Рє РєСЂР°С€Р°Рј",
-				"РСЃРїСЂР°РІР»РµРЅС‹ РЅРµРєРѕС‚РѕСЂС‹Рµ РјРѕРјРµРЅС‚С‹, РєРѕС‚РѕСЂС‹Рµ РїСЂРёРІРѕРґРёР»Рё Рє РєСЂР°С€Р°Рј",
-				"РСЃРїСЂР°РІР»РµРЅРёСЏ Рё СѓР»СѓС‡С€РµРЅРёСЏ"
+				"Вырезаны формы автозаполнения (!пост, !лекция, !треня) из за ненадобности, а так же они приводили некоторых пользователей к крашам",
+				"Исправлены некоторые моменты, которые приводили к крашам",
+				"Исправления и улучшения"
 			}
 		}
 	},
@@ -5724,13 +5724,13 @@ changelog = {
 		comment = '',
 		date = os.time({day = '20', month = '3', year = '2022'}),
 		log = {
-			"РќРѕРІР°СЏ С„СѓРЅРєС†РёСЏ В«РђРІС‚Рѕ-С„РѕСЂРјР°В». РџСЂРё Р·Р°С…РѕРґРµ РЅР° СЃРµСЂРІРµСЂ, РІС‹ Р·Р°СЃРїР°РІРЅРёС‚РµСЃСЊ СЃСЂР°Р·Сѓ РІ СЂР°Р±РѕС‡РµР№ С„РѕСЂРјРµ.\nР’РєР»СЋС‡РёС‚СЊ РјРѕР¶РЅРѕ РІ РѕР±С‰РёС… РЅР°СЃС‚СЂРѕР№РєР°С…",
-			"РР·РјРµРЅРµРЅР° РѕС‚С‹РіСЂРѕРІРєР° РґР»СЏ /expel, РІ СЃРІСЏР·Рё СЃ С‚РµРј С‡С‚Рѕ РєРѕРјР°РЅРґР° С‚РµРїРµСЂСЊ РґРѕСЃС‚СѓРїРЅР° СЃ 5 СЂР°РЅРіР°",
-			"РР·РјРµРЅРµРЅ РјРµС‚РѕРґ РїРѕРёСЃРєР° РІ РѕРєРЅРµ СѓСЃС‚Р°РІР° (/ustav)",
-			"РЈР±СЂР°РЅР° С„СѓРЅРєС†РёСЏ РёР·РјРµРЅРµРЅРёСЏ С†РІРµС‚Р° СЃРІРѕРµРіРѕ РЅРёРєР° РІ С‡Р°С‚Рµ РѕСЂРіР°РЅРёР·Р°С†РёРё",
-			"РљРѕРјР°РЅРґС‹ /ro Рё /rbo С‚РµРїРµСЂСЊ РґРѕСЃС‚СѓРїРЅС‹ Р»СЋР±РѕРјСѓ",
-			"Р”РѕР±Р°РІР»РµРЅС‹ Р°РЅРёРјР°С†РёРё РїР»Р°РІРЅРѕРіРѕ РѕС‚РєСЂС‹С‚РёСЏ Рё Р·Р°РєСЂС‹С‚РёСЏ РІСЃРµС… РѕРєРѕРЅ",
-			"РћР±РЅРѕРІР»РµРЅС‹ СЃСЃС‹Р»РєРё РЅР° СЂР°Р·СЂР°Р±РѕС‚С‡РёРєР° РІ РёРЅС„РѕСЂРјР°С†РёРё Рѕ СЃРєСЂРёРїС‚Рµ. РџРёС€РёС‚Рµ РµСЃР»Рё РµСЃС‚СЊ РїСЂРµРґР»РѕР¶РµРЅРёСЏ РёР»Рё Р·РЅР°РµС‚Рµ РєР°РєРѕР№-С‚Рѕ Р±Р°Рі :)"
+			"Новая функция «Авто-форма». При заходе на сервер, вы заспавнитесь сразу в рабочей форме.\nВключить можно в общих настройках",
+			"Изменена отыгровка для /expel, в связи с тем что команда теперь доступна с 5 ранга",
+			"Изменен метод поиска в окне устава (/ustav)",
+			"Убрана функция изменения цвета своего ника в чате организации",
+			"Команды /ro и /rbo теперь доступны любому",
+			"Добавлены анимации плавного открытия и закрытия всех окон",
+			"Обновлены ссылки на разработчика в информации о скрипте. Пишите если есть предложения или знаете какой-то баг :)"
 		},
 		patches = {
 			show = false,
@@ -5739,45 +5739,45 @@ changelog = {
 	},
 	[23] = {
 		version = '23',
-		comment = 'РЎ РґРЅС‘Рј Р·Р°С‰РёС‚РЅРёРєР° РѕС‚РµС‡РµСЃС‚РІР°! Р’РµСЂСЃРёСЏ РїРѕРґСЃС‚Р°С‚СЊ РїСЂР°Р·РґРЅРёРєСѓ :D',
+		comment = 'С днём защитника отечества! Версия подстать празднику :D',
 		date = os.time({day = '23', month = '2', year = '2022'}),
 		log = {
-			"Р’ РјРµРЅСЋ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ (РџРљРњ + Q) РґРѕР±Р°РІР»РµРЅ РЅРѕРІС‹Р№ РїСѓРЅРєС‚ \"Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ СЃС‡С‘С‚\"",
+			"В меню взаимодействия (ПКМ + Q) добавлен новый пункт \"Дополнительный счёт\"",
 			{
-				title = "РЈР»СѓС‡С€РµРЅР° СЃС‚Р°С‚РёСЃС‚РёРєР° \"Р‘Р°Р»Р°РЅСЃР° С„СЂР°РєС†РёР№\"",
+				title = "Улучшена статистика \"Баланса фракций\"",
 				show = false,
 				more = {
-					"Р°) РЎРѕСЂС‚РёСЂРѕРІРєР° РѕС‚ СЃР°РјРѕР№ Р±РѕРіР°С‚РѕР№ С„СЂР°РєС†РёРё, Рє СЃР°РјРѕР№ Р±РµРґРЅРѕР№",
-					"Р±) РЎСѓРјРјС‹ СЂР°Р·РґРµР»СЏСЋС‚СЃСЏ С‚РѕС‡РєР°РјРё",
-					"РІ) РЈР±СЂР°РЅР° Р»РёС€РЅСЏСЏ РёРЅС„РѕСЂРјР°С†РёСЏ"
+					"а) Сортировка от самой богатой фракции, к самой бедной",
+					"б) Суммы разделяются точками",
+					"в) Убрана лишняя информация"
 				}
 			},
-			"Р Р°РґРёСѓСЃ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ c РєР°СЃСЃРѕР№ (N) СѓРІРµР»РёС‡РµРЅ РґРѕ 3 РјРµС‚СЂРѕРІ (РўРµРїРµСЂСЊ РµС‘ РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ СЃ РѕР±РѕРёС… СЃС‚РѕСЂРѕРЅ РїРµСЂРµРіРѕСЂРѕРґРєРё)",
+			"Радиус взаимодействия c кассой (N) увеличен до 3 метров (Теперь её можно открыть с обоих сторон перегородки)",
 			{
-				title = "РР·РјРµРЅРµРЅС‹ РЅРµРєРѕС‚РѕСЂС‹Рµ СЃС‚Р°РЅРґР°СЂС‚РЅС‹Рµ РѕС‚С‹РіСЂРѕРІРєРё",
+				title = "Изменены некоторые стандартные отыгровки",
 				show = false,
 				more = {
-					"Р°) РћС‚С‹РіСЂРѕРІРєР° РїСЂРёРІРµС‚СЃС‚РІРёСЏ",
-					"Р±) РћС‚С‹РіСЂРѕРІРєР° РѕС„РѕСЂРјР»РµРЅРёСЏ РєР°СЂС‚С‹",
-					"РІ) РћС‚С‹РіСЂРѕРІРєР° РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ PIN-РєРѕРґР°"
+					"а) Отыгровка приветствия",
+					"б) Отыгровка оформления карты",
+					"в) Отыгровка восстановления PIN-кода"
 				}
 			},
-			"РЈР»СѓС‡С€РµРЅР° Р»РѕРіРёРєР° СЂР°Р±РѕС‚С‹ С‚РµРіРѕРІ Рё С‚РµРїРµСЂСЊ РёС… РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЃСЂР°Р·Сѓ РЅРµСЃРєРѕР»СЊРєРѕ РІ РѕРґРЅРѕР№ СЃС‚СЂРѕРєРµ",
-			"РќРµР±РѕР»СЊС€РёРµ РїРµСЂРµСЂР°Р±РѕС‚РєРё РІ РёРЅС‚РµСЂС„РµР№СЃРµ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ СЃ РєР»РёРµРЅС‚РѕРј (РџРљРњ + Q)",
-			"РЎС‡С‘С‚С‡РёРєРё РґРµР№СЃС‚РІРёР№ РЅР° РєР°СЃСЃРµ РѕР±РЅСѓР»СЏСЋС‚СЃСЏ, РєРѕРіРґР° СѓС…РѕРґРёС€СЊ СЃ РїРѕСЃС‚Р° (Р Р°РЅСЊС€Рµ СЃСѓРјРјРёСЂРѕРІР°Р»РёСЃСЊ)",
-			"Р’Рѕ РІСЃС‘Рј РёРЅС‚РµСЂС„РµР№СЃРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅ РЅРѕРІС‹Р№ С€СЂРёС„С‚",
-			"Р’ РѕР±С‰РёС… РЅР°СЃС‚СЂРѕР№РєР°С… РґРѕР±Р°РІР»РµРЅ РїСѓРЅРєС‚ РґР»СЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРіРѕ РІРІРѕРґР° PIN-РєРѕРґР°",
-			"Р¤СѓРЅРєС†РёСЏ Р°РІС‚Рѕ-СЃРєСЂРёРЅС€РѕС‚Р° РЅР° Р»Р°СѓРЅС‡РµСЂРµ С‚РµРїРµСЂСЊ СЂР°Р±РѕС‚Р°РµС‚ (Рђ С‚РѕС‡РЅРµРµ СЃРѕРІРјРµСЃС‚РёРјР° СЃ R3)",
-			"Р”РѕР±Р°РІР»РµРЅР° РїРѕРґРґРµСЂР¶РєР° СЃРµСЂРІРµСЂР° Sun City (20)"
+			"Улучшена логика работы тегов и теперь их можно использовать сразу несколько в одной строке",
+			"Небольшие переработки в интерфейсе взаимодействия с клиентом (ПКМ + Q)",
+			"Счётчики действий на кассе обнуляются, когда уходишь с поста (Раньше суммировались)",
+			"Во всём интерфейсе установлен новый шрифт",
+			"В общих настройках добавлен пункт для автоматического ввода PIN-кода",
+			"Функция авто-скриншота на лаунчере теперь работает (А точнее совместима с R3)",
+			"Добавлена поддержка сервера Sun City (20)"
 		},
 		patches = {
 			show = false,
 			info = {
-				"Р’ СЃРІСЏР·Рё СЃ С‚РµРј, С‡С‚Рѕ Сѓ РјРЅРѕРіРёС… СЃС‚РѕРёС‚ СЃС‚Р°СЂР°СЏ РІРµСЂСЃРёСЏ SAMP.lua, С‚Рѕ СЃРєСЂРёРїС‚ РєСЂР°С€РёР»СЃСЏ РїСЂРё РїРѕРґРєР»СЋС‡РµРЅРёРё Рє СЃРµСЂРІРµСЂСѓ.\nРўРµРїРµСЂСЊ РІ СЃР»СѓС‡Р°Рµ РµСЃР»Рё РІРµСЂСЃРёСЏ РЅРёР¶Рµ С‚СЂРµР±СѓРµРјРѕР№, С‚Рѕ РІР°Рј Р±СѓРґРµС‚ РїСЂРµРґРѕСЃС‚Р°РІР»РµРЅР° РёРЅСЃС‚СЂСѓРєС†РёСЏ РїРѕ РѕР±РЅРѕРІР»РµРЅРёСЋ РЅР° РїРѕСЃР»РµРґРЅСЋСЋ",
-				"РСЃРїСЂР°РІР»РµРЅРѕ РЅРµРІРµСЂРЅРѕРµ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ РѕРїСЂРµРґРµР»РµРЅРёРµ РїРѕР»Р°, РµСЃР»Рё РЅР° РІР°СЃ РЅР°РґРµС‚ РєР°СЃС‚РѕРјРЅС‹Р№ СЃРєРёРЅ",
-				"РСЃРїСЂР°РІР»РµРЅР° РѕС€РёР±РєР° СЃ РѕС‚С‹РіСЂРѕРІРєР°РјРё, РєРѕРіРґР° РїРѕСЃР»Рµ Р·Р°РІРµСЂС€РµРЅРёСЏ РѕРґРЅРѕР№, РЅРµ СѓРґР°РІР°Р»РѕСЃСЊ РЅР°С‡Р°С‚СЊ РґСЂСѓРіСѓСЋ",
-				"РџРѕРІС‹С€РµРЅ РєСЂРёС‚РµСЂРёР№ РґРѕР»Р¶РЅРѕСЃС‚Рё РґР»СЏ РєРѕРјР°РЅРґС‹ /expel (СЃ 5+ СЂР°РЅРіР°)",
-				"Р”РѕР±Р°РІР»РµРЅС‹ Р°РІС‚Рѕ-РѕС‚С‹РіСЂРѕРІРєРё, РєРѕРіРґР° РїСЂРё СЃРѕР±РµСЃРµРґРѕРІР°РЅРёРё РІ РѕСЂРіР°РЅРёР·Р°С†РёСЋ РІР°Рј РїРѕРєР°Р·С‹РІР°СЋС‚ РґРѕРєСѓРјРµРЅС‚С‹"
+				"В связи с тем, что у многих стоит старая версия SAMP.lua, то скрипт крашился при подключении к серверу.\nТеперь в случае если версия ниже требуемой, то вам будет предоставлена инструкция по обновлению на последнюю",
+				"Исправлено неверное автоматическое определение пола, если на вас надет кастомный скин",
+				"Исправлена ошибка с отыгровками, когда после завершения одной, не удавалось начать другую",
+				"Повышен критерий должности для команды /expel (с 5+ ранга)",
+				"Добавлены авто-отыгровки, когда при собеседовании в организацию вам показывают документы"
 			}
 		}
 	},
@@ -5786,11 +5786,11 @@ changelog = {
 		comment = '',
 		date = os.time({day = '16', month = '2', year = '2022'}),
 		log = {
-			"Р”РѕР±Р°РІР»РµРЅР° РєРЅРѕРїРєР° РґР»СЏ РІС‹РґР°С‡Рё VIP-РљР°СЂС‚С‹ РІ РјРµРЅСЋ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ",
-			"РСЃРїСЂР°РІР»РµРЅР° СЂР°Р±РѕС‚Р° СЃС‡С‘С‚С‡РёРєР° РґРµР№СЃС‚РІРёР№ РІ С‚Р°Р±Р»РёС‡РєРµ РЅР° РєР°СЃСЃРµ",
-			"Р”РѕР±Р°РІР»РµРЅР° РєРѕРјР°РЅРґР° /getprize РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ Р»Р°СЂС†Р° РѕСЂРіР°РЅРёР·Р°С†РёРё РїСЂСЏРјРѕ РЅРµ РІС‹С…РѕРґСЏ РёР·-Р·Р° РєР°СЃСЃС‹",
-			"РќРµРјРЅРѕРіРѕ РёР·РјРµРЅРµРЅР° РєРѕРјР°РЅРґР° /premium, РІ С‡Р°С‚Рµ РґРѕР»Р¶РЅРѕ РїРёСЃР°С‚СЊ РґРѕР»Р¶РЅРѕСЃС‚СЊ РєРѕС‚РѕСЂРѕР№ Р±С‹Р»Р° РІС‹РґР°РЅР° РїСЂРµРјРёСЏ",
-			"РџСЂРѕС‡РёРµ РёСЃРїСЂР°РІР»РµРЅРёСЏ РєРѕСЃРІРµРЅРЅРѕ РІР»РёСЏСЋС‰РёРµ РЅР° СЂР°Р±РѕС‚Сѓ СЃРєСЂРёРїС‚Р°"
+			"Добавлена кнопка для выдачи VIP-Карты в меню взаимодействия",
+			"Исправлена работа счётчика действий в табличке на кассе",
+			"Добавлена команда /getprize для получения ларца организации прямо не выходя из-за кассы",
+			"Немного изменена команда /premium, в чате должно писать должность которой была выдана премия",
+			"Прочие исправления косвенно влияющие на работу скрипта"
 		},
 		patches = {
 			show = false,
@@ -5802,12 +5802,12 @@ changelog = {
 		comment = '',
 		date = os.time({day = '9', month = '1', year = '2022'}),
 		log = {
-			"Р”РѕР±Р°РІР»РµРЅР° РїРѕРґРґРµСЂР¶РєР° СЃРµСЂРІРµСЂР° Page (19)",
+			"Добавлена поддержка сервера Page (19)",
 		},
 		patches = {
 			show = false,
 			info = {
-				"РСЃРїСЂР°РІР»РµРЅРёРµ РѕС€РёР±РѕРє"
+				"Исправление ошибок"
 			}
 		}
 	},
@@ -5816,7 +5816,7 @@ changelog = {
 		comment = '',
 		date = os.time({day = '11', month = '11', year = '2021'}),
 		log = {
-			"Р”РѕР±Р°РІР»РµРЅР° РїРѕРґРґРµСЂР¶РєР° СЃРµСЂРІРµСЂР° Casa-Grande (18)",
+			"Добавлена поддержка сервера Casa-Grande (18)",
 		},
 		patches = {
 			show = false,
@@ -5828,18 +5828,18 @@ changelog = {
 		comment = '',
 		date = os.time({day = '25', month = '7', year = '2021'}),
 		log = {
-			'Р’ СЃРІСЏР·Рё РІРІРѕРґРѕРј "РЅРѕРІС‹С… С‚РµС…РЅРѕР»РѕРіРёР№" Р°РЅС‚РёС‡РёС‚Р° РђСЂРёР·РѕРЅС‹ РїРµСЂРµРїРёСЃР°РЅР° СЃРёСЃС‚РµРјР° РѕС‚РїСЂР°РІРєРё СЃРѕРѕР±С‰РµРЅРёР№. Р’СЃРµ Р±Р°РіРё СЃРІСЏР·Р°РЅРЅС‹Рµ СЃ РЅРµРѕС‚РїСЂР°РІРєРѕР№ РёР»Рё РїСЂРѕРїСѓСЃРєРѕРј СЃРѕРѕР±С‰РµРЅРёР№, Р° С‚Р°Рє Р¶Рµ РєРѕРјР°РЅРґ РґРѕР»Р¶РЅС‹ РёСЃС‡РµР·РЅСѓС‚СЊ',
-			'Р—Р°РґРµСЂР¶РєСѓ РјРµР¶РґСѓ РІР°С€РёРјРё СЃРѕРѕР±С‰РµРЅРёСЏРјРё РІ РѕС‚С‹РіСЂРѕРІРєР°С… РјРѕР¶РЅРѕ РѕС‚СЂРµРіСѓР»РёСЂРѕРІР°С‚СЊ РІ РќР°СЃС‚СЂРѕР№РєРё -> РќР°СЃС‚СЂРѕР№РєРё РѕС‚С‹РіСЂРѕРІРѕРє/Р°РєС†РµРЅС‚Р° (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ 2.5 СЃРµРєСѓРЅРґС‹)',
-			'Р”РѕР±Р°РІР»РµРЅР° РєРЅРѕРїРєР° В«РЈРґР°Р»РёС‚СЊ Bank-HelperВ» РІ РќР°СЃС‚СЂРѕР№РєРё -> Рћ СЃРєСЂРёРїС‚Рµ',
-			'РЈР±СЂР°РЅС‹ РІСЃРµ РѕСЃС‚Р°РІС€РёРµСЃСЏ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё (fontAwesome Рё Р·Р°РіСЂСѓР·РєР° С‚РµРєСЃС‚РѕРІС‹С… С„Р°Р№Р»РѕРІ)',
-			'Р”РѕР±Р°РІР»РµРЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ В«Р•РґРёРЅСѓСЋ СЃРёСЃС‚РµРјСѓ РїРѕРІС‹С€РµРЅРёР№В»',
-			'РќРµР±РѕР»СЊС€РёРµ (РєРѕСЃРјРµС‚РёС‡РµСЃРєРёРµ) РёР·РјРµРЅРµРЅРёСЏ РІРѕ РІРЅРµС€РЅРµРј РІРёРґРµ СЃРєСЂРёРїС‚Р°'
+			'В связи вводом "новых технологий" античита Аризоны переписана система отправки сообщений. Все баги связанные с неотправкой или пропуском сообщений, а так же команд должны исчезнуть',
+			'Задержку между вашими сообщениями в отыгровках можно отрегулировать в Настройки -> Настройки отыгровок/акцента (по умолчанию 2.5 секунды)',
+			'Добавлена кнопка «Удалить Bank-Helper» в Настройки -> О скрипте',
+			'Убраны все оставшиеся зависимости (fontAwesome и загрузка текстовых файлов)',
+			'Добавлена возможность редактировать «Единую систему повышений»',
+			'Небольшие (косметические) изменения во внешнем виде скрипта'
 		},
 		patches = {
 			show = false,
 			info = {
-				'РСЃРїСЂР°РІР»РµРЅРёСЏ Рё СѓР»СѓС‡С€РµРЅРёСЏ',
-				'РџРѕРґРґРµСЂР¶РєР° СЃРµСЂРІРµСЂР° Show-Low (17)'
+				'Исправления и улучшения',
+				'Поддержка сервера Show-Low (17)'
 			}
 		}
 	},
@@ -5848,15 +5848,15 @@ changelog = {
 		comment = '',
 		date = os.time({day = '25', month = '5', year = '2021'}),
 		log = {
-			'РЎС‚СЂРѕРєР° Рѕ РІС‹РґР°С‡Рµ РїСЂРµРјРёР№ РїРµСЂРµРґРµР»Р°РЅР°. РўРµРїРµСЂСЊ С‚Р°Рј РїРёС€РµС‚СЃСЏ СЂР°РЅРі, РїРѕР»СѓС‡РёРІС€РёР№ РґРµРЅСЊРіРё.',
-			'РќРµРјРЅРѕРіРѕ РїРµСЂРµРґРµР»Р°РЅС‹ СЃРѕРѕР±С‰РµРЅРёСЏ РѕС‚ Р±Р°РЅРєР° РІ С‡Р°С‚Рµ. РўР°Рє Р¶Рµ С‚РµРїРµСЂСЊ РёС… РјРѕР¶РЅРѕ РїРѕР»РЅРѕСЃС‚СЊСЋ РѕС‚РєР»СЋС‡РёС‚СЊ РІ РЅР°СЃС‚СЂРѕР№РєР°С…',
-			'РџРѕРёСЃРє РІ СѓСЃС‚Р°РІРµ РЅРµРјРЅРѕРіРѕ СѓР»СѓС‡С€РµРЅ. РСЃРєРѕРјС‹Рµ СЃР»РѕРІР° РІС‹РґРµР»СЏСЋС‚СЃСЏ РєСЂР°СЃРЅС‹Рј С†РІРµС‚РѕРј'
+			'Строка о выдаче премий переделана. Теперь там пишется ранг, получивший деньги.',
+			'Немного переделаны сообщения от банка в чате. Так же теперь их можно полностью отключить в настройках',
+			'Поиск в уставе немного улучшен. Искомые слова выделяются красным цветом'
 		},
 		patches = {
 			show = false,
 			info = {
-				'РСЃРїСЂР°РІР»РµРЅС‹ РЅРµРєРѕС‚РѕСЂС‹Рµ РіСЂР°РјРјР°С‚РёС‡РµСЃРєРёРµ РѕС€РёР±РєРё',
-				'РћРїС‚РёРјРёР·Р°С†РёСЏ Рё СѓР»СѓС‡С€РµРЅРёСЏ'
+				'Исправлены некоторые грамматические ошибки',
+				'Оптимизация и улучшения'
 			}
 		}
 	},
@@ -5865,39 +5865,39 @@ changelog = {
 		comment = '',
 		date = os.time({day = '2', month = '5', year = '2021'}),
 		log = {
-			'РџСЂРѕРІРµРґРµРЅР° РѕРіСЂРѕРјРЅР°СЏ СЂР°Р±РѕС‚Р° РЅР°Рґ СЂРµС„Р°РєС‚РѕСЂРёРЅРіРѕРј РєРѕРґР° СЃРєСЂРёРїС‚Р°, С‚РµРј СЃР°РјС‹Рј СѓР»СѓС‡С€РёРІ РµРіРѕ РѕРїС‚РёРјРёР·Р°С†РёСЋ',
+			'Проведена огромная работа над рефакторингом кода скрипта, тем самым улучшив его оптимизацию',
 			{
-				title = 'РџРµСЂРµСЂР°Р±РѕС‚Р°РЅР° СЃРёСЃС‚РµРјР° РїСЂРѕРІРµРґРµРЅРёСЏ Р»РµРєС†РёР№',
+				title = 'Переработана система проведения лекций',
 				show = false,
 				more = {
-					'Р°) Р’РѕР·РјРѕР¶РЅРѕСЃС‚СЊ РґРѕР±Р°РІР»СЏС‚СЊ СЃРІРѕРё Р»РµРєС†РёРё РїСЂСЏРјРѕ РЅРµ РІС‹С…РѕРґСЏ РёР· РёРіСЂС‹',
-					'Р±) РџСЂРё РїРµСЂРІРѕРј Р·Р°РїСѓСЃРєРµ СЃРєСЂРёРїС‚Р°, РІСЃРµ Р»РµРєС†РёРё СѓР¶Рµ Р·Р°РЅРµСЃРµРЅС‹ РІ РїР°РјСЏС‚СЊ, Рё РёС… РЅРµ РЅСѓР¶РЅРѕ СЃРєР°С‡РёРІР°С‚СЊ',
-					'РІ) Р’РѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕСЃС‚Р°РЅРѕРІРёС‚СЊ РІРѕСЃРїСЂРѕРёР·РІРµРґРµРЅРёРµ Р»РµРєС†РёРё РІ Р»СЋР±РѕР№ РјРѕРјРµРЅС‚',
-					'Рі) Р’РѕР·РјРѕР¶РЅРѕСЃС‚СЊ РІС‹Р±СЂР°С‚СЊ С‡Р°С‚, РІ РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ С‡РёС‚Р°С‚СЊСЃСЏ Р»РµРєС†РёСЏ (РћР±С‹С‡РЅС‹Р№, /r Рё /rb)',
-					'Рґ) Р’РѕР·РјРѕР¶РЅРѕСЃС‚СЊ СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ Р»РµРєС†РёРё',
-					'Рµ) РЈР±СЂР°РЅР° Р·Р°РІРёСЃРёРјРѕСЃС‚СЊ РѕС‚ Р±РёР±Р»РёРѕС‚РµРєРё "LuaFileSystem"'
+					'а) Возможность добавлять свои лекции прямо не выходя из игры',
+					'б) При первом запуске скрипта, все лекции уже занесены в память, и их не нужно скачивать',
+					'в) Возможность остановить воспроизведение лекции в любой момент',
+					'г) Возможность выбрать чат, в который будет читаться лекция (Обычный, /r и /rb)',
+					'д) Возможность редактировать лекции',
+					'е) Убрана зависимость от библиотеки "LuaFileSystem"'
 				}
 			},
-			'РќРѕРІС‹Р№ РґРёР·Р°Р№РЅ РѕРєРЅР° СЃРїРёСЃРєР° РёР·РјРµРЅРµРЅРёР№ (changelog\'Р°)',
-			'Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ СЃРєСЂРёРїС‚Р° РїРѕС‚РµСЂРїРµР»Рѕ РЅРµР±РѕР»СЊС€РёРµ РёР·РјРµРЅРµРЅРёСЏ',
-			'РЈР±СЂР°РЅС‹ РІСЃРµ С†РІРµС‚РѕРІС‹Рµ С‚РµРјС‹ СЃРєСЂРёРїС‚Р° Р·Р° РёСЃРєР»СЋС‡РµРЅРёРµРј "РўС‘РјРЅРѕР№" Рё "РЎРІРµС‚Р»РѕР№"',
-			'РќРµРјРЅРѕРіРѕ РёР·РјРµРЅС‘РЅ РїСЂРѕС„РёР»СЊ РёРЅС„РѕСЂРјР°С†РёРё Рѕ СЃРµР±Рµ РІ РіР»Р°РІРЅРѕРј РјРµРЅСЋ',
-			'РџРµСЂРµРїРёСЃР°РЅР° СЃРёСЃС‚РµРјР° С‡С‘СЂРЅРѕРіРѕ СЃРїРёСЃРєР° С„СЂР°РєС†РёРё. РўРµРїРµСЂСЊ СЃРїРёСЃРѕРє РѕРґРёРЅ, Рё РЅРµ РїРѕРґСЂР°Р·РґРµР»СЏРµС‚СЃСЏ РЅР° Р¶С‘Р»С‚С‹Р№ Рё РєСЂР°СЃРЅС‹Р№.',
-			'РЈР±СЂР°РЅР° Р·Р°РІРёСЃРёРјРѕСЃС‚СЊ РѕС‚ РІРЅРµС€РЅРёС… РёР·РѕР±СЂР°Р¶РµРЅРёР№ РґР»СЏ СЃРєСЂРёРїС‚Р°',
-			'РЈР±СЂР°РЅР° Р·Р°РІРёСЃРёРјРѕСЃС‚СЊ РѕС‚ Notify.lua',
-			'РСЃРїСЂР°РІР»РµРЅРѕ РЅРµРІРµСЂРЅРѕРµ РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ "РїСЂРёР»РёС‡РЅРѕСЃС‚Рё" СЃРєРёРЅР°',
-			'РўРµРїРµСЂСЊ РІС‹ РјРѕР¶РµС‚Рµ СѓРґР°Р»РёС‚СЊ СЃРєСЂРёРїС‚, СЃРєР°С‡Р°РЅРЅС‹Р№ РёР· СЂРµРїРѕР·РёС‚РѕСЂРёСЏ, РїСЂРѕСЃС‚Рѕ РЅР°Р¶Р°РІ РЅР° РЅРµРіРѕ Рё РїРѕРґС‚РІРµСЂРґРёРІ СѓРґР°Р»РµРЅРёРµ',
-			'РўРµРїРµСЂСЊ РІ СЃС‚Р°С‚РёСЃС‚РёРєРµ РЅР° РєР°СЃСЃРµ СЃС‡РёС‚Р°РµС‚СЃСЏ СЂРµР°Р»СЊРЅС‹Р№ Р·Р°СЂР°Р±РѕС‚РѕРє (РѕС‚ РґРµРїРѕР·РёС‚РѕРІ, РІС‹РґР°С‡Рё РєР°СЂРґ Рё С‚.Рґ)',
-			'Р’С‹СЂРµР·Р°РЅ Р»РѕРіРіРµСЂ РґРµР№СЃС‚РІРёР№ СЂСѓРєРѕРІРѕРґРёС‚РµР»СЏ. Р’Р·Р°РјРµРЅ РµРјСѓ РІС‹ РјРѕР¶РµС‚Рµ СЃРєР°С‡Р°С‚СЊ РёР· СЂРµРїРѕР·РёС‚РѕСЂРёСЏ Р±РѕР»РµРµ СѓРґРѕР±РЅС‹Р№ Р»РѕРіРіРµСЂ',
-			'Р’С‹СЂРµР·Р°РЅР° С„СѓРЅРєС†РёСЏ /uval РёР·-Р·Р° РЅРµРЅР°РґРѕР±РЅРѕСЃС‚Рё',
-			'РќРѕРІР°СЏ С„СѓРЅРєС†РёСЏ Р§Р°С‚-РљР°Р»СЊРєСѓР»СЏС‚РѕСЂ. РџСЂРѕСЃС‚Рѕ РІРІРµРґРёС‚Рµ РІ РїРѕР»Рµ РІРІРѕРґР° РїСЂРёРјРµСЂ Рё РїРѕРґ РЅРёРј РїРѕСЏРІРёС‚СЃСЏ РѕС‚РІРµС‚.',
-			'РџСЂРё РІРІРѕРґРµ РїРёРЅ-РєРѕРґР° РІ Р±Р°РЅРєРµ РІР°Рј Р±РѕР»СЊС€Рµ РЅРµ РїСЂРёРґС‘С‚СЃСЏ РЅР°Р¶РёРјР°С‚СЊ РµС‰Рµ СЂР°Р· N, С‡С‚Рѕ Р±С‹ РѕС‚РєСЂС‹С‚СЊ СЃР°РјРѕ РјРµРЅСЋ',
+			'Новый дизайн окна списка изменений (changelog\'а)',
+			'Главное меню скрипта потерпело небольшие изменения',
+			'Убраны все цветовые темы скрипта за исключением "Тёмной" и "Светлой"',
+			'Немного изменён профиль информации о себе в главном меню',
+			'Переписана система чёрного списка фракции. Теперь список один, и не подразделяется на жёлтый и красный.',
+			'Убрана зависимость от внешних изображений для скрипта',
+			'Убрана зависимость от Notify.lua',
+			'Исправлено неверное отображение "приличности" скина',
+			'Теперь вы можете удалить скрипт, скачанный из репозитория, просто нажав на него и подтвердив удаление',
+			'Теперь в статистике на кассе считается реальный заработок (от депозитов, выдачи кард и т.д)',
+			'Вырезан логгер действий руководителя. Взамен ему вы можете скачать из репозитория более удобный логгер',
+			'Вырезана функция /uval из-за ненадобности',
+			'Новая функция Чат-Калькулятор. Просто введите в поле ввода пример и под ним появится ответ.',
+			'При вводе пин-кода в банке вам больше не придётся нажимать еще раз N, что бы открыть само меню',
 		},
 		patches = {
 			show = false,
 			info = {
-				'Р¤РёРєСЃ Р±Р°РіРѕРІ Сѓ РєРѕРјР°РЅРґ /fwarn Рё /blacklist',
-				'Р”РѕР±Р°РІР»РµРЅР° РїРѕРґРґРµСЂР¶РєР° РЅРѕРІРѕРіРѕ СЃРµСЂРІРµСЂР° "Gilbert"'
+				'Фикс багов у команд /fwarn и /blacklist',
+				'Добавлена поддержка нового сервера "Gilbert"'
 			}
 		}
 	},
@@ -5906,13 +5906,13 @@ changelog = {
 		comment = '',
 		date = os.time({day = '3', month = '1', year = '2021'}),
 		log = {
-			'Р”РѕР±Р°РІР»РµРЅР° РїРѕРґРґРµСЂР¶РєР° 15-РіРѕ СЃРµСЂРІРµСЂР° (Payson)',
-			'РЈР±СЂР°РЅР° Р·Р°РІРёСЃРёРјРѕСЃС‚СЊ РЅРµРєРѕС‚РѕСЂС‹С… Р±РёР±Р»РёРѕС‚РµРє РґР»СЏ СЂР°Р±РѕС‚С‹ СЃРєСЂРёРїС‚Р°'
+			'Добавлена поддержка 15-го сервера (Payson)',
+			'Убрана зависимость некоторых библиотек для работы скрипта'
 		},
 		patches = {
 			show = false,
 			info = {
-				'РСЃРїСЂР°РІР»РµРЅ РєСЂР°С€ СЃРєСЂРёРїС‚Р° РїСЂРё РІСЃС‚Р°РІР°РЅРёРё РЅР° Р»СЋР±РѕР№ РёР· РїРѕСЃС‚РѕРІ'
+				'Исправлен краш скрипта при вставании на любой из постов'
 			}
 		}
 	},
@@ -5921,9 +5921,9 @@ changelog = {
 		comment = '',
 		date = os.time({day = '20', month = '11', year = '2020'}),
 		log = {
-			'РЈР±СЂР°РЅ "Р¦РІРµС‚РЅРѕР№ РІРІРѕРґ", РІ СЃРІСЏР·Рё СЃ РІРІРѕРґРѕРј РµРіРѕ Р°РЅР°Р»РѕРіР° РІ Р»Р°СѓРЅС‡РµСЂ РѕС‚ РђСЂРёР·РѕРЅС‹',
-			'РСЃРїСЂР°РІР»РµРЅ Р±Р°Рі, РєРѕРіРґР° РІСЃРµ СЃРєРёРЅС‹ Р±С‹Р»Рё "РЅРµ РїСЂРёР»РёС‡РЅС‹РјРё"',
-			'РќРµРјРЅРѕРіРѕ РїРµСЂРµРґРµР»Р°РЅР° СЃРёСЃС‚РµРјР° РїСЂРѕРІРµСЂРєРё РЅР° СЃРµСЂРІРµСЂ РїСЂРё Р·Р°РїСѓСЃРєРµ СЃРєСЂРёРїС‚Р°',
+			'Убран "Цветной ввод", в связи с вводом его аналога в лаунчер от Аризоны',
+			'Исправлен баг, когда все скины были "не приличными"',
+			'Немного переделана система проверки на сервер при запуске скрипта',
 		},
 		patches = {
 			show = false,
@@ -5935,13 +5935,13 @@ changelog = {
 		comment = '',
 		date = os.time({day = '7', month = '11', year = '2020'}),
 		log = {
-			'Р”РѕР±Р°РІР»РµРЅР° РїРѕРґРґРµСЂР¶РєР° 14-РіРѕ СЃРµСЂРІРµСЂР° РђСЂРёР·РѕРЅС‹ (РЎРёРјРІРѕР»РёС‡РЅРѕ, РЅРµ РїСЂР°РІРґР°-Р»Рё?)',
-			'Р‘РѕР»РµРµ РїРѕРґСЂРѕР±РЅРѕРµ Р»РѕРіРёСЂРѕРІР°РЅРёРµ РІРѕР·РЅРёРєС€РёС… РІ СЃРєСЂРёРїС‚Рµ РїСЂРѕР±Р»РµРј',
+			'Добавлена поддержка 14-го сервера Аризоны (Символично, не правда-ли?)',
+			'Более подробное логирование возникших в скрипте проблем',
 		},
 		patches = {
 			show = false,
 			info = {
-				'РҐРѕС‚-С„РёРєСЃ РјРµР»РєРёС… РЅРµРґРѕС‡С‘С‚РѕРІ'
+				'Хот-фикс мелких недочётов'
 			}
 		}
 	},
@@ -5950,17 +5950,17 @@ changelog = {
 		comment = '',
 		date = os.time({day = '16', month = '10', year = '2020'}),
 		log = {
-			'РљРѕРіРґР° СЂСЏРґРѕРј СЃ РІР°РјРё РѕРґРёРЅ СЃРѕС‚СЂСѓРґРЅРёРє РўРљ-С€РёС‚ РґСЂСѓРіРѕРіРѕ РґСѓР±РёРЅРєРѕР№, РІС‹РІРѕРґРёС‚СЃСЏ РІР°СЂРЅРёРЅРі РѕР± СЌС‚РѕРј РІ С‡Р°С‚ (Р”РѕСЃС‚СѓРїРЅРѕ СЃ 5 СЂР°РЅРіР°)',
-			'Р’С‹СЂРµР·Р°РЅР° РїСЂРѕРІРµСЂРєР° РЅР° СЂР°Р±РѕС‡СѓСЋ С„РѕСЂРјСѓ (С†РІРµС‚ РЅРёРєР°) РїСЂРё РѕС‚РєСЂС‹С‚РёРё РџРљРњ + Q',
-			'Р’ РјРµРЅСЋ РїР»Р°РЅРёСЂРѕРІР°РЅРёСЏ GOV-РІРѕР»РЅС‹, РјРѕР¶РЅРѕ РёР·РјРµРЅРёС‚СЊ С‚РµРі РѕСЂРіР°РЅРёР·Р°С†РёРё РІ /d С‡Р°С‚',
-			'Р–РµР»С‚Рѕ-Р§С‘СЂРЅС‹Рµ "Р—РЅР°РєРё РІРѕРїСЂРѕСЃР°" РёР·РјРµРЅРµРЅС‹ РЅР° РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚',
-			'РќРµРјРЅРѕРіРѕ РїРµСЂРµРґРµР»Р°РЅС‹ РїРѕРґСЃРєР°Р·РєРё',
-			'Р’С‹СЂРµР·Р°РЅ РґРёР°Р»РѕРі РёРЅС„РѕСЂРјРёСЂСѓСЋС‰РёР№ Рѕ РїСЂР°РІРёР»СЊРЅРѕРј РІРІРѕРґРµ PIN-РєРѕРґР° РІР°С€РµР№ Р±Р°РЅРєРѕРІСЃРєРѕР№ РєР°СЂС‚С‹'
+			'Когда рядом с вами один сотрудник ТК-шит другого дубинкой, выводится варнинг об этом в чат (Доступно с 5 ранга)',
+			'Вырезана проверка на рабочую форму (цвет ника) при открытии ПКМ + Q',
+			'В меню планирования GOV-волны, можно изменить тег организации в /d чат',
+			'Желто-Чёрные "Знаки вопроса" изменены на новый объект',
+			'Немного переделаны подсказки',
+			'Вырезан диалог информирующий о правильном вводе PIN-кода вашей банковской карты'
 		},
 		patches = {
 			show = false,
 			info = {
-				'РћР±РЅРѕРІР»РµРЅС‹ СЃРєСЂРёРїС‚С‹ РІ СЂРµРїРѕР·РёС‚РѕСЂРёРё РЅР° Р°РєС‚СѓР°Р»СЊРЅС‹Рµ РІРµСЂСЃРёРё + РґРѕР±Р°РІР»РµРЅ РЅРѕРІС‹Р№ СЃРєСЂРёРїС‚'
+				'Обновлены скрипты в репозитории на актуальные версии + добавлен новый скрипт'
 			}
 		}
 	},
@@ -5969,15 +5969,15 @@ changelog = {
 		comment = '',
 		date = os.time({day = '3', month = '9', year = '2020'}),
 		log = {
-			'РќРѕРІС‹Рµ СѓРІРµРґРѕРјР»РµРЅРёСЏ',
-			'РџРѕРґСЃРєР°Р·РєРё РїСЂРё РЅР°РІРµРґРµРЅРёРё РЅР° РЅРёС… РїРѕСЏРІР»СЏСЋС‚СЃСЏ РїР»Р°РІРЅРѕ',
-			'РљРѕРјР°РЅРґС‹ /unfwarn, /fwarn С‚РµРїРµСЂСЊ РґРѕСЃС‚СѓРїРЅС‹ С‚РѕР»СЊРєРѕ СЃ 9 СЂР°РЅРіР°',
-			'РСЃРїСЂР°РІР»РµРЅС‹ Р±Р°РіРё РёРЅРІРµРЅС‚Р°СЂСЏ, РєРѕС‚РѕСЂС‹Рµ РІС‹Р·С‹РІР°Р» СЃРєСЂРёРїС‚. РўРµРїРµСЂСЊ РѕРЅ РєР°Рє Рё РїСЂРµР¶РґРµ РЅРѕСЂРјР°Р»СЊРЅРѕ СЂР°Р±РѕС‚Р°РµС‚ Рё РЅРµ Р·Р°РІРёСЃР°РµС‚'
+			'Новые уведомления',
+			'Подсказки при наведении на них появляются плавно',
+			'Команды /unfwarn, /fwarn теперь доступны только с 9 ранга',
+			'Исправлены баги инвентаря, которые вызывал скрипт. Теперь он как и прежде нормально работает и не зависает'
 		},
 		patches = {
 			show = false,
 			info = {
-				'Р¤РёРєСЃ Р±Р°РіР° СЃ РїРѕРґРіСЂСѓР·РєРѕР№ РЅРµРґРѕСЃС‚Р°СЋС‰РёС… Р±РёР±Р»РёРѕС‚РµРє'
+				'Фикс бага с подгрузкой недостающих библиотек'
 			}
 		}
 	},
@@ -5986,9 +5986,9 @@ changelog = {
 		comment = '',
 		date = os.time({day = '12', month = '8', year = '2020'}),
 		log = {
-			'РўРµРїРµСЂСЊ, РєРѕРіРґР° РїРѕРєР°Р·С‹РІР°РµС€СЊ /jobprogress РёРіСЂРѕРєСѓ, РІ С‡Р°С‚ РїРёС€РµС‚СЃСЏ РѕР± СЌС‚РѕРј (РїРѕ СЃС‚Р°РЅРґР°СЂС‚Сѓ РІРѕРѕР±С‰Рµ РЅРёС‡РµРіРѕ РЅРµ РїСЂРѕРёСЃС…РѕРґРёР»Рѕ РєР°Рє Р±СѓРґС‚Рѕ, Рё РЅРµ РїРѕРЅСЏС‚РЅРѕ, РїРѕРєР°Р·Р°Р» Р»Рё С‚С‹ РґРѕРєСѓРјРµРЅС‚ РёР»Рё РЅРµС‚ :/)',
-			'РўРµРїРµСЂСЊ РїР°РЅРµР»СЊ РёРЅС„РѕСЂРјР°С†РёРё РЅР° РєР°СЃСЃРµ РјРѕР¶РЅРѕ РІС‹РєР»СЋС‡РёС‚СЊ РІ РЅР°СЃС‚СЂРѕР№РєР°С…',
-			'РќРёРєРё РІ РѕС‚С‹РіСЂРѕРІРєР°С… С‚РµРїРµСЂСЊ РѕС‚РѕР±СЂР°Р¶Р°СЋС‚СЃСЏ Р±РµР· РЅРёР¶РЅРµРіРѕ РїРѕРґС‡С‘СЂРєРёРІР°РЅРёСЏ'
+			'Теперь, когда показываешь /jobprogress игроку, в чат пишется об этом (по стандарту вообще ничего не происходило как будто, и не понятно, показал ли ты документ или нет :/)',
+			'Теперь панель информации на кассе можно выключить в настройках',
+			'Ники в отыгровках теперь отображаются без нижнего подчёркивания'
 		},
 		patches = {
 			show = false,
@@ -6001,19 +6001,19 @@ changelog = {
 		date = os.time({day = '25', month = '7', year = '2020'}),
 		log = {
 			{
-				title = 'РџСЂРѕРґРѕР»Р¶РµРЅР° СЂР°Р±РѕС‚Р° РЅР°Рґ РѕРїС‚РёРјРёР·Р°С†РёРµР№ СЃРєСЂРёРїС‚Р°',
+				title = 'Продолжена работа над оптимизацией скрипта',
 				show = false,
 				more = {
-					'Р°) РџРѕР»РЅРѕСЃС‚СЊСЋ РїРµСЂРµРїРёСЃР°РЅР° СЃРёСЃС‚РµРјР° РґРѕР·Р°РіСЂСѓР·РєРё С„Р°Р№Р»РѕРІ Рё Р±РёР±Р»РёРѕС‚РµРє! РџСЂРѕР±Р»РµРјС‹ РїСЂРё СѓСЃС‚Р°РЅРѕРІРєРµ СЃРєСЂРёРїС‚Р° РїСЂР°РєС‚РёС‡РµСЃРєРё СЃРІРµР»РёСЃСЊ Рє РЅСѓР»СЋ',
-					'Р±) РќРµРјРЅРѕРіРѕ РёР·РјРµРЅРµРЅР° СЃРёСЃС‚РµРјР° РѕР±РЅРѕРІР»РµРЅРёСЏ СЃРєСЂРёРїС‚Р°',
-					'РІ) Р’РЅСѓС‚СЂРµРЅРЅСЏСЏ РѕРїС‚РёРјРёР·Р°С†РёСЏ СЃРєСЂРёРїС‚Р° (РєРѕРґР°)'
+					'а) Полностью переписана система дозагрузки файлов и библиотек! Проблемы при установке скрипта практически свелись к нулю',
+					'б) Немного изменена система обновления скрипта',
+					'в) Внутренняя оптимизация скрипта (кода)'
 				}
 			},
-			'РўРµРїРµСЂСЊ С‚РµРєСЃС‚ GOV-РІРѕР»РЅС‹ РёР· РјРµРЅСЋ РїР»Р°РЅРёСЂРѕРІР°РЅРёСЏ СЃРѕС…СЂР°РЅСЏРµС‚СЃСЏ РїРѕСЃР»Рµ РїРµСЂРµР·Р°С…РѕРґР°',
-			'РџРѕР»СЊР·РѕРІР°С‚РµР»Рё СЃ С„Р°РјРёР»РёРµР№ Cosmo С‚РµРїРµСЂСЊ РјРѕРіСѓС‚ РІСЂСѓС‡РЅСѓСЋ РІС‹Р±СЂР°С‚СЊ С†РІРµС‚ РЅРёРєР° РІ С‡Р°С‚Рµ РѕСЂРіР°РЅРёР·Р°С†РёРё',
-			'РСЃРїСЂР°РІР»РµРЅ Р±Р°Рі СЃ РЅРµРЅР°Р¶Р°С‚РёРµРј РєРЅРѕРїРѕРє РІ СЂР°Р·РґРµР»Рµ "Р РµРїРѕР·РёС‚РѕСЂРёР№"',
-			'Р’ /bank - РќР°СЃС‚СЂРѕР№РєРё - РћР±С‰РёРµ РЅР°СЃС‚СЂРѕР№РєРё РґРѕР±Р°РІР»РµРЅР° С„СѓРЅРєС†РёСЏ "Р¦РІРµС‚РЅРѕР№ РІРІРѕРґ"',
-			'РџСЂРѕС‡РёРµ РјРµР»РєРёРµ РёР·РјРµРЅРµРЅРёСЏ'
+			'Теперь текст GOV-волны из меню планирования сохраняется после перезахода',
+			'Пользователи с фамилией Cosmo теперь могут вручную выбрать цвет ника в чате организации',
+			'Исправлен баг с ненажатием кнопок в разделе "Репозиторий"',
+			'В /bank - Настройки - Общие настройки добавлена функция "Цветной ввод"',
+			'Прочие мелкие изменения'
 		},
 		patches = {
 			show = false,
@@ -6026,32 +6026,32 @@ changelog = {
 		date = os.time({day = '11', month = '7', year = '2020'}),
 		log = {
 			{
-				title = 'РўРµРїРµСЂСЊ РµСЃР»Рё РІС‹ РёРјРµРµС‚Рµ С„Р°РјРёР»РёСЋ Cosmo (РЅР°РїСЂРёРјРµСЂ: Bob_Cosmo), Сѓ РІР°СЃ Р±СѓРґСѓС‚ РЅРµР±РѕР»СЊС€РёРµ РїСЂРёРІРёР»РµРіРёРё',
+				title = 'Теперь если вы имеете фамилию Cosmo (например: Bob_Cosmo), у вас будут небольшие привилегии',
 				show = false,
 				more = {
-					'Р°) Р’Р°С€ РЅРёРє РІ С‡Р°С‚Рµ РѕСЂРіР°РЅРёР·Р°С†РёРё РІС‹РґРµР»СЏРµС‚СЃСЏ РѕСЃРѕР±С‹Рј С†РІРµС‚РѕРј!',
-					'Р±) РЎ Р»СЋР±РѕРіРѕ СЂР°РЅРіР° РґРѕСЃС‚СѓРїРЅС‹ РєРѕРјР°РЅРґС‹ /ro, /rbo',
-					'P.S. Р¤СѓРЅРєС†РёРё Р±СѓРґСѓС‚ РґРѕРїРѕР»РЅСЏС‚СЃСЏ..'
+					'а) Ваш ник в чате организации выделяется особым цветом!',
+					'б) С любого ранга доступны команды /ro, /rbo',
+					'P.S. Функции будут дополнятся..'
 				}
 			},
 			{
-				title = 'РЎ С‚РµРєСѓС‰РµР№ РІРµСЂСЃРёРё СѓР±СЂР°РЅС‹ РЅРµСЃРєРѕР»СЊРєРѕ С„СѓРЅРєС†РёР№',
+				title = 'С текущей версии убраны несколько функций',
 				show = false,
 				more = {
-					'Members РЅР° СЌРєСЂР°РЅРµ',
-					'РўР°Р№РјРµСЂ РѕРЅР»Р°Р№РЅР° РІ РѕСЃРЅРѕРІРЅРѕРј РјРµРЅСЋ СЃРєСЂРёРїС‚Р°, РЅР° РµРіРѕ РјРµСЃС‚Рµ С‚РµРїРµСЂСЊ РѕС‚РѕР±СЂР°Р¶Р°РµС‚СЃСЏ РґР°С‚Р° РІР°С€РµРіРѕ РїРѕСЃР»РµРґРЅРµРіРѕ РїРѕРІС‹С€РµРЅРёСЏ',
-					'РњРµРЅСЋ /premium',
+					'Members на экране',
+					'Таймер онлайна в основном меню скрипта, на его месте теперь отображается дата вашего последнего повышения',
+					'Меню /premium',
 				}
 			},
-			'РџСЂРѕРІРµРґРµРЅР° РѕРіСЂРѕРјРЅР°СЏ СЂР°Р±РѕС‚Р° РїРѕ РІРЅСѓС‚СЂРµРЅРЅРµР№ РѕРїС‚РёРјРёР·Р°С†РёРё СЃРєСЂРёРїС‚Р°',
-			'РќРѕ РЅРµ СЃС‚РѕРёС‚ СЂР°СЃСЃС‚СЂР°РёРІР°С‚СЊСЃСЏ! Р’СЃРµ СЌС‚Рё С„СѓРЅРєС†РёРё РїРµСЂРµРЅРµСЃРµРЅС‹ РІ РЅРѕРІС‹Р№ СЂР°Р·РґРµР» РІ РЅР°СЃС‚СЂРѕР№РєР°С… - "Р РµРїРѕР·РёС‚РѕСЂРёР№". РўР°Рј РІСЃРµ СЌС‚Рё С„СѓРЅРєС†РёРё РІ РІРёРґРµ РѕС‚РґРµР»СЊРЅС‹С… СЃРєСЂРёРїС‚РѕРІ СЃРґРµР»Р°РЅРЅС‹С… Р»РёС‡РЅРѕ Р°РІС‚РѕСЂРѕРј СЌС‚РѕРіРѕ СЃРєСЂРёРїС‚Р°. Р’СЃРµ СЃРєСЂРёРїС‚С‹ РёР· СЂР°Р·РґРµР»Р° "Р РµРїРѕР·РёС‚РѕСЂРёР№" СЃРґРµР»Р°РЅС‹ РёСЃРєР»СЋС‡РёС‚РµР»СЊРЅРѕ РјРЅРѕР№, Рё РіРѕСЂР°Р·РґРѕ Р»СѓС‡С€Рµ С‚РµС…, С‡С‚Рѕ Р±С‹Р»Рё РёР·РЅР°С‡Р°Р»СЊРЅРѕ РІ СЌС‚РѕРј СЃРєСЂРёРїС‚Рµ',
-			'РўРµРїРµСЂСЊ РІ РјРµРЅСЋ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ (РџРљРњ + Q) РµСЃС‚СЊ РїСѓРЅРєС‚ РІС‹РіРЅР°С‚СЊ РёР· Р±Р°РЅРєР°, С‚Р°Рє РєР°Рє РјРЅРѕРіРѕ РєС‚Рѕ СЌС‚Рѕ РїСЂРѕСЃРёР», Рё РЅРµ РІСЃРµРј СѓРґРѕР±РЅРѕ РґРµР»Р°С‚СЊ СЌС‚Рѕ С‡РµСЂРµР· РџРљРњ + G',
-			'Р’ РЅР°СЃС‚СЂРѕР№РєР°С… СЃРєСЂРёРїС‚Р° РјРѕР¶РЅРѕ СѓРєР°Р·Р°С‚СЊ РїСЂРёС‡РёРЅСѓ, СЃ РєРѕС‚РѕСЂРѕР№ Р±СѓРґРµС‚ РІС‹РіРѕРЅСЏС‚СЊСЃСЏ РЅР°СЂСѓС€РёС‚РµР»СЊ (РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ Рќ.Рџ.Р‘)',
-			'РЈР±СЂР°РЅ Р°РІС‚Рѕ-СЃРєСЂРёРЅС€РѕС‚ /expel',
-			'Р”РѕР±Р°РІР»РµРЅР° РЅРѕРІР°СЏ С†РІРµС‚РѕРІР°СЏ С‚РµРјР° СЃРєСЂРёРїС‚Р° - "РњСЏРіРєРёР№ РєСЂР°СЃРЅС‹Р№"',
-			'РћРєРЅРѕ СѓСЃС‚Р°РІР° РѕСЂРіР°РЅРёР·Р°С†РёРё СЃС‚Р°Р»Рѕ РЅР°РјРЅРѕРіРѕ СѓРґРѕР±РЅРµРµ Рё РїРѕСЏРІРёР»Р°СЃСЊ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РєРѕРїРёСЂРѕРІР°С‚СЊ РѕС‚ С‚СѓРґР° С‚РµРєСЃС‚',
-			'РўРµРїРµСЂСЊ СЃРєСЂРёРїС‚ Р±СѓРґРµС‚ Р·Р°РїСѓСЃРєР°С‚СЊСЃСЏ С‚РѕР»СЊРєРѕ, РµСЃР»Рё РІС‹ РЅР° РїСЂРѕРµРєС‚Рµ Arizona RP',
-			'РћС‡РµРЅСЊ РјРЅРѕРіРѕ РјРµР»РєРёС… РёСЃРїСЂР°РІР»РµРЅРёР№'
+			'Проведена огромная работа по внутренней оптимизации скрипта',
+			'Но не стоит расстраиваться! Все эти функции перенесены в новый раздел в настройках - "Репозиторий". Там все эти функции в виде отдельных скриптов сделанных лично автором этого скрипта. Все скрипты из раздела "Репозиторий" сделаны исключительно мной, и гораздо лучше тех, что были изначально в этом скрипте',
+			'Теперь в меню взаимодействия (ПКМ + Q) есть пункт выгнать из банка, так как много кто это просил, и не всем удобно делать это через ПКМ + G',
+			'В настройках скрипта можно указать причину, с которой будет выгоняться нарушитель (По умолчанию Н.П.Б)',
+			'Убран авто-скриншот /expel',
+			'Добавлена новая цветовая тема скрипта - "Мягкий красный"',
+			'Окно устава организации стало намного удобнее и появилась возможность копировать от туда текст',
+			'Теперь скрипт будет запускаться только, если вы на проекте Arizona RP',
+			'Очень много мелких исправлений'
 		},
 		patches = {
 			show = false,
@@ -6063,21 +6063,21 @@ changelog = {
 		comment = '',
 		date = os.time({day = '27', month = '6', year = '2020'}),
 		log = {
-			'Р”Р°РЅРЅС‹Рµ РёР· РїР°РЅРµР»Рё СЃ РёРЅС„РѕСЂРјР°С†РёРµР№ РЅР° РєР°СЃСЃРµ С‚РµРїРµСЂСЊ СЃРѕС…СЂР°РЅСЏСЋС‚СЃСЏ РїРѕСЃР»Рµ РїРµСЂРµР·Р°С…РѕРґР°, Рё РѕР±РЅРѕРІР»СЏСЋС‚СЃСЏ, РєРѕРіРґР° РЅР°СЃС‚СѓРїР°РµС‚ РЅРѕРІС‹Р№ РґРµРЅСЊ',
-			'РЎРєСЂРёРїС‚ РѕС‚РЅС‹РЅРµ РЅРµ Р±СѓРґРµС‚ СЂР°Р±РѕС‚Р°С‚СЊ, РµСЃР»Рё РІС‹ РЅРµ СЃРѕСЃС‚РѕРёС‚Рµ РІ Р±Р°РЅРєРµ',
-			'РџРµСЂРµРїРёСЃР°РЅР° С„СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ СЂР°РЅРіР° СЃРєСЂРёРїС‚РѕРј',
-			'РџРµСЂРµРїРёСЃР°РЅР° СЃРёСЃС‚РµРјР° РїРѕРґСЃС‡С‘С‚Р° СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РґР»СЏ /premium',
-			'РќР°Р·РІР°РЅРёРµ СЂР°РЅРіРѕРІ С‚РµРїРµСЂСЊ Р±РµСЂС‘С‚СЃСЏ РёР· /members, С‡С‚Рѕ Р±С‹ РѕРЅРё РѕР±РЅРѕРІРёР»РёСЃСЊ РїРѕРґ РІР°С€ СЃРµСЂРІРµСЂ, РїСЂРѕСЃС‚Рѕ РѕС‚РєСЂРѕР№С‚Рµ РјРµРЅСЋ /members, СЃРєСЂРёРїС‚ СЃР°Рј РІСЃС‘ СЃРґРµР»Р°РµС‚ Р·Р° РІР°СЃ',
-			'РќРµРјРЅРѕРіРѕ СѓР»СѓС‡С€РµРЅ Р·Р°РіСЂСѓР·С‡РёРє С„Р°Р№Р»РѕРІ, С‚РµРїРµСЂСЊ РїСЂРё РїРµСЂРІРѕРј Р·Р°РїСѓСЃРєРµ СЃРєСЂРёРїС‚Р°, Сѓ РІР°СЃ РЅРµ Р±СѓРґРµС‚ РјРёР»Р»РёРѕРЅ СЃРѕРѕР±С‰РµРЅРёР№ РІ С‡Р°С‚ Рё С„Р»СѓРґ РґРёР°Р»РѕРіРѕРј',
-			'Р”РѕР±Р°РІР»РµРЅ Р±РёРЅРґ /time РЅР° РєР»Р°РІРёС€Сѓ F9, РІС‹РєР»СЋС‡РёС‚СЊ РјРѕР¶РЅРѕ РІ РЅР°СЃС‚СЂРѕР№РєР°С…',
-			'РР·РјРµРЅРµРЅР° СЃРёСЃС‚РµРјР° РєСЂРµРґРёС‚РѕРІ: РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ СЃСѓРјРјР° С‚РµРїРµСЂСЊ 300.000$ (РЎРёСЃС‚РµРјРЅРѕ), РЎРєРѕСЂРµРµ РІСЃРµРіРѕ РЅР° С„РѕСЂСѓРјРµ РІР°С€РµРіРѕ СЃРµСЂРІРµСЂР° РёР·РјРµРЅРёР»Р°СЃСЊ СЃРёСЃС‚РµРјР° РєСЂРµРґРёС‚РѕРІР°РЅРёСЏ, СЂРµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ РѕР±РЅРѕРІРёС‚СЊ РµС‘, Р»РёР±Рѕ СѓРґР°Р»РёС‚СЊ С„Р°Р№Р» РљСЂРµРґРёС‚РѕРІР°РЅРёРµ.txt РІ РїР°РїРєРµ /moonloader/BHelper',
-			'Р¤РёРєСЃ РЅРµРєРѕС‚РѕСЂС‹С… СЃРѕРѕР±С‰РµРЅРёР№ РѕС‚ СЃРєСЂРёРїС‚Р° РІ С‡Р°С‚Рµ, Р° С‚Р°Рє Р¶Рµ СЃРѕРѕР±С‰РµРЅРёСЏ РѕР± РѕР±РЅРѕРІР»РµРЅРёСЏС… Р±СѓРґСѓС‚ РІС‹РІРѕРґРёС‚СЃСЏ РІ РєРѕРЅСЃРѕР»СЊ sampfuncs, С‡С‚Рѕ Р±С‹ РЅРµ РјРµС€Р°Р»Рѕ Р»РёС€РЅРёР№ СЂР°Р·',
-			'Р¤РёРєСЃ Р±Р°РіР° РђСЂРёР·РѕРЅС‹, РєРѕРіРґР° Сѓ 1-4 СЂР°РЅРіРѕРІ РїСЂРё РЅР°Р¶Р°С‚РёРё РђР»СЊС‚ РІ Р»СЋР±РѕРј РјРµСЃС‚Рµ, РІС‹С…РѕРґРёР»Рѕ СЃРѕРѕР±С‰РµРЅРёРµ "РџРѕСЃС‚ Сѓ РєР°СЃСЃС‹ РґРѕСЃС‚СѓРїРµРЅ СЃ 5-РіРѕ СЂР°РЅРіР°"',
-			'РџРµСЂРµРґРµР»Р°РЅС‹ РјРЅРѕРіРёРµ РѕС‚С‹РіСЂРѕРІРєРё',
-			'РќРµРјРЅРѕРіРѕ РјРѕРґРµСЂРЅРёР·РёСЂРѕРІР°РЅРѕ РјРµРЅСЋ /premium, С‚РµРїРµСЂСЊ С‚Р°Рј РµСЃС‚СЊ РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅС‹Р№ РїРѕРґСЃС‡С‘С‚ РІС‹РґРµР»СЏРµРјРѕР№ РїСЂРµРјРёРё РЅР° РѕРґРЅРѕРіРѕ СЃРѕС‚СЂСѓРґРЅРёРєР°',
-			'Р—Р°РґРµСЂР¶РєР° РІ Р±РёРЅРґР°С… С‚РµРїРµСЂСЊ РѕС‚РѕР±СЂР°Р¶Р°РµС‚СЃСЏ РЅРѕСЂРјР°Р»СЊРЅРѕ РєРѕРіРґР° СЂРµРґР°РєС‚РёСЂСѓРµС€СЊ РµРіРѕ',
-			'РўРµРі @id С‚РµРїРµСЂСЊ РІРѕР·РІСЂР°С‰Р°РµС‚ С‚РѕР»СЊРєРѕ РёРјСЏ РёРіСЂРѕРєР°, Р±РµР· РµРіРѕ С„Р°РјРёР»РёРё. РќР°РїСЂРёРјРµСЂ: "@343, РіРґРµ РІС‹ РЅР°С…РѕРґРёС‚РµСЃСЊ?" - "Jeffy, РіРґРµ РІС‹ РЅР°С…РѕРґРёС‚РµСЃСЊ?"',
-			'РџРµСЂРµРґРµР»Р°РЅС‹ С†РІРµС‚РѕРІС‹Рµ СЃС…РµРјС‹ СЃРєСЂРёРїС‚Р°, С‚РµРїРµСЂСЊ С„РёРѕР»РµС‚РѕРІР°СЏ Рё СЃРµСЂР°СЏ С‚РµРјР°, Р±РѕР»РµРµ РєСЂР°СЃРёРІС‹Рµ Рё РїСЂРёСЏС‚РЅС‹Рµ, С‡РµРј Р±С‹Р»Рё СЂР°РЅРµРµ'
+			'Данные из панели с информацией на кассе теперь сохраняются после перезахода, и обновляются, когда наступает новый день',
+			'Скрипт отныне не будет работать, если вы не состоите в банке',
+			'Переписана функция получения ранга скриптом',
+			'Переписана система подсчёта сотрудников для /premium',
+			'Название рангов теперь берётся из /members, что бы они обновились под ваш сервер, просто откройте меню /members, скрипт сам всё сделает за вас',
+			'Немного улучшен загрузчик файлов, теперь при первом запуске скрипта, у вас не будет миллион сообщений в чат и флуд диалогом',
+			'Добавлен бинд /time на клавишу F9, выключить можно в настройках',
+			'Изменена система кредитов: Максимальная сумма теперь 300.000$ (Системно), Скорее всего на форуме вашего сервера изменилась система кредитования, рекомендуется обновить её, либо удалить файл Кредитование.txt в папке /moonloader/BHelper',
+			'Фикс некоторых сообщений от скрипта в чате, а так же сообщения об обновлениях будут выводится в консоль sampfuncs, что бы не мешало лишний раз',
+			'Фикс бага Аризоны, когда у 1-4 рангов при нажатии Альт в любом месте, выходило сообщение "Пост у кассы доступен с 5-го ранга"',
+			'Переделаны многие отыгровки',
+			'Немного модернизировано меню /premium, теперь там есть предварительный подсчёт выделяемой премии на одного сотрудника',
+			'Задержка в биндах теперь отображается нормально когда редактируешь его',
+			'Тег @id теперь возвращает только имя игрока, без его фамилии. Например: "@343, где вы находитесь?" - "Jeffy, где вы находитесь?"',
+			'Переделаны цветовые схемы скрипта, теперь фиолетовая и серая тема, более красивые и приятные, чем были ранее'
 		},
 		patches = {
 			show = false,
@@ -6089,27 +6089,27 @@ changelog = {
 		comment = '',
 		date = os.time({day = '20', month = '6', year = '2020'}),
 		log = {
-			'Р”РѕР±Р°РІР»РµРЅР° РїР°РЅРµР»СЊ РёРЅС„РѕСЂРјР°С†РёРё, РєРѕРіРґР° СЃС‚РѕРёС‚Рµ РЅР° РєР°СЃСЃРµ (РћС‚РєР»СЋС‡РёС‚СЊ РјРѕР¶РЅРѕ РІ /bank - РќР°СЃС‚СЂРѕР№РєРё - РћР±С‰РёРµ РЅР°СЃС‚СЂРѕР№РєРё)',
-			'РР·РјРµРЅРёС‚СЊ РјРµСЃС‚РѕРїРѕР»РѕР¶РµРЅРёРµ РїР°РЅРµР»Рё РјРѕР¶РЅРѕ РєРѕРјР°РЅРґРѕР№ /kip (СЃРѕС…СЂР°РЅСЏРµС‚СЃСЏ РїРѕСЃР»Рµ РїРµСЂРµР·Р°С…РѕРґР°)',
-			'РЈР±СЂР°РЅ 3dText, РєРѕРіРґР° Р·Р°РЅРёРјР°РµС€СЊ РєР°СЃСЃСѓ, РјРЅРѕРіРёРј РѕРЅ РїСЂРѕСЃС‚Рѕ РЅР°РїСЂРѕСЃС‚Рѕ РјРµС€Р°Р». РўРµРїРµСЂСЊ РѕРЅ РїРёС€РµС‚СЃСЏ РІ РїР°РЅРµР»Рё РёРЅС„РѕСЂРјР°С†РёРё (РїСѓРЅРєС‚ РІС‹С€Рµ)',
-			'РўРµРїРµСЂСЊ РІСЃРµ РґРµР№СЃС‚РІРёСЏ РІ /bankmenu (РџРљРњ + Q) СЂР°СЃРїСЂРµРґРµР»РµРЅС‹ РїРѕ СЂР°РЅРіР°Рј. РќР°РїСЂРёРјРµСЂ С‚РµРїРµСЂСЊ РїРµСЂРІС‹Р№ СЂР°РЅРі РЅРµ РјРѕР¶РµС‚ РЅР°Р¶Р°С‚СЊ РєРЅРѕРїРєСѓ "Р’С‹РґР°С‚СЊ РєСЂРµРґРёС‚", Рё С…РµР»РїРµСЂ РЅРµ Р±Р°РіР°РµС‚СЃСЏ',
-			'РСЃРїСЂР°РІР»РµРЅ РєСЂР°С€ РІ /premium РїСЂРё РІРєР»СЋС‡РµРЅРЅРѕРј РђРІС‚Рѕ-РЎРєСЂРёРЅС€РѕС‚Рµ',
-			'Р”РѕР±Р°РІР»РµРЅР° РєРѕРјР°РЅРґР° /unblacklist [id]',
-			'РўРµРїРµСЂСЊ С‚РµРі {screen} СЂР°Р±РѕС‚Р°РµС‚ Р±РµР· Р±Р°РіРѕРІ. РџСЂРёРјРµСЂ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ: "РЎРѕС‚СЂСѓРґРЅРёРєРё, СЃРµР№С‡Р°СЃ СЏ РїСЂРѕРІРµРґСѓ РІР°Рј С‚СЂРµРЅРёСЂРѕРІРєСѓ {screen}" (РЎС‚СЂРѕРєР° Р·Р°СЃРєСЂРёРЅРёС‚СЊСЃСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїРѕСЃР»Рµ РѕС‚РїСЂР°РІРєРё, Р° {screen} РЅРµ РѕС‚РїСЂР°РІРёС‚СЃСЏ РІ С‡Р°С‚)',
-			'РџРµСЂРµРЅР°СЃС‚СЂРѕРµРЅС‹ РЅРµРєРѕС‚РѕСЂС‹Рµ С†РІРµС‚Р°, С‚РµРїРµСЂСЊ РЅР° СЂР°Р·РЅС‹С… С‚РµРјР°С… РІСЃРµ РјРµРЅСЋ РІС‹РіР»СЏРґСЏС‚ Р±РѕР»РµРµ РїСЂРёСЏС‚РЅРµРµ',
-			'Р”РѕР±Р°РІР»РµРЅР° Р°РІС‚Рѕ-РїРѕРґРіСЂСѓР·РєР° РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… Р±РёР±Р»РёРѕС‚РµРє (fAwesome, lfs), РІ СЃР»СѓС‡Р°Рµ РёС… РѕС‚СЃСѓС‚СЃС‚РІРёСЏ',
-			'РСЃРїСЂР°РІР»РµРЅ Р±Р°Рі, РєРѕРіРґР° РЅРµР»СЊР·СЏ Р±С‹Р»Рѕ РїРёСЃР°С‚СЊ СЌРјРѕС†РёРё ")" "))" "(" "((" "xD" ":D" РїРёСЃР°Р»РёСЃСЊ "СЃ Р°РєС†РµРЅС‚РѕРј". РўРµРїРµСЂСЊ РІСЃС‘ СЂР°Р±РѕС‚Р°РµС‚ РїРѕ Р Рџ',
-			'Р”Р»СЏ Р»РёРґРµСЂРѕРІ Рё Р·Р°РјРµСЃС‚РёС‚РµР»РµР№ С‚РµРїРµСЂСЊ РµСЃС‚СЊ РїР°РїРєР°, РІ РєРѕС‚РѕСЂРѕР№ Р»РѕРіРёСЂСѓСЋС‚СЃСЏ РІСЃРµ РїРѕРІС‹С€РµРЅРёСЏ, СѓРІРѕР»СЊРЅРµРЅРёСЏ, РІС‹РґР°С‡Рё РЅР°РєР°Р·Р°РЅРёР№ Рё СЂР°РЅРіРѕРІ. Р‘СѓРґРµС‚ РїРѕР»РµР·РЅРѕ РґР»СЏ РѕС„РѕСЂРјР»РµРЅРёР№ РѕС‚С‡С‘С‚РѕРІ СЃР»РµРґСЏС‰РёРј',
-			'Р”РѕР±Р°РІР»РµРЅ С‡РµРєРµСЂ /members, РѕРЅ РґРѕСЃС‚СѓРїРµРЅ СЃ 5-РѕРіРѕ СЂР°РЅРіР° РІ СЂР°Р·РґРµР»Рµ /bank -> РЎС‚. РЎРѕСЃС‚Р°РІ',
-			'Р”РѕР±Р°РІР»РµРЅР° РЅРѕРІР°СЏ РєСЂР°СЃРёРІР°СЏ С†РІРµС‚РѕРІР°СЏ СЃС…РµРјР° РїРѕРґС…РѕРґСЏС‰Р°СЏ РїРѕРґ РѕСЃРЅРѕРІРЅС‹Рµ С†РІРµС‚Р° РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ РІ СЃРєСЂРёРїС‚Рµ. РР·РјРµРЅРёС‚СЊ: /bank -> РќР°СЃС‚СЂРѕР№РєРё -> РќР°СЃС‚СЂРѕР№РєРё С†РІРµС‚РѕРІ',
-			'РСЃРїСЂР°РІР»РµРЅС‹ Р±Р°РіРё СЃ С‡РµРєРµСЂРѕРј, РЅРѕ СѓРІС‹, РїСЂРёС€Р»РѕСЃСЊ РїРµСЂРµРЅРµСЃС‚Рё РµРіРѕ РЅР° "РєРѕСЃС‚С‹Р»СЊРЅСѓСЋ" СЃРёСЃС‚РµРјСѓ РѕР±РЅРѕРІР»РµРЅРёСЏ. РћРЅ Р±СѓРґРµС‚ "РјРёРіР°С‚СЊ", РІРѕ РІСЂРµРјСЏ СЃР±РѕСЂР° РёРЅС„РѕСЂРјР°С†РёРё, РїРѕСЌС‚РѕРјСѓ Р»СѓС‡С€Рµ РІС‹СЃС‚Р°РІРёС‚СЊ Р·Р°РґРµСЂР¶РєСѓ РІ РѕР±РЅРѕРІР»РµРЅРёРё 10-15 СЃРµРєСѓРЅРґ, С‡С‚Рѕ Р±С‹ РЅРµ РЅР°РїСЂСЏРіР°Р»'
+			'Добавлена панель информации, когда стоите на кассе (Отключить можно в /bank - Настройки - Общие настройки)',
+			'Изменить местоположение панели можно командой /kip (сохраняется после перезахода)',
+			'Убран 3dText, когда занимаешь кассу, многим он просто напросто мешал. Теперь он пишется в панели информации (пункт выше)',
+			'Теперь все действия в /bankmenu (ПКМ + Q) распределены по рангам. Например теперь первый ранг не может нажать кнопку "Выдать кредит", и хелпер не багается',
+			'Исправлен краш в /premium при включенном Авто-Скриншоте',
+			'Добавлена команда /unblacklist [id]',
+			'Теперь тег {screen} работает без багов. Пример использования: "Сотрудники, сейчас я проведу вам тренировку {screen}" (Строка заскриниться автоматически после отправки, а {screen} не отправится в чат)',
+			'Перенастроены некоторые цвета, теперь на разных темах все меню выглядят более приятнее',
+			'Добавлена авто-подгрузка дополнительных библиотек (fAwesome, lfs), в случае их отсутствия',
+			'Исправлен баг, когда нельзя было писать эмоции ")" "))" "(" "((" "xD" ":D" писались "с акцентом". Теперь всё работает по РП',
+			'Для лидеров и заместителей теперь есть папка, в которой логируются все повышения, увольнения, выдачи наказаний и рангов. Будет полезно для оформлений отчётов следящим',
+			'Добавлен чекер /members, он доступен с 5-ого ранга в разделе /bank -> Ст. Состав',
+			'Добавлена новая красивая цветовая схема подходящая под основные цвета используемые в скрипте. Изменить: /bank -> Настройки -> Настройки цветов',
+			'Исправлены баги с чекером, но увы, пришлось перенести его на "костыльную" систему обновления. Он будет "мигать", во время сбора информации, поэтому лучше выставить задержку в обновлении 10-15 секунд, что бы не напрягал'
 		},
 		patches = {
 			show = false,
 			info = {
-				'РњРµР»РєРёРµ РёСЃРїСЂР°РІР»РµРЅРёСЏ',
-				'Р’РЅРѕРІСЊ РґРѕСЂР°Р±РѕС‚Р°РЅ С‡РµРєРµСЂ members\'a',
-				'РСЃРїСЂР°РІР»РµРЅС‹ Р±Р°РіРё СЃ РєРѕРјР°РЅРґРѕР№ /invite',
+				'Мелкие исправления',
+				'Вновь доработан чекер members\'a',
+				'Исправлены баги с командой /invite',
 			}
 		}
 	},
@@ -6118,10 +6118,10 @@ changelog = {
 		comment = '',
 		date = os.time({day = '14', month = '6', year = '2020'}),
 		log = {
-			'Р”РѕР±Р°РІР»РµРЅС‹ СѓРІРµРґРѕРјР»РµРЅРёСЏ РІ СѓРіР»Сѓ СЌРєСЂР°РЅР°, С‚РµРїРµСЂСЊ РЅРµРєРѕС‚РѕСЂС‹Рµ СЃРѕРѕР±С‰РµРЅРёСЏ Р±СѓРґСѓС‚ РІС‹РІРѕРґРёС‚СЃСЏ РІ РЅРёС…',
-			'Р”Р»СЏ 9-10 СЂР°РЅРіРѕРІ РґРѕР±Р°РІР»РµРЅРѕ РјРµРЅСЋ РїР»Р°РЅРёСЂРѕРІР°РЅРёСЏ GOV РІРѕР»РЅС‹. РќР°Р№С‚Рё РµРіРѕ РјРѕР¶РЅРѕ РІРѕ РІРєР»Р°РґРєРµ "РЎС‚Р°СЂС€РёР№ СЃРѕСЃС‚Р°РІ"',
-			'Р’ СЌС‚РѕС‚ Р¶Рµ СЂР°Р·РґРµР» РґРѕР±Р°РІР»РµРЅРѕ РјРµРЅСЋ РІС‹РґР°С‡Рё РїСЂРµРјРёР№, СЂР°РЅСЊС€Рµ РѕРЅРѕ Р±С‹Р»Рѕ С‚РѕР»СЊРєРѕ РїРѕ РєРѕРјР°РЅРґРµ /premium',
-			'Р”РѕР±Р°РІР»РµРЅ С‡Р°С‚ РѕР±СЉСЏРІР»РµРЅРёР№ РґР»СЏ Р»РёРґРµСЂР° Рё Р·Р°РјРµСЃС‚РёС‚РµР»СЏ. РџРёСЃР°С‚СЊ РІ РЅРµРіРѕ РјРѕР¶РЅРѕ РєРѕРјР°РЅРґР°РјРё /ro Рё /rbo'
+			'Добавлены уведомления в углу экрана, теперь некоторые сообщения будут выводится в них',
+			'Для 9-10 рангов добавлено меню планирования GOV волны. Найти его можно во вкладке "Старший состав"',
+			'В этот же раздел добавлено меню выдачи премий, раньше оно было только по команде /premium',
+			'Добавлен чат объявлений для лидера и заместителя. Писать в него можно командами /ro и /rbo'
 		},
 		patches = {
 			show = false,
@@ -6133,13 +6133,13 @@ changelog = {
 		comment = '',
 		date = os.time({day = '10', month = '6', year = '2020'}),
 		log = {
-			'РњРµРЅСЋ РІС‹РґР°С‡Рё РїСЂРµРјРёР№ СЃРѕС‚СЂСѓРґРЅРёРєР°Рј (9+), РґР»СЏ Р°РєС‚РёРІР°С†РёРё РїСЂРѕСЃС‚Рѕ РЅР°РїРёСЃР°С‚СЊ - /premium',
-			'РџРѕРїСЂР°РІР»РµРЅС‹ РЅРµРєРѕС‚РѕСЂС‹Рµ РѕС‚С‹РіСЂРѕРІРєРё',
-			'РСЃРїСЂР°РІР»РµРЅС‹ РЅРµРєРѕС‚РѕСЂС‹Рµ Р±Р°РіРё',
-			'РЎРґРµР»Р°РЅС‹ РѕС‚С‹РіСЂРѕРІРєРё РїРѕРґ РєРѕРјР°РЅРґС‹: /blacklist, /giverank',
-			'Р’ РЅР°СЃС‚СЂРѕР№РєР°С… СЃРєСЂРёРїС‚Р° РјРѕР¶РЅРѕ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РіР°Р»РѕС‡РєСѓ "РђРІС‚Рѕ-РЎРєСЂРёРЅ". Р­С‚Р° С„СѓРЅРєС†РёСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё СЃРєСЂРёРЅРёС‚ СЃ /time РІСЃРµ РІР°С€Рё РїРѕРІС‹С€РµРЅРёСЏ, СѓРІРѕР»СЊРЅРµРЅРёСЏ, Р§РЎ Рё С‚.Рї.',
-			'РўР°Рј Р¶Рµ РІ РЅР°СЃС‚СЂРѕР№РєР°С… РјРѕР¶РЅРѕ СЃРєР°С‡Р°С‚СЊ ASI-РїР»Р°РіРёРЅ "Screenshot" РѕС‚ MISTER_GONWIK\'a. РћРЅ РїРѕР·РІРѕР»СЏРµС‚ РґРµР»Р°С‚СЊ СЃРєСЂРёРЅС€РѕС‚С‹ Р±РµР· Р·Р°РІРёСЃР°РЅРёСЏ',
-			'Р”РѕР±Р°РІР»РµРЅ РЅРѕРІС‹Р№ С‚РµРі РґР»СЏ Р±РёРЅРґРµСЂР° - {screen}. РњРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РІ С‡Р°С‚Рµ/РєРѕРјР°РЅРґР°С…. РќР°РїСЂРёРјРµСЂ: /giverank 228 9 {screen}, СЃРЅР°С‡Р°Р»Р° РѕС‚РїСЂР°РІРёС‚ РєРѕРјР°РЅРґСѓ, Р° РїРѕС‚РѕРј СЃР°Рј Р·Р°СЃРєСЂРёРЅРёС‚ РµС‘ СЃ /time'
+			'Меню выдачи премий сотрудникам (9+), для активации просто написать - /premium',
+			'Поправлены некоторые отыгровки',
+			'Исправлены некоторые баги',
+			'Сделаны отыгровки под команды: /blacklist, /giverank',
+			'В настройках скрипта можно установить галочку "Авто-Скрин". Эта функция автоматически скринит с /time все ваши повышения, увольнения, ЧС и т.п.',
+			'Там же в настройках можно скачать ASI-плагин "Screenshot" от MISTER_GONWIK\'a. Он позволяет делать скриншоты без зависания',
+			'Добавлен новый тег для биндера - {screen}. Можно использовать в чате/командах. Например: /giverank 228 9 {screen}, сначала отправит команду, а потом сам заскринит её с /time'
 		},
 		patches = {
 			show = false,
@@ -6151,8 +6151,8 @@ changelog = {
 		comment = '',
 		date = os.time({day = '6', month = '6', year = '2020'}),
 		log = {
-			'РЈР±СЂР°РЅР° РїСЂРѕРІРµСЂРєР° РЅР° Р°РЅРёРјР°С†РёСЋ РѕРіР»СѓС€РµРЅРёСЏ РїСЂРё РїРѕРїС‹С‚РєРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РџРљРњ + G (Р’С‹РіРЅР°С‚СЊ РёР· Р±Р°РЅРєР°), РїРѕС‡С‚Рё РІСЃРµРіРґР° РѕРЅР° СЂР°Р±РѕС‚Р°Р»Р° РЅРµРєРѕСЂСЂРµРєС‚РЅРѕ, Рё РІС‹Р·С‹РІР°Р»Р° РґРёСЃРєРѕРјС„РѕСЂС‚ РїСЂРё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРё',
-			'РўРµРїРµСЂСЊ РІР°С€ СЂР°РЅРі РІ РЅР°СЃС‚СЂРѕР№РєР°С… СЃРєСЂРёРїС‚Р° РЅР°СЃС‚СЂР°РёРІР°РµС‚СЃСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё.',
+			'Убрана проверка на анимацию оглушения при попытке использовать ПКМ + G (Выгнать из банка), почти всегда она работала некорректно, и вызывала дискомфорт при использовании',
+			'Теперь ваш ранг в настройках скрипта настраивается автоматически.',
 		},
 		patches = {
 			show = false,
@@ -6164,11 +6164,11 @@ changelog = {
 		comment = '',
 		date = os.time({day = '3', month = '6', year = '2020'}),
 		log = {
-			'Р•СЃР»Рё РІР°С€ СЂР°РЅРі РЅРёР¶Рµ 8-РѕРіРѕ, РЅРѕ РІР°Рј СЂР°Р·СЂРµС€РµРЅРѕ РїСЂРѕРІРѕРґРёС‚СЊ СЃРѕР±РµСЃРµРґРѕРІР°РЅРёСЏ, РїСЂРё РµРіРѕ Р·Р°РІРµСЂС€РµРЅРёРё РЅРµ Р±СѓРґРµС‚ РѕС‚С‹РіСЂС‹РІР°С‚СЊСЃСЏ Р Рџ, РєР°Рє РІС‹ РІС‹РґР°С‘С‚Рµ С„РѕСЂРјСѓ Рё РёРЅРІР°Р№С‚РёС‚Рµ, Р° РѕС‚С‹РіСЂС‹РІР°РµС‚СЃСЏ, РјРѕР» РІС‹ РїРѕР·РІР°Р»Рё СЂСѓРєРѕРІРѕРґРёС‚РµР»СЏ, С‡С‚Рѕ Р±С‹ РѕРЅ РІР°СЃ РїСЂРёРЅСЏР» (РЅР°РїРёС€РµС‚ РІ СЂР°С†РёСЋ)',
-			'Р”РѕР±Р°РІР»РµРЅ РїСѓРЅРєС‚ РІ РЅР°СЃС‚СЂРѕР№РєР°С… "Рћ СЃРєСЂРёРїС‚Рµ" - РћС‚РєР»СЋС‡РёС‚СЊ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ РѕР±РЅРѕРІР»РµРЅРёРµ, РєРѕРіРґР° РІС‹ Р·Р°С…РѕРґРёС‚Рµ РІ РёРіСЂСѓ',
-			'РќРѕРІР°СЏ РєР°С‚РµРіРѕСЂРёСЏ РІ РјРµРЅСЋ РґР»СЏ СЃС‚Р°СЂС€РµРіРѕ СЃРѕСЃС‚Р°РІР° (5+ СЂР°РЅРі) РІ РјРµРЅСЋ /bank',
-			'Р”РѕР±Р°РІР»РµРЅ Р§РЎ РїСЂР°РІРёС‚РµР»СЊСЃС‚РІР° (5+ СЂР°РЅРі) РІ РєР°С‚РµРіРѕСЂРёРё РЎС‚. РЎРѕСЃС‚Р°РІ (/bank). РЎРїРёСЃРѕРє СЃ РґРІСѓРјСЏ РєР°С‚РµРіРѕСЂРёСЏРјРё: "Р–РµР»С‚С‹Р№ Р§РЎ" Рё "РљСЂР°СЃРЅС‹Р№ Р§РЎ", РІ РѕСЃРЅРѕРІРЅРѕРј СЌС‚Рѕ СЃРґРµР»Р°РЅРѕ РґР»СЏ Р»РёРґРµСЂРѕРІ Рё Р·Р°РјРµСЃС‚РёС‚РµР»РµР№, Р° С‚Р°Рє Р¶Рµ РґР»СЏ С‚РµС…, РєРѕРјСѓ СЂР°Р·СЂРµС€РµРЅРѕ СЃРѕР±РµСЃРµРґРѕРІР°РЅРёСЏ. РџСЂРё РѕРїСЂРѕСЃРµ С‡РµР»РѕРІРµРєР° РёР· Р§С‘СЂРЅРѕРіРѕ СЃРєСЂРёРїС‚ РІР°Рј РЅРµ РґР°СЃС‚ РµРіРѕ РїСЂРёРЅСЏС‚СЊ, РґР°Р±С‹ РёР·Р±РµР¶Р°С‚СЊ Р»РёС€РЅРёС… РїСЂРµРґРѕРІ РѕС‚ СЃР»РµРґСЏС‰РёС… РІ СЃРІРѕР№ Р°РґСЂРµСЃ',
-			'РћР±РЅРѕРІР»РµРЅР° РєРѕРјР°РЅРґР° /invite (9+ СЂР°РЅРі), РґРѕР±Р°РІР»РµРЅС‹ РѕС‚С‹РіСЂРѕРІРєРё РїСЂРё РµС‘ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРё'
+			'Если ваш ранг ниже 8-ого, но вам разрешено проводить собеседования, при его завершении не будет отыгрываться РП, как вы выдаёте форму и инвайтите, а отыгрывается, мол вы позвали руководителя, что бы он вас принял (напишет в рацию)',
+			'Добавлен пункт в настройках "О скрипте" - Отключить автоматическое обновление, когда вы заходите в игру',
+			'Новая категория в меню для старшего состава (5+ ранг) в меню /bank',
+			'Добавлен ЧС правительства (5+ ранг) в категории Ст. Состав (/bank). Список с двумя категориями: "Желтый ЧС" и "Красный ЧС", в основном это сделано для лидеров и заместителей, а так же для тех, кому разрешено собеседования. При опросе человека из Чёрного скрипт вам не даст его принять, дабы избежать лишних предов от следящих в свой адрес',
+			'Обновлена команда /invite (9+ ранг), добавлены отыгровки при её использовании'
 		},
 		patches = {
 			show = false,
@@ -6180,10 +6180,10 @@ changelog = {
 		comment = '',
 		date = os.time({day = '29', month = '5', year = '2020'}),
 		log = {
-			'Р”РѕР±Р°РІР»РµРЅ РІС‹Р±РѕСЂ РїРѕР»Р° РїРµСЂСЃРѕРЅР°Р¶Р° РІ "РќР°СЃС‚СЂРѕР№РєР°С… РѕС‚С‹РіСЂРѕРІРѕРє/Р°РєС†РµРЅС‚Р°"',
-			'Р¤РёРєСЃ Р±Р°РіР° РєРѕРіРґР° РІ РїСЂРёС‡РёРЅСѓ СѓРІРѕР»СЊРЅРµРЅРёСЏ РґРѕР±Р°РІР»СЏР»РѕСЃСЊ РЅРµРЅСѓР¶РЅРѕРµ "{SSSSSS}"',
-			'Р”РѕР±Р°РІР»РµРЅР° РїРѕРґРіСЂСѓР·РєР° РЅРµРєРѕС‚РѕСЂС‹С… С„Р°Р№Р»РѕРІ, РµСЃР»Рё РІС‹ РёС… СЃР»СѓС‡Р°Р№РЅРѕ СѓРґР°Р»РёР»Рё РєР°РєРёРј С‚Рѕ РѕР±СЂР°Р·РѕРј',
-			'Р”РѕР±Р°РІР»РµРЅР° РєРѕРјР°РЅРґР° /uninvite, С‚РѕС‡РЅРµРµ РґРѕР±Р°РІР»РµРЅС‹ РѕС‚С‹РіСЂРѕРІРєРё РїСЂРё РµС‘ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРё'
+			'Добавлен выбор пола персонажа в "Настройках отыгровок/акцента"',
+			'Фикс бага когда в причину увольнения добавлялось ненужное "{SSSSSS}"',
+			'Добавлена подгрузка некоторых файлов, если вы их случайно удалили каким то образом',
+			'Добавлена команда /uninvite, точнее добавлены отыгровки при её использовании'
 		},
 		patches = {
 			show = false,
@@ -6192,10 +6192,10 @@ changelog = {
 	},
 	[1] = {
 		version = '1',
-		comment = 'РЎРїР°СЃРёР±Рѕ Р·Р° РїРѕРјРѕС‰СЊ Noa Shelby, Bruno Quinzsy, Markus Quinzsy',
+		comment = 'Спасибо за помощь Noa Shelby, Bruno Quinzsy, Markus Quinzsy',
 		date = os.time({day = '25', month = '5', year = '2020'}),
 		log = {
-			'Р РµР»РёР· СЃРєСЂРёРїС‚Р°, Р·Р°РєСЂС‹С‚РѕРµ Р±РµС‚Р°-С‚РµСЃС‚РёСЂРѕРІР°РЅРёРµ',
+			'Релиз скрипта, закрытое бета-тестирование',
 		},
 		patches = {
 			show = false,
@@ -6204,235 +6204,235 @@ changelog = {
 	},
 }
 
-charter_default = [[Р“Р»Р°РІР° 1. РћР±С‰РёРµ РїРѕР»РѕР¶РµРЅРёСЏ.
-1.1. РЈСЃС‚Р°РІ Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° - СЌС‚Рѕ РІРЅСѓС‚СЂРёРѕСЂРіР°РЅРёР·Р°С†РёРѕРЅРЅС‹Р№ СЂРµРіР»Р°РјРµРЅС‚РёСЂСѓСЋС‰РёР№ РґРµСЏС‚РµР»СЊРЅРѕСЃС‚СЊ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РґРѕРєСѓРјРµРЅС‚.
-РЈСЃС‚Р°РІ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕС‚СЂРµРґР°РєС‚РёСЂРѕРІР°РЅ С‚РѕР»СЊРєРѕ РїРѕСЃР»Рµ С‚РѕРіРѕ РєР°Рє РѕРЅ Р±СѓРґРµС‚ РѕРґРѕР±СЂРµРЅ СЃРµРЅР°С‚РѕРј, Р° С‚Р°РєР¶Рµ РїСЂРё РѕРґРѕР±СЂРµРЅРёРё РіРѕР»РѕСЃРѕРІР°РЅРёРµРј РљРѕРЅРіСЂРµСЃСЃР° С€С‚Р°С‚Р° - 50% + 1.
-1.3. РЈСЃС‚Р°РІ СЃС‚Р°РІРёС‚СЃСЏ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅС‹Рј С‚РѕР»СЊРєРѕ СЃ РјРѕРјРµРЅС‚Р° РїСѓР±Р»РёРєР°С†РёРё РЅР° РѕС„РёС†РёР°Р»СЊРЅРѕРј РїРѕСЂС‚Р°Р»Рµ С€С‚Р°С‚Р°.
-1.4. Р—Р° РЅРµР·РЅР°РЅРёРµ, РЅРµСЃРѕР±Р»СЋРґРµРЅРёРµ СѓСЃС‚Р°РІР° СЂСѓРєРѕРІРѕРґСЃС‚РІРѕ РѕСЂРіР°РЅРёР·Р°С†РёРё РёРјРµРµС‚ РїСЂР°РІРѕ РІРІРµСЃС‚Рё РґРёСЃС†РёРїР»РёРЅР°СЂРЅРѕРµ РІР·С‹СЃРєР°РЅРёРµ РїСЂРѕС‚РёРІ СЃРѕС‚СЂСѓРґРЅРёРєР° РІ РІРёРґРµ РІС‹РіРѕРІРѕСЂР°, РїРѕРЅРёР¶РµРЅРёСЏ, СѓРІРѕР»СЊРЅРµРЅРёСЏ.
+charter_default = [[Глава 1. Общие положения.
+1.1. Устав Центрального Банка - это внутриорганизационный регламентирующий деятельность сотрудников документ.
+Устав может быть отредактирован только после того как он будет одобрен сенатом, а также при одобрении голосованием Конгресса штата - 50% + 1.
+1.3. Устав ставится действительным только с момента публикации на официальном портале штата.
+1.4. За незнание, несоблюдение устава руководство организации имеет право ввести дисциплинарное взыскание против сотрудника в виде выговора, понижения, увольнения.
 
-Р“Р»Р°РІР° 2. РћР±СЏР·Р°РЅРЅРѕСЃС‚Рё СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ.
-2.1. РљР°Р¶РґС‹Р№ СЃРѕС‚СЂСѓРґРЅРёРє РѕР±СЏР·Р°РЅ Р·РЅР°С‚СЊ Рё СЃРѕР±Р»СЋРґР°С‚СЊ СѓСЃС‚Р°РІ РѕСЂРіР°РЅРёР·Р°С†РёРё РІ РєРѕС‚РѕСЂРѕР№ РѕРЅ СЂР°Р±РѕС‚Р°РµС‚.
-2.2. РљР°Р¶РґС‹Р№ СЃРѕС‚СЂСѓРґРЅРёРє РѕР±СЏР·Р°РЅ РІС‹РїРѕР»РЅСЏС‚СЊ СЃРІРѕРё РґРѕР»Р¶РЅРѕСЃС‚РЅС‹Рµ РѕР±СЏР·Р°РЅРЅРѕСЃС‚Рё РєР°С‡РµСЃС‚РІРµРЅРЅРѕ.
-2.3. РљР°Р¶РґС‹Р№ СЃРѕС‚СЂСѓРґРЅРёРє РѕР±СЏР·Р°РЅ СЃРѕР±Р»СЋРґР°С‚СЊ РєРѕРЅСЃС‚РёС‚СѓС†РёСЋ, С‚СЂСѓРґРѕРІРѕР№ РєРѕРґРµРєСЃ Рё РёРЅС‹Рµ РїСЂР°РІРѕРІС‹Рµ Р°РєС‚С‹. РџСЂРё РЅРµСЃРѕР±Р»СЋРґРµРЅРёРё СЃРѕС‚СЂСѓРґРЅРёРє Р±СѓРґРµС‚ РЅР°РєР°Р·Р°РЅ РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ РґРµР№СЃС‚РІСѓСЋС‰РёРј Р·Р°РєРѕРЅРѕРґР°С‚РµР»СЊСЃС‚РІРѕРј.
-2.4. РљР°Р¶РґС‹Р№ СЃРѕС‚СЂСѓРґРЅРёРє РѕР±СЏР·Р°РЅ РїРѕРґС…РѕРґРёС‚СЊ Рє Р·Р°РґР°С‡Рµ РїРѕСЃС‚Р°РІР»РµРЅРЅРѕР№ СЂСѓРєРѕРІРѕРґСЃС‚РІРѕРј РѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕ.
-2.5. РљР°Р¶РґС‹Р№ СЃРѕС‚СЂСѓРґРЅРёРє РѕР±СЏР·Р°РЅ РІС‹РїРѕР»РЅСЏС‚СЊ Р·Р°РєРѕРЅРЅС‹Рµ С‚СЂРµР±РѕРІР°РЅРёСЏ СЂСѓРєРѕРІРѕРґСЃС‚РІР°.
-2.6. РљР°Р¶РґС‹Р№ СЃРѕС‚СЂСѓРґРЅРёРє РѕР±СЏР·Р°РЅ СЂР°Р·РіРѕРІР°СЂРёРІР°С‚СЊ СЃРѕ РІСЃРµРјРё СѓРІР°Р¶РёС‚РµР»СЊРЅРѕ РІ РґРµР»РѕРІРѕРј С‚РѕРЅРµ.
-2.7. РљР°Р¶РґС‹Р№ СЃРѕС‚СЂСѓРґРЅРёРє РІРѕ РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹ РѕР±СЏР·Р°РЅ Р±С‹С‚СЊ РїРѕРґРєР»СЋС‡С‘РЅРЅС‹Рј Рє СЃРїРµС†.СЂР°С†РёРё Р”РёСЃРєРѕСЂРґ.
+Глава 2. Обязанности сотрудников.
+2.1. Каждый сотрудник обязан знать и соблюдать устав организации в которой он работает.
+2.2. Каждый сотрудник обязан выполнять свои должностные обязанности качественно.
+2.3. Каждый сотрудник обязан соблюдать конституцию, трудовой кодекс и иные правовые акты. При несоблюдении сотрудник будет наказан в соответствии с действующим законодательством.
+2.4. Каждый сотрудник обязан подходить к задаче поставленной руководством ответственно.
+2.5. Каждый сотрудник обязан выполнять законные требования руководства.
+2.6. Каждый сотрудник обязан разговаривать со всеми уважительно в деловом тоне.
+2.7. Каждый сотрудник во время работы обязан быть подключённым к спец.рации Дискорд.
 
-Р“Р»Р°РІР° 3. РџРѕР»РЅРѕРјРѕС‡РёСЏ Рё РїСЂР°РІР° СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ.
-3.1. РЎРѕС‚СЂСѓРґРЅРёРєРё РѕС…СЂР°РЅС‹ РёРјРµСЋС‚ РїСЂР°РІРѕ РїСЂРёРјРµРЅРёС‚СЊ С„РёР·РёС‡РµСЃРєСѓСЋ СЃРёР»Сѓ РµСЃР»Рё СЂСѓРєРѕРІРѕРґСЃС‚РІСѓ СѓРіСЂРѕР¶Р°РµС‚ РѕРїР°СЃРЅРѕСЃС‚СЊ.
-3.2. РЎРѕС‚СЂСѓРґРЅРёРєРё РёРјРµСЋС‚ РїСЂР°РІРѕ РїРѕР»СѓС‡РёС‚СЊ Р»СЋР±СѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ РЅР° РѕС„РёС†РёР°Р»СЊРЅРѕРј РїСЂР°РІРѕРІРѕРј РїРѕСЂС‚Р°Р»Рµ С€С‚Р°С‚Р°.
-3.3. РЎРѕС‚СЂСѓРґРЅРёРєРё Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР°, Р° РёРјРµРЅРЅРѕ: РћРїРµСЂР°С†РёРѕРЅРёСЃС‚С‹, РљСЂРµРґРёС‚РЅС‹Рµ СЌРєСЃРїРµСЂС‚С‹, РњРµРЅРµРґР¶РµСЂС‹ Р±Р°РЅРєР°, Р—Р°РјРµСЃС‚РёС‚РµР»Рё Р”РёСЂРµРєС‚РѕСЂР° Р±Р°РЅРєР°, РњРёРЅРёСЃС‚СЂ Р¤РёРЅР°РЅСЃРѕРІ РёРјРµСЋС‚ РїСЂР°РІРѕ РїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ СЂР°С†РёРµР№ РґРµРїР°СЂС‚Р°РјРµРЅС‚Р° РІ СЃР»СѓР¶РµР±РЅС‹С… С†РµР»СЏС….
-3.4. РЎРѕС‚СЂСѓРґРЅРёРєРё Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° РёРјРµСЋС‚ РїСЂР°РІРѕ РЅР° Р»РёС‡РЅСѓСЋ Р¶РёР·РЅСЊ РІРЅРµ СЂР°Р±РѕС‡РµРіРѕ РІСЂРµРјРµРЅРё.
-3.5: РЎРѕС‚СЂСѓРґРЅРёРєРё С†РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р±Р°РЅРєР° РёРјРµСЋС‚ РїСЂР°РІРѕ РЅР° РѕС‚РїСѓСЃРє РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ СЃРѕРІСЂРµРјРµРЅРЅС‹Рј РўСЂСѓРґРѕРІС‹Рј РљРѕРґРµРєСЃРѕРј;
-3.5.1: РћС‚РїСѓСЃРє РјРѕР¶РµС‚ Р±С‹С‚СЊ РІР·СЏС‚ С‚РѕР»СЊРєРѕ СЂР°Р· РІ 2 РЅРµРґРµР»Рё РЅР° 1-2 РґРЅСЏ;
-3.5.2: РћС‚РїСѓСЃРє РїРѕРґСЂР°Р·СѓРјРµРІР°РµС‚ РїРѕРґ СЃРѕР±РѕР№ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РЅРµ РёСЃРїРѕР»РЅСЏС‚СЊ СЃРІРѕРё РґРѕР»Р¶РЅРѕСЃС‚РЅС‹Рµ РѕР±СЏР·Р°РЅРЅРѕСЃС‚Рё Рё Р·Р°РЅРёРјР°С‚СЊСЃСЏ Р»РёС‡РЅС‹РјРё РґРµР»Р°РјРё;
-3.5.3: РќРµР°РєС‚РёРІ РїРѕРґСЂР°Р·СѓРјРµРІР°РµС‚ РїРѕРґ СЃРѕР±РѕР№ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РЅРµ Р·Р°С…РѕРґРёС‚СЊ РІ РёРіСЂСѓ РІ С‚РµС‡РµРЅРёРё РѕРїСЂРµРґРµР»РµРЅРЅРѕРіРѕ РІСЂРµРјРµРЅРё(РјР°РєСЃ. 5 РґРЅРµР№ РІ РјРµСЃСЏС†);
-3.5.4: Р’Рѕ РІСЂРµРјСЏ РѕС‚РїСѓСЃРєР° Р·Р°РїСЂРµС‰РµРЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ С„РѕСЂРјСѓ, СЂР°С†РёСЋ, Р±РµР№РґР¶РёРє Рё С‚.Рґ;
-3.5.5: Р’Рѕ РІСЂРµРјСЏ РѕС‚РїСѓСЃРєР°/РЅРµР°РєС‚РёРІР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РЅР°СЂСѓС€Р°С‚СЊ Р·Р°РєРѕРЅС‹ С€С‚Р°С‚Р°;
+Глава 3. Полномочия и права сотрудников.
+3.1. Сотрудники охраны имеют право применить физическую силу если руководству угрожает опасность.
+3.2. Сотрудники имеют право получить любую информацию на официальном правовом портале штата.
+3.3. Сотрудники Центрального Банка, а именно: Операционисты, Кредитные эксперты, Менеджеры банка, Заместители Директора банка, Министр Финансов имеют право пользоваться рацией департамента в служебных целях.
+3.4. Сотрудники Центрального Банка имеют право на личную жизнь вне рабочего времени.
+3.5: Сотрудники центрального банка имеют право на отпуск в соответствии с современным Трудовым Кодексом;
+3.5.1: Отпуск может быть взят только раз в 2 недели на 1-2 дня;
+3.5.2: Отпуск подразумевает под собой возможность не исполнять свои должностные обязанности и заниматься личными делами;
+3.5.3: Неактив подразумевает под собой возможность не заходить в игру в течении определенного времени(макс. 5 дней в месяц);
+3.5.4: Во время отпуска запрещено использовать форму, рацию, бейджик и т.д;
+3.5.5: Во время отпуска/неактива строго запрещено нарушать законы штата;
 
-Р“Р»Р°РІР° 4. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р·Р°РїСЂРµС‰Р°РµС‚СЃСЏ.
-4.1. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РЅР°СЂСѓС€Р°С‚СЊ: Р—Р°РєРѕРЅРѕРґР°С‚РµР»СЊСЃС‚РІРѕ РЁС‚Р°С‚Р° Red-Rock
-4.2. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ Р±РµР·РґРµР№СЃС‚РІРѕРІР°С‚СЊ РїСЂРё СѓРіСЂРѕР·Рµ РѕСЂРіР°РЅР°Рј РІС‹СЃС€РµР№ РёСЃРїРѕР»РЅРёС‚РµР»СЊРЅРѕР№ РІР»Р°СЃС‚Рё.
-4.3. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РїСЂРѕРіСѓР»РёРІР°С‚СЊ СЂР°Р±РѕС‡РёР№ РґРµРЅСЊ
-4.3.1. Р Р°Р±РѕС‡РёР№ РґРµРЅСЊ РІ Р±СѓРґРЅРёРµ РґРЅРё СЃ 10:00 РґРѕ 20:00.
-4.3.2. Р Р°Р±РѕС‡РёР№ РґРµРЅСЊ РІ РІС‹С…РѕРґРЅС‹Рµ СЃ 10:00 РґРѕ 19:00.
-4.3.3. РћР±РµРґРµРЅРЅС‹Р№ РїРµСЂРµСЂС‹РІ СЃ 14:00 РґРѕ 15:00 РµР¶РµРґРЅРµРІРЅРѕ.
-4.4 РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РёРјСѓС‰РµСЃС‚РІРѕРј РѕСЂРіР°РЅРёР·Р°С†РёРё РІ Р»РёС‡РЅС‹С… С†РµР»СЏС….
-4.5. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РїСЂРёРјРµРЅСЏС‚СЊ РѕРіРЅРµСЃС‚СЂРµР»СЊРЅРѕРµ РѕСЂСѓР¶РёРµ.
-4.5.1 РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° Р·Р°РїСЂРµС‰РµРЅРѕ СѓРіСЂРѕР¶Р°С‚СЊ РєРѕРјСѓ Р»РёР±Рѕ.
-4.5.2. РСЃРєР»СЋС‡РµРЅРёРµ: РќР° РѕСЃРЅРѕРІР°РЅРёРё РЈРіРѕР»РѕРІРЅРѕРіРѕ Рё РђРґРјРёРЅРёСЃС‚СЂР°С‚РёРІРЅРѕРіРѕ РєРѕРґРµРєСЃР° РїСЂРё РЅР°Р»РёС‡РёРё Р»РёС†РµРЅР·РёРё.
-4.6. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РєСѓСЂРёС‚СЊ.
-4.7. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РІС‹РїРёРІР°С‚СЊ СЃРїРёСЂС‚РЅС‹Рµ РЅР°РїРёС‚РєРё.
-4.7.1 РЎРѕС‚СЂСѓРґРЅРёРєР°Рј С†РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р±Р°РЅРєР° Р·Р°РїСЂРµС‰РµРЅРѕ СѓРїРѕС‚СЂРµР±Р»СЏС‚СЊ РЅР°СЂРєРѕС‚РёС‡РµСЃРєРёРµ РІРµС‰РµСЃС‚РІР°
-4.8. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РІС‹СЂР°Р¶Р°С‚СЊСЃСЏ РЅРµС†РµРЅР·СѓСЂРЅРѕ.
-4.9. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РѕСЃРїР°СЂРёРІР°С‚СЊ Р·Р°РєРѕРЅРЅС‹Рµ СѓРєР°Р·Р°РЅРёСЏ СЂСѓРєРѕРІРѕРґСЃС‚РІР°.
-4.10. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РЅРѕСЃРёС‚СЊ РЅР° СЃРµР±Рµ Р°РєСЃРµСЃСЃСѓР°СЂС‹.
-4.10.1. РСЃРєР»СЋС‡РµРЅРёСЏ: РўС‘РјРЅС‹Рµ РѕС‡РєРё С‡С‘СЂРЅРѕРіРѕ С†РІРµС‚Р°, С‡Р°СЃС‹, СѓСЃС‹, С†РёР»РёРЅРґСЂ Р»СЋР±РѕРіРѕ С†РІРµС‚Р°, РјРѕРЅРѕРєР»СЊ, Р—РІРµР·РґР° РЅР° РіСЂСѓРґСЊ, РЎРµСЂРґС†Рµ РЅР° РіСЂСѓРґСЊ, Р СѓР±Р°С€РєР° РЅР° РіСЂСѓРґСЊ, Р—Р°РјРѕРє РЅР° РіСЂСѓРґСЊ, РљСЂРµСЃС‚ РЅР° РіСЂСѓРґСЊ, С€Р»СЏРїР° (РїРѕР»РёС†РµР№СЃРєР°СЏ).
-4.11. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ Р·Р°РїСЂРµС‰РµРЅРѕ СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ РјРµРЅСЏС‚СЊ\РїРѕРєРёРґР°С‚СЊ РїРѕСЃС‚.
-4.12. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РїСЂРѕСЃРёС‚СЊ Рё РЅР°РјРµРєР°С‚СЊ РЅР° РїРѕРІС‹С€РµРЅРёРµ.
-4.13. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РїСЂРѕСЃРёС‚СЊ Рё РЅР°РјРµРєР°С‚СЊ РЅР° РїСЂРѕРІРµСЂРєСѓ РѕС‚С‡С‘С‚РѕРІ.
-4.14. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РЅР°СЂСѓС€Р°С‚СЊ РґРёСЃС†РёРїР»РёРЅСѓ РІ СЃС‚СЂРѕСЋ. РћС‚РѕР±СЂР°Р¶РµРЅРѕ РІ СѓСЃС‚Р°РІРµ.
-4.15. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РїСЂРѕСЃРёС‚СЊ Рё РЅР°РјРµРєР°С‚СЊ РЅР° РІС‹РїР»Р°С‚Сѓ РїСЂРµРјРёРё.
-4.16. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РїСЂРёРјРµРЅСЏС‚СЊ С„РёР·РёС‡РµСЃРєСѓСЋ СЃРёР»Сѓ Р±РµР· РІРµСЃРѕРјРѕР№ РїСЂРёС‡РёРЅС‹.
-4.17. РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° СЃС‚СЂРѕРіРѕ Р·Р°РїСЂРµС‰РµРЅРѕ РґРѕР»РіРѕ СЃРїР°С‚СЊ РЅР° СЂР°Р±РѕС‡РµРј РјРµСЃС‚Рµ.
-4.17.1. РћС…СЂР°РЅР° Рё СЃРѕС‚СЂСѓРґРЅРёРєРё Р‘Р°РЅРєР° [1-4] РЅРµ Р±РѕР»РµРµ РґРµСЃСЏС‚Рё РјРёРЅСѓС‚.
-4.17.2. РЎС‚Р°СЂС€РёРµ СЃРѕС‚СЂСѓРґРЅРёРєРё Р±Р°РЅРєР°, РќР°С‡Р°Р»СЊРЅРёРєРё РѕС‚РґРµР»Р° СЃР±РµСЂРµР¶РµРЅРёР№, Р—Р°РІРµРґСѓСЋС‰РёРµ РѕС‚РґРµР»РѕРј СЃР±РµСЂРµР¶РµРЅРёР№, [5-8] РЅРµ Р±РѕР»РµРµ РґРµСЃСЏС‚Рё РјРёРЅСѓС‚.
-4.17.3. Р—Р°РјРµСЃС‚РёС‚РµР»Рё Р”РёСЂРµРєС‚РѕСЂР° [9] РЅРµ Р±РѕР»РµРµ РґРµСЃСЏС‚Рё РјРёРЅСѓС‚.
-4.18 РЎРѕС‚СЂСѓРґРЅРёРєР°Рј Р·Р°РїСЂРµС‰РµРЅРѕ РЅРµ СЏРІР»СЏС‚СЊСЃСЏ РЅР° СЂР°Р±РѕС‡РµРµ РјРµСЃС‚Рѕ РІ С‚РµС‡РµРЅРёРё 5 РґРЅРµР№, Р±РµР· СѓС‡С‘С‚Р° РѕС‚РїСѓСЃРєР°.
-4.19 Р—Р°РїСЂРµС‰РµРЅРѕ РЅР°С…РѕРґРёС‚СЃСЏ РІРЅРµ Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р±Р°РЅРєР° РІ С„РѕСЂРјРµ(РёСЃРєР»СЋС‡РµРЅРёРµ: РјРї, СЂРї, РїРѕРјРѕС‰СЊ СЂСѓРєРѕРІРѕРґСЃС‚РІСѓ)
+Глава 4. Сотрудникам запрещается.
+4.1. Сотрудникам Центрального Банка строго запрещено нарушать: Законодательство Штата Red-Rock
+4.2. Сотрудникам Центрального Банка строго запрещено бездействовать при угрозе органам высшей исполнительной власти.
+4.3. Сотрудникам Центрального Банка строго запрещено прогуливать рабочий день
+4.3.1. Рабочий день в будние дни с 10:00 до 20:00.
+4.3.2. Рабочий день в выходные с 10:00 до 19:00.
+4.3.3. Обеденный перерыв с 14:00 до 15:00 ежедневно.
+4.4 Сотрудникам Центрального Банка строго запрещено пользоваться имуществом организации в личных целях.
+4.5. Сотрудникам Центрального Банка строго запрещено применять огнестрельное оружие.
+4.5.1 Сотрудникам Центрального Банка запрещено угрожать кому либо.
+4.5.2. Исключение: На основании Уголовного и Административного кодекса при наличии лицензии.
+4.6. Сотрудникам Центрального Банка строго запрещено курить.
+4.7. Сотрудникам Центрального Банка строго запрещено выпивать спиртные напитки.
+4.7.1 Сотрудникам центрального банка запрещено употреблять наркотические вещества
+4.8. Сотрудникам Центрального Банка строго запрещено выражаться нецензурно.
+4.9. Сотрудникам Центрального Банка строго запрещено оспаривать законные указания руководства.
+4.10. Сотрудникам Центрального Банка строго запрещено носить на себе аксессуары.
+4.10.1. Исключения: Тёмные очки чёрного цвета, часы, усы, цилиндр любого цвета, монокль, Звезда на грудь, Сердце на грудь, Рубашка на грудь, Замок на грудь, Крест на грудь, шляпа (полицейская).
+4.11. Сотрудникам Центрального Банка строго запрещено запрещено самостоятельно менять\покидать пост.
+4.12. Сотрудникам Центрального Банка строго запрещено просить и намекать на повышение.
+4.13. Сотрудникам Центрального Банка строго запрещено просить и намекать на проверку отчётов.
+4.14. Сотрудникам Центрального Банка строго запрещено нарушать дисциплину в строю. Отображено в уставе.
+4.15. Сотрудникам Центрального Банка строго запрещено просить и намекать на выплату премии.
+4.16. Сотрудникам Центрального Банка строго запрещено применять физическую силу без весомой причины.
+4.17. Сотрудникам Центрального Банка строго запрещено долго спать на рабочем месте.
+4.17.1. Охрана и сотрудники Банка [1-4] не более десяти минут.
+4.17.2. Старшие сотрудники банка, Начальники отдела сбережений, Заведующие отделом сбережений, [5-8] не более десяти минут.
+4.17.3. Заместители Директора [9] не более десяти минут.
+4.18 Сотрудникам запрещено не являться на рабочее место в течении 5 дней, без учёта отпуска.
+4.19 Запрещено находится вне Центрального банка в форме(исключение: мп, рп, помощь руководству)
 
-Р“Р»Р°РІР° 5. Р”РёСЃС†РёРїР»РёРЅР° РІ СЃС‚СЂРѕСЋ.
-5.1. Р’СЂРµРјСЏ РїРѕСЃС‚СЂРѕРµРЅРёСЏ Р·Р°РІРёСЃРёС‚ РѕС‚ С‚СЂРµР±РѕРІР°РЅРёР№ С‡РµР»РѕРІРµРєР° РїСЂРѕРІРѕРґСЏС‰РµРіРѕ СЃС‚СЂРѕР№ (РЅРµ РјРµРЅРµРµ РїСЏС‚Рё РјРёРЅСѓС‚).
-5.2. Р’ СЃС‚СЂРѕСЋ СЃРѕС‚СЂСѓРґРЅРёРєР°Рј Р·Р°РїСЂРµС‰РµРЅРѕ РїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РјРѕР±РёР»СЊРЅС‹Рј С‚РµР»РµС„РѕРЅРѕРј.
-5.3. Р’ СЃС‚СЂРѕСЋ СЃРѕС‚СЂСѓРґРЅРёРєР°Рј Р·Р°РїСЂРµС‰РµРЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р»СЋР±С‹Рµ Р¶РµСЃС‚С‹.
-5.4. Р’ СЃС‚СЂРѕСЋ СЃРѕС‚СЂСѓРґРЅРёРєР°Рј Р·Р°РїСЂРµС‰РµРЅРѕ РІРµСЃС‚Рё СЂР°Р·РіРѕРІРѕСЂС‹.
-5.5. Р’ СЃС‚СЂРѕСЋ СЃРѕС‚СЂСѓРґРЅРёРєР°Рј Р·Р°РїСЂРµС‰РµРЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЂР°С†РёСЋ РІ СЃС‚СЂРѕСЋ.
-5.6. Р’ СЃС‚СЂРѕСЋ СЃРѕС‚СЂСѓРґРЅРёРєР°Рј Р·Р°РїСЂРµС‰РµРЅРѕ РїРµСЂРµРґР°РІР°С‚СЊ С‡С‚Рѕ Р»РёР±Рѕ.
-5.7. Р’ СЃС‚СЂРѕСЋ СЃРѕС‚СЂСѓРґРЅРёРє РѕР±СЏР·Р°РЅ РІРЅРёРјР°С‚РµР»СЊРЅРѕ СЃР»СѓС€Р°С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ РїРµСЂРµРґР°РІР°РµРјСѓСЋ С‡РµР»РѕРІРµРєРѕРј РєРѕС‚РѕСЂС‹Р№ РїСЂРѕРІРѕРґРёС‚ СЃС‚СЂРѕР№.
-5.8. РЎРѕР±РёСЂР°С‚СЊ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РѕСЂРіР°РЅРёР·Р°С†РёРё РЅР° РїРѕСЃС‚СЂРѕРµРЅРёРµ РёРјРµСЋС‚ РїСЂР°РІРѕ СЃРѕС‚СЂСѓРґРЅРёРєРё СЃ РґРѕР»Р¶РЅРѕСЃС‚Рё РћРїРµСЂР°С†РёРѕРЅРёСЃС‚ (5+) Рё РІС‹С€Рµ.
-5.9. Р—Р° РїРѕРІРµРґРµРЅРёРµ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ РІ СЃС‚СЂРѕСЋ РѕС‚РІРµС‡Р°РµС‚ С‡РµР»РѕРІРµРє РєРѕС‚РѕСЂС‹Р№ РїСЂРѕРІРѕРґРёС‚ СЃС‚СЂРѕР№.
+Глава 5. Дисциплина в строю.
+5.1. Время построения зависит от требований человека проводящего строй (не менее пяти минут).
+5.2. В строю сотрудникам запрещено пользоваться мобильным телефоном.
+5.3. В строю сотрудникам запрещено использовать любые жесты.
+5.4. В строю сотрудникам запрещено вести разговоры.
+5.5. В строю сотрудникам запрещено использовать рацию в строю.
+5.6. В строю сотрудникам запрещено передавать что либо.
+5.7. В строю сотрудник обязан внимательно слушать информацию передаваемую человеком который проводит строй.
+5.8. Собирать сотрудников организации на построение имеют право сотрудники с должности Операционист (5+) и выше.
+5.9. За поведение сотрудников в строю отвечает человек который проводит строй.
 
-Р“Р»Р°РІР° 6. РћСЃРѕР±С‹Рµ РїРѕР»РѕР¶РµРЅРёСЏ РїСЂРё РїСЂРѕРІРµРґРµРЅРёРё С‚СЂРµРЅРёСЂРѕРІРѕРє Рё Р»РµРєС†РёРѕРЅРЅС‹С… Р·Р°РґР°С‡
-6.1 Р›РµРєС†РёРѕРЅРЅС‹Рµ Р·Р°РґР°С‡Рё РјРѕРіСѓС‚ РІС‹РґР°РІР°С‚СЊ РёСЃРєР»СЋС‡РёС‚РµР»СЊРЅРѕ СЃРѕС‚СЂСѓРґРЅРёРєРё СЃ РґРѕР»Р¶РЅРѕСЃС‚Рё РћРїРµСЂР°С†РёРѕРЅРёСЃС‚ Рё РІС‹С€Рµ (5+)
-6.2 РўСЂРµРЅРёСЂРѕРІРєРё РјРѕРіСѓС‚ РїСЂРѕРІРѕРґРёС‚СЊ СЃРѕС‚СЂСѓРґРЅРёРєРё, РЅР°С…РѕРґСЏС‰РёРµСЃСЏ РЅР° РґРѕР»Р¶РЅРѕСЃС‚Рё РћРїРµСЂР°С†РёРѕРЅРёСЃС‚ Рё РІС‹С€Рµ (5+)
-6.3.1 РћРґРёРЅ СЃРѕС‚СЂСѓРґРЅРёРє Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° РёРјРµРµС‚ РїСЂР°РІРѕ РІС‹РґР°РІР°С‚СЊ Р»РµРєС†РёРѕРЅРЅС‹Рµ Р·Р°РґР°С‡Рё РѕРґРёРЅ СЂР°Р· РІ 25 РјРёРЅСѓС‚.
-6.3.2 РњРµР¶РґСѓ С‚СЂРµРЅРёСЂРѕРІРѕС‡РЅС‹РјРё РјРµСЂРѕРїСЂРёСЏС‚РёСЏРјРё РѕР±С‰РёР№ РїРµСЂРµСЂС‹РІ СЃРѕСЃС‚Р°РІР»СЏРµС‚ 30 РјРёРЅСѓС‚.
-6.3.3 РћРґРёРЅ СЃРѕС‚СЂСѓРґРЅРёРє Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРіРѕ Р‘Р°РЅРєР° РёРјРµРµС‚ РїСЂР°РІРѕ РїСЂРѕРІРѕРґРёС‚СЊ С‚СЂРµРЅРёСЂРѕРІРѕС‡РЅС‹Рµ РјРµСЂРѕРїСЂРёСЏС‚РёСЏ РѕРґРёРЅ СЂР°Р· РІ 35 РјРёРЅСѓС‚.
-6.4 Р—Р° РЅРµРІС‹РїРѕР»РЅРµРЅРёРµ РґР°РЅРЅС‹С… РЅРѕСЂРј СѓРїСЂР°РІР»СЏСЋС‰РёРµ Р»РёС†Р° РѕСЂРіР°РЅРёР·Р°С†РёРё РћР‘РЇР—РђРќР« РѕС‚РєР»РѕРЅРёС‚СЊ РґР°Р»СЊРЅРµР№С€Р№ РѕС‚С‡С‘С‚ РЅР° РїРѕРІС‹С€РµРЅРёРµ СЃРѕС‚СЂСѓРґРЅРёРєР° РІ РґРѕР»Р¶РЅРѕСЃС‚Рё.
-6.4.1 Р’ СЃР»СѓС‡Р°Рµ РёРіРЅРѕСЂРёСЂРѕРІР°РЅРёСЏ РЅР°СЂСѓС€РµРЅРёР№ СЂСѓРєРѕРІРѕРґРёС‚РµР»СЊ РѕСЂРіР°РЅРёР·Р°С†РёРё РїРѕР»СѓС‡Р°РµС‚ СѓСЃС‚РЅРѕРµ РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ.]]
+Глава 6. Особые положения при проведении тренировок и лекционных задач
+6.1 Лекционные задачи могут выдавать исключительно сотрудники с должности Операционист и выше (5+)
+6.2 Тренировки могут проводить сотрудники, находящиеся на должности Операционист и выше (5+)
+6.3.1 Один сотрудник Центрального Банка имеет право выдавать лекционные задачи один раз в 25 минут.
+6.3.2 Между тренировочными мероприятиями общий перерыв составляет 30 минут.
+6.3.3 Один сотрудник Центрального Банка имеет право проводить тренировочные мероприятия один раз в 35 минут.
+6.4 За невыполнение данных норм управляющие лица организации ОБЯЗАНЫ отклонить дальнейшй отчёт на повышение сотрудника в должности.
+6.4.1 В случае игнорирования нарушений руководитель организации получает устное предупреждение.]]
 
-HRsystem_default = [[{006AC2}РљР°РґСЂРѕРІР°СЏ СЃРёСЃС‚РµРјР°{SSSSSS} - СЃРёСЃС‚РµРјР° РѕС‚СЃС‡С‘С‚Р° РІСЂРµРјРµРЅРё РЅР°С…РѕР¶РґРµРЅРёСЏ РЅР° 
-РєР°Р¶РґРѕРј СЂР°РЅРіРµ. Р”СЂСѓРіРёРјРё СЃР»РѕРІР°РјРё - СЌС‚Рѕ РІР°С€ РёСЃРїС‹С‚Р°С‚РµР»СЊРЅС‹Р№ 
-СЃСЂРѕРє РЅР° РІР°С€РµРј СЂР°РЅРіРµ. Р Р°РЅСЊС€Рµ РЅРµРіРѕ РІС‹ РЅРµ РјРѕР¶РµС‚Рµ РїРµСЂРµР№С‚Рё
-РЅР° СЃР»РµРґСѓСЋС‰РёР№. РСЃРїС‹С‚Р°С‚РµР»СЊРЅС‹Рµ СЃСЂРѕРєРё СЃ 1 РїРѕ 9 СЂР°РЅРі:
+HRsystem_default = [[{006AC2}Кадровая система{SSSSSS} - система отсчёта времени нахождения на 
+каждом ранге. Другими словами - это ваш испытательный 
+срок на вашем ранге. Раньше него вы не можете перейти
+на следующий. Испытательные сроки с 1 по 9 ранг:
 
-{006AC2}1 {SSSSSS}->{006AC2} 2 СЂР°РЅРі {SSSSSS}- РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚
-{006AC2}2 {SSSSSS}->{006AC2} 3 СЂР°РЅРі {SSSSSS}- 12 С‡Р°СЃРѕРІ
-{006AC2}3 {SSSSSS}->{006AC2} 4 СЂР°РЅРі {SSSSSS}- 24 С‡Р°СЃР°
-{006AC2}4 {SSSSSS}->{006AC2} 5 СЂР°РЅРі {SSSSSS}- 24 С‡Р°СЃР°
-{006AC2}5 {SSSSSS}->{006AC2} 6 СЂР°РЅРі {SSSSSS}- 48 С‡Р°СЃРѕРІ (2-Рµ СЃСѓС‚РѕРє)
-{006AC2}6 {SSSSSS}->{006AC2} 7 СЂР°РЅРі {SSSSSS}- 72 С‡Р°СЃР° (3-Рµ СЃСѓС‚РѕРє)
-{006AC2}7 {SSSSSS}->{006AC2} 8 СЂР°РЅРі {SSSSSS}- 120 С‡Р°СЃРѕРІ (5 СЃСѓС‚РѕРє)
-{006AC2}8 {SSSSSS}->{006AC2} 9 СЂР°РЅРі {SSSSSS}- 144 С‡Р°СЃР° (6 СЃСѓС‚РѕРє)
-{006AC2}9 {SSSSSS}->{006AC2} 10 СЂР°РЅРі {SSSSSS}- 360 С‡Р°СЃРѕРІ (15 СЃСѓС‚РѕРє)]]
+{006AC2}1 {SSSSSS}->{006AC2} 2 ранг {SSSSSS}- Отсутствует
+{006AC2}2 {SSSSSS}->{006AC2} 3 ранг {SSSSSS}- 12 часов
+{006AC2}3 {SSSSSS}->{006AC2} 4 ранг {SSSSSS}- 24 часа
+{006AC2}4 {SSSSSS}->{006AC2} 5 ранг {SSSSSS}- 24 часа
+{006AC2}5 {SSSSSS}->{006AC2} 6 ранг {SSSSSS}- 48 часов (2-е суток)
+{006AC2}6 {SSSSSS}->{006AC2} 7 ранг {SSSSSS}- 72 часа (3-е суток)
+{006AC2}7 {SSSSSS}->{006AC2} 8 ранг {SSSSSS}- 120 часов (5 суток)
+{006AC2}8 {SSSSSS}->{006AC2} 9 ранг {SSSSSS}- 144 часа (6 суток)
+{006AC2}9 {SSSSSS}->{006AC2} 10 ранг {SSSSSS}- 360 часов (15 суток)]]
 
-Promotion_default = [[{SSSSSS}Р”Р»СЏ РїРѕРІС‹С€РµРЅРёСЏ РІС‹ РґРѕР»Р¶РЅС‹ СЃРѕСЃС‚Р°РІРёС‚СЊ РѕС‚С‡С‘С‚ Рѕ РїСЂРѕРґРµР»Р°РЅРЅРѕР№ СЂР°Р±РѕС‚Рµ, РєРѕС‚РѕСЂС‹Р№ РґРѕР»Р¶РµРЅ РІРєР»СЋС‡Р°С‚СЊ Р·Р°РґР°РЅРёСЏ РёР· СЃРїРёСЃРєР° РЅРёР¶Рµ:
+Promotion_default = [[{SSSSSS}Для повышения вы должны составить отчёт о проделанной работе, который должен включать задания из списка ниже:
 
-{SSSSSS}1) РџСЂРѕРІРµСЂРёС‚СЊ Р·РЅР°РЅРёСЏ СѓСЃС‚Р°РІР° Рё СЂРµС‡СЊ Сѓ СЃС‚Р°Р¶РµСЂР° {006AC2}[2 Р±Р°Р»Р»Р°]
-{SSSSSS}2) Р”РІР° СЂР°Р·Р° РїРѕРјРѕС‡СЊ РІ СЃРѕР±РµСЃРµРґРѕРІР°РЅРёРё {006AC2}[1 Р±Р°Р»Р»]
-{SSSSSS}3) РџСЂРѕРІРµСЃС‚Рё Р»РµРєС†РёСЋ РґР»СЏ СЃРѕСЃС‚Р°РІР° {006AC2}[3 Р±Р°Р»Р»Р°]
-{SSSSSS}4) РџСЂРѕРІРµСЃС‚Рё РњРџ СЃ СЃРѕСЃС‚Р°РІРѕРј {006AC2}[4 Р±Р°Р»Р»Р°]
-{SSSSSS}5) РџСЂРѕРІРµСЃС‚Рё Р Рџ СЃ СЃРѕСЃС‚Р°РІРѕРј {006AC2}[5 Р±Р°Р»Р»РѕРІ]
-{SSSSSS}6) РџСЂРѕРІРµСЃС‚Рё РњРџ СЃ РґСЂСѓРіРѕР№ РѕСЂРіР°РЅРёР·Р°С†РёРµР№ {006AC2}[6 Р±Р°Р»Р»РѕРІ]
-{SSSSSS}7) РџСЂРѕРІРµСЃС‚Рё Р Рџ СЃ РґСЂСѓРіРѕР№ РѕСЂРіР°РЅРёР·Р°С†РёРµР№ {006AC2}[7 Р±Р°Р»Р»РѕРІ]
-{SSSSSS}8) РђРєС‚РёРІРЅРѕРµ СѓС‡Р°СЃС‚РёРµ РІ Р“Р Рџ {006AC2}[7 Р±Р°Р»Р»РѕРІ]
-{SSSSSS}9) Р“РњРџ СЃ РіСЂР°Р¶РґР°РЅР°РјРё С€С‚Р°С‚Р° {006AC2}[10 Р±Р°Р»Р»РѕРІ]
-{SSSSSS}10) Р“Р»Р°РІРЅР°СЏ СЂРѕР»СЊ РІ Р“Р Рџ {006AC2}[10 Р±Р°Р»Р»РѕРІ]
-{SSSSSS}11) Р’С‹РїРѕР»РЅРёС‚СЊ РїРѕСЂСѓС‡РµРЅРёРµ РѕС‚ Р­РґСѓР°СЂРґР° "Р’С‹РґР°РµРј РґРµРїРѕР·РёС‚" {006AC2}[3 Р±Р°Р»Р»Р°]
-{SSSSSS}12) Р’С‹РїРѕР»РЅРёС‚СЊ РїРѕСЂСѓС‡РµРЅРёРµ РѕС‚ Р­РґСѓР°СЂРґР° "РЎРЅРёРјР°РµРј РґРµРЅСЊРіРё" {006AC2}[3 Р±Р°Р»Р»Р°]
-{SSSSSS}13) Р’С‹РїРѕР»РЅРёС‚СЊ РїРѕСЂСѓС‡РµРЅРёРµ РѕС‚ Р­РґСѓР°СЂРґР° "Р РµРіРёСЃС‚СЂРёСЂСѓРµРј СЃС‡РµС‚Р°!" {006AC2}[2 Р±Р°Р»Р»Р°]
-{SSSSSS}14) Р’С‹РїРѕР»РЅРёС‚СЊ РїРѕСЂСѓС‡РµРЅРёРµ РѕС‚ Р­РґСѓР°СЂРґР° "Р’РѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЃС‡РµС‚Р°" {006AC2}[2 Р±Р°Р»Р»Р°]
-{SSSSSS}15) Р’С‹РїРѕР»РЅРёС‚СЊ РїРѕСЂСѓС‡РµРЅРёРµ РѕС‚ Р­РґСѓР°СЂРґР° "РќРµР»РµРіРєР°СЏ СЂР°Р±РѕС‚Р°" {006AC2}[2 Р±Р°Р»Р»Р°]
+{SSSSSS}1) Проверить знания устава и речь у стажера {006AC2}[2 балла]
+{SSSSSS}2) Два раза помочь в собеседовании {006AC2}[1 балл]
+{SSSSSS}3) Провести лекцию для состава {006AC2}[3 балла]
+{SSSSSS}4) Провести МП с составом {006AC2}[4 балла]
+{SSSSSS}5) Провести РП с составом {006AC2}[5 баллов]
+{SSSSSS}6) Провести МП с другой организацией {006AC2}[6 баллов]
+{SSSSSS}7) Провести РП с другой организацией {006AC2}[7 баллов]
+{SSSSSS}8) Активное участие в ГРП {006AC2}[7 баллов]
+{SSSSSS}9) ГМП с гражданами штата {006AC2}[10 баллов]
+{SSSSSS}10) Главная роль в ГРП {006AC2}[10 баллов]
+{SSSSSS}11) Выполнить поручение от Эдуарда "Выдаем депозит" {006AC2}[3 балла]
+{SSSSSS}12) Выполнить поручение от Эдуарда "Снимаем деньги" {006AC2}[3 балла]
+{SSSSSS}13) Выполнить поручение от Эдуарда "Регистрируем счета!" {006AC2}[2 балла]
+{SSSSSS}14) Выполнить поручение от Эдуарда "Восстанавливаем счета" {006AC2}[2 балла]
+{SSSSSS}15) Выполнить поручение от Эдуарда "Нелегкая работа" {006AC2}[2 балла]
 
-{SSSSSS}РќРѕСЂРјР° РєРѕР»Р»РёС‡РµСЃС‚РІР° Р±Р°Р»Р»РѕРІ РґР»СЏ РїРѕРІС‹С€РµРЅРёСЏ:
-{006AC2}5-6 СЂР°РЅРі {SSSSSS}- РќРµС‚ РЅРѕСЂРјС‹, РѕС‚С‡РµС‚ РІРєР»СЋС‡Р°РµС‚ С‚РѕР»СЊРєРѕ С‚Рѕ, С‡С‚Рѕ РІС‹ СЃРґРµР»Р°Р»Рё РІРѕРѕР±С‰Рµ
-{006AC2}6-7 СЂР°РЅРі {SSSSSS}- РќРµС‚ РЅРѕСЂРјС‹, РѕС‚С‡РµС‚ РІРєР»СЋС‡Р°РµС‚ С‚РѕР»СЊРєРѕ С‚Рѕ, С‡С‚Рѕ РІС‹ СЃРґРµР»Р°Р»Рё РІРѕРѕР±С‰Рµ
-{006AC2}7-8 СЂР°РЅРі {SSSSSS}- 100 Р±Р°Р»Р»РѕРІ
-{006AC2}8-9 СЂР°РЅРі {SSSSSS}- 200 Р±Р°Р»Р»РѕРІ
+{SSSSSS}Норма колличества баллов для повышения:
+{006AC2}5-6 ранг {SSSSSS}- Нет нормы, отчет включает только то, что вы сделали вообще
+{006AC2}6-7 ранг {SSSSSS}- Нет нормы, отчет включает только то, что вы сделали вообще
+{006AC2}7-8 ранг {SSSSSS}- 100 баллов
+{006AC2}8-9 ранг {SSSSSS}- 200 баллов
 ]]
 
-lending_default = [[РћС‚ {009000}5.000${FFFFFF} РґРѕ {009000}25.000${FFFFFF}:
-РџСЂРѕР¶РёРІР°С‚СЊ РІ С€С‚Р°С‚Рµ РѕС‚ 3-С… РґРѕ 5-РјРё Р»РµС‚
-РРјРµС‚СЊ РѕРїСЂСЏС‚РЅС‹Р№ РІРЅРµС€РЅРёР№ РІРёРґ
-РРјРµС‚СЊ Р·Р°РєРѕРЅРѕРїРѕСЃР»СѓС€РЅРѕСЃС‚СЊ РІС‹С€Рµ 30-С‚Рё
+lending_default = [[От {009000}5.000${FFFFFF} до {009000}25.000${FFFFFF}:
+Проживать в штате от 3-х до 5-ми лет
+Иметь опрятный внешний вид
+Иметь законопослушность выше 30-ти
 ---
-РћС‚ {009000}25.000${FFFFFF} РґРѕ {009000}50.000${FFFFFF}:
-РџСЂРѕР¶РёРІР°С‚СЊ РІ С€С‚Р°С‚Рµ РѕС‚ 5-РјРё РґРѕ 8-С‚Рё Р»РµС‚
-РРјРµС‚СЊ РѕРїСЂСЏС‚РЅС‹Р№ РІРЅРµС€РЅРёР№ РІРёРґ
-РРјРµС‚СЊ Р·Р°РєРѕРЅРѕРїРѕСЃР»СѓС€РЅРѕСЃС‚СЊ РІС‹С€Рµ 40-С‚Рё
+От {009000}25.000${FFFFFF} до {009000}50.000${FFFFFF}:
+Проживать в штате от 5-ми до 8-ти лет
+Иметь опрятный внешний вид
+Иметь законопослушность выше 40-ти
 ---
-РћС‚ {009000}50.000${FFFFFF} РґРѕ {009000}100.000${FFFFFF}:
-РџСЂРѕР¶РёРІР°С‚СЊ РІ С€С‚Р°С‚Рµ РѕС‚ 8-С‚Рё РґРѕ 11-С‚Рё Р»РµС‚
-РРјРµС‚СЊ РїСЂРѕРїРёСЃРєСѓ РІ С€С‚Р°С‚Рµ
-РќРµ РёРјРµС‚СЊ РїСЂРѕР±Р»РµРј СЃ РїСЃРёС…РёРєРѕР№.
-РРјРµС‚СЊ РѕРїСЂСЏС‚РЅС‹Р№ РІРЅРµС€РЅРёР№ РІРёРґ
-РРјРµС‚СЊ Р·Р°РєРѕРЅРѕРїРѕСЃР»СѓС€РЅРѕСЃС‚СЊ РІС‹С€Рµ 50-С‚Рё
+От {009000}50.000${FFFFFF} до {009000}100.000${FFFFFF}:
+Проживать в штате от 8-ти до 11-ти лет
+Иметь прописку в штате
+Не иметь проблем с психикой.
+Иметь опрятный внешний вид
+Иметь законопослушность выше 50-ти
 ---
-РћС‚ {009000}75.000${FFFFFF} РґРѕ {009000}100.000${FFFFFF}:
-РџСЂРѕР¶РёРІР°С‚СЊ РІ С€С‚Р°С‚Рµ РѕС‚ 11-С‚Рё Р»РµС‚
-РРјРµС‚СЊ РїСЂРѕРїРёСЃРєСѓ РІ С€С‚Р°С‚Рµ
-РќРµ РёРјРµС‚СЊ РїСЂРѕР±Р»РµРј СЃ РїСЃРёС…РёРєРѕР№
-РРјРµС‚СЊ РѕРїСЂСЏС‚РЅС‹Р№ РІРЅРµС€РЅРёР№ РІРёРґ
-РРјРµС‚СЊ Р·Р°РєРѕРЅРѕРїРѕСЃР»СѓС€РЅРѕСЃС‚СЊ РІС‹С€Рµ 70-С‚Рё
+От {009000}75.000${FFFFFF} до {009000}100.000${FFFFFF}:
+Проживать в штате от 11-ти лет
+Иметь прописку в штате
+Не иметь проблем с психикой
+Иметь опрятный внешний вид
+Иметь законопослушность выше 70-ти
 ---
-РћС‚ {009000}100.000${FFFFFF} РґРѕ {009000}175.000${FFFFFF}:
-РџСЂРѕР¶РёРІР°С‚СЊ РІ С€С‚Р°С‚Рµ РѕС‚ 15-Р»РµС‚
-РќРµ РёРјРµС‚СЊ РїСЂРѕР±Р»РµРј СЃ РїСЃРёС…РёРєРѕР№
-РРјРµС‚СЊ РѕРїСЂСЏС‚РЅС‹Р№ РІРЅРµС€РЅРёР№ РІРёРґ
-РРјРµС‚СЊ Р·Р°РєРѕРЅРѕРїРѕСЃР»СѓС€РЅРѕСЃС‚СЊ РІС‹С€Рµ 75-С‚Рё
-РРјРµС‚СЊ РїСЂРѕРїРёСЃРєСѓ РІ С€С‚Р°С‚Рµ
+От {009000}100.000${FFFFFF} до {009000}175.000${FFFFFF}:
+Проживать в штате от 15-лет
+Не иметь проблем с психикой
+Иметь опрятный внешний вид
+Иметь законопослушность выше 75-ти
+Иметь прописку в штате
 ---
-РћС‚ {009000}175.000${FFFFFF} РґРѕ {009000}300.000${FFFFFF}:
-РџСЂРѕР¶РёРІР°С‚СЊ РІ С€С‚Р°С‚Рµ РѕС‚ 17-Р»РµС‚
-РќРµ РёРјРµС‚СЊ РїСЂРѕР±Р»РµРј СЃ РїСЃРёС…РёРєРѕР№
-РРјРµС‚СЊ РѕРїСЂСЏС‚РЅС‹Р№ РІРЅРµС€РЅРёР№ РІРёРґ
-РРјРµС‚СЊ Р·Р°РєРѕРЅРѕРїРѕСЃР»СѓС€РЅРѕСЃС‚СЊ РІС‹С€Рµ 80-С‚Рё
-РРјРµС‚СЊ РїСЂРѕРїРёСЃРєСѓ РІ С€С‚Р°С‚Рµ.]]
+От {009000}175.000${FFFFFF} до {009000}300.000${FFFFFF}:
+Проживать в штате от 17-лет
+Не иметь проблем с психикой
+Иметь опрятный внешний вид
+Иметь законопослушность выше 80-ти
+Иметь прописку в штате.]]
 
 lections_default = {
 	active = { bool = false, name = nil, handle = nil },
 	data = {
 		{
-			name = "Р’РЅРµС€РЅРёР№ РІРёРґ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ",
+			name = "Внешний вид сотрудников",
 			text = {
-				"РЎРµР№С‡Р°СЃ Р’С‹ РїСЂРѕСЃР»СѓС€Р°РµС‚Рµ Р»РµРєС†РёСЋ Рѕ С‚РѕРј, РєР°Рє РґРѕР»Р¶РµРЅ РІС‹РіР»СЏРґРµС‚СЊ Р»СЋР±РѕР№ СЃРѕС‚СЂСѓРґРЅРёРє Р‘Р°РЅРєР° РІ СЂР°Р±РѕС‡РµРµ РІСЂРµРјСЏ",
-				"РљР°Р¶РґС‹Р№ СЃРѕС‚СЂСѓРґРЅРёРє, РїСЂРёС…РѕРґСЏ РЅР° СЃРјРµРЅСѓ РґРѕР»Р¶РµРЅ РїРµСЂРµРѕРґРµС‚СЊСЃСЏ РІ СЂР°Р±РѕС‡СѓСЋ С„РѕСЂРјСѓ, РІР·СЏС‚СЊ РґСѓР±РёРЅРєСѓ Рё СЂР°С†РёСЋ",
-				"Р’Р°С€Р° СЂР°Р±РѕС‡Р°СЏ С„РѕСЂРјР° - СЌС‚Рѕ РІР°С€Рµ Р»РёС†Рѕ. РћРЅР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ С‡РёСЃС‚Р°СЏ Рё РІС‹РіР»Р°Р¶РµРЅРЅР°СЏ",
-				"РўР°Рє Р¶Рµ, РЅР° РІР°СЃ Рё РЅР° РІР°С€РµР№ С„РѕСЂРјРµ РЅРµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РєР°РєРёС… Р»РёР±Рѕ Р°РєСЃРµСЃСЃСѓР°СЂРѕРІ, РєСЂРѕРјРµ С‡Р°СЃРѕРІ",
-				"Р’С‹ РЅРµ РґРѕР»Р¶РЅС‹ РІС‹РіР»СЏРґРµС‚СЊ РєР°Рє РєР»РѕСѓРЅ РёР»Рё Р РѕР¶РґРµСЃС‚РІРµРЅСЃРєР°СЏ Р•Р»РєР°. РЎС‚СЂРѕРіРѕ Рё РїРѕ РґСЂРµСЃСЃ-РєРѕРґСѓ",
-				"Р’СЃРµРј СЃРїР°СЃРёР±Рѕ. Р›РµРєС†РёСЏ РѕРєРѕРЅС‡РµРЅР°"
+				"Сейчас Вы прослушаете лекцию о том, как должен выглядеть любой сотрудник Банка в рабочее время",
+				"Каждый сотрудник, приходя на смену должен переодеться в рабочую форму, взять дубинку и рацию",
+				"Ваша рабочая форма - это ваше лицо. Она должна быть чистая и выглаженная",
+				"Так же, на вас и на вашей форме не должно быть каких либо аксессуаров, кроме часов",
+				"Вы не должны выглядеть как клоун или Рождественская Елка. Строго и по дресс-коду",
+				"Всем спасибо. Лекция окончена"
 			}
 		},
 		{
-			name = "Р’СЂРµРјРµРЅРЅРѕРµ РѕС‚Р»СѓС‡РµРЅРёРµ РѕС‚ РґРµР»",
+			name = "Временное отлучение от дел",
 			text = {
-				"РЎРµР№С‡Р°СЃ СЏ РїСЂРѕС‡РёС‚Р°СЋ РІР°Рј Р»РµРєС†РёСЋ РЅР° С‚РµРјСѓ \"Р’СЂРµРјРµРЅРЅРѕРµ РѕС‚Р»СѓС‡РµРЅРёРµ РѕС‚ РґРµР»\"",
-				"Р•СЃР»Рё РІС‹ С…РѕС‚РёС‚Рµ РѕС‚Р»СѓС‡РёС‚СЃСЏ РїРѕ Р»РёС‡РЅС‹С… РґРµР»Р°Рј, РЅР°РїСЂРёРјРµСЂ РїРѕРєСѓС€Р°С‚СЊ РёР»Рё СѓРµС…Р°С‚СЊ РІ Р±РѕР»СЊРЅРёС†Сѓ",
-				"С‚Рѕ РЅСѓР¶РЅРѕ СЃРїСЂРѕСЃРёС‚СЊ СЂР°Р·СЂРµС€РµРЅРёСЏ Сѓ СЃС‚Р°СЂС€РµРіРѕ СЃРѕСЃС‚Р°РІР°, РёР»Рё СЂСѓРєРѕРІРѕРґРёС‚РµР»РµР№",
-				"РўР°РєР¶Рµ РЅР°РїРѕРјРёРЅР°СЋ, С‡С‚Рѕ СЂР°Р±РѕС‡РёР№ С‚СЂР°РЅСЃРїРѕСЂС‚ Р±СЂР°С‚СЊ РІ Р»РёС‡РЅС‹С… С†РµР»СЏС… РєСЂР°Р№РЅРµ Р·Р°РїСЂРµС‰РµРЅРѕ!",
-				"РќСѓР¶РЅРѕ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ СЃРїСЂРѕСЃРёС‚СЊ СЂР°Р·СЂРµС€РµРЅРёРµ, Рё РёРјРµС‚СЊ РІРµСЃРѕРјСѓСЋ РїСЂРёС‡РёРЅСѓ РЅР° РµРіРѕ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ.",
-				"Р’СЃРµРј СЃРїР°СЃРёР±Рѕ. Р›РµРєС†РёСЏ РѕРєРѕРЅС‡РµРЅР°."
+				"Сейчас я прочитаю вам лекцию на тему \"Временное отлучение от дел\"",
+				"Если вы хотите отлучится по личных делам, например покушать или уехать в больницу",
+				"то нужно спросить разрешения у старшего состава, или руководителей",
+				"Также напоминаю, что рабочий транспорт брать в личных целях крайне запрещено!",
+				"Нужно обязательно спросить разрешение, и иметь весомую причину на его использование.",
+				"Всем спасибо. Лекция окончена."
 			}
 		},
 		{
-			name = "РћР±СЂР°С‰РµРЅРёРµ СЃРѕ СЃС‚Р°СЂС€РёРјРё",
+			name = "Обращение со старшими",
 			text = {
-				"РЎРµР№С‡Р°СЃ СЃРѕСЃС‚РѕРёС‚СЃСЏ Р»РµРєС†РёСЏ РЅР° С‚РµРјСѓ \"РѕР±СЂР°С‰РµРЅРёРµ СЃРѕ СЃС‚Р°СЂС€РёРјРё РїРѕ РґРѕР»Р¶РЅРѕСЃС‚Рё\"",
-				"Р’Рѕ-РїРµСЂРІС‹С…, Рє СЃС‚Р°СЂС€РёРј РїРѕ РґРѕР»Р¶РЅРѕСЃС‚Рё РёСЃРєР»СЋС‡РёС‚РµР»СЊРЅРѕ РЅР° \"Р’С‹\"",
-				"Р’Рѕ-РІС‚РѕСЂС‹С…, РѕР±СЂР°С‰Р°С‚СЊСЃСЏ СЃР»РµРґСѓРµС‚ РїРѕ С„РѕСЂРјРµ \"СЃСЌСЂ\", \"РјРёСЃС‚РµСЂ\", \"РіРѕСЃРїРѕРґРёРЅ\"",
-				"РЅРѕ РЅРё РІ РєРѕРµРј СЃР»СѓС‡Р°Рµ РЅРµ \"С‚РѕРІР°СЂРёС‰\" РёР»Рё РІРѕРІСЃРµ Р±РµР· СѓРІР°Р¶РµРЅРёСЏ!",
-				"Р•С‰Рµ С…РѕС‚РµР» Р±С‹ СѓРїРѕРјСЏРЅСѓС‚СЊ, С‡С‚Рѕ РЅРµ СЃС‚РѕРёС‚ РґРѕРєСѓС‡Р°С‚СЊ РЅР°С‡Р°Р»СЊСЃС‚РІСѓ РїРѕ РїРѕРІРѕРґСѓ",
-				"РїРѕРІС‹С€РµРЅРёР№ РёР»Рё РїСЂРѕРІРµСЂРєРё РѕС‚С‡РµС‚РѕРІ.",
-				"Р СѓРєРѕРІРѕРґСЃС‚РІРѕ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РІС‹РїРѕР»РЅРёС‚ РІР°С€Сѓ РїСЂРѕСЃСЊР±Сѓ РїРѕСЃР»Рµ С‚РѕРіРѕ, РєР°Рє РѕСЃРІРѕР±РѕРґРёС‚СЃСЏ",
-				"Р’СЃРµРј СЃРїР°СЃРёР±Рѕ Р·Р° РІРЅРёРјР°РЅРёРµ, Р»РµРєС†РёСЏ РѕРєРѕРЅС‡РµРЅР°"
+				"Сейчас состоится лекция на тему \"обращение со старшими по должности\"",
+				"Во-первых, к старшим по должности исключительно на \"Вы\"",
+				"Во-вторых, обращаться следует по форме \"сэр\", \"мистер\", \"господин\"",
+				"но ни в коем случае не \"товарищ\" или вовсе без уважения!",
+				"Еще хотел бы упомянуть, что не стоит докучать начальству по поводу",
+				"повышений или проверки отчетов.",
+				"Руководство обязательно выполнит вашу просьбу после того, как освободится",
+				"Всем спасибо за внимание, лекция окончена"
 			}
 		},
 		{
-			name = "РџСЂР°РІРёР»Р° РЅР°С€РµРіРѕ Р±Р°РЅРєР°",
+			name = "Правила нашего банка",
 			text = {
-				"РЎРµРіРѕРґРЅСЏС€РЅСЏСЏ Р»РµРєС†РёСЏ РїРѕСЃРІСЏС‰РµРЅР° РЅРµРєРѕС‚РѕСЂС‹Рј РїСЂР°РІРёР»Р°Рј РЅР°С€РµРіРѕ Р±Р°РЅРєР°",
-				"РС‚Р°Рє, РєР°С‚РµРіРѕСЂРёС‡РµСЃРєРё РЅРµР»СЊР·СЏ Р±РµРіР°С‚СЊ РїРѕ Р±Р°РЅРєСѓ, СЌС‚Рѕ РІРµРґСЊ РІР°Рј РЅРµ СЃС‚Р°РґРёРѕРЅ Рё РЅРµ РјР°РЅРµР¶",
-				"РџРѕРєРёРґР°С‚СЊ Р±Р°РЅРє Рё С‚РµРј Р±РѕР»РµРµ Р±СЂР°С‚СЊ С‚СЂР°РЅСЃРїРѕСЂС‚ Р±РµР· СЂР°Р·СЂРµС€РµРЅРёСЏ Р·Р°РїСЂРµС‰Р°РµС‚СЃСЏ",
-				"Р—Р° СЌС‚Рѕ РЅР°С€Рµ СЂСѓРєРѕРІРѕРґСЃС‚РІРѕ Р±СѓРґРµС‚ СЃС‚СЂРѕРіРѕ РЅР°РєР°Р·С‹РІР°С‚СЊ",
-				"РќРµР»СЊР·СЏ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґСѓР±РёРЅРєСѓ РЅРµ РїРѕ РЅР°Р·РЅР°С‡РµРЅРёСЋ Рё Р±РµР· РїСЂРёС‡РёРЅС‹",
-				"РџРѕР»РЅС‹Р№ СЃРїРёСЃРѕРє РїСЂР°РІРёР» Р±Р°РЅРєР° РІС‹Р»РѕР¶РµРЅ РЅР° РѕС„РёС†РёР°Р»СЊРЅРѕРј РїРѕСЂС‚Р°Р»Рµ РЅР°С€РµРіРѕ С€С‚Р°С‚Р°",
-				"Р›РµРєС†РёСЏ РѕРєРѕРЅС‡РµРЅР°, СЃРїР°СЃРёР±Рѕ Р·Р° РІРЅРёРјР°РЅРёРµ"
+				"Сегодняшняя лекция посвящена некоторым правилам нашего банка",
+				"Итак, категорически нельзя бегать по банку, это ведь вам не стадион и не манеж",
+				"Покидать банк и тем более брать транспорт без разрешения запрещается",
+				"За это наше руководство будет строго наказывать",
+				"Нельзя использовать дубинку не по назначению и без причины",
+				"Полный список правил банка выложен на официальном портале нашего штата",
+				"Лекция окончена, спасибо за внимание"
 			}
 		},
 		{
-			name = "РџСЂР°РІРёР»Р° РїРѕРІРµРґРµРЅРёСЏ РїСЂРё С‚РµСЂР°РєС‚Рµ",
+			name = "Правила поведения при теракте",
 			text = {
-				"РЎРµР№С‡Р°СЃ СЏ РїСЂРѕРІРµРґСѓ РІР°Рј Р»РµРєС†РёСЋ РЅР° С‚РµРјСѓ \"РџСЂР°РІРёР»Р° РїРѕРІРµРґРµРЅРёСЏ РїСЂРё С‚РµСЂР°РєС‚Рµ\"",
-				"Р•СЃР»Рё РІ СЂР°Р±РѕС‡РµРµ РІСЂРµРјСЏ, РЅР° РІР°СЃ РЅР°РїР°Р»Рё Р±Р°РЅРґРёС‚С‹, С‚Рѕ РїРµСЂРІС‹Рј РґРµР»РѕРј, РІС‹ РґРѕР»Р¶РЅС‹:",
-				"РџРµСЂРІРѕРµ - РїСЂРё РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё РЅР°Р¶Р°С‚СЊ РЅР° С‚СЂРµРІРѕР¶РЅСѓСЋ РєРЅРѕРїРєСѓ",
-				"Р’С‚РѕСЂРѕРµ - РѕСЃС‚Р°РІР°С‚СЊСЃСЏ РЅР° СЃРІРѕРёС… РјРµСЃС‚Р°С… РІ СЃР»СѓС‡Р°СЏС…, РµСЃР»Рё РІС‹Р№С‚Рё РЅРµС‚ РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё",
-				"РўСЂРµС‚СЊРµ - РІРЅРёРјР°С‚РµР»СЊРЅРѕ СЃР»СѓС€Р°С‚СЊ СѓРєР°Р·Р°РЅРёСЏ Р±Р°РЅРґРёС‚РѕРІ Рё РІС‹РїРѕР»РЅСЏС‚СЊ РёС…",
-				"Р§РµС‚РІС‘СЂС‚РѕРµ - СЃР»СѓС€Р°С‚СЊ РїСЂРёРєР°Р·С‹ СЃРёР»РѕРІС‹С… СЃС‚СЂСѓРєС‚СѓСЂ",
-				"РџСЏС‚РѕРµ - РЅРµ РїРѕРґР°РІР°С‚СЊ РЅРёРєР°РєРёС… РїСЂРёР·РЅР°РєРѕРІ Рѕ РїСЂРѕСЃСЊР±Рµ РїРѕРјРѕС‰Рё Сѓ СЃРёР»РѕРІС‹С… СЃС‚СЂСѓРєС‚СѓСЂ",
-				"РўР°Рє Р¶Рµ, РІРѕ РІСЂРµРјСЏ РѕРіСЂР°Р±Р»РµРЅРёСЏ, Сѓ РІР°СЃ СЃРєРѕСЂРµРµ РІСЃРµРіРѕ РѕС‚Р±РµСЂСѓС‚ СЂР°С†РёСЋ Рё С‚РµР»РµС„РѕРЅ",
-				"Р’СЃРµРј СЃРїР°СЃРёР±Рѕ, Р»РµРєС†РёСЏ РѕРєРѕРЅС‡РµРЅР°"
+				"Сейчас я проведу вам лекцию на тему \"Правила поведения при теракте\"",
+				"Если в рабочее время, на вас напали бандиты, то первым делом, вы должны:",
+				"Первое - при возможности нажать на тревожную кнопку",
+				"Второе - оставаться на своих местах в случаях, если выйти нет возможности",
+				"Третье - внимательно слушать указания бандитов и выполнять их",
+				"Четвёртое - слушать приказы силовых структур",
+				"Пятое - не подавать никаких признаков о просьбе помощи у силовых структур",
+				"Так же, во время ограбления, у вас скорее всего отберут рацию и телефон",
+				"Всем спасибо, лекция окончена"
 			}
 		},
 		{
-			name = "РџСЂРёС‡Р°СЃС‚РЅРѕСЃС‚СЊ Рє РєСЂРёРјРёРЅР°Р»Сѓ",
+			name = "Причастность к криминалу",
 			text = {
-				"РЎРµР№С‡Р°СЃ СЏ РїСЂРѕРІРµРґСѓ РІР°Рј Р»РµРєС†РёСЋ РЅР° С‚РµРјСѓ \"РџСЂРёС‡Р°СЃС‚РЅРѕСЃС‚СЊ Рє РєСЂРёРјРёРЅР°Р»Сѓ\"",
-				"РЈС‡Р°СЃС‚РёР»РёСЃСЊ СЃР»СѓС‡Р°Рё СЃРѕРґРµР№СЃС‚РІРёСЏ Р±Р°РЅРґРёС‚Р°Рј СЃРѕ СЃС‚РѕСЂРѕРЅС‹ РіРѕСЃ. СЂР°Р±РѕС‚РЅРёРєРѕРІ",
-				"РЈР±РµРґРёС‚РµР»СЊРЅР°СЏ РїСЂРѕСЃСЊР±Р°: РЅРµ РїРѕРјРѕРіР°Р№С‚Рµ Р±Р°РЅРґРёС‚Р°Рј Рё РЅРµ РєРѕРЅС‚Р°РєС‚РёСЂСѓР№С‚Рµ СЃ РЅРёРјРё РЅРё РїСЂРё РєР°РєРёС…",
-				"РѕР±СЃС‚РѕСЏС‚РµР»СЊСЃС‚РІР°С…. Р’ РєРѕРЅС†Рµ РєРѕРЅС†РѕРІ СЌС‚Рѕ РјРѕР¶РµС‚ РґР»СЏ РІР°СЃ РїР»РѕС…Рѕ РєРѕРЅС‡РёС‚СЃСЏ.",
-				"Р’С‹ СЃС‚Р°РІРёС‚Рµ РїРѕРґ СѓРіСЂРѕР·Сѓ СЃРІРѕСЋ Р¶РёР·РЅСЊ. Р Р°Р·РІРµ СЃС‚РѕРёС‚ С‚Р°Рє СЂРёСЃРєРѕРІР°С‚СЊ РёР·-Р·Р° РєР°РєРёС…-С‚Рѕ Р±Р°РЅРґРёС‚РѕРІ?",
-				"РЎРїР°СЃРёР±Рѕ Р·Р° РІРЅРёРјР°РЅРёРµ, Р»РµРєС†РёСЏ РѕРєРѕРЅС‡РµРЅР°"
+				"Сейчас я проведу вам лекцию на тему \"Причастность к криминалу\"",
+				"Участились случаи содействия бандитам со стороны гос. работников",
+				"Убедительная просьба: не помогайте бандитам и не контактируйте с ними ни при каких",
+				"обстоятельствах. В конце концов это может для вас плохо кончится.",
+				"Вы ставите под угрозу свою жизнь. Разве стоит так рисковать из-за каких-то бандитов?",
+				"Спасибо за внимание, лекция окончена"
 			}
 		}
 	}
@@ -7395,4 +7395,4 @@ socialIcon = {
 	tg = "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A\x00\x00\x00\x0D\x49\x48\x44\x52\x00\x00\x00\x40\x00\x00\x00\x40\x08\x06\x00\x00\x00\xAA\x69\x71\xDE\x00\x00\x00\x04\x73\x42\x49\x54\x08\x08\x08\x08\x7C\x08\x64\x88\x00\x00\x00\x09\x70\x48\x59\x73\x00\x00\x01\xD8\x00\x00\x01\xD8\x01\xFA\x5C\xA6\x72\x00\x00\x00\x19\x74\x45\x58\x74\x53\x6F\x66\x74\x77\x61\x72\x65\x00\x77\x77\x77\x2E\x69\x6E\x6B\x73\x63\x61\x70\x65\x2E\x6F\x72\x67\x9B\xEE\x3C\x1A\x00\x00\x08\xD9\x49\x44\x41\x54\x78\x9C\xDD\x9B\x6B\x70\x54\xF5\x15\xC0\x7F\xE7\xDE\xBB\xBB\xD9\x40\x20\xD9\x04\x24\x1B\x1A\x04\x12\x22\xA2\x15\x5F\x6D\xB5\x03\xA5\x56\x69\x6C\xA9\x8F\xB6\x7E\x00\x41\x85\x90\x64\xD4\xF1\xD1\x19\xEB\xD4\xE9\x74\xC6\x61\xDA\x0F\x62\x65\x14\xC7\x76\x80\x80\xA8\x0C\x76\x1C\x1F\x6D\x15\xB4\xB5\x1D\x5B\xA9\x56\x85\xA2\x58\x42\x89\x16\xB1\x60\x12\xCC\x8B\x2C\x1B\x48\xC2\xEE\xBD\xA7\x1F\x42\x42\x92\xDD\x6C\xB2\xBB\x77\x17\xF4\xF7\x25\xD9\xFF\xE3\xDC\x73\xCE\x3D\xE7\xFF\xDA\xFF\x0A\x99\xE6\xB7\x47\x26\x9B\x56\x74\xBE\x22\x73\x44\x38\x4F\x95\x59\x02\x05\x40\x3E\xC8\xF8\xBE\x46\xDA\x05\x74\x2A\x1C\x15\x68\x50\x61\xBF\x38\x52\x6F\xDB\xC6\x0E\x6E\x9F\xD2\x92\x49\xF5\x24\x13\x42\x3D\xEB\x9B\x2F\x57\x74\xB1\x23\xCE\x35\x82\xCC\x49\xE3\x39\xAA\x68\xBD\x21\xC6\x9F\x45\x78\x36\x52\x15\xDC\xE5\xA6\x9E\xE0\xA6\x03\xB6\xB4\x4F\x30\x7A\x7A\x6A\x0C\x65\x85\xC2\x6C\xD7\xE4\x0E\x42\x94\x7D\x8E\xC1\x93\x8E\x78\xD7\x51\x35\x29\xEC\x8A\xCC\xB4\x25\xD4\x1D\x0E\x58\x8E\x71\x8F\x0A\x77\xD1\x17\xDA\xD9\xE0\xA8\xC0\xDA\x68\x24\xFA\x18\x77\x4C\x3B\x9A\x8E\xA0\xD4\x1D\xA0\x2A\x66\x5D\xE3\x32\x90\x5F\x03\x93\xD2\x51\x22\x0D\x3A\x54\x65\x95\xD3\x54\xFC\x38\x0F\x8A\x93\x8A\x80\xD4\x1C\x50\x77\xB8\xCC\x54\xE3\x29\xE0\xCA\x94\xFA\xBB\xCF\x5B\xB6\x63\xDF\x4A\x6D\xE9\x81\x64\x3B\x26\xED\x00\x73\x7D\xD3\x8D\x88\x6E\x02\xF2\x93\xED\x9B\x61\xC2\x28\x35\x76\x4D\xC9\xEF\x92\xE9\x34\x76\x07\x3C\xA8\x86\x55\xD2\xF8\x88\x22\xF7\x26\xAD\x5A\x16\x11\x91\x35\xD1\xCF\x8A\x7F\x3A\xD6\x94\x18\x9B\x03\x9E\xAB\xF7\x9A\xA1\xFC\xCD\xC0\xE2\x34\x74\xCB\x26\x5B\x6D\xA7\xF9\x36\x6A\x2F\x8B\x8C\xD6\x70\x74\x07\x3C\x57\xEF\x35\x43\x05\x2F\x81\x7E\xCF\x15\xD5\xB2\x85\xCA\x36\x5B\x9B\x6E\x1C\xCD\x09\x46\x62\x21\x2A\x66\xA8\x60\xC3\x17\xCE\x78\x00\xD1\xEF\x9B\x46\xF1\x53\x3C\xA8\x09\x6D\x4C\x58\x69\xD5\x35\xAE\x01\xBD\xC5\x5D\xCD\xB2\xCA\x62\x2B\xD8\xF4\x50\xA2\x06\x23\xA6\x80\x59\xF7\xD9\x4D\xA8\x3C\xE7\xBE\x4E\x67\x84\x25\x76\x75\xC9\xB3\xF1\x2A\xE2\x3B\x60\xDD\xA1\x99\xA6\x61\xFD\x0B\x74\x62\x46\xD5\xCA\x1A\x12\xB2\x4D\xF3\x12\x56\x9C\xF3\xC9\xF0\x9A\xD8\x14\x50\x15\xD3\x30\x9F\xFE\xF2\x18\x0F\xA0\x13\x4D\x3B\xBA\x19\xD5\x98\x17\x1E\xE3\x00\x73\x63\x73\x15\x67\xCF\x0A\xCF\x4D\xE6\x99\x1B\x1B\x63\xC6\xB3\xA1\x1E\xA9\x3B\x1C\x30\xD5\x68\x00\x8A\xB2\xA5\x55\x96\x69\xB1\xAD\x93\x15\x2C\x9F\xDE\xD9\x5F\x30\x24\x02\x2C\x35\xEF\xE5\xCB\x6B\x3C\xC0\x64\xC3\xF6\xDE\x3D\xB8\xE0\x74\x04\x6C\x69\x9F\x60\x76\xF7\x7C\x4A\xF6\xB6\xB4\x67\x8A\x0E\xDB\xF0\x9E\xDB\x7F\x9E\x30\x10\x01\x46\x4F\x4F\x0D\x5F\x00\xE3\x2F\x2D\xF2\xF0\xC8\x37\x26\xF2\xCC\xB7\x0B\x98\x53\x60\xA5\x22\x22\x60\xD8\xBD\xD5\xFD\x1F\x4E\x4B\x50\xBD\x35\x43\x27\x64\x69\x53\xE8\x33\xB8\xB9\xDC\xCF\xF2\x59\xB9\x5C\x18\xF0\x0C\x94\x4F\xF4\x0A\xD7\xFD\xA9\x23\x69\x79\x06\x52\xE5\xC0\x1A\x38\xE5\x00\xCF\xFA\xE6\xCB\x1D\x9C\x0B\xDC\x52\xD8\x0D\x0C\x81\xAB\x4B\x7C\x2C\x9F\x95\xCB\x75\xD3\x72\xF0\x99\xB1\x2F\xC7\x6B\xA4\xF6\xC2\x54\x38\xDF\x53\xD7\x78\x71\x64\x65\xC9\xFB\x16\x80\xA2\x67\xCD\x2E\x6F\xEA\x38\x93\x25\x65\x7E\xAA\xCF\x1B\xC7\xF4\x3C\x33\x61\xDB\x03\xC7\xA2\x29\x3F\x47\x1D\x96\x00\x7D\x0E\x70\x44\x17\x9E\xC9\xE0\xF7\x99\xC2\x0F\x4A\x73\x58\x56\xEE\xA7\xF2\x2B\x39\xC4\x79\xD9\x71\xD9\xD9\x3A\xEA\x6E\x77\x44\x1C\xE1\x6A\x00\xE9\x3B\xB7\xB7\x8F\x70\x06\x06\x80\xB9\x85\x1E\x96\x57\xE4\xB2\x64\xA6\x9F\x02\x5F\xFC\x7D\xD9\xAE\xD6\x08\x47\xBA\x6D\x16\x95\xE6\xC4\xD4\x5D\xF4\x42\x0B\xF5\x47\x53\x8E\x02\xB5\x1D\x99\x6C\x99\x56\x74\x3E\x48\xD6\x8C\x2F\xF0\x19\x2C\x9E\xE9\x67\x45\x45\x2E\x73\x0B\x3D\x23\xB6\xEB\x3C\xE9\xF0\xF3\x9D\x61\x5E\x3B\xDC\xC3\xCB\x95\x85\x31\xF5\xE1\x88\xB2\xBF\x33\xF5\x14\x00\xC4\x34\x98\x6F\x09\x72\x81\xA6\x23\x66\x0C\x18\x02\x57\x9C\xE3\x65\x69\x59\x2E\x37\x97\xF9\xC9\xB5\x12\xFB\x7B\xDB\xA1\x1E\xEE\x7C\x2B\xC4\x04\x8F\xF0\xC6\xA2\x22\x4A\xC7\xC7\x8E\x05\xBB\x5A\x4F\x62\xA7\xA9\xB8\xE2\xCC\xB1\x54\xA8\x20\x43\x1E\x08\xE6\x9A\x2C\x2D\xF7\x53\x55\x91\xCB\xCC\x09\xA3\xCF\xD9\x4D\x27\x6C\xEE\x79\x3B\xC4\x4B\x9F\xF6\xF0\xB5\xC9\x5E\xFE\xB8\x30\x40\x51\x4E\xFC\xD4\x78\x2F\x8D\xFC\xEF\x47\x90\x0A\x0B\xA5\x3C\x6D\x49\x83\xF0\x1A\xC2\xC2\xA9\x3E\x96\x96\xFB\xB9\x61\x9A\x1F\x2B\xF1\x99\x13\x00\x8E\xC2\xC6\x86\x13\xDC\xFF\x6E\x88\x70\x44\x59\x54\x9A\xC3\xD6\xAB\x0A\x12\x46\xCA\xCE\xD6\x93\x2E\x68\xAB\xB3\x2C\x5C\x5A\xFB\xCF\xCE\xB7\x58\x56\x9E\xCB\xF2\x8A\x5C\x26\x8D\xF0\xD6\xE2\xF1\x61\x47\x84\xDA\x1D\xA1\x01\x83\x6E\x29\xCF\x65\xFD\xBC\xFC\x51\x1D\x97\xCE\x0C\x70\x1A\x29\xB2\x80\xBC\x54\xBB\x4F\xF0\x08\xD7\x9F\xEB\x67\x69\x99\x9F\xEF\x94\xF8\x92\xEA\x7B\x22\xAA\xFC\xF2\xFD\x30\x8F\x7C\xD8\x35\x90\xCB\xF7\x5F\x34\x9E\x5F\x5D\x3E\x61\xD4\xE9\xA8\xF9\x84\x4D\xE3\x71\x3B\x35\xA5\x87\x92\x67\x01\xE3\x93\xED\x15\xCC\x35\xF9\xC5\x25\x79\x2C\x2D\xF3\xE3\x1F\x65\x40\x8B\xC7\xB6\x43\x3D\xDC\xF5\x76\x88\x43\x5D\x7D\x46\x18\x02\x8F\x5E\x31\x91\x3B\xCE\x1F\x37\xA6\xFE\x6E\xE4\xFF\x29\xF2\x52\xDA\x4D\xBC\xB1\xA8\x70\x4C\x83\xDA\x70\x9A\x4F\xD8\xFC\xE4\x9F\xC7\x78\xFE\x60\xF7\x40\x99\xCF\x14\x9E\x5E\x90\xCF\x8F\xA6\xFB\xC7\x2C\x67\x67\x8B\x1B\xF9\xDF\x87\x01\x74\x25\xDB\x69\xF5\x9E\x2E\x9A\x4F\x8C\x3D\x04\x1D\x85\x75\xFF\x39\xCE\x85\xCF\xB7\x0E\x31\x7E\xA2\xD7\x60\x7B\x65\x20\x29\xE3\xC1\xD5\x08\x08\x8B\xB9\xA1\xF1\x53\x60\x5A\xB2\x3D\x0D\xE9\x5B\xC9\x2D\x2A\xCD\xE1\xA6\x19\x7E\x66\xE7\xC7\x8F\x88\x8F\x42\x51\xEE\xF8\x47\x88\xBF\x35\xF7\x0E\x29\x9F\xE2\x37\x78\xA5\xB2\x30\xE1\x62\x28\x1E\x8E\x42\xD1\xD3\xCD\x1C\x8B\xB8\x32\x77\x1F\xB4\x80\x36\x52\x70\x80\xA3\xB0\xBB\x2D\xC2\xEE\xB6\x08\xAB\x76\x87\x99\x91\x67\xB2\x68\x5A\x0E\x3F\x9E\xEE\xE7\x8A\x73\xBC\xF4\xDA\xCA\xEA\x3D\x5D\x3C\xB4\xA7\x8B\xDE\x61\x2B\x96\x19\x79\x26\xDB\xAF\x2D\xA4\x2C\x85\x34\xDA\xDF\x19\x75\xCB\x78\x40\xDB\x2C\xE0\x23\xE0\xD2\x74\x45\x7D\x12\xB6\x59\xBB\xF7\x38\x6B\xF7\x1E\xA7\x64\x9C\x89\xD7\x80\x83\xE1\xD8\x34\xB9\x6C\x92\x87\x97\xBF\x5B\x98\xD4\x54\x39\x18\x77\xE6\xFF\x01\x1A\x2C\x85\x06\xB7\x37\x02\x23\x4D\x51\x57\x05\x7D\xBC\x70\x4D\x80\x3C\x4F\xEA\x4F\x74\x31\xFF\x51\xA5\xC1\x12\x95\xBD\x48\xA6\x77\x03\x7D\x7B\x81\x6D\x95\x01\x3C\x29\x1E\x62\xF4\xE3\x66\x04\x08\x46\xBD\x61\xDB\xC6\x0E\xC8\xD4\x6E\xE0\x34\x5F\x0D\x78\xD2\x36\xBE\xC7\x56\xFE\xDD\x91\xD6\x0E\x70\x30\x8E\xAD\xEC\x30\xB8\x7D\x4A\x8B\xA2\xF5\x6E\x49\x1D\x89\x80\x2F\xFD\x44\x7B\xBF\x2D\x42\xC4\x71\xE7\x5D\x29\xEC\xA1\x36\xD8\x66\x00\x18\x6A\xBC\xEE\x8A\xD4\x04\xE4\x8F\x70\xE0\x91\x0C\xEF\xBA\x18\xFE\x06\xFC\xE5\xD4\x5F\x10\x93\xAD\xAE\x49\x1E\x81\x02\xEF\x50\x07\x84\x23\xCA\xB2\x37\x8E\x26\x95\xD3\xBB\x5C\x1C\x00\x45\x75\x2B\x9C\x72\x40\xA4\x2A\xB8\x4B\xD1\xBD\xAE\x49\x8F\x43\x60\x50\x04\x74\x9E\x74\xB8\xF6\xD5\x76\x9E\x3D\xD0\xCD\xBC\x97\xDB\x58\xB5\x3B\xCC\x58\x22\xFB\x3D\x97\x96\xC0\xA2\xEC\x8B\xD4\x4C\xFD\x00\x06\x7F\x35\x26\xF2\x94\x2B\xD2\x47\xA0\xDF\x01\x47\x7B\x1D\x2A\x5F\x6D\xE7\x9D\x53\xC6\x44\x1D\x58\xB5\x3B\xCC\xB5\xAF\xB5\x73\xA4\x7B\xE4\x7B\x4D\xED\xBD\x4E\xDC\x75\x45\x2A\x38\xE8\xC6\xFE\xFF\x07\x1C\xE0\x88\x77\x1D\x90\xD6\xAD\xCB\x44\x14\xF8\x84\x23\xDD\x0E\xDF\x7A\xA5\x2D\x6E\x28\xFF\xB5\xB1\x97\xAF\xFF\xBE\x95\xBF\x0F\x5B\x32\xF7\xB3\xB3\x25\xE2\xD6\x54\xD5\xE1\x98\xBE\x0D\xFD\x1F\x4E\x47\x40\xD5\xA4\xB0\x28\x8F\xBB\xF3\x8C\x58\xB6\x7C\xDC\xCD\x95\x7F\x68\x65\x5F\x82\x53\xDC\xC6\xE3\x36\x0B\xB7\xB7\xB3\x6A\x77\x38\xE6\xBC\xEF\x1D\x97\xC2\x5F\xD1\x47\x07\xDF\x33\x1E\x3A\x37\xFD\xE6\x7F\x05\xA6\xC7\x6A\xE0\xCC\x5D\x7D\x1D\x60\x7E\xB1\x97\x67\x16\x14\x50\x32\xCE\xA4\xD7\x56\xE6\xBE\xD8\xCA\xC7\xA1\xB4\xD7\x00\x9F\xDB\x4E\x4F\x05\xB5\x33\x43\xFD\x05\x31\x93\xB3\x59\xD7\xB8\x02\x65\xE3\xF0\xF2\x33\xC1\x78\x8F\x50\x39\x35\x87\xFF\x1E\x8B\xF2\x41\xBB\x0B\x33\x80\xC8\x2D\xF6\xCA\xE0\x33\x43\x8A\x62\x1A\xA9\x8A\x59\xD7\xB4\x03\xF8\x66\xFA\x4F\x3C\xAB\x78\xD3\x5E\x19\x5C\x80\x0C\x5D\xF7\xC7\xAE\x4E\x44\xD4\x76\xEC\x5B\x41\x42\x31\x75\x5F\x5C\x3A\x6D\xD3\x5A\x3E\xDC\x78\x18\xE9\x9E\x60\x6D\xE9\x01\x70\x56\x66\x5C\xAD\xAC\x21\x55\xF1\x6E\x88\x41\x82\x8B\x92\x76\xF5\xD4\xE7\x45\x64\x4D\xE6\x94\xCA\x0E\xA2\xAC\xB6\xAB\x83\x2F\x8E\x54\x9F\x70\x81\x1E\xAD\x2A\xBE\x0F\x61\xB3\xEB\x5A\x65\x8F\xAD\xD1\xA6\xE0\x03\x89\x1A\x24\xDE\xA1\x88\xA8\x6D\x37\xD7\x80\x6C\x77\x55\xAD\xEC\xF0\x8A\xED\x34\xDF\x36\xDA\xB5\xF9\xD1\xB7\x68\xB5\x97\x45\xEC\xC6\xE2\xEB\x51\x36\xB9\xA6\x5A\xC6\xD1\x2D\xB6\xD3\xFC\x43\x77\xAE\xCB\x0F\xC8\x54\xB1\x36\x34\xAD\x56\xE1\xBE\xB4\x74\xCB\x2C\x2A\xCA\xC3\xD1\xEA\xE0\xCF\xE2\x8D\xF8\xF1\x48\xFE\x27\x33\x75\x4D\x37\xA0\xBA\x89\xB3\xED\x46\x99\x72\x0C\xB4\xDA\xAE\x99\x9A\xD4\x05\xEF\xD4\x8E\x69\x36\x7D\x3E\xC3\xB4\xA3\x9B\x81\x79\x29\xF5\x77\x9F\x37\x6D\xCC\xDB\xA8\x9E\x72\x30\xD9\x8E\x6E\xFC\x6C\xEE\x61\x60\x72\xCA\x72\xD2\xA3\x03\xE4\x01\x7B\x65\xF1\x86\xB1\x86\xFC\x70\xD2\x3F\xA8\x7B\xF2\x60\xBE\x61\x7B\xEF\x16\xE5\x1E\x20\x90\xB6\xBC\xB1\xD1\xAE\xE8\x63\x8E\xD3\xBB\x76\xF0\xC6\x26\x15\xDC\xFB\x4A\xE0\x89\x96\xF1\x86\xE7\x64\x0D\x22\x2B\x04\xE6\xB8\x26\x77\x10\x8A\xEE\x45\xD8\xE4\xF4\x7A\x37\x70\xE7\xE4\xA4\xBF\xD3\x8C\x47\x66\x7E\x3C\x5D\xD7\x78\xB1\x3A\x2C\x71\xE0\x1A\x11\x2E\x64\x2C\xD3\x6D\x7C\x1C\x85\x0F\x0D\x78\x5D\x54\xB7\xF6\x1F\x63\xB9\x49\xE6\x6F\x87\xAD\x6B\x2A\x32\x0D\xE6\xAB\x3A\xE7\x8B\xC8\x6C\x60\x16\x68\x00\x24\x9F\xD3\x77\x13\xBA\x40\x3B\x41\x3A\x80\x06\x55\xDD\x2F\x18\xF5\xB6\xB2\x83\xDA\x60\x5B\x26\xD5\xFB\x3F\xF9\xD6\x1C\x42\xE4\x5A\x16\x1D\x00\x00\x00\x00\x49\x45\x4E\x44\xAE\x42\x60\x82",
 	bh = "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A\x00\x00\x00\x0D\x49\x48\x44\x52\x00\x00\x00\x40\x00\x00\x00\x40\x08\x03\x00\x00\x00\x9D\xB7\x81\xEC\x00\x00\x00\x04\x67\x41\x4D\x41\x00\x00\xB1\x8F\x0B\xFC\x61\x05\x00\x00\x00\x01\x73\x52\x47\x42\x00\xAE\xCE\x1C\xE9\x00\x00\x00\x66\x50\x4C\x54\x45\x47\x70\x4C\x2A\x34\x40\x2A\x34\x40\x2A\x34\x40\x2A\x34\x40\x2A\x34\x40\x2A\x34\x40\x2A\x34\x40\x2A\x34\x40\x2A\x34\x40\x2A\x34\x40\x2A\x34\x40\x2A\x34\x40\x2A\x34\x40\xEC\xEC\xEC\x56\x8D\xCB\x4E\x56\x5F\xEA\xEB\xEC\xCB\xCB\xCD\x67\x6D\x75\xA8\xAA\xAD\x44\x4C\x57\x7C\x80\x87\x92\x95\x9A\xD7\xD8\xD9\xBD\xBE\xC1\xE3\xE2\xDF\x36\x40\x4B\xF1\xF0\xED\x39\x7A\xBD\x2B\x62\x9B\x2E\x43\x5C\x51\x6D\x8D\x2C\x51\x7A\xA2\x59\xBB\x57\x00\x00\x00\x0D\x74\x52\x4E\x53\x00\x2D\x55\x8D\xDB\xAA\xC8\xEE\x7C\x13\x06\x61\x60\x44\xF0\x6C\x84\x00\x00\x02\x57\x49\x44\x41\x54\x58\xC3\xB5\x57\x8B\x96\xA2\x30\x0C\xE5\x25\x8F\x71\x52\x29\x2D\xE5\xA9\x9E\xFD\xFF\x9F\xDC\x3E\x90\x15\x48\x00\xC1\xCD\x39\x33\xCE\xA8\xB9\x24\xCD\xBD\x49\xEA\x79\x84\x65\x41\x7A\x89\xA3\x04\x20\x89\xE2\x4B\x1A\x64\xDE\x47\xE6\x87\x11\xCC\x2C\x0A\xFD\xBD\xDE\x59\xBA\xF0\x1E\x30\xD2\x6C\x97\x7B\x02\xA4\x25\xDB\x10\xBF\x2B\xEE\x16\xE2\x77\x3D\xF7\x18\x36\x2D\x5E\x39\x8B\x20\x81\x1D\x96\x04\x94\x7F\x08\x3B\x2D\x44\xDD\x7F\x2E\xB0\xDB\x2E\x3F\xE7\xFC\x51\x84\x8F\xFC\x35\xC2\xE1\xFC\x89\x73\x08\xE0\x63\x9B\xD4\xC2\x5F\xD4\x2F\x6F\x6A\xB9\x51\xCD\x77\x3E\x2C\xF9\x53\x33\xC6\x36\x10\xE2\x37\xFE\x2E\x3E\xCC\xB5\x3F\xAF\x37\x92\xB8\x8E\xFA\x49\x50\x00\x56\x6C\x51\xF2\xA5\xAC\x14\x8E\x01\x40\x3A\x50\x28\x39\x0A\x30\x84\x80\x04\xB0\x13\x60\x08\x21\x3A\x0E\x10\x59\x0E\xC0\x71\x00\xF0\x29\x12\xEF\x05\x08\x89\x0C\x76\x03\xE8\x1C\x32\x58\x03\x10\x55\xD3\x48\x55\xD2\x08\x19\x21\x23\xCB\xC4\x42\x14\xFA\x37\xD7\x3F\xB2\xA4\x25\x95\xA2\xEF\x97\x26\x02\xCE\x46\x6B\x05\x59\xC8\x49\x23\x29\x95\x78\x03\xB0\xD6\xF7\x0E\x28\xA7\x1A\xCB\x44\x88\x9D\x90\x75\xA3\xF4\x77\xA5\xF3\xE6\x7D\x51\x29\x69\x63\x69\x29\x49\xCE\x79\xAC\xB4\x90\xEB\x7A\xF0\x6F\xDD\x73\x65\xCF\x19\xAF\x88\x32\x2C\x85\x60\x8E\xCE\xF9\xB3\x0E\xFE\xDC\xEF\x8F\x27\x54\xFA\x3F\x5C\xDC\x89\x87\xBD\xAB\x5C\x04\xBD\x80\xC7\xCD\xD8\x13\x5A\x9D\x04\x5E\x09\x14\x00\x3A\x1B\x44\x0B\x4F\xEB\x7F\xBB\x83\xEA\x19\xC3\x0B\xE1\xE1\xD3\x4C\x18\x80\x66\x08\x40\x03\x94\x14\x40\x42\x00\x74\x13\x80\x1B\x0D\x10\x79\xE8\x3C\x2E\x4D\x19\xFB\x59\x0A\x0A\x2F\x23\x3A\x91\xD4\xE4\x10\xEF\xEE\x10\x2B\x9C\x48\x38\x95\xD5\x58\xC6\x87\x2D\xA3\x15\x04\x4E\xE5\x80\x3E\x03\x4D\x24\x97\xB7\xB4\x6C\xAE\x71\x31\xAD\xC8\xD9\xC4\x60\xA8\xDC\x3A\x55\xF1\x1C\x95\xF3\x4A\x43\x19\xC4\xD4\xBF\xFE\xAC\xF0\xA6\x48\xB5\xB4\xAA\x65\x53\xE3\x2D\xDE\xD2\xD0\xA6\x2A\x8A\x1C\xCA\x66\xF4\x2D\xA4\xC9\x82\x2B\xB4\xA9\xA2\x39\x74\xC3\xE1\x99\xE7\xD6\x8C\x77\x0E\xAD\x45\xDB\x3A\x51\x48\x63\x46\x84\x4D\xA7\x71\x6C\x65\xF9\x72\x5E\xA7\xD4\x6C\xFD\x07\xD0\xD8\xD7\xD2\xAD\x0C\x73\x3A\xBF\xA6\x2B\x19\x82\x72\xFE\xEF\x80\x25\x32\x5C\xE9\x10\xAA\x39\x77\xF2\x9A\x75\xC8\x78\xF7\xAE\x04\x80\x58\xF6\x10\xD9\x74\xCB\x05\xC3\xF3\x76\xAC\xC8\x23\xA8\x40\x56\x1C\x64\xC9\xDA\xB1\x32\xFB\xDF\x5C\xF3\xCE\x2F\x9A\xE7\x57\xDD\xF3\xCB\xF6\xE9\x75\xFF\xFC\x85\xE3\x0B\x57\x9E\xF3\x97\x2E\xC3\xEA\xAD\x6B\xDF\xF5\x7F\x5F\x3C\x4D\x39\xCE\x5D\x7D\xBF\x70\xF9\xFE\xEC\xFA\xFF\x17\xE8\x98\xAB\xAF\x8E\x48\x71\xE2\x00\x00\x00\x00\x49\x45\x4E\x44\xAE\x42\x60\x82",
 	cs = "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A\x00\x00\x00\x0D\x49\x48\x44\x52\x00\x00\x00\x40\x00\x00\x00\x40\x08\x03\x00\x00\x00\x9D\xB7\x81\xEC\x00\x00\x00\x04\x67\x41\x4D\x41\x00\x00\xB1\x8F\x0B\xFC\x61\x05\x00\x00\x00\x01\x73\x52\x47\x42\x00\xAE\xCE\x1C\xE9\x00\x00\x01\xEC\x50\x4C\x54\x45\x47\x70\x4C\x97\x32\x5F\x97\x32\x5F\x97\x32\x5F\x9A\x3D\x67\x96\x31\x5E\x97\x32\x5F\x97\x32\x5F\x97\x32\x5F\x97\x32\x5F\x97\x32\x5F\x96\x39\x63\x92\x39\x62\x97\x32\x5F\x97\x32\x5F\x97\x32\x5F\x9D\xB4\xB9\x97\x32\x5F\x7F\x8F\x93\x97\x32\x5F\x97\x32\x5F\xAE\xAB\xBA\xAB\x9B\xAE\xB3\xA1\xB7\x8C\x76\x87\xA9\x98\xAB\x97\x32\x5F\xFF\xFF\xFF\xAA\xCC\xD2\x26\x24\x25\x00\x00\x00\x1F\x1F\x1F\xFF\x02\x62\xFF\x00\x70\xA7\xCA\xD0\x8C\x2E\x57\xB3\xD5\xDC\x15\x13\x13\xB0\xCE\xD5\x84\x2B\x51\x0A\x06\x06\xCB\xF3\xFA\x1C\x1A\x1A\xC6\xC5\xC5\xFF\x00\x49\xBD\xE7\xED\xA3\xC8\xCE\xD2\xD2\xD2\xBB\xDB\xE2\x10\x0A\x0A\x2A\x2A\x2A\x79\x28\x4C\xFF\x00\x57\xB1\xDF\xE5\x63\x25\x41\x99\xC2\xC7\xDB\xDB\xDB\xBD\xBD\xBE\x02\x03\x02\x3C\x42\x44\x64\x7B\x7D\x89\x9F\xA4\x73\x23\x46\xAA\xD1\xD7\x5B\x85\x85\xC9\xE9\xF0\xA8\xC0\xC5\x79\x7B\x7B\x61\x32\x48\x58\x55\x57\x72\x68\x6C\x47\x47\x48\xD8\xFE\xFE\x86\x86\x87\x26\x3E\x3D\x54\x3F\x4E\xB8\x1A\x51\x1F\x11\x14\x66\x66\x67\x74\x86\x87\x74\x90\x93\x94\x31\x5D\x9E\xD8\xDB\x91\x90\x8F\x92\xED\xE8\xAF\xAE\xAE\xF6\xF7\xF7\x54\x75\x77\x6A\x9C\x9F\x9A\xCE\xD3\x4F\x51\x56\x88\xA8\xAC\x50\x22\x37\x61\x1C\x3A\xBD\xB3\xBD\xB9\xF2\xF6\x9C\x9A\x9B\xA7\xA8\xA8\xFF\x02\x7E\xE3\xE4\xE4\x45\x64\x65\x55\x69\x6B\x33\x33\x36\x8C\xC3\xC6\xBD\xFE\xFF\xFC\x00\x38\xFD\xFD\xFC\x71\xEB\xE0\x96\x95\x95\xA0\x9F\x9F\x9F\x0E\x40\x3D\x53\x55\x81\xAE\xB2\x7B\xA3\xA4\x18\x55\x4D\x8D\xB4\xB9\xA2\xFE\xFD\x02\x1F\x11\x82\x00\x1A\xE1\x08\x56\xA6\xE9\xEA\x70\xB1\xB0\x74\x38\x53\x4E\xB2\xAA\xEB\xED\xEE\x66\x51\x61\xEE\xFE\xFF\x2C\x66\x63\x61\x43\x53\xFF\x1E\x7A\x82\x07\x35\x42\x18\x28\x66\xD3\xC9\xBD\xCB\xD3\xCF\x03\x4D\x8B\xFB\xF4\xEE\x60\x95\xBC\x00\x2B\xCF\xA7\xC0\x07\x87\x79\xEB\x19\x66\x48\x9E\x96\xDA\xF7\xEF\x3B\x85\x80\xF8\xC3\xDA\xC7\xD9\xDB\xA0\x3B\x5F\x90\x1E\x48\x68\x00\x20\xF2\x40\x81\x78\x16\x3D\xDA\x00\x2E\xAA\xE1\xD0\xFF\x3E\x85\xBD\x3A\x6B\x92\x5E\x74\x70\xF6\xEB\xD9\xB8\xD0\xE5\x99\xBD\xC4\x7A\x9E\xBF\x92\xAE\xD6\x79\xA1\x00\xAC\x9B\xB9\xF6\xE4\x93\x34\x42\x40\x00\x00\x00\x1A\x74\x52\x4E\x53\x00\xA7\x20\x80\x0F\x8D\xF1\x01\xEA\xDA\x55\x60\x36\x06\xC4\x74\xFE\xCC\xFE\xB7\x54\xE0\xBF\x8C\xBF\xB3\xE9\xF2\x72\x03\x00\x00\x06\xCD\x49\x44\x41\x54\x58\xC3\x95\x57\xF7\x57\xE2\x58\x14\x56\xB1\x4C\x71\x47\xC7\x9D\x6D\x21\x24\x21\x24\x81\x00\xA1\x44\x90\x2E\xBD\x8A\x14\x1B\x45\x07\x7B\xEF\x65\x6C\xD3\x7B\xDB\xDD\xA9\x7B\xA6\x6C\xDF\xFD\x47\xF7\x05\x50\x7C\x21\xBA\xCE\xFD\x29\xE7\x9D\xDC\xEF\xDD\x77\xEF\x77\x5B\x43\xC3\x29\xD2\x74\x4D\xD6\x78\xF5\x42\x2B\x82\xB4\x5E\xB8\xDA\x28\xBB\xD6\xD4\xF0\x45\xD2\xDE\x72\x11\x11\xC9\xC5\x96\xF6\xF3\x6A\x37\x77\xD4\x69\x57\x31\x3A\x9A\xCF\xA3\x2E\xBB\x80\x9C\x2A\x17\x64\xFF\x07\xD1\x76\xF9\x0C\xF5\x32\xC4\xE5\xB6\xB3\xD4\x9B\xAE\x20\xFF\x2B\x57\xCE\xF0\xE7\xA5\x56\xE4\x1C\xD2\x7A\xE9\xB4\xFB\x5B\x90\x73\x4A\x8B\xE4\x33\xBE\x6A\x94\xF8\xB5\xBB\x47\x12\xA1\xF1\x2B\x09\xFD\xAF\xA5\xFE\x0C\xCD\xC7\x7B\xA5\xCE\xBF\xAE\x43\x68\x6B\x94\xBC\x2A\x34\x10\xF3\xDE\x53\x49\xD9\x20\x7E\x45\xE5\xFD\x59\xD1\x6F\xD9\x50\xE1\xF1\xCE\x82\xA4\x11\x2D\xB0\xFE\xB5\xCA\xA9\x3A\x7C\x08\x5F\xD7\x37\x40\x3D\x7B\xB1\xD0\x29\xE5\x09\x28\x16\x4D\xD5\xF8\x75\x6F\xB0\x5D\x21\x18\x60\x88\xD0\x97\x76\x48\x09\x84\xD6\x13\x7C\x68\x3B\xE2\x4F\x77\x7E\x7C\xC1\x14\xE9\x86\x00\x7E\x59\xB4\xBC\xD8\x41\x25\x10\xAE\xD4\xDC\x70\xF9\x38\x6A\xF9\x37\x85\xA1\xD8\x09\x8B\x05\x00\xBD\xDE\x52\xDA\x09\x48\xF8\xE1\xF2\x71\xFE\x1C\xF3\xBF\xFB\xE6\x1F\x9F\x98\x65\x96\x3A\x46\xE8\x2B\x3C\x7D\xA6\x27\xF4\xC4\xC0\x82\x47\x5D\x9F\x17\x47\x99\x25\xAB\xF1\xE6\xE6\xEF\x7A\xA2\xB4\xEC\x3F\x46\x08\xCD\xEF\xFC\xAD\x27\x88\xC5\x4F\xBF\xB1\xA9\x7A\x13\x64\x62\x03\x00\xC0\x63\x8B\xDE\xF2\x62\xD9\x7F\xE4\xB5\xDE\xFC\xD0\x5F\x00\xC0\xA2\x2F\x3D\x35\xF5\x9C\x66\x42\x47\xED\x44\xFD\x93\x09\xFC\x6C\x71\x2C\xB3\x01\x35\xA2\xEE\x09\x85\xEE\xE5\x7C\xEE\xB5\xE7\x8B\x7A\xFD\xA7\x65\xD6\x53\x4F\xA8\x8E\x72\x08\x4E\xD4\x1F\x95\xCF\x4A\x58\xC0\x93\x4D\xFB\xA3\xAE\xDB\x33\x3E\x3F\xC7\x51\xA8\xE1\xD1\xCD\xF4\xDB\x0F\x8B\xBF\x0F\x71\xF7\xEA\x6B\x94\x10\x88\xF6\x93\x27\xB9\xFD\xFB\x7A\x80\xB0\xF7\x32\x57\x88\x8D\xDA\x4C\x5E\x2F\x4A\x7A\x29\x6E\x7C\xF9\x20\xF9\x79\x48\xCA\x84\xF6\x63\x12\x57\x25\xFC\xF4\x17\x3D\x61\x79\x1E\x9D\xE7\x1E\x3B\x74\x46\x63\xC0\xE6\x45\x51\x94\x34\x30\xE3\x43\x19\x37\xCA\x86\x24\x09\x0D\x55\xD0\x3E\x10\x35\xCB\xEE\xCB\x9D\x40\x64\xD0\xA1\x9B\xD4\xE9\x26\x49\x94\x04\x08\xA8\xC1\xCB\x8D\xE6\xFC\x9E\x6C\xDD\x1B\x00\x8B\xE1\xEC\xFB\xED\x8F\xC5\xDD\x7F\x16\xA8\x54\xD0\x61\x34\x3A\x1C\x76\xFB\x63\x03\x2A\xD8\x80\xA2\x06\x2E\xB0\x6E\x3B\xAC\x33\xA1\xE9\x28\x8D\xAA\xD2\xF3\xE8\xF5\xEE\xCB\x71\x93\x27\x1C\x07\x0F\x30\xDA\x8D\x3A\x1D\xC3\x59\x29\x06\x40\x90\xDC\xE8\x5D\xCF\x6D\x89\x94\x92\xC1\x15\x68\xDE\xB3\x35\xCE\x58\xD3\xE1\xD4\x0A\x30\xC0\x68\x77\x94\x02\x99\xD1\x82\x95\x42\x49\x2A\xB0\x35\x60\x9A\xCB\xD6\x73\x09\x2E\x24\x2A\x5F\x22\xEF\x37\xB1\xC1\x70\x24\xA8\x2B\xAD\x0C\x4F\xDB\xA7\x27\x35\xB4\xCB\x57\xB0\xA2\xFE\x19\x1F\xC7\x76\xD5\x65\x44\x63\xC3\x55\xF8\x40\xB1\xB5\x1D\xB3\x65\x82\xC5\xE0\xA0\xCE\xB1\xA2\x33\xEA\x8C\x1E\x5C\x6B\x36\xCF\x6D\xC6\x3C\x77\xAD\x0C\xCA\xF6\x89\x01\xAE\x36\x88\x1A\x49\xDF\xC6\xF6\x86\x56\x93\x4E\xA5\x56\x81\x0F\x8C\xA5\x41\x7B\x97\x46\xA1\x50\x98\xE9\xB4\xCF\x66\x22\x0D\x6C\xA7\xBA\x2E\x0C\x70\x2B\x50\x6F\x58\x13\x66\xDA\x3C\xD3\x15\x1E\x2C\xAD\xC6\x87\x4B\x93\x7E\x97\x19\x57\x28\x78\x2D\xE6\x63\x49\x92\x64\x4C\x62\x37\xB6\x36\xC0\x35\xB0\x67\xDF\x8D\xE1\xBC\x82\xCE\xA5\x23\x91\x48\x34\x35\xEC\x77\x6B\xB4\x34\x0F\x6C\xD0\xF6\x8F\x72\x80\x51\x9C\x47\xFC\x06\x18\x00\xB9\x9D\x77\x2A\x84\x0B\xE9\x99\x4C\x3A\x18\xF7\x74\xCE\x6A\xB4\xBC\x42\x30\x81\x37\xF3\x36\x90\x17\xFE\xED\x6E\xB1\x05\xF0\x13\xD6\x13\xFD\xE0\x3E\x9E\xA6\xE9\xC4\xCC\xAC\x7B\x76\x4E\x83\xD3\xE1\x94\x13\xD7\xD2\x1A\x5C\x33\x6B\x65\x0C\x26\xEA\xBA\x18\x00\x72\xA2\x0A\x5C\x06\x04\xE7\x79\xBE\x1F\xB8\x42\x43\x6B\x69\x2C\x6E\xD4\xB8\xA2\xD1\x28\x4E\x6B\x37\xBC\x26\x96\x0B\x89\x9D\x08\x85\xB1\x5B\x2B\xBC\x97\xC7\x56\xC3\x98\x13\xC3\x30\xA7\x19\x9F\x73\xD9\xE5\x9B\xE9\xCC\x47\x79\x1C\xD3\xCC\x8E\x77\x66\xD8\x7B\xE2\x30\x36\x8A\x01\x78\x1C\x33\xCB\xED\xAE\x54\x30\x3E\x31\xAC\x9B\x1E\x91\xC7\x22\xC9\xBD\x27\xEF\x3A\xDF\x68\xCC\x2E\x6B\x11\x5B\x8E\x88\x89\x24\x13\x03\x68\xF1\x95\x9F\x3F\xFE\x2B\x3F\x92\xD8\xE1\x07\xA5\x52\x49\xEC\x86\x5D\x80\x4E\x89\xF7\x7F\x86\xC5\x54\xBE\x04\xD1\x00\x00\x60\x11\x79\xF0\xC1\x83\xC8\xCF\x55\x80\xE0\xEE\x93\xEB\x0F\xF1\xFE\xB7\x91\x39\x9A\x7F\xE5\x22\x94\x49\xB5\x28\x99\xA0\x74\xCE\x82\x18\x38\x7D\xBF\x82\x3B\x9F\x87\x2A\x08\xF6\xB1\x87\x37\x80\x38\xDD\xD3\x3C\x8D\xDF\x75\x11\x84\xF2\xBE\x0A\x4E\x67\xB8\xA0\x08\x21\xD8\xDA\x7D\xD2\xFB\xF0\x3A\x96\x2E\x03\xAC\xEA\xBA\x30\x1C\xC7\x35\x51\x63\xD1\xDC\x9F\xDB\x5A\x23\x88\xA9\x1F\xE1\x82\x02\x97\xB4\x31\xAD\x02\x8F\x4E\x7C\xDC\x72\xDE\x70\xF2\x4B\x65\x00\xF9\xB0\x00\xE0\xC4\x4A\x2B\x4E\x73\xDA\xED\x5C\x4F\x12\x53\x2A\xB8\xA4\x41\x45\xB5\x9B\xE6\xF1\xB0\x5C\xAE\x05\xDC\xC1\x74\x02\xC0\xE0\xA0\x0E\xC4\x13\x33\x47\x46\x56\x31\x8D\xDB\x3B\x5A\x44\xF6\x4E\x9A\xD0\x2E\x2A\xEB\x08\x02\x2C\x08\x4E\xCA\x83\x02\x0D\x26\xCA\x3E\x98\xD0\x4D\xC6\x57\x26\xA7\xE5\x02\x11\xDC\x31\xB6\x07\x51\x29\x95\x2A\xA8\xAC\x9F\x6C\x2C\x08\x72\x1D\xD7\x38\x1C\x93\x0E\x9E\x4F\x95\xA6\xE5\x90\x0C\x62\x66\xCF\x1D\x77\x16\x51\x11\x35\x80\x8E\x4A\x6B\x83\xD2\xA1\xDF\x39\x2C\xB7\x1B\x6F\x2D\xC9\xC5\x32\x88\x29\xA8\x81\x31\x40\x77\xCB\x31\x40\x6B\xB3\xB8\xB9\x0A\xDD\xB0\x62\x7A\xBD\xAC\x60\xC5\x05\x97\x90\x2F\x35\x0B\x64\x75\xED\x5D\x90\x87\xD1\x9A\xD2\x2D\xE3\xAD\x13\x16\xCC\xE7\x05\x12\xA9\x09\x42\x25\x6A\xEF\xB5\x01\xA3\xF2\x88\xE1\x23\x9D\x89\x60\x7C\x75\xA4\xFA\x7D\xA7\x98\x38\x28\xF7\xE7\xA4\xD2\x92\x15\x0D\x18\xB5\x11\xA7\x4A\x86\x2A\x8D\x97\x40\x2A\x8D\x54\x00\x6E\xBD\xB1\xCE\xDC\x2D\xEB\xAB\x88\xA9\x64\xDD\x88\x73\x3C\x64\x55\xAB\x42\x32\xB0\x24\x5F\xAA\xB9\xF1\xF5\x0B\x2B\xC9\x51\xAE\xCA\x7C\xB0\x76\xE4\x82\x56\x68\xE8\x86\x52\x2A\xAB\x7F\x32\x6B\xBB\x73\x67\xA4\x7C\xFB\xEB\x67\xF7\x2D\x6B\x8F\xA8\x6D\x57\xA5\x96\xA9\x95\xCA\x3D\x89\x31\x4F\x44\xE8\x35\xE5\x83\xDE\xE2\xA6\x97\x63\x29\xF7\x4F\x87\x8B\x4A\xE2\xFD\xCB\x75\x4D\xFF\x5C\x4F\xD9\x83\x4A\xA5\x5A\x6A\xD0\x84\x47\x5D\xB5\xF2\x3E\x88\xE7\x58\x5F\x2A\x81\xDD\x58\x5F\x7B\xFE\xDE\xE7\x2D\x9A\xA3\x51\x73\x2F\x60\x21\xC8\x67\xE9\x51\x17\x1E\xB6\x93\x53\x9F\xCB\xAD\x16\xB0\xD7\xD6\x17\xBD\x39\x1E\xCB\xD1\x73\x74\xFA\xD5\x03\x70\x7F\xF2\x94\x61\x1B\x1E\xF7\x55\x96\xA9\xB7\x20\x56\xC5\xCD\x44\xC1\xBF\xBF\xCF\x91\xA6\x0D\xBA\x3F\xC3\x2E\xFC\xBA\xA8\xAC\x8C\xD3\x52\xE3\x3E\xBC\x70\xA8\x2D\x53\x3F\xBE\x1B\x1B\x0A\xE4\x29\x92\x11\xA6\x03\x2E\x31\x1B\x23\xA9\x21\xB5\xFA\x8C\x85\x03\x5E\x79\xD4\x7B\x4A\x7D\x7E\x3E\x57\x60\x50\x83\x0D\x4C\x07\xA6\x4E\x9F\x95\x32\xF8\x0F\x54\x67\xAD\x3C\x02\x1F\x6A\x8C\xCA\xBE\xEB\x7D\x94\x39\xF0\x32\xA8\x4D\x98\x51\x48\xB6\x6F\x8E\x63\x0C\xB1\xF0\xD9\x4B\x17\xBC\xF6\xBD\x42\x7D\x05\x94\x31\xD8\xC0\x7C\x82\x32\xD6\x43\x24\x67\x45\xD9\xAE\xB3\xD7\x3E\x68\xF1\x1C\x1B\x08\xF8\xE6\x19\xC6\x56\x06\xA0\x0C\x21\x70\x40\xF9\xBF\x6F\x3E\xFF\xEA\x3B\x33\x4E\x65\x0E\x48\x43\x45\x28\xD0\x54\xA3\xCC\x0F\xCD\x5F\xB0\x7C\xF7\x6C\x9B\x4C\x99\xBC\x57\x18\xF2\x00\x0A\x37\x7A\xB1\x05\x24\x5F\x5B\xDB\x17\x2C\xF0\xDF\x7D\xFB\x4D\xD7\x26\x88\x61\x20\xD0\xF9\xCD\xB7\xDF\xB5\x37\x08\xBA\x12\xFA\xFF\x01\xF8\x80\x20\x3E\x64\xEE\x76\x42\x00\x00\x00\x00\x49\x45\x4E\x44\xAE\x42\x60\x82"
-}
+} 

@@ -1,6 +1,6 @@
 script_name("Bank-Helper")
 script_author("Cosmo")
-script_version("31.0")
+script_version("33.0")
 
 require "moonloader"
 local ffi = require "ffi"
@@ -139,15 +139,6 @@ local infoupdate = { state = false, alpha = 0.0, duration = 0.1 }
 setmetatable(infoupdate, ui_meta)
 
 local Repository = {
-	{ 
-		name = "On Screen Members",
-		file = "OSM.lua",
-		libs = { ["mimgui"] = "mimgui", ["SAMP.lua"] = "samp.events" },
-		desc = "Скрипт, который может вывести весь онлайн организации (/members) на ваш экран, крайне полезная вещь не только для руководителей, но и для обычных сотрудников организации",
-		source = "https://www.blast.hk/threads/59761/",
-		url = "https://gitlab.com/uploads/-/system/personal_snippet/1978930/8150cc96d0fc86d38b0964c0f6f739cc/OSM.lua",
-		cmds = { "/osmset" }
-	},
 	{ 
 		name = "Timer Online",
 		file = "TimerOnline.lua",
@@ -1627,7 +1618,7 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук 
 
 			local vip = string.match(text, "Выдано VIP%-карт: {FFB323}(%d+)")
 			if vip then mMenu.vip.all = tonumber(vip) end
-			local dep = string.match(text, "Выдано VIP%-карт: {F9FF23}(%d+)")
+			local vip = string.match(text, "Выдано VIP%-карт: {F9FF23}(%d+)")
 			if vip then mMenu.vip.today = tonumber(vip) end
 			
 			local d, m, Y, H, M, S = string.match(text, "Последнее повышение:\n {%x+}(%d+)%.(%d+)%.(%d+) (%d+):(%d+):(%d+)")
@@ -2927,7 +2918,7 @@ function imgui.OnDrawFrame()
 			end
 			imgui.SameLine()
 			imgui.TextDisabled('(?)')
-			imgui.Hint('usernamehint', u8'Имя персонажа используемое в отыгровках.\nНапример вы можете ввести свой ник на русском')
+			imgui.Hint('usernamehint', u8'Имя персонажа используемое в отыгровках.\nНапример вы можете ввести свой ник на русском\n\nПо-умолачнию стоит ваш обычный ник')
 			if (cfg.main.username):find("%S") == nil then
 				imgui.SameLine(10)
 				local self_id = select(2, sampGetPlayerIdByCharHandle(PLAYER_PED))
@@ -5072,6 +5063,8 @@ function checkServer(address)
 		["Queen Creek"] = "80.66.82.200",
 		["Sedona"]		= "80.66.82.144",
 		["Holiday"]		= "80.66.82.132",
+		["Wednesday"]	= "80.66.82.128",
+		["Yava"]		= "80.66.82.113"
 	}
 
 	for name, ip in pairs(servers) do
@@ -5564,6 +5557,32 @@ function imgui.ToggleButton(str_id, bool)
 end
 
 changelog = {
+	[33] = {
+		version = '33',
+		comment = '',
+		date = os.time({day = '1', month = '5', year = '2023'}),
+		log = {
+			"Добавлена поддержка сервера Yava (25)",
+			"Была исправлена ошибка некорректного отображения выданных VIP-карт за день в меню управления сотрудником",
+			"Прочие незначительные улучшения"
+		},
+		patches = {
+			show = false,
+			info = {}
+		}
+	},
+	[32] = {
+		version = '32',
+		comment = 'Happy Christmas!',
+		date = os.time({day = '7', month = '1', year = '2023'}),
+		log = {
+			"Добавлена поддержка сервера Wednesday (24)"
+		},
+		patches = {
+			show = false,
+			info = {}
+		}
+	},
 	[31] = {
 		version = '31',
 		comment = '',

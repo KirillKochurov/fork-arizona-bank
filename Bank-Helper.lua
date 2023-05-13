@@ -1,6 +1,6 @@
 script_name("Bank-Helper")
 script_author("Cosmo")
-script_version("33.0")
+script_version("33.1")
 
 require "moonloader"
 local ffi = require "ffi"
@@ -1574,8 +1574,8 @@ function se.onShowDialog(dialogId, style, title, button1, button2, text) -- хук 
 
 	if dialogId == 2015 then 
 		for line in text:gmatch('[^\r\n]+') do
-			local name, rank = line:match('[A-z0-9_]+%([0-9]+%)\t(.+)%(([0-9]+)%)\t%d+\t%d+')
-			if name and rank then
+			local name, rank = line:match('.-\t(.-)%((%d+)%)\t.-\t.-')
+			if name and rank then 
 				name, rank = tostring(name), tonumber(rank)
 				if cfg.nameRank[rank] ~= nil and cfg.nameRank[rank] ~= name then
 					addBankMessage(string.format('Обновлено название ранга: {M}%s{W} -> {M}%s{W} | {S}%s ранг', cfg.nameRank[rank], name, rank))
@@ -5562,6 +5562,7 @@ changelog = {
 		comment = '',
 		date = os.time({day = '1', month = '5', year = '2023'}),
 		log = {
+			"#33.1: Исправлен баг с названиями рангов. После обновления необходимо открыть /members",
 			"Добавлена поддержка сервера Yava (25)",
 			"Была исправлена ошибка некорректного отображения выданных VIP-карт за день в меню управления сотрудником",
 			"Прочие незначительные улучшения"
